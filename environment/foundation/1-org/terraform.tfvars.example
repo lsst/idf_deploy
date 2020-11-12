@@ -1,0 +1,9 @@
+folder_names = ["Administrative", "Academic", "Learn", "Sensitive", "Research"]
+
+parent1 = "Learn"
+
+project_prefix = "example"
+
+// Folder ID to put projects into
+// created in step 0-bootstrap
+seed_folder_name = "000000000"
