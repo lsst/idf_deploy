@@ -1,0 +1,8 @@
+billing_account      = ""
+default_region       = "us-central1"
+folder_id            = ""
+group_billing_admins = ""
+group_org_admins     = ""
+org_id               = ""
+org_project_creators = []
+project_prefix       = "domain"
