@@ -6,6 +6,7 @@ on:
     - 'environment/foundation/1-org/**'
     - 'environment/foundation/1-org-b/**'
     - 'environment/foundation/2-network/**'
+    - '.github/workflows/terraform-foundation.yaml'
     branches:
     - master
   pull_request:
@@ -35,11 +36,11 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 0.13.5
-        cli_config_credentials_token: ${{ secrets.GOOGLE_CREDENTIALS }}
+    # - name: Setup Terraform
+    #   uses: hashicorp/setup-terraform@v1
+    #   with:
+    #     terraform_version: 0.13.5
+    #     cli_config_credentials_token: ${{ secrets.GOOGLE_CREDENTIALS }}
 
 
 
