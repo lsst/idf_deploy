@@ -24,17 +24,23 @@ jobs:
 
     # Gcloud CLI setup
     - name: GCP login
-      # Deprecated: uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       uses: google-github-actions/setup-gcloud@master
       with:
-        version: '290.0.1'
+        version: '319.0.0'
         service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.13.4
+        cli_config_credentials_token: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+
 
      # Checks for proper formatting
-    - name: Terraform FMT
+    - name: Terraform Fmt
       run: terraform fmt
 
      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
@@ -43,11 +49,11 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Validate
-      run: terraform validate
+      run: terraform validate -no-color
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -no-color
 
     # # On push to main, build or change infrastructure according to Terraform configuration files
     # - name: Terraform Apply
