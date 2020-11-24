@@ -7,7 +7,6 @@ terraform {
     bucket = "lsst-terraform-state"
     prefix = "foundation/1-org-b"
   }
-  }
   required_providers {
     google      = "~> 3.1"
     google-beta = "~> 3.1"
