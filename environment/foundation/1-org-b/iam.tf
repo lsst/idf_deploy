@@ -3,7 +3,7 @@ resource "google_folder_iam_member" "gcp_qserv_clustername_admins_iam_permission
   for_each = toset(var.gcp_qserv_clustername_admins_iam_permissions)
   folder   = data.google_active_folder.qserv_sub_folder.name
   role     = each.value
-  member   = "group:${module.constants.values.groups.groups.gcp_qserv_clustername_admins}"
+  member   = "group:${module.constants.values.groups.gcp_qserv_clustername_admins}"
 }
 
 resource "google_folder_iam_member" "gcp_qserv_clustername_developer_iam_permissions" {
