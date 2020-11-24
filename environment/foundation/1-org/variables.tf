@@ -66,18 +66,18 @@ variable "org_security_admins_org_iam_permissions" {
   ]
 }
 
-# variable "org_viewer_org_iam_permissions" {
-#   description = "List of permissions granted to the group supplied in group_org_admins variable across the GCP organization."
-#   type        = list(string)
-#   default = [
-#     "roles/orgpolicy.policyViewer",
-#     "roles/iam.securityReviewer",
-#     "roles/iam.organizationRoleViewer",
-#     "roles/logging.privateLogViewer",
-#     "roles/bigquery.dataViewer",
-#     "roles/resourcemanager.folderViewer"
-#   ]
-# }
+variable "org_viewer_org_iam_permissions" {
+  description = "List of permissions granted to the group supplied in group_org_admins variable across the GCP organization."
+  type        = list(string)
+  default = [
+    "roles/orgpolicy.policyViewer",
+    "roles/iam.securityReviewer",
+    "roles/iam.organizationRoleViewer",
+    "roles/logging.privateLogViewer",
+    "roles/bigquery.dataViewer",
+    "roles/resourcemanager.folderViewer"
+  ]
+}
 
 # ----------------------------------------
 #   LOG SINK
