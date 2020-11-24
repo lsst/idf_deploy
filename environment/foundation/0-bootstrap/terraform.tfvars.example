@@ -1,8 +1,14 @@
-billing_account      = ""
-default_region       = "us-central1"
-folder_id            = ""
-group_billing_admins = ""
-group_org_admins     = ""
-org_id               = ""
-org_project_creators = []
-project_prefix       = "domain"
+github_owner = "Burwood"
+
+github_name = "terraform-gcp-greenfield"
+
+branch = "^main$"
+
+project_labels = {
+    envrionment  = "prod"
+    owner        = "its"
+    billing_code = "012345"
+}
+
+//Optional - for development.  Will place all resources under a specific folder instead of org root
+//parent_folder = "01234567890"

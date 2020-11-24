@@ -13,5 +13,5 @@ module "top_folders" {
   parent = local.parent
   names  = var.folder_names
 
-  depends_on = [module.org_monitoring, module.org_audit_logs, module.org_shared_vpc]
+  depends_on = [module.org_monitoring, module.org_audit_logs, module.org_shared_services]
 }

@@ -1,63 +1,71 @@
-# Overview
-This example demonstrates the simplest usage of the GCP organization bootstrap module, accepting default values for the module variables.
+# 0-bootstrap
 
-The purpose of this module is to help bootstrap a GCP organization.
+The purpose of this step is to bootstrap a GCP organization, creating all the required resources & permissions to start using the Cloud Foundation Toolkit (CFT). This step also configures Cloud Build & Cloud Source Repos for foundations code in subsequent stages.
 
-Google module can be found [here](https://github.com/terraform-google-modules/terraform-google-bootstrap).
+## Prerequisites
 
-## Features
+1. A GCP [Organization](https://cloud.google.com/resource-manager/docs/creating-managing-organization)
+1. A GCP [Billing Account](https://cloud.google.com/billing/docs/how-to/manage-billing-account)
+1. Cloud Identity / G Suite Google Groups for Organization Admins and Billing Admins already created.
+1. Membership in the `group_org_admins` group for the user running Terraform.
+1. Grant the roles mentioned in bootstrap [README.md](https://github.com/terraform-google-modules/terraform-google-bootstrap#permissions), as well as `roles/resourcemanager.folderCreator` for the user running the step.
 
-The Organization Bootstrap module will take the following actions:
+## Usage
 
-1. Create a new GCP seed project using project_prefix. Use project_id if you need to use custom project ID.
-1. Enable APIs in the seed project using activate_apis
-1. Create a new service account for terraform in seed project
-1. Create GCS bucket for Terraform state and grant access to service account
-1. Grant IAM permissions required for CFT modules & Organization setup
-    1. Overwrite organization wide project creator and billing account creator roles
-    1. Grant Organization permissions to service account using sa_org_iam_permissions
-    1. Grant access to billing account for service account
-    1. Grant Organization permissions to group_org_admins using org_admins_org_iam_permissions
-    1. Grant billing permissions to group_billing_admins
-    1. (optional) Permissions required for service account impersonation using sa_enable_impersonation
+1. Clone the repo: `git clone https://github.com/Burwood/terraform-gcp-greenfield.git`
+    (Optional) 1. Change into the correct branch with `git checkout [branch_name]`
+1. Change into 0-bootstrap folder
+1. Copy tfvars by running `cp terraform.tfvars.example terraform.tfvars` and update `terraform.tfvars` with values from your environment.
+1. Run `terraform init`
+1. Run `terraform plan` and review output
+1. Run `terraform apply`
+    1. <b>WARNING</b>
+    If using GitHub for source code repo, you must <b>MANUALLY</b> create the connector to the repo. `Terraform` will fail. Once the connector is built re-run and create the Cloud Build triggers.
+1. Copy the backend by running `cp backend.tf.example backend.tf` and update `backend.tf` with your bucket from the apply step (The value from `terraform output gcs_bucket_tfstate`)
+1. Re-run `terraform init` agree to copy state to gcs when prompted
+    1. (Optional) Run terraform apply to verify state is configured cor
 
-## Requirements
-
-### Permissions
-
-* `roles/resourcemanager.organizationAdmin` on GCP Organization
-* `roels/billing.admin` on supplied billing account
-* Account running terraform should be a member of group provided in `group_org_admins` variable, otherwise they will loose `roles/resourcemanager.projectCreator` access. Additional member can be added by using the `org_project_creators` variable.
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | ~> 3.43.0 |
-| google-beta | ~> 3.43.0 |
-| null | ~> 2.1 |
+| google | ~> 3.1 |
+| google-beta | ~> 3.1 |
 | random | ~> 2.2 |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| activate\_apis | n/a | `list(string)` | <pre>[<br>  "serviceusage.googleapis.com",<br>  "servicenetworking.googleapis.com",<br>  "compute.googleapis.com",<br>  "logging.googleapis.com",<br>  "bigquery.googleapis.com",<br>  "cloudresourcemanager.googleapis.com",<br>  "cloudbilling.googleapis.com",<br>  "iam.googleapis.com",<br>  "admin.googleapis.com",<br>  "appengine.googleapis.com",<br>  "storage-api.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "container.googleapis.com"<br>]</pre> | no |
-| billing\_account | The ID of the billing account to associate projects with. | `string` | n/a | yes |
-| default\_region | Default region to create resources where applicable. | `string` | `"us-central1"` | no |
-| folder\_id | The ID of a folder to host this project | `string` | `""` | no |
-| group\_billing\_admins | Google Group for GCP Billing Administrators | `string` | n/a | yes |
-| group\_org\_admins | Google Group for GCP Organization Administrators | `string` | n/a | yes |
-| org\_id | GCP Organization ID | `string` | n/a | yes |
-| org\_project\_creators | Additional list of members to have project creator role accross the organization. Prefix of group: user: or 
-serviceAccount: is required. | `list(string)` | `[]` | no |
-| project\_id | Custom project ID to use for project created. | `string` | `""` | no |
-| project\_prefix | n/a | `string` | `"domain"` | no |
+| activate\_apis | List of APIs to enable in the seed project | `list(string)` | <pre>[<br>  "cloudresourcemanager.googleapis.com",<br>  "cloudbilling.googleapis.com",<br>  "billingbudgets.googleapis.com",<br>  "iam.googleapis.com",<br>  "admin.googleapis.com",<br>  "cloudbuild.googleapis.com",<br>  "serviceusage.googleapis.com",<br>  "servicenetworking.googleapis.com",<br>  "compute.googleapis.com",<br>  "logging.googleapis.com",<br>  "bigquery.googleapis.com",<br>  "storage-api.googleapis.com",<br>  "container.googleapis.com"<br>]</pre> | no |
+| branch | What branch to pull from | `string` | `"^master$"` | no |
+| cloud\_triggers | Name of triggers to deploy | `list(string)` | <pre>[<br>  "1-org",<br>  "1-org-b",<br>  "2-networks"<br>]</pre> | no |
+| cloudbuild\_org\_iam\_permissions | List of permissions granted to the CloudBuild service account. | `list(string)` | <pre>[<br>  "roles/resourcemanager.organizationAdmin",<br>  "roles/billing.user",<br>  "roles/pubsub.admin",<br>  "roles/iam.organizationRoleAdmin",<br>  "roles/resourcemanager.folderAdmin",<br>  "roles/orgpolicy.policyAdmin",<br>  "roles/resourcemanager.projectCreator",<br>  "roles/compute.xpnAdmin",<br>  "roles/compute.networkAdmin",<br>  "roles/iam.serviceAccountAdmin",<br>  "roles/resourcemanager.projectIamAdmin",<br>  "roles/storage.admin",<br>  "roles/logging.admin"<br>]</pre> | no |
+| cloudops\_triggers | Name of triggers to deploy | `list(string)` | <pre>[<br>  "project-apply"<br>]</pre> | no |
+| deployment\_dir | The directory that has the deployments / tfvars | `string` | `"projects"` | no |
+| disable\_services\_on\_destroy | Whether project services will be disabled when the resources are destroyed | `string` | `true` | no |
+| disable\_trigger | To enable or disable the trigger for automatic deployment | `string` | `false` | no |
+| filename\_path | The file path name of where the cloudbuild yaml files are located | `string` | `"cloudbuild"` | no |
+| github\_name | Name of the repository. | `string` | n/a | yes |
+| github\_owner | Owner of the repository. | `string` | n/a | yes |
+| modules\_dir | The directory that has the modules to deploy | `string` | `"project_iam_vpc"` | no |
+| org\_admins\_org\_iam\_permissions | List of permissions granted to the group supplied in group\_org\_admins variable across the GCP organization. | `list(string)` | <pre>[<br>  "roles/billing.user",<br>  "roles/resourcemanager.organizationAdmin"<br>]</pre> | no |
+| parent\_folder | Optional - if using a folder for testing. | `string` | `""` | no |
+| project\_labels | Labels to apply to the project. | `map(string)` | <pre>{<br>  "billing_code": "012345",<br>  "envrionment": "prod",<br>  "owner": "its"<br>}</pre> | no |
+| project\_prefix | Name prefix to use for projects created. | `string` | `"automation"` | no |
+| random\_project\_id | Adds a suffix of 4 random characters to the `project_id` | `string` | `true` | no |
+| sa\_enable\_impersonation | Allow org\_admins group to impersonate service account & enable APIs required. | `bool` | `false` | no |
+| seed\_folder\_name | Name of the folder that will contain the `Cloud Control Plane` projects. | `string` | `"Administration"` | no |
+| skip\_gcloud\_download | Whether to skip downloading gcloud (assumes gcloud is already available outside the module) | `bool` | `true` | no |
+| storage\_bucket\_labels | Labels to apply to the storage bucket. | `map(string)` | `{}` | no |
+| terraform\_tag | Dockerhub tag value for Terraform container | `string` | `"latest"` | no |
+| tfvars\_name | Name of the tfvars file | `string` | `"new-project"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| cloudbuild\_project\_id | Project where service accounts and core APIs will be enabled. |
+| cloudbuild\_service\_account | The Cloud Build service account |
 | gcs\_bucket\_tfstate | Bucket used for storing terraform state for foundations pipelines in seed project. |
-| seed\_project\_id | Project where service accounts and core APIs will be enabled. |
-| terraform\_sa\_email | Email for privileged service account for Terraform. |
-| terraform\_sa\_name | Fully qualified name for privileged service account for Terraform. |
+| seed\_folder\_id | The folder id of the seed folder |

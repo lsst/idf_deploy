@@ -1,6 +1,6 @@
 folder_names = ["Administrative", "Academic", "Learn", "Sensitive", "Research"]
 
-parent1 = "Learn"
+#parent1 = "Learn"
 
 project_prefix = "example"
 

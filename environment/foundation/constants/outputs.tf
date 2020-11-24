@@ -1,7 +1,6 @@
 locals {
-  deploy_at_root       = lookup(local.constants, "parent_folder", "") != "" ? false : true
-  parent = local.deploy_at_root ? "organizations/${local.constants.org_id}" : "folders/${local.constants.parent_folder}"
-
+  deploy_at_root = lookup(local.constants, "parent_folder", "") != "" ? false : true
+  parent         = local.deploy_at_root ? "organizations/${local.constants.org_id}" : "folders/${local.constants.parent_folder}"
 }
 
 output "values" {
@@ -16,5 +15,5 @@ output "deploy_at_root" {
 
 output "parent" {
   description = "The parent being deployed into, either the org or a folder."
-  value = local.parent
+  value       = local.parent
 }
