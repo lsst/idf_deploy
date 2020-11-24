@@ -4,9 +4,6 @@ on:
   push:
     paths:
     - 'environment/foundation/1-org/**'
-    - 'environment/foundation/1-org-b/**'
-    - 'environment/foundation/2-network/**'
-    - '.github/workflows/terraform-foundation.yaml'
     branches:
     - master
   pull_request:
