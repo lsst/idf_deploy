@@ -16,7 +16,7 @@ locals {
       billing_admins  = "gcp-billing-administrators@lsst.cloud"
       network_admins  = "gcp-network-administrators@lsst.cloud"
       security_admins = "gcp-security-administrators@lsst.cloud"
-      org_viewers     = "gcp_org_viewer@lsst.cloud"
+      org_viewers     = "gcp-organization-viewer@lsst.cloud"
     }
 
     // Shared VPC
