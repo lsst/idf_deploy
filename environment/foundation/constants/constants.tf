@@ -17,6 +17,21 @@ locals {
       network_admins  = "gcp-network-administrators@lsst.cloud"
       security_admins = "gcp-security-administrators@lsst.cloud"
       org_viewers     = "gcp-organization-viewer@lsst.cloud"
+
+      gcp_qserv_administrators            = "gcp-qserv-administrators@lsst.cloud"
+      gcp_science_platform_administrators = "gcp-science-platform-administrators@lsst.cloud"
+      gcp_processing_administrators       = "gcp-processing-administrators@lsst.cloud"
+      gcp_square_administrators           = "gcp-square-administrators@lsst.cloud"
+
+      gcp_qserv_clustername_admins            = "gcp-qserv-clustername-admins@lsst.cloud"
+      gcp_science_platform_clustername_admins = "gcp-science-platform-clustername-admins@lsst.cloud"
+      gcp_processing_clustername_admins       = "gcp-processing-clustername-admins@lsst.cloud"
+      gcp_square_clutername_admins            = "gcp-square-clutername-admins@lsst.cloud"
+
+      gcp_square_clustername_developer           = "gcp-square-clustername-developer@lsst.cloud"
+      gcp_processing_clustername_developer       = "gcp-processing-clustername-developer@lsst.cloud"
+      gcp_science_platform_clustername_developer = "gcp-science-platform-clustername-developer@lsst.cloud"
+      gcp_qserv_clustername_developer            = "gcp-qserv-clustername-developer@lsst.cloud"
     }
 
     // Shared VPC
