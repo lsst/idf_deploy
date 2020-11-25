@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./environment/foundation/1-org/
+        working-directory: ./environment/deployments/simple-project
 
     steps:
     # Checkout the repository to the GitHub Actions runner
