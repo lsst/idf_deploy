@@ -21,12 +21,7 @@ module "main" {
       destination_range = "199.36.153.8/30"
       next_hop_internet = "true"
     },
-    {
-      name              = "windows-activation"
-      description       = "Route through IGW to allow Windows KMS activation for GCP."
-      destination_range = "35.190.247.13/32"
-      next_hop_internet = "true"
-    },
+    
   ]
 }
 
@@ -52,17 +47,19 @@ resource "google_compute_router" "default_router" {
   # }
 }
 
+// Commenting out the below. NAT is not required at this time.
+
 # -----------------------------------------
 # Reserve static external IPs that will be
 # assigned to Cloud NAT
 # -----------------------------------------
 
-resource "google_compute_address" "nat_external_addresses" {
-  count   = var.nat_num_addresses
-  project = var.project_id
-  name    = "nat-external-address-${count.index}"
-  region  = var.default_region
-}
+# resource "google_compute_address" "nat_external_addresses" {
+#   count   = var.nat_num_addresses
+#   project = var.project_id
+#   name    = "nat-external-address-${count.index}"
+#   region  = var.default_region
+# }
 
 # -----------------------------------------
 # `nat_ip_allocation_option` is set to MANUAL
@@ -70,17 +67,17 @@ resource "google_compute_address" "nat_external_addresses" {
 # `google_compute_address` block
 # -----------------------------------------
 
-resource "google_compute_router_nat" "default_nat" {
-  name                               = "nat-config"
-  project                            = var.project_id
-  router                             = google_compute_router.default_router.name
-  region                             = var.default_region
-  nat_ip_allocate_option             = "MANUAL_ONLY"
-  nat_ips                            = google_compute_address.nat_external_addresses.*.self_link
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+# resource "google_compute_router_nat" "default_nat" {
+#   name                               = "nat-config"
+#   project                            = var.project_id
+#   router                             = google_compute_router.default_router.name
+#   region                             = var.default_region
+#   nat_ip_allocate_option             = "MANUAL_ONLY"
+#   nat_ips                            = google_compute_address.nat_external_addresses.*.self_link
+#   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 
-  log_config {
-    filter = "TRANSLATIONS_ONLY"
-    enable = true
-  }
-}
+#   log_config {
+#     filter = "TRANSLATIONS_ONLY"
+#     enable = true
+#   }
+# }
