@@ -142,8 +142,8 @@ variable "sub_folder_names" {
   description = "List out the sub folders to be created."
   type        = list(string)
   default = [
-    "QA",
-    "Test",
-    "Prod"
+    "Dev",
+    "Integration",
+    "Production"
   ]
 }
