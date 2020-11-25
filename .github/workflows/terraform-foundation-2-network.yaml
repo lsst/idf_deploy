@@ -3,7 +3,7 @@ name: 'Terraform Deploy'
 on:
   push:
     paths:
-    - 'environment/foundation/2-network/**'
+    - 'environment/foundation/2-networks/**'
     branches:
     - master
   pull_request:
@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./environment/foundation/2-network/
+        working-directory: ./environment/foundation/2-networks/
 
     steps:
     # Checkout the repository to the GitHub Actions runner
