@@ -3,7 +3,7 @@
 # ----------------------------------------
 
 // CLUSTER ADMINS
-variable "gcp_qserv_clustername_admins_iam_permissions" {
+variable "gcp_qserv_gke_cluster_admins_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
@@ -15,7 +15,7 @@ variable "gcp_qserv_clustername_admins_iam_permissions" {
   ]
 }
 
-variable "gcp_science_platform_clustername_admins_iam_permissions" {
+variable "gcp_science_platform_gke_cluster_admins_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
@@ -27,7 +27,7 @@ variable "gcp_science_platform_clustername_admins_iam_permissions" {
   ]
 }
 
-variable "gcp_processing_clustername_admins_iam_permissions" {
+variable "gcp_processing_gke_cluster_admins_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
@@ -39,7 +39,7 @@ variable "gcp_processing_clustername_admins_iam_permissions" {
   ]
 }
 
-variable "gcp_square_clustername_admins_iam_permissions" {
+variable "gcp_square_gke_cluster_admins_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
@@ -52,7 +52,7 @@ variable "gcp_square_clustername_admins_iam_permissions" {
 }
 
 // CLUSTER DEVELOPERS
-variable "gcp_qserv_clustername_developer_iam_permissions" {
+variable "gcp_qserv_gke_developer_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
@@ -65,7 +65,7 @@ variable "gcp_qserv_clustername_developer_iam_permissions" {
   ]
 }
 
-variable "gcp_science_platform_clustername_developer_iam_permissions" {
+variable "gcp_science_platform_gke_developer_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
@@ -78,7 +78,7 @@ variable "gcp_science_platform_clustername_developer_iam_permissions" {
   ]
 }
 
-variable "gcp_processing_clustername_developer_iam_permissions" {
+variable "gcp_processing_gke_developer_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
@@ -91,7 +91,7 @@ variable "gcp_processing_clustername_developer_iam_permissions" {
   ]
 }
 
-variable "gcp_square_clustername_developer_iam_permissions" {
+variable "gcp_square_gke_developer_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
