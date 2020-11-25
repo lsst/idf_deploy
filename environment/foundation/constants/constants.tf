@@ -23,15 +23,15 @@ locals {
       gcp_processing_administrators       = "gcp-processing-administrators@lsst.cloud"
       gcp_square_administrators           = "gcp-square-administrators@lsst.cloud"
 
-      gcp_qserv_clustername_admins            = "gcp-qserv-clustername-admins@lsst.cloud"
-      gcp_science_platform_clustername_admins = "gcp-science-platform-clustername-admins@lsst.cloud"
-      gcp_processing_clustername_admins       = "gcp-processing-clustername-admins@lsst.cloud"
-      gcp_square_clutername_admins            = "gcp-square-clutername-admins@lsst.cloud"
+      gcp_qserv_gke_cluster_admins            = "gcp-qserv-gke-cluster-admins@lsst.cloud"
+      gcp_science_platform_gke_cluster_admins = "gcp-science-platform-gke-cluster-admins@lsst.cloud"
+      gcp_processing_gke_cluster_admins       = "gcp-processing-gke-cluster-admins@lsst.cloud"
+      gcp_square_gke_cluster_admins            = "gcp-square-gke-cluster-admins@lsst.cloud"
 
-      gcp_square_clustername_developer           = "gcp-square-clustername-developer@lsst.cloud"
-      gcp_processing_clustername_developer       = "gcp-processing-clustername-developer@lsst.cloud"
-      gcp_science_platform_clustername_developer = "gcp-science-platform-clustername-developer@lsst.cloud"
-      gcp_qserv_clustername_developer            = "gcp-qserv-clustername-developer@lsst.cloud"
+      gcp_square_gke_developer           = "gcp-square-gke-developer@lsst.cloud"
+      gcp_processing_gke_developer       = "gcp-processing-gke-developer@lsst.cloud"
+      gcp_science_platform_gke_developer = "gcp-science-platform-gke-developer@lsst.cloud"
+      gcp_qserv_gke_developer            = "gcp-qserv-gke-developer@lsst.cloud"
     }
 
     // Shared VPC
