@@ -40,13 +40,13 @@ variable "environment" {
 }
 
 variable "skip_gcloud_download" {
-    description = "Whether to skip downloading gcloud (assumes gcloud is already available outside the module)"
-    default = true
+  description = "Whether to skip downloading gcloud (assumes gcloud is already available outside the module)"
+  default     = true
 }
 
 variable "default_service_account" {
-    description = "Project default service account setting: can be one of delete, deprivilege, disable, or keep."
-    default = "keep"
+  description = "Project default service account setting: can be one of delete, deprivilege, disable, or keep."
+  default     = "keep"
 }
 
 variable "vpc_type" {
@@ -94,38 +94,61 @@ variable "default_region" {
   default     = "us-west1"
 }
 
-variable "subnet_name" {
-  description = "Name of the subnet"
-  type        = string
-  default     = "subnet-01"
+variable "subnets" {
+  type        = list(map(string))
+  description = "The list of subnets being created"
+  default = [{
+    subnet_name   = "subnet-01"
+    subnet_ip     = "10.10.10.0/24"
+    subnet_region = "us-central1"
+  }, ]
 }
 
-variable "subnet_ip" {
-  description = "The default subnetwork"
-  type        = string
-  default     = "10.128.0.0/16"
+variable "secondary_ranges" {
+  type        = map(list(object({ range_name = string, ip_cidr_range = string })))
+  description = "Secondary ranges that will be used in some of the subnets"
+  default = {
+    subnet-01 = [
+      {
+        range_name    = "subnet-01-secondary-01"
+        ip_cidr_range = "192.168.64.0/24"
+      },
+    ]
+  }
 }
 
-variable "subnet_flow_logs" {
-  description = "To enable flow logs for the subnet."
-  type        = string
-  default     = "true"
-}
+# variable "subnet_name" {
+#   description = "Name of the subnet"
+#   type        = string
+#   default     = "subnet-01"
+# }
 
-variable "subnet_flow_logs_interval" {
-  description = "Time range to capture flow logs"
-  type        = string
-  default     = "INTERVAL_15_MIN"
-}
+# variable "subnet_ip" {
+#   description = "The default subnetwork"
+#   type        = string
+#   default     = "10.128.0.0/16"
+# }
 
-variable "flow_logs_sampling" {
-  description = "Sampling rate"
-  type        = string
-  default     = 0.2
-}
+# variable "subnet_flow_logs" {
+#   description = "To enable flow logs for the subnet."
+#   type        = string
+#   default     = "true"
+# }
 
-variable "flow_logs_metadata" {
-  description = "Include metadata with flow logs"
-  type        = string
-  default     = "INCLUDE_ALL_METADATA"
-}
+# variable "subnet_flow_logs_interval" {
+#   description = "Time range to capture flow logs"
+#   type        = string
+#   default     = "INTERVAL_15_MIN"
+# }
+
+# variable "flow_logs_sampling" {
+#   description = "Sampling rate"
+#   type        = string
+#   default     = 0.2
+# }
+
+# variable "flow_logs_metadata" {
+#   description = "Include metadata with flow logs"
+#   type        = string
+#   default     = "INCLUDE_ALL_METADATA"
+# }

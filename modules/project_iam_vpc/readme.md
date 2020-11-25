@@ -7,7 +7,6 @@ The Custom VPC with IP address are deployed using the following subnet range: `	
 ## Usage
 
 Full examples are in the [examples](./examples) folder.
-
 ## Requirements
 
 | Name | Version |
@@ -33,8 +32,6 @@ Full examples are in the [examples](./examples) folder.
 | default\_region | The default region to place subnetwork | `string` | `"us-west1"` | no |
 | default\_service\_account | Project default service account setting: can be one of delete, deprivilege, disable, or keep. | `string` | `"keep"` | no |
 | environment | The environment the single project belongs to | `string` | n/a | yes |
-| flow\_logs\_metadata | Include metadata with flow logs | `string` | `"INCLUDE_ALL_METADATA"` | no |
-| flow\_logs\_sampling | Sampling rate | `string` | `0.2` | no |
 | folder\_id | The folder id where project will be created | `string` | n/a | yes |
 | group\_name | Name of the Google Group to assign to the project. | `string` | n/a | yes |
 | group\_name\_binding | The role to bind the Google group to. Default is Editor | `string` | `"roles/editor"` | no |
@@ -43,11 +40,9 @@ Full examples are in the [examples](./examples) folder.
 | org\_id | The organization id for the associated services | `string` | n/a | yes |
 | project\_prefix | The name of the GCP project | `string` | n/a | yes |
 | routing\_mode | Type of routing mode. Can be GLOBAL or REGIONAL | `string` | `"REGIONAL"` | no |
+| secondary\_ranges | Secondary ranges that will be used in some of the subnets | `map(list(object({ range_name = string, ip_cidr_range = string })))` | <pre>{<br>  "subnet-01": [<br>    {<br>      "ip_cidr_range": "192.168.64.0/24",<br>      "range_name": "subnet-01-secondary-01"<br>    }<br>  ]<br>}</pre> | no |
 | skip\_gcloud\_download | Whether to skip downloading gcloud (assumes gcloud is already available outside the module) | `bool` | `true` | no |
-| subnet\_flow\_logs | To enable flow logs for the subnet. | `string` | `"true"` | no |
-| subnet\_flow\_logs\_interval | Time range to capture flow logs | `string` | `"INTERVAL_15_MIN"` | no |
-| subnet\_ip | The default subnetwork | `string` | `"10.128.0.0/16"` | no |
-| subnet\_name | Name of the subnet | `string` | `"subnet-01"` | no |
+| subnets | The list of subnets being created | `list(map(string))` | <pre>[<br>  {<br>    "subnet_ip": "10.10.10.0/24",<br>    "subnet_name": "subnet-01",<br>    "subnet_region": "us-central1"<br>  }<br>]</pre> | no |
 | vpc\_type | The type of VPC to attach the project to. Possible options are base or null. Default is null. | `string` | `""` | no |
 
 ## Outputs
