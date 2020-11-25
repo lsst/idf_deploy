@@ -11,3 +11,5 @@ subnets = [
     # subnet_flow_logs_metadata = "INCLUDE_ALL_METADATA"
   }
 ]
+
+label_application_name = "org-shared-services-prod"
