@@ -116,3 +116,11 @@ variable "secondary_ranges" {
     ]
   }
 }
+
+# GKE
+
+variable "project_id" {}
+
+variable "network" {}
+
+variable "subnetwork" {}

@@ -10,10 +10,9 @@ module "science_platform_qa_project" {
   group_name       = var.group_name
 }
 
-# module "gke" {
-#   source = "./gke"
-
-#   project_id = module.science_platform_qa_project.project_id
-#   network    = var.network_name
-#   subnetwork = "subnet-01"
-# }
+module "gke" {
+  source = "../../../modules/gke"
+  network    = var.network_name
+  project_id                     = module.science_platform_qa_project.project_id
+  subnetwork = "subnet-01"
+}
