@@ -11,8 +11,8 @@ module "science_platform_qa_project" {
 }
 
 module "gke" {
-  source = "../../../modules/gke"
+  source     = "../../../modules/gke"
   network    = var.network_name
-  project_id                     = module.science_platform_qa_project.project_id
+  project_id = module.science_platform_qa_project.project_id
   subnetwork = "subnet-01"
 }
