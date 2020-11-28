@@ -57,6 +57,6 @@ jobs:
       continue-on-error: true
 
     # # On push to main, build or change infrastructure according to Terraform configuration files
-    - name: Terraform Apply
-    #   #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+    # - name: Terraform Apply
+    #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    #   run: terraform apply -auto-approve
