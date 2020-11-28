@@ -55,7 +55,9 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan
+      id: plan
+      run: terraform plan -no-color
+      continue-on-error: true
 
     # # On push to main, build or change infrastructure according to Terraform configuration files
     # - name: Terraform Apply
