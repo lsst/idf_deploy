@@ -11,16 +11,9 @@ module "science_platform_qa_project" {
 }
 
 # module "gke" {
-#   source = "../../../modules/gke"
+#   source = "./gke"
 
-#   cluster_name_suffix            = "splatform"   
-#   #compute_engine_service_account = "" 
-#   enable_binary_authorization    = false
-#   ip_range_pods                  = ""   
-#   ip_range_services              = ""   
-#   network                        = module.science_platform_qa_project.network
-#   project_id                     = module.science_platform_qa_project.project_id  
-#   region                         = "us-central1"
-#   skip_provisioners              = false
-#   subnetwork                     = module.science_platform_qa_project.subnets_self_links
+#   project_id = module.science_platform_qa_project.project_id
+#   network    = var.network_name
+#   subnetwork = "subnet-01"
 # }
