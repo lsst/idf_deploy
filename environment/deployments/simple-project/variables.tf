@@ -119,8 +119,8 @@ variable "secondary_ranges" {
 
 # GKE
 
-variable "project_id" {}
+# variable "project_id" {}
 
-variable "network" {}
+# variable "network" {}
 
-variable "subnetwork" {}
+# variable "subnetwork" {}

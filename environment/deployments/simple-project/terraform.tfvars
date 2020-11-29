@@ -19,9 +19,13 @@ routing_mode            = "REGIONAL"
 secondary_ranges = {
   "subnet-01" : [
     {
-      "ip_cidr_range" : "192.168.64.0/24",
-      "range_name" : "subnet-01-secondary-01"
-    }
+      range_name    = "kubernetes-pods"
+      ip_cidr_range = "192.168.0.0/18"
+    },
+    {
+      range_name    = "kubernetes-services"
+      ip_cidr_range = "192.168.64.0/18"
+    },
   ]
 }
 skip_gcloud_download = true
