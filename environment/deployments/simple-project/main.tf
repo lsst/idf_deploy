@@ -18,6 +18,7 @@ module "gke" {
   project_id        = module.project_factory.project_id
   subnetwork        = "subnet-01"
   skip_provisioners = true
+  depends_on = [ module.project_factory ]
 }
 
 module "filestore" {
@@ -32,4 +33,6 @@ module "filestore" {
   project = module.project_factory.project_id
   tier    = "STANDARD"
   zone    = "us-central1-b"
+
+  depends_on = [ module.project_factory ]
 }
