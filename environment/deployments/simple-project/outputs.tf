@@ -15,7 +15,7 @@ output "project_number" {
 
 output "enabled_apis" {
     description = "Enabled APIs in the project"
-    value = module.project_factory.activate_apis
+    value = module.project_factory.enabled_apis
 }
 
 output "budget_name" {
