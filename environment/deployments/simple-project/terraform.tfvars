@@ -38,4 +38,3 @@ subnets = [
   }
 ]
 vpc_type = ""
-
