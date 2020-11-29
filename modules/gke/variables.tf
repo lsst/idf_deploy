@@ -76,8 +76,14 @@ variable "enable_resource_consumption_export" {
   default = false
 }
 
+var "enable_shielded_node" {
+  description = "Enable Shielded Nodes features on all nodes in this cluster."
+  type = bool
+  default = true
+}
 
-# ------------------enab----------------------
+
+# ----------------------------------------
 #  NODE POOL VALUES
 # ----------------------------------------
 
