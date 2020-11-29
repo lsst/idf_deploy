@@ -20,6 +20,8 @@ module "project" {
     application_name = var.application_name
     vpc_type         = var.vpc_type
   }
+  budget_alert_spent_percents = var.budget_alert_spent_percents
+  budget_amount = var.budget_amount
 
 }
 

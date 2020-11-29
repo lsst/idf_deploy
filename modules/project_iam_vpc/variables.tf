@@ -55,6 +55,18 @@ variable "vpc_type" {
   default     = ""
 }
 
+variable "budget_amount" {
+  description = "The amount to use for the budget"
+  default     = 10
+  type        = number
+}
+
+variable "budget_alert_spent_percents" {
+  description = "The list of percentages of the budget to alert on"
+  type        = list(number)
+  default     = [0.7, 0.8, 0.9, 1.0]
+}
+
 # IAM
 
 variable "mode" {
