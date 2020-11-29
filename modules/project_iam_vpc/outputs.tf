@@ -30,6 +30,11 @@ output "service_account_name" {
   description = "The fully-qualified name of the default service account"
 }
 
+output "enabled_apis" {
+  description = "Enabled APIs in the project"
+  value       = module.project.enabled_apis
+}
+
 output "main_budget_name" {
   description = "The name of the budget created by the core project factory module"
   value       = module.project.budget_name
