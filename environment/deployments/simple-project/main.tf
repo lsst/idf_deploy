@@ -9,12 +9,13 @@ module "project_factory" {
   environment      = var.environment
   group_name       = var.group_name
   activate_apis    = var.activate_apis
+  budget_amount    = var.budget_amount
 }
 
 module "gke" {
   source            = "../../../modules/gke"
   network           = var.network_name
-  project_id        = module.science_platform_qa_project.project_id
+  project_id        = module.project_factory.project_id
   subnetwork        = "subnet-01"
   skip_provisioners = true
 }

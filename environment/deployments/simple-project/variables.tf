@@ -55,6 +55,12 @@ variable "vpc_type" {
   default     = ""
 }
 
+variable "budget_amount" {
+  description = "The amount to use for the budget"
+  default     = 100
+  type        = number
+}
+
 # IAM
 
 variable "mode" {
