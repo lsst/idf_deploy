@@ -1,4 +1,4 @@
-module "science_platform_qa_project" {
+module "project_factory" {
   source           = "../../../modules/project_iam_vpc"
   org_id           = var.org_id
   folder_id        = var.folder_id
@@ -8,6 +8,7 @@ module "science_platform_qa_project" {
   application_name = var.application_name
   environment      = var.environment
   group_name       = var.group_name
+  activate_apis    = var.activate_apis
 }
 
 module "gke" {
