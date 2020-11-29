@@ -1,7 +1,8 @@
 activate_apis = [
-  "compute.googleapis.com",
-  "container.googleapis.com"
-]
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "stackdriver.googleapis.com"
+  ]
 application_name        = "science_platform"
 billing_account         = "01122E-72D62B-0B0581"
 cost_centre             = "0123456789"
