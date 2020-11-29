@@ -3,7 +3,7 @@ name: 'Terraform Destroy'
 on:
   push:
     paths:
-    - 'environment/deployments/simple-project'
+    - 'environment/deployments/simple-project/**'
     branches:
     - master
   pull_request:
@@ -37,10 +37,6 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 0.13.5
-
-     # Checks for proper formatting
-    - name: Terraform Fmt
-      run: terraform fmt
 
      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
