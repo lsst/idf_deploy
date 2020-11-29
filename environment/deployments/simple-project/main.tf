@@ -19,3 +19,17 @@ module "gke" {
   subnetwork        = "subnet-01"
   skip_provisioners = true
 }
+
+module "filestore" {
+  source             = "../../../modules/filestore"
+  fileshare_capacity = 2660
+  fileshare_name     = "share1"
+  modes = [
+    "MODE_IPV4"
+  ]
+  name    = "test-instance"
+  network = var.network_name
+  project = module.project_factory.project_id
+  tier    = "STANDARD"
+  zone    = "us-central1-b"
+}
