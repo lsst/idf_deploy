@@ -14,7 +14,7 @@ module "project_factory" {
 
 module "gke" {
   source            = "../../../modules/gke"
-  network           = module.project_factory.network
+  network           = module.project_factory.network_self_link
   project_id        = module.project_factory.project_id
   subnetwork        = "subnet-01"
   skip_provisioners = true
