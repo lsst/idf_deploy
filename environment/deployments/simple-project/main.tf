@@ -14,11 +14,10 @@ module "project_factory" {
 
 module "gke" {
   source            = "../../../modules/gke"
-  network           = var.network_name
+  network           = module.project_factory.network_name
   project_id        = module.project_factory.project_id
   subnetwork        = "subnet-01"
   skip_provisioners = true
-  depends_on = [ module.project_factory ]
 }
 
 module "filestore" {
@@ -34,5 +33,5 @@ module "filestore" {
   tier    = "STANDARD"
   zone    = "us-central1-b"
 
-  depends_on = [ module.project_factory ]
+  depends_on = [module.project_factory]
 }
