@@ -3,7 +3,10 @@ variable "name" {
   default     = "simple"
 }
 
-variable "project_id" {}
+variable "project_id" {
+  type        = string
+  description = "The project ID to host the cluster in (required)"
+}
 
 variable "region" {
   default = "us-central1"
@@ -12,13 +15,16 @@ variable "region" {
 variable "cluster_resource_labels" {
   type        = map(string)
   description = "The GCE resource labels (a map of key/value pairs) to be applied to the cluster"
-  default     = {
-    owner = "owner_here"
+  default = {
+    owner       = "owner_here"
     environment = "environment"
   }
 }
 
-variable "network" {}
+variable "network" {
+  type        = string
+  description = "The VPC network to host the cluster in (required)"
+}
 
 variable "ip_range_pods" {
   default = "kubernetes-pods"
@@ -28,10 +34,15 @@ variable "ip_range_services" {
   default = "kubernetes-services"
 }
 
-variable "subnetwork" {}
+variable "subnetwork" {
+  type        = string
+  description = "The subnetwork to host the cluster in (required)"
+}
 
 variable "regional" {
-  default = true
+  type        = bool
+  description = "Whether is a regional cluster (zonal cluster if set false. WARNING: changing this after cluster creation is destructive!)"
+  default     = true
 }
 
 variable "zones" {
@@ -54,6 +65,12 @@ variable "maintenance_start_time" {
   default     = "05:00"
 }
 
+variable "enable_intranode_visibility" {
+  type        = bool
+  description = "Whether Intra-node visibility is enabled for this cluster. This makes same node pod to pod traffic visible for VPC network"
+  default     = false
+}
+
 variable "create_service_account" {
   default = "true"
 }
@@ -65,7 +82,7 @@ variable "skip_provisioners" {
 }
 
 variable "http_load_balancing" {
-  default = false
+  default = true
 }
 
 variable "horizontal_pod_autoscaling" {
@@ -94,8 +111,8 @@ variable "enable_resource_consumption_export" {
 
 variable "enable_shielded_nodes" {
   description = "Enable Shielded Nodes features on all nodes in this cluster."
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 

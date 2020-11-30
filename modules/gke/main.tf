@@ -15,7 +15,9 @@ terraform {
 # ------------------------------------------------------------
 
 module "gke" {
-  source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
+  #source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
+  # Use this module because some of the features are only available in the google-beta version
+  source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster-update-variant"
   version = "~> 12.0"
 
   project_id = var.project_id
@@ -23,7 +25,7 @@ module "gke" {
   region     = var.region
   zones      = var.zones
   network    = var.network
-  subnetwork = var.subnetwork  
+  subnetwork = var.subnetwork
 
   ip_range_pods                      = var.ip_range_pods
   ip_range_services                  = var.ip_range_services
@@ -39,8 +41,9 @@ module "gke" {
   enable_private_nodes               = var.enable_private_nodes
   master_ipv4_cidr_block             = var.master_ipv4_cidr_block
   remove_default_node_pool           = var.remove_default_node_pool
-  enable_shielded_nodes	             = var.enable_shielded_nodes
+  enable_shielded_nodes              = var.enable_shielded_nodes
   cluster_resource_labels            = var.cluster_resource_labels
+  enable_intranode_visibility        = var.enable_intranode_visibility
 
   node_pools = [
     {
