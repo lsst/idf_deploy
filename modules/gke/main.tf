@@ -54,17 +54,17 @@ module "gke" {
       initial_node_count = var.node_pool_1_initial_node_count
     },
 
-    {
-      name               = var.node_pool_2_name
-      machine_type       = var.node_pool_2_machine_type
-      min_count          = var.node_pool_2_min_count
-      max_count          = var.node_pool_2_max_count
-      local_ssd_count    = var.node_pool_2_local_ssd_count
-      auto_repair        = var.node_pool_2_auto_repair
-      auto_upgrade       = var.node_pool_2_auto_upgrade
-      preemptible        = var.node_pool_2_preemptible
-      initial_node_count = var.node_pool_2_initial_node_count
-    },
+    # {
+    #   name               = var.node_pool_2_name
+    #   machine_type       = var.node_pool_2_machine_type
+    #   min_count          = var.node_pool_2_min_count
+    #   max_count          = var.node_pool_2_max_count
+    #   local_ssd_count    = var.node_pool_2_local_ssd_count
+    #   auto_repair        = var.node_pool_2_auto_repair
+    #   auto_upgrade       = var.node_pool_2_auto_upgrade
+    #   preemptible        = var.node_pool_2_preemptible
+    #   initial_node_count = var.node_pool_2_initial_node_count
+    # },
 
   ]
 

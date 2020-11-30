@@ -61,7 +61,7 @@ variable "network_policy" {
 }
 
 variable "enable_private_nodes" {
-  default = false
+  default = true
 }
 
 variable "master_ipv4_cidr_block" {
@@ -143,54 +143,54 @@ variable "node_pool_1_oauth_scope" {
 #  USER POOL VALUES
 # ----------------------------------------
 
-variable "node_pool_2_name" {
-  default = "user-pool"
-}
+# variable "node_pool_2_name" {
+#   default = "user-pool"
+# }
 
-variable "node_pool_2_machine_type" {
-  default = "g1-small"
-}
+# variable "node_pool_2_machine_type" {
+#   default = "g1-small"
+# }
 
-variable "node_pool_2_min_count" {
-  default = 1
-}
+# variable "node_pool_2_min_count" {
+#   default = 1
+# }
 
-variable "node_pool_2_max_count" {
-  default = 30
-}
+# variable "node_pool_2_max_count" {
+#   default = 30
+# }
 
-variable "node_pool_2_local_ssd_count" {
-  default = 0
-}
+# variable "node_pool_2_local_ssd_count" {
+#   default = 0
+# }
 
-variable "node_pool_2_disk_size_gb" {
-  default = 100
-}
+# variable "node_pool_2_disk_size_gb" {
+#   default = 100
+# }
 
-variable "node_pool_2_disk_type" {
-  default = "pd-standard"
-}
+# variable "node_pool_2_disk_type" {
+#   default = "pd-standard"
+# }
 
-variable "node_pool_2_image_type" {
-  default = "COS"
-}
+# variable "node_pool_2_image_type" {
+#   default = "COS"
+# }
 
-variable "node_pool_2_auto_repair" {
-  default = true
-}
+# variable "node_pool_2_auto_repair" {
+#   default = true
+# }
 
-variable "node_pool_2_auto_upgrade" {
-  default = true
-}
+# variable "node_pool_2_auto_upgrade" {
+#   default = true
+# }
 
-variable "node_pool_2_preemptible" {
-  default = false
-}
+# variable "node_pool_2_preemptible" {
+#   default = false
+# }
 
-variable "node_pool_2_initial_node_count" {
-  default = 1
-}
+# variable "node_pool_2_initial_node_count" {
+#   default = 1
+# }
 
-variable "node_pool_2_oauth_scope" {
-  default = "https://www.googleapis.com/auth/cloud-platform"
-}
+# variable "node_pool_2_oauth_scope" {
+#   default = "https://www.googleapis.com/auth/cloud-platform"
+# }
