@@ -74,22 +74,22 @@ variable "budget_alert_spent_percents" {
 
 # IAM
 
-variable "mode" {
-  description = "Mode for adding the IAM policies/bindings, additive and authoritative"
-  type        = string
-  default     = "additive"
-}
+# variable "mode" {
+#   description = "Mode for adding the IAM policies/bindings, additive and authoritative"
+#   type        = string
+#   default     = "additive"
+# }
 
-variable "group_name" {
-  description = "Name of the Google Group to assign to the project."
-  type        = string
-}
+# variable "group_name" {
+#   description = "Name of the Google Group to assign to the project."
+#   type        = string
+# }
 
-variable "group_name_binding" {
-  description = "The role to bind the Google group to. Default is Editor"
-  type        = string
-  default     = "roles/editor"
-}
+# variable "group_name_binding" {
+#   description = "The role to bind the Google group to. Default is Editor"
+#   type        = string
+#   default     = "roles/editor"
+# }
 
 # VPC
 
