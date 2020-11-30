@@ -68,13 +68,11 @@ variable "project_iam_permissions" {
   type        = list(string)
   default = [
     "roles/monitoring.admin",
-    "role/iam.securityadmin",
     "roles/storage.admin",
     "roles/container.clusterAdmin",
     "roles/container.admin",
     "roles/compute.instanceAdmin",
     "roles/logging.admin",
-    "roles/billing.viewer"
   ]
 }
 
