@@ -30,7 +30,7 @@ output "network_name" {
 
 output "network_self_link" {
   description = "The URI of the VPC being created"
-  value       = module.project_factory.network_self_self
+  value       = module.project_factory.network_self_link
 }
 
 output "subnets_self_links" {
