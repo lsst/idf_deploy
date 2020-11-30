@@ -14,7 +14,7 @@ environment             = "prod"
 folder_id               = "370233560583"
 network_name            = "custom-vpc"
 org_id                  = "288991023210"
-project_prefix          = "gke"
+project_prefix          = "gke-splatform" # min. 4 characters
 routing_mode            = "REGIONAL"
 secondary_ranges = {
   "subnet-01" : [
