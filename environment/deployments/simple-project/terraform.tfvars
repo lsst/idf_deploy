@@ -2,18 +2,16 @@ activate_apis = [
   "compute.googleapis.com",
   "container.googleapis.com",
   "stackdriver.googleapis.com",
-  "file.googleapis.com"
+  "file.googleapis.com",
+  "storage.googleapis.com"
 ]
-application_name        = "science_platform"
+application_name        = "science-platform" # name is also used for IAM
 billing_account         = "01122E-72D62B-0B0581"
 cost_centre             = "0123456789"
 default_region          = "us-central1"
 default_service_account = "keep"
 environment             = "prod"
 folder_id               = "370233560583"
-group_name              = "gcp-science-platform-gke-cluster-admins@lsst.cloud"
-group_name_binding      = "roles/editor"
-mode                    = "additive"
 network_name            = "custom-vpc"
 org_id                  = "288991023210"
 project_prefix          = "gke"
