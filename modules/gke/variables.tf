@@ -68,7 +68,7 @@ variable "maintenance_start_time" {
 variable "enable_intranode_visibility" {
   type        = bool
   description = "Whether Intra-node visibility is enabled for this cluster. This makes same node pod to pod traffic visible for VPC network"
-  default     = false
+  default     = true
 }
 
 variable "create_service_account" {
@@ -170,6 +170,19 @@ variable "node_pool_1_initial_node_count" {
 
 variable "node_pool_1_oauth_scope" {
   default = "https://www.googleapis.com/auth/cloud-platform"
+}
+
+variable "node_pools_labels" {
+  type        = map(map(string))
+  description = "Map of maps containing node labels by node-pool name"
+
+  # Default is being set in variables_defaults.tf
+  default = {
+    all = {
+      owner       = "owner_here"
+      environment = "environment_here"
+    }
+  }
 }
 
 # ----------------------------------------

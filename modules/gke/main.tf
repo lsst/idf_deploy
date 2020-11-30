@@ -59,4 +59,11 @@ module "gke" {
     },
   ]
 
+  node_pools_labels = {
+    all = {
+      owner       = "owner_here"
+      environment = "envrionment_here"
+    }
+  }
+
 }
