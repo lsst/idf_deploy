@@ -9,6 +9,15 @@ variable "region" {
   default = "us-central1"
 }
 
+variable "cluster_resource_labels" {
+  type        = map(string)
+  description = "The GCE resource labels (a map of key/value pairs) to be applied to the cluster"
+  default     = {
+    owner = "owner_here"
+    environment = "environment"
+  }
+}
+
 variable "network" {}
 
 variable "ip_range_pods" {

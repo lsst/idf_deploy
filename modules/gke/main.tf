@@ -23,7 +23,7 @@ module "gke" {
   region     = var.region
   zones      = var.zones
   network    = var.network
-  subnetwork = var.subnetwork
+  subnetwork = var.subnetwork  
 
   ip_range_pods                      = var.ip_range_pods
   ip_range_services                  = var.ip_range_services
@@ -40,6 +40,7 @@ module "gke" {
   master_ipv4_cidr_block             = var.master_ipv4_cidr_block
   remove_default_node_pool           = var.remove_default_node_pool
   enable_shielded_nodes	             = var.enable_shielded_nodes
+  cluster_resource_labels            = var.cluster_resource_labels
 
   node_pools = [
     {
@@ -53,19 +54,6 @@ module "gke" {
       preemptible        = var.node_pool_1_preemptible
       initial_node_count = var.node_pool_1_initial_node_count
     },
-
-    # {
-    #   name               = var.node_pool_2_name
-    #   machine_type       = var.node_pool_2_machine_type
-    #   min_count          = var.node_pool_2_min_count
-    #   max_count          = var.node_pool_2_max_count
-    #   local_ssd_count    = var.node_pool_2_local_ssd_count
-    #   auto_repair        = var.node_pool_2_auto_repair
-    #   auto_upgrade       = var.node_pool_2_auto_upgrade
-    #   preemptible        = var.node_pool_2_preemptible
-    #   initial_node_count = var.node_pool_2_initial_node_count
-    # },
-
   ]
 
 }
