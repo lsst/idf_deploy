@@ -23,6 +23,11 @@ output "budget_name" {
   value       = module.project_factory.main_budget_name
 }
 
+output "network" {
+  value       = module.project_factory.network
+  description = "The name of the VPC being created"
+}
+
 output "network_name" {
   description = "The name of the VPC being created"
   value       = module.project_factory.network_name
