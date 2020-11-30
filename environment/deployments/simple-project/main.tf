@@ -18,13 +18,13 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
-module "gke" {
-  source            = "../../../modules/gke"
-  network           = module.project_factory.network_name
-  project_id        = module.project_factory.project_id
-  subnetwork        = module.project_factory.subnets_names[0]
-  skip_provisioners = true
-}
+# module "gke" {
+#   source            = "../../../modules/gke"
+#   network           = module.project_factory.network_name
+#   project_id        = module.project_factory.project_id
+#   subnetwork        = module.project_factory.subnets_names[0]
+#   skip_provisioners = true
+# }
 
 module "filestore" {
   source             = "../../../modules/filestore"
