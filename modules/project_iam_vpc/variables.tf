@@ -18,6 +18,11 @@ variable "project_prefix" {
   type        = string
 }
 
+variable "random_project_id" {
+  description = "Append a random 4 digit number to the end of the project"
+  default = "true"
+}
+
 variable "cost_centre" {
   description = "The cost centre that links to the application"
   type        = string

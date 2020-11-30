@@ -2,9 +2,9 @@ module "project" {
   source = "terraform-google-modules/project-factory/google"
 
   version                 = "~> 9.0"
-  random_project_id       = "true"
+  random_project_id       = var.random_project_id
   activate_apis           = var.activate_apis
-  name                    = "${var.project_prefix}-${var.environment}"
+  name                    = "${var.project_prefix}"
   org_id                  = var.org_id
   billing_account         = var.billing_account
   folder_id               = var.folder_id
