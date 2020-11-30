@@ -22,3 +22,18 @@ output "budget_name" {
   description = "The name of the budget if created"
   value       = module.project_factory.main_budget_name
 }
+
+output "network_name" {
+  description = "The name of the VPC being created"
+  value       = module.project_factory.network_name
+}
+
+output "network_self_link" {
+  description = "The URI of the VPC being created"
+  value       = module.project_factory.network_self_self
+}
+
+output "subnets_self_links" {
+  description = "The self-links of subnets being created"
+  value       = module.project_factory.subnets_self_links
+}
