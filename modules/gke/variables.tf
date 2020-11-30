@@ -9,7 +9,14 @@ variable "region" {
   default = "us-central1"
 }
 
-variable "network" {
+variable "network" {}
+
+variable "ip_range_pods" {
+  default = "kubernetes-pods"
+}
+
+variable "ip_range_services" {
+  default = "kubernetes-services"
 }
 
 variable "subnetwork" {}

@@ -25,8 +25,8 @@ module "gke" {
   network    = var.network
   subnetwork = var.subnetwork
 
-  ip_range_pods                      = "kubernetes-pods"
-  ip_range_services                  = "kubernetes-services"
+  ip_range_pods                      = var.ip_range_pods
+  ip_range_services                  = var.ip_range_services
   logging_service                    = var.logging_service
   monitoring_service                 = var.monitoring_service
   maintenance_start_time             = var.maintenance_start_time
