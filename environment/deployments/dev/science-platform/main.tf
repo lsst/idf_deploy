@@ -65,8 +65,8 @@ module "service_account_info_sec" {
   prefix       = "${var.application_name}-${var.environment}"
   display_name = "Service Account for Kubernetes Cluster"
   description  = "A service account used for Cluster"
-  names        = ["cluster"]
+  names        = ["cluster-account"]
   project_roles = [
-    "roles/container.clusterAdmin",
+    "${module.project_factory.project_id}=>roles/container.clusterAdmin",
   ]
 }
