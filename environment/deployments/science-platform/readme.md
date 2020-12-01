@@ -1,4 +1,4 @@
-# Dev Science Platform Build
+# Science Platform Build
 
 This example illustrates how to use the `modules` directory to build a project and add in additional services like GKE and Filestore.
 
