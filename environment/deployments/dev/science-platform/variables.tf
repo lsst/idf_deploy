@@ -13,10 +13,10 @@ variable "billing_account" {
   type        = string
 }
 
-variable "project_prefix" {
-  description = "The name of the GCP project"
-  type        = string
-}
+# variable "project_prefix" {
+#   description = "The name of the GCP project"
+#   type        = string
+# }
 
 variable "cost_centre" {
   description = "The cost centre that links to the application"
