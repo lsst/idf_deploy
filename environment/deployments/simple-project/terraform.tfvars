@@ -12,11 +12,11 @@ default_region          = "us-central1"
 default_service_account = "keep"
 environment             = "prod"
 owner                   = "science_platform" # label
-folder_id               = "370233560583"
+folder_id               = "985686879610"
 network_name            = "custom-vpc"
 org_id                  = "288991023210"
 project_prefix          = "gke-splatform" # min. 4 characters
-routing_mode            = "REGIONAL"
+routing_mode            = "GLOBAL"
 secondary_ranges = {
   "subnet-01" : [
     {
@@ -37,4 +37,3 @@ subnets = [
     "subnet_region" : "us-central1"
   }
 ]
-vpc_type = ""
