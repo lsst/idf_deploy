@@ -3,7 +3,7 @@ module "project_factory" {
   org_id           = var.org_id
   folder_id        = var.folder_id
   billing_account  = var.billing_account
-  project_prefix   = var.project_prefix
+  project_prefix   = "${var.application_name}-${var.environment}"
   cost_centre      = var.cost_centre
   application_name = var.application_name
   environment      = var.environment
