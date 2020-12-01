@@ -63,8 +63,8 @@ module "service_account_cluster" {
   version      = "~> 2.0"
   project_id   = module.project_factory.project_id
   prefix       = var.environment
-  display_name = "Service Account for Kubernetes Cluster"
-  description  = "A service account used for Cluster"
+  #display_name = "Service Account for Kubernetes Cluster"
+  #description  = "A service account used for Cluster"
   names        = ["cluster"]
   project_roles = [
     "${module.project_factory.project_id}=>roles/container.clusterAdmin",
