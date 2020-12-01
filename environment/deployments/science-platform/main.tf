@@ -60,9 +60,9 @@ module "filestore" {
 
 module "service_account_cluster" {
   source       = "terraform-google-modules/service-accounts/google"
-  version      = "~> 3.0"
+  version      = "~> 2.0"
   project_id   = module.project_factory.project_id
-  prefix       = "qa"
+  prefix       = var.environment
   display_name = "Service Account for Kubernetes Cluster"
   description  = "A service account used for Cluster"
   names        = ["cluster"]
