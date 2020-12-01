@@ -1,9 +1,9 @@
-name: 'Terraform Deploy'
+name: 'Terraform Dev-Science-Platform Deploy'
 
 on:
   push:
     paths:
-    - 'environment/deployments/**'
+    - 'environment/deployments/dev/science-platform/**'
     branches:
     - master
   pull_request:
@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./environment/deployments/simple-project
+        working-directory: ./environment/deployments/dev/science-platform
 
     steps:
     # Checkout the repository to the GitHub Actions runner
