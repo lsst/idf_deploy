@@ -1,5 +1,5 @@
 module "project_factory" {
-  source          = "../../../../modules/project_vpc"
+  source          = "../../../modules/project_vpc"
   org_id          = var.org_id
   folder_id       = var.folder_id
   billing_account = var.billing_account
@@ -15,14 +15,14 @@ module "project_factory" {
 }
 
 module "iam_admin" {
-  source                  = "../../../../modules/iam"
+  source                  = "../../../modules/iam"
   project                 = module.project_factory.project_id
   project_iam_permissions = var.project_iam_permissions
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
 module "gke" {
-  source     = "../../../../modules/gke"
+  source     = "../../../modules/gke"
   name       = "${var.application_name}-${var.environment}"
   network    = module.project_factory.network_name
   project_id = module.project_factory.project_id
@@ -46,7 +46,7 @@ module "gke" {
 }
 
 module "filestore" {
-  source             = "../../../../modules/filestore"
+  source             = "../../../modules/filestore"
   fileshare_capacity = var.fileshare_capacity
   fileshare_name     = "${var.fileshare_name}-${var.environment}"
   modes              = var.modes
