@@ -23,10 +23,10 @@ variable "random_project_id" {
   default = "true"
 }
 
-variable "cost_centre" {
-  description = "The cost centre that links to the application"
-  type        = string
-}
+# variable "cost_centre" {
+#   description = "The cost centre that links to the application"
+#   type        = string
+# }
 
 variable "application_name" {
   description = "The name of application where GCP resources relate"
@@ -62,7 +62,7 @@ variable "vpc_type" {
 
 variable "budget_amount" {
   description = "The amount to use for the budget"
-  default     = 10
+  default     = 1000
   type        = number
 }
 
