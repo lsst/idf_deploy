@@ -5,7 +5,7 @@
 terraform {
   backend "gcs" {
     bucket = "lsst-terraform-state"
-    prefix = "production/simple-project"
+    prefix = "dev/science-platform"
   }
   required_providers {
     google      = "~> 3.1"

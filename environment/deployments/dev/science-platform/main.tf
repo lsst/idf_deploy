@@ -22,28 +22,28 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
-# module "gke" {
-#   source     = "../../../modules/gke"
-#   name       = "${var.application_name}-${var.environment}"
-#   network    = module.project_factory.network_name
-#   project_id = module.project_factory.project_id
-#   subnetwork = module.project_factory.subnets_names[0]
-#   cluster_resource_labels = {
-#     ower             = var.owner
-#     environment      = var.environment
-#     project          = module.project_factory.project_name
-#     application_name = var.application_name
-#   }
+module "gke" {
+  source     = "../../../modules/gke"
+  name       = "${var.application_name}-${var.environment}"
+  network    = module.project_factory.network_name
+  project_id = module.project_factory.project_id
+  subnetwork = module.project_factory.subnets_names[0]
+  cluster_resource_labels = {
+    ower             = var.owner
+    environment      = var.environment
+    project          = module.project_factory.project_name
+    application_name = var.application_name
+  }
 
-#   node_pools_labels = {
-#     all = {
-#       ower             = var.owner
-#       environment      = var.environment
-#       project          = module.project_factory.project_name
-#       application_name = var.application_name
-#     }
-#   }
-# }
+  node_pools_labels = {
+    all = {
+      ower             = var.owner
+      environment      = var.environment
+      project          = module.project_factory.project_name
+      application_name = var.application_name
+    }
+  }
+}
 
 module "filestore" {
   source             = "../../../modules/filestore"
