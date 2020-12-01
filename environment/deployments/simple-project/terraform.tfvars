@@ -18,14 +18,14 @@ org_id                  = "288991023210"
 project_prefix          = "gke-splatform" # min. 4 characters
 routing_mode            = "GLOBAL"
 secondary_ranges = {
-  "subnet-01" : [
+  "subnet-us-central1-01" : [
     {
       range_name    = "kubernetes-pods"
       ip_cidr_range = "10.129.0.0/16"
     },
     {
       range_name    = "kubernetes-services"
-      ip_cidr_range = "10.128.2.0/20"
+      ip_cidr_range = "10.128.16.0/20"
     },
   ]
 }
@@ -33,7 +33,7 @@ skip_gcloud_download = true
 subnets = [
   {
     "subnet_ip" : "10.128.0.0/23",
-    "subnet_name" : "subnet-01",
+    "subnet_name" : "subnet-us-central1-01",
     "subnet_region" : "us-central1"
   }
 ]
