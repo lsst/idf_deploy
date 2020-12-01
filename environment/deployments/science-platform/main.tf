@@ -59,16 +59,16 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
-module "service_account_cluster" {
-  source       = "terraform-google-modules/service-accounts/google"
-  version      = "~> 3.0"
-  project_id   = module.project_factory.project_id
-  #prefix       = "${var.application_name}-${var.environment}"
-  prefix       = "science-platform-qa"
-  display_name = "Service Account for Kubernetes Cluster"
-  description  = "A service account used for Cluster"
-  names        = ["cluster"]
-  project_roles = [
-    "${module.project_factory.project_id}=>roles/container.clusterAdmin",
-  ]
-}
+# module "service_account_cluster" {
+#   source       = "terraform-google-modules/service-accounts/google"
+#   version      = "~> 3.0"
+#   project_id   = module.project_factory.project_id
+#   #prefix       = "${var.application_name}-${var.environment}"
+#   prefix       = "science-platform-qa"
+#   display_name = "Service Account for Kubernetes Cluster"
+#   description  = "A service account used for Cluster"
+#   names        = ["cluster"]
+#   project_roles = [
+#     "${module.project_factory.project_id}=>roles/container.clusterAdmin",
+#   ]
+# }
