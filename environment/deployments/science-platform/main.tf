@@ -4,7 +4,6 @@ module "project_factory" {
   folder_id       = var.folder_id
   billing_account = var.billing_account
   project_prefix  = "${var.application_name}-${var.environment}"
-  #cost_centre      = var.cost_centre
   application_name = var.application_name
   environment      = var.environment
   activate_apis    = var.activate_apis
@@ -59,16 +58,15 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
-# module "service_account_cluster" {
-#   source       = "terraform-google-modules/service-accounts/google"
-#   version      = "~> 3.0"
-#   project_id   = module.project_factory.project_id
-#   #prefix       = "${var.application_name}-${var.environment}"
-#   prefix       = "science-platform-qa"
-#   display_name = "Service Account for Kubernetes Cluster"
-#   description  = "A service account used for Cluster"
-#   names        = ["cluster"]
-#   project_roles = [
-#     "${module.project_factory.project_id}=>roles/container.clusterAdmin",
-#   ]
-# }
+module "service_account_cluster" {
+  source       = "terraform-google-modules/service-accounts/google"
+  version      = "~> 3.0"
+  project_id   = module.project_factory.project_id
+  prefix       = "science-platform-qa"
+  display_name = "Service Account for Kubernetes Cluster"
+  description  = "A service account used for Cluster"
+  names        = ["cluster"]
+  project_roles = [
+    "${module.project_factory.project_id}=>roles/container.clusterAdmin",
+  ]
+}
