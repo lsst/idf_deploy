@@ -73,6 +73,7 @@ variable "project_iam_permissions" {
     "roles/container.admin",
     "roles/compute.instanceAdmin",
     "roles/logging.admin",
+    "roles/file.editor"
   ]
 }
 
@@ -120,12 +121,6 @@ variable "secondary_ranges" {
 }
 
 # GKE
-
-# variable "project_id" {}
-
-# variable "network" {}
-
-# variable "subnetwork" {}
 
 # FileStore
 
