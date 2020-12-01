@@ -1,5 +1,6 @@
 environment             = "dev"
-owner                   = "science_platform" # label
+application_name        = "science-platform"
+#owner                   = "science-platform" # label
 folder_id               = "985686879610"
 network_name            = "custom-vpc"
 subnets = [
