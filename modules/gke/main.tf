@@ -44,6 +44,7 @@ module "gke" {
   enable_shielded_nodes              = var.enable_shielded_nodes
   cluster_resource_labels            = var.cluster_resource_labels
   enable_intranode_visibility        = var.enable_intranode_visibility
+  authenticator_security_group       = "gke-security-groups@${var.authenticator_security_group}"
 
   node_pools = [
     {
