@@ -39,6 +39,11 @@ variable "environment" {
   type        = string
 }
 
+variable "owner" {
+  description = "The owner of the project."
+  type        = string
+}
+
 variable "skip_gcloud_download" {
   description = "Whether to skip downloading gcloud (assumes gcloud is already available outside the module)"
   default     = true
@@ -128,6 +133,17 @@ variable "cluster_resource_labels" {
   default = {
     owner       = "owner_here"
     environment = "environment"
+  }
+}
+
+variable "node_pools_labels" {
+  type        = map(map(string))
+  description = "Map of maps containing node labels by node-pool name"
+  default = {
+    all = {
+      owner       = "owner_here"
+      environment = "environment_here"
+    }
   }
 }
 

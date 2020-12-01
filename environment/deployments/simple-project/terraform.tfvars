@@ -7,10 +7,11 @@ activate_apis = [
 ]
 application_name        = "science-platform" # name is also used for IAM
 billing_account         = "01122E-72D62B-0B0581"
-cost_centre             = "0123456789"
+cost_centre             = "0123456789" # label
 default_region          = "us-central1"
 default_service_account = "keep"
 environment             = "prod"
+owner                   = "science_platform" # label
 folder_id               = "370233560583"
 network_name            = "custom-vpc"
 org_id                  = "288991023210"
