@@ -78,7 +78,7 @@ variable "create_service_account" {
 variable "skip_provisioners" {
   type        = bool
   description = "Flag to skip local-exec provisioners"
-  default     = false
+  default     = true
 }
 
 variable "http_load_balancing" {
@@ -114,7 +114,6 @@ variable "enable_shielded_nodes" {
   type        = bool
   default     = true
 }
-
 
 # ----------------------------------------
 #  NODE POOL VALUES
@@ -175,14 +174,18 @@ variable "node_pool_1_oauth_scope" {
 variable "node_pools_labels" {
   type        = map(map(string))
   description = "Map of maps containing node labels by node-pool name"
-
-  # Default is being set in variables_defaults.tf
   default = {
     all = {
       owner       = "owner_here"
       environment = "environment_here"
     }
   }
+}
+
+variable "authenticator_security_group" {
+  type        = string
+  description = "The name of the RBAC security group for use with Google security groups in Kubernetes RBAC. Group name must be in format gke-security-groups@yourdomain.com"
+  default     = "lsst.cloud"
 }
 
 # ----------------------------------------
