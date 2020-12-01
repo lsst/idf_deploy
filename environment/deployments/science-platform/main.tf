@@ -62,7 +62,7 @@ module "service_account_cluster" {
   source       = "terraform-google-modules/service-accounts/google"
   version      = "~> 3.0"
   project_id   = module.project_factory.project_id
-  prefix       = "science-platform-qa"
+  prefix       = "qa"
   display_name = "Service Account for Kubernetes Cluster"
   description  = "A service account used for Cluster"
   names        = ["cluster"]
