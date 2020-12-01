@@ -4,8 +4,6 @@ on:
   push:
     paths:
     - 'environment/deployments/dev/science-platform/**'
-    paths-ignore:
-    -  'environment/deployments/dev/science-platform/readme.md'
     branches:
     - master
   pull_request:
