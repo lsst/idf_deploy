@@ -1,5 +1,5 @@
 module "project_factory" {
-  source           = "../../../modules/project_iam_vpc"
+  source           = "../../../modules/project_vpc"
   org_id           = var.org_id
   folder_id        = var.folder_id
   billing_account  = var.billing_account
