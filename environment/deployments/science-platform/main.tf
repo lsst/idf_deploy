@@ -60,9 +60,9 @@ module "gke" {
 module "filestore" {
   source             = "../../../modules/filestore"
   fileshare_capacity = var.fileshare_capacity
-  fileshare_name     = "${var.fileshare_name}-${var.environment}"
+  fileshare_name     = var.fileshare_name
   modes              = var.modes
-  name               = var.name
+  name               = "${var.name}-${var.environment}"
   network            = module.project_factory.network_name
   project            = module.project_factory.project_id
   tier               = var.tier
