@@ -72,6 +72,14 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
+module "nat" {
+  source  = "../../../modules/nat"
+  project = module.project_factory.project_id
+  network = module.project_factory.network_name
+  region  = var.default_region
+  nats    = [{ name = "${var.application_name}-${var.environment}-nat" }]
+}
+
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"
