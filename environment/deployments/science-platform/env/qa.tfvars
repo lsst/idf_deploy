@@ -1,7 +1,9 @@
+# Project
 environment             = "dev"
 application_name        = "science-platform"
-#owner                   = "science-platform" # label
 folder_id               = "985686879610"
+
+# VPC
 network_name            = "custom-vpc"
 subnets = [
   {
@@ -23,6 +25,8 @@ secondary_ranges = {
   ]
 }
 
+# GKE
+master_ipv4_cidr_block = "172.16.0.0/28"
 node_pool_1_name = "core-pool"
 node_pool_1_machine_type = "e2-standard-4" # 4 vCPU 16GB RAM
 node_pool_1_min_count = 1

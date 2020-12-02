@@ -24,10 +24,11 @@ module "gke" {
   source = "../../../modules/gke"
 
   # Cluster
-  name       = "${var.application_name}-${var.environment}"
-  network    = module.project_factory.network_name
-  project_id = module.project_factory.project_id
-  subnetwork = module.project_factory.subnets_names[0]
+  name                   = "${var.application_name}-${var.environment}"
+  network                = module.project_factory.network_name
+  project_id             = module.project_factory.project_id
+  subnetwork             = module.project_factory.subnets_names[0]
+  master_ipv4_cidr_block = va.master_ipv4_cidr_block
 
   # Node Pool
   node_pool_1_name               = var.node_pool_1_name
