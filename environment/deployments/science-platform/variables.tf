@@ -190,7 +190,7 @@ variable "node_pools_labels" {
 variable "name" {
   description = "The resource name of the instance."
   type        = string
-  default     = "fileshare-instance"
+  default     = "fshare-instance"
 }
 
 variable "zone" {
