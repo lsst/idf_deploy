@@ -195,7 +195,7 @@ variable "node_pool_1_oauth_scope" {
 
 variable "node_pools_labels" {
   type        = map(map(string))
-  description = "Map of maps containing node labels by node-pool name"
+  description = "Map of maps containing node labels by node-pool name."
   default = {
     all = {
       owner       = "owner_here"

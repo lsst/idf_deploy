@@ -16,7 +16,6 @@ module "project" {
 
   labels = {
     environment      = var.environment
-    cost_centre      = var.cost_centre
     application_name = var.application_name
     vpc_type         = var.vpc_type
   }
