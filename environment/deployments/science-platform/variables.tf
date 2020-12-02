@@ -137,6 +137,22 @@ variable "secondary_ranges" {
 
 # GKE
 
+variable "master_ipv4_cidr_block" {
+  default = "172.16.0.0/28"
+}
+
+variable "zones" {
+  description = "The zones to host the cluster in (optional if regional cluster / required if zonal)"
+  type        = list(string)
+  default     = ["us-central1-a"]
+}
+
+variable "maintenance_start_time" {
+  description = "Time window specified for daily maintenance operations in RFC3339 format"
+  type        = string
+  default     = "05:00"
+}
+
 variable "node_pool_1_name" {
   default = "core-pool"
 }
