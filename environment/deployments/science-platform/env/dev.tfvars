@@ -36,3 +36,6 @@ node_pool_1_initial_node_count = 5
 
 # Filestore
 fileshare_capacity = 2000
+
+# NAT
+nats = [{ name = "cloud-nat" }]
