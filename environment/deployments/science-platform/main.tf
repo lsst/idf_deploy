@@ -74,6 +74,7 @@ module "filestore" {
 
 module "nat" {
   source  = "../../../modules/nat"
+  name    = var.router_name
   project = module.project_factory.project_id
   network = module.project_factory.network_name
   region  = var.default_region

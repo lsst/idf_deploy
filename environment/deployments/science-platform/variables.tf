@@ -251,3 +251,9 @@ variable "nats" {
   }]
   */
 }
+
+variable "router_name" {
+  type        = string
+  description = "Name of the router"
+  default     = "cloud-router"
+}
