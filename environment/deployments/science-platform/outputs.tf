@@ -49,6 +49,6 @@ output "router" {
 }
 
 output "router_region" {
-  value       = module.nat.region
+  value       = module.nat.router_region
   description = "The region of the created router"
 }
