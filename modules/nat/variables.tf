@@ -1,13 +1,13 @@
 variable "name" {
   type        = string
   description = "Name of the router"
-  default = "example-router"
+  default     = "example-router"
 }
 
 variable "network" {
   type        = string
   description = "A reference to the network to which this router belongs"
-  default = "default"
+  default     = "default"
 }
 
 variable "project" {
@@ -18,7 +18,7 @@ variable "project" {
 variable "region" {
   type        = string
   description = "Region where the router resides"
-  default = "us-central1"
+  default     = "us-central1"
 }
 
 variable "nats" {
