@@ -238,3 +238,16 @@ variable "modes" {
   type        = list(string)
   default     = ["MODE_IPV4"]
 }
+
+# NAT
+
+variable "nats" {
+  description = "NATs to deploy on this router."
+  type        = any
+  default     = []
+  /*
+  default = [{
+      name = "example-nat"
+  }]
+  */
+}

@@ -77,7 +77,7 @@ module "nat" {
   project = module.project_factory.project_id
   network = module.project_factory.network_name
   region  = var.default_region
-  nats    = [{ name = "${var.application_name}-${var.environment}-nat" }]
+  nats    = var.nats
 }
 
 module "service_account_cluster" {
