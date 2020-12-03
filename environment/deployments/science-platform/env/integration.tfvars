@@ -1,5 +1,5 @@
 # Project
-environment             = "integration"
+environment             = "int"
 application_name        = "science-platform"
 folder_id               = "19762437767"
 
