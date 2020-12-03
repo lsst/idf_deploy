@@ -170,7 +170,12 @@ variable "node_pool_1_disk_type" {
 }
 
 variable "node_pool_1_image_type" {
-  default = "COS"
+  default = "cos_containerd"
+}
+
+variable "node_pool_1_enable_secure_boot" {
+  description = "Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails."
+  default = true  
 }
 
 variable "node_pool_1_auto_repair" {

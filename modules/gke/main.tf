@@ -45,6 +45,8 @@ module "gke" {
       auto_upgrade       = var.node_pool_1_auto_upgrade
       preemptible        = var.node_pool_1_preemptible
       initial_node_count = var.node_pool_1_initial_node_count
+      image_type         = var.node_pool_1_image_type
+      enable_secure_boot = var.node_pool_1_enable_secure_boot
     },
   ]
 
