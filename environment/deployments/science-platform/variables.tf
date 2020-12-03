@@ -157,6 +157,10 @@ variable "node_pool_1_name" {
   default = "core-pool"
 }
 
+variable "node_pool_1_image_type" {
+  default = "cos_containerd"
+}
+
 variable "node_pool_1_machine_type" {
   default = "g1-small"
 }
