@@ -47,14 +47,13 @@ jobs:
       run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=science-platform/dev
 
     # Checks that all Terraform configuration files adhere to a canonical format
-    # - name: Terraform Validate
-    #   run: terraform validate
+    - name: Terraform Validate
+      run: terraform validate
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
       run: terraform plan -var-file=env/dev.tfvars -no-color
-      continue-on-error: true
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
