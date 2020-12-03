@@ -39,6 +39,7 @@ module "gke" {
   node_pool_1_disk_size_gb       = var.node_pool_1_disk_size_gb
   node_pool_1_initial_node_count = var.node_pool_1_initial_node_count
   node_pool_1_image_type         = var.node_pool_1_image_type
+  node_pool_1_enable_secure_boot = var.node_pool_1_enable_secure_boot
 
   # Labels
   cluster_resource_labels = {
