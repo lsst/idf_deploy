@@ -6,7 +6,7 @@ module "vpc" {
   network_name = var.network_name
   routing_mode = var.routing_mode
 
-  subnets          = "${var.subnets}"
-  secondary_ranges = "${var.secondary_ranges}"
+  subnets          = var.subnets
+  secondary_ranges = var.secondary_ranges
 
 }
