@@ -29,17 +29,18 @@ module "gke" {
   project_id             = module.project_factory.project_id
   subnetwork             = module.project_factory.subnets_names[0]
   master_ipv4_cidr_block = var.master_ipv4_cidr_block
+  node_pools             = var.node_pools
 
   # Node Pool
-  node_pool_1_name               = var.node_pool_1_name
-  node_pool_1_machine_type       = var.node_pool_1_machine_type
-  node_pool_1_min_count          = var.node_pool_1_min_count
-  node_pool_1_max_count          = var.node_pool_1_max_count
-  node_pool_1_local_ssd_count    = var.node_pool_1_local_ssd_count
-  node_pool_1_disk_size_gb       = var.node_pool_1_disk_size_gb
-  node_pool_1_initial_node_count = var.node_pool_1_initial_node_count
-  node_pool_1_image_type         = var.node_pool_1_image_type
-  node_pool_1_enable_secure_boot = var.node_pool_1_enable_secure_boot
+  # node_pool_1_name               = var.node_pool_1_name
+  # node_pool_1_machine_type       = var.node_pool_1_machine_type
+  # node_pool_1_min_count          = var.node_pool_1_min_count
+  # node_pool_1_max_count          = var.node_pool_1_max_count
+  # node_pool_1_local_ssd_count    = var.node_pool_1_local_ssd_count
+  # node_pool_1_disk_size_gb       = var.node_pool_1_disk_size_gb
+  # node_pool_1_initial_node_count = var.node_pool_1_initial_node_count
+  # node_pool_1_image_type         = var.node_pool_1_image_type
+  # node_pool_1_enable_secure_boot = var.node_pool_1_enable_secure_boot
 
   # Labels
   cluster_resource_labels = {
