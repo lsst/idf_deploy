@@ -20,47 +20,6 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
-# module "gke" {
-#   source = "../../../modules/gke"
-
-#   # Cluster
-#   name                   = "${var.application_name}-${var.environment}"
-#   network                = module.project_factory.network_name
-#   project_id             = module.project_factory.project_id
-#   subnetwork             = module.project_factory.subnets_names[0]
-#   master_ipv4_cidr_block = var.master_ipv4_cidr_block
-#   # node_pools             = var.node_pools
-
-#   # Node Pool
-#   node_pool_1_name               = var.node_pool_1_name
-#   node_pool_1_machine_type       = var.node_pool_1_machine_type
-#   node_pool_1_min_count          = var.node_pool_1_min_count
-#   node_pool_1_max_count          = var.node_pool_1_max_count
-#   node_pool_1_local_ssd_count    = var.node_pool_1_local_ssd_count
-#   node_pool_1_disk_size_gb       = var.node_pool_1_disk_size_gb
-#   node_pool_1_initial_node_count = var.node_pool_1_initial_node_count
-#   node_pool_1_image_type         = var.node_pool_1_image_type
-#   node_pool_1_enable_secure_boot = var.node_pool_1_enable_secure_boot
-
-#   # Labels
-#   cluster_resource_labels = {
-#     environment      = var.environment
-#     project          = module.project_factory.project_name
-#     application_name = var.application_name
-#   }
-
-#   node_pools_labels = {
-#     all = {
-#       environment      = var.environment
-#       project          = module.project_factory.project_name
-#       application_name = var.application_name
-#       infrastructure   = "ok"
-#       jupyterlab       = "ok"
-#       dask             = "ok"
-#     }
-#   }
-# }
-
 module "filestore" {
   source             = "../../../modules/filestore"
   fileshare_capacity = var.fileshare_capacity
@@ -95,10 +54,28 @@ module "service_account_cluster" {
   ]
 }
 
-# module "firewall_cert_manager" {
-#   source = ""
+module "firewall_cert_manager" {
+  source = "../../../modules/firewall"
 
-#   project_id = module.project_factory.project_id
-#   network = module.project_factory.network_name
-#   custom_rules = var.custom_rules
-# }
+  project_id = module.project_factory.project_id
+  network    = module.project_factory.network_name
+  custom_rules = {
+    cert-manager = {
+      description          = "cert manager rule"
+      direction            = "INGRESS"
+      action               = "allow"
+      ranges               = []
+      sources              = []
+      targets              = ["gke-${var.application_name}-${var.environment}"]
+      use_service_accounts = false
+      rules = [
+        {
+          protocol = "tcp"
+          ports    = ["8443"]
+        }
+      ]
+      extra_attributes = {}
+    }
+
+  }
+}
