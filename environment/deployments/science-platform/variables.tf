@@ -153,49 +153,49 @@ variable "maintenance_start_time" {
   default     = "05:00"
 }
 
-# variable "node_pool_1_name" {
-#   default = "core-pool"
-# }
-
-# variable "node_pool_1_image_type" {
-#   default = "cos_containerd"
-# }
-
-# variable "node_pool_1_enable_secure_boot" {
-#   description = "Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails."
-#   default = true  
-# }
-
-# variable "node_pool_1_machine_type" {
-#   default = "g1-small"
-# }
-
-# variable "node_pool_1_min_count" {
-#   default = 1
-# }
-
-# variable "node_pool_1_max_count" {
-#   default = 15
-# }
-
-# variable "node_pool_1_local_ssd_count" {
-#   default = 0
-# }
-
-# variable "node_pool_1_disk_size_gb" {
-#   default = 100
-# }
-
-# variable "node_pool_1_initial_node_count" {
-#   default = 1
-# }
-
-variable "node_pools" {
-  type        = list(map(string))
-  description = "List of maps containing node pools"
-
-  default = [{}]
+variable "node_pool_1_name" {
+  default = "core-pool"
 }
+
+variable "node_pool_1_image_type" {
+  default = "cos_containerd"
+}
+
+variable "node_pool_1_enable_secure_boot" {
+  description = "Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails."
+  default = true  
+}
+
+variable "node_pool_1_machine_type" {
+  default = "g1-small"
+}
+
+variable "node_pool_1_min_count" {
+  default = 1
+}
+
+variable "node_pool_1_max_count" {
+  default = 15
+}
+
+variable "node_pool_1_local_ssd_count" {
+  default = 0
+}
+
+variable "node_pool_1_disk_size_gb" {
+  default = 100
+}
+
+variable "node_pool_1_initial_node_count" {
+  default = 1
+}
+
+# variable "node_pools" {
+#   type        = list(map(string))
+#   description = "List of maps containing node pools"
+
+#   default = [{}]
+# }
 
 variable "cluster_resource_labels" {
   type        = map(string)
@@ -273,3 +273,30 @@ variable "router_name" {
   description = "Name of the router"
   default     = "cloud-router"
 }
+
+# FIREWALL
+
+# variable "custom_rules" {
+#   description = "List of custom rule definitions (refer to variables file for syntax)."
+#   default     = {
+#     description = "cert manager rule"
+#     direction = "INGRESS"
+#     action = "allow"
+#     targets = ["gke-science-platform-dev"]
+#     rules = 
+#   }
+#   type = map(object({
+#     description          = string
+#     direction            = string
+#     action               = string # (allow|deny)
+#     ranges               = list(string)
+#     sources              = list(string)
+#     targets              = list(string)
+#     use_service_accounts = bool
+#     rules = list(object({
+#       protocol = string
+#       ports    = list(string)
+#     }))
+#     extra_attributes = map(string)
+#   }))
+# }
