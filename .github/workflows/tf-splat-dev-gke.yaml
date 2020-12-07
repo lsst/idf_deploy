@@ -3,7 +3,7 @@ name: 'TF Science Platform DEV GKE'
 on:
   push:
     paths:
-    - 'environment/deployments/science-platform/gke/dev-gke.tfvars'
+    - 'environment/deployments/science-platform/env/dev-gke.tfvars'
     branches:
     - master
   pull_request:
