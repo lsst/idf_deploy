@@ -56,7 +56,7 @@ jobs:
       run: terraform plan -var-file=../env/integration-gke.tfvars -no-color
 
 
-    # # On push to main, build or change infrastructure according to Terraform configuration files
-    # - name: Terraform Apply
-    #   # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    #   run: terraform apply -var-file=../env/integration-gke.tfvars -auto-approve
+    # On push to main, build or change infrastructure according to Terraform configuration files
+    - name: Terraform Apply
+      # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -var-file=../env/integration-gke.tfvars -auto-approve
