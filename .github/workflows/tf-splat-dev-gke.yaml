@@ -3,7 +3,7 @@ name: 'TF Science Platform DEV GKE'
 on:
   push:
     paths:
-    - 'environment/deployments/science-platform/env/dev-gke.tfvars'
+    - 'environment/deployments/science-platform/gke/dev-gke.tfvars'
     branches:
     - master
   pull_request:
@@ -53,7 +53,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=env/dev-gke.tfvars -no-color
+      run: terraform plan -var-file=../env/dev-gke.tfvars -no-color
 
     # # On push to main, build or change infrastructure according to Terraform configuration files
     # - name: Terraform Apply
