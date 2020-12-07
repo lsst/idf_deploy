@@ -39,4 +39,3 @@ fileshare_capacity = 2000
 
 # NAT
 nats = [{ name = "cloud-nat" }]
-
