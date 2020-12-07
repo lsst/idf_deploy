@@ -50,3 +50,4 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
   },]
+  
