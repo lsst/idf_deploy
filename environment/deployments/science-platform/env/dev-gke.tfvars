@@ -47,6 +47,6 @@ node_pools = [
     initial_node_count = 5
     image_type         = "cos_containerd"
     enable_secure_boot = true
-    disk_size_gb       = "100"
-    disk_type          = "pd-standard"
+    disk_size_gb       = "200"
+    disk_type          = "pd-ssd"
   },]
