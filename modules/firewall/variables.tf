@@ -1,11 +1,6 @@
-# variable "name" {
-#     description = "Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long."
-#     default = "test-firewall"
-# }
-
 variable "network" {
   description = "Name of the network this set of firewall rules applies to."
-  default = "default"
+  default     = "default"
 }
 
 variable "project_id" {
