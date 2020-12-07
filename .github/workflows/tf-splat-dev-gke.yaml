@@ -1,4 +1,4 @@
-name: 'TF Deploy Science Platform DEV'
+name: 'TF Science Platform DEV GKE'
 
 on:
   push:
