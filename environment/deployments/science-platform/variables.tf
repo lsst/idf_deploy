@@ -72,7 +72,7 @@ variable "vpc_type" {
 
 variable "budget_amount" {
   description = "The amount to use for the budget"
-  default     = 100
+  default     = 1000
   type        = number
 }
 
@@ -88,7 +88,9 @@ variable "project_iam_permissions" {
     "roles/container.admin",
     "roles/compute.instanceAdmin",
     "roles/logging.admin",
-    "roles/file.editor"
+    "roles/file.editor",
+    "roles/compute.networkAdmin",
+    "roles/compute.securityAdmin"
   ]
 }
 
