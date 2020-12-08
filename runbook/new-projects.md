@@ -1,4 +1,4 @@
-**Deploying New Applications**
+<h1>Deploying New Applications</h1>
 
 To follow the current folder structure, each new application will have its own top-level folder. 
 
@@ -12,7 +12,7 @@ Click `Create`.
 
 <br>
 
-**Deploying Different Environments Per New Applications**
+<h1>Deploying Different Environments Per New Applications</h1>
 
 To follow the current folder structure, each new application will have its own top-level folder and sub-folders will further break out the environments into Production, Dev and Intergration. 
 
@@ -28,7 +28,7 @@ Repeat this process for the remaining environments.
 
 <br>
 
-**Update Projects and Clusters**
+<h1>Update Projects and Clusters</h1>
 
 To follow the current folder structure, each new application will have its own top-level folder and sub-folders will further break out the environments. Place newly created projects in the folder structure accordingly. 
 
