@@ -276,32 +276,10 @@ variable "router_name" {
   default     = "cloud-router"
 }
 
-# FIREWALL
+# STATIC IP RESERVATION
 
-# variable "custom_rules" {
-#   description = "List of custom rule definitions (refer to variables file for syntax)."
-#   default     = {
-#     description = "cert manager rule"
-#     direction = "INGRESS"
-#     action = "allow"
-#     targets = ["gke-science-platform-dev"]
-#     rules = [{
-#       protocol = "tcp"
-#       ports = "8443"
-#     }]
-#   }
-#   type = map(object({
-#     description          = string
-#     direction            = string
-#     action               = string # (allow|deny)
-#     ranges               = list(string)
-#     sources              = list(string)
-#     targets              = list(string)
-#     use_service_accounts = bool
-#     rules = list(object({
-#       protocol = string
-#       ports    = list(string)
-#     }))
-#     extra_attributes = map(string)
-#   }))
-# }
+variable "static_ip_name" {
+  description = "Name to give to the static ip"
+  type = string
+  default = "load balancer"
+}
