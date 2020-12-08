@@ -32,7 +32,7 @@ node_pools = [
   {
     name               = "core-pool"
     machine_type       = "n1-standard-8"
-    node_locations     = ["us-central1-b","us-central1-c"]
+    node_locations     = "us-central1-b","us-central1-c"
     min_count          = 1
     max_count          = 15
     local_ssd_count    = 0
