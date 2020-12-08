@@ -61,6 +61,6 @@ jobs:
     #   # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     #   run: terraform apply -var-file=../env/integration-gke.tfvars -auto-approve
 
-    # - name: Terraform Destroy
-    #   # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    #   run: terraform destroy -var-file=../env/integration-gke.tfvars -auto-approve
+    - name: Terraform Destroy
+      # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform destroy -var-file=../env/integration-gke.tfvars
