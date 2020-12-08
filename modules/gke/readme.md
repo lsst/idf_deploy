@@ -37,27 +37,19 @@ module "gke" {
 | name | A prefix to the default cluster name | `string` | `"simple"` | no |
 | network | The VPC network to host the cluster in (required) | `string` | n/a | yes |
 | network\_policy | Enable network policy addon | `bool` | `true` | no |
-| node\_pool\_1\_auto\_repair | n/a | `bool` | `true` | no |
-| node\_pool\_1\_auto\_upgrade | n/a | `bool` | `true` | no |
-| node\_pool\_1\_disk\_size\_gb | n/a | `number` | `100` | no |
-| node\_pool\_1\_disk\_type | n/a | `string` | `"pd-standard"` | no |
-| node\_pool\_1\_image\_type | n/a | `string` | `"COS"` | no |
-| node\_pool\_1\_initial\_node\_count | n/a | `number` | `1` | no |
-| node\_pool\_1\_local\_ssd\_count | n/a | `number` | `0` | no |
-| node\_pool\_1\_machine\_type | n/a | `string` | `"g1-small"` | no |
-| node\_pool\_1\_max\_count | n/a | `number` | `15` | no |
-| node\_pool\_1\_min\_count | n/a | `number` | `1` | no |
-| node\_pool\_1\_name | n/a | `string` | `"core-pool"` | no |
-| node\_pool\_1\_oauth\_scope | n/a | `string` | `"https://www.googleapis.com/auth/cloud-platform"` | no |
-| node\_pool\_1\_preemptible | n/a | `bool` | `false` | no |
-| node\_pools\_labels | Map of maps containing node labels by node-pool name | `map(map(string))` | <pre>{<br>  "all": {<br>    "environment": "environment_here",<br>    "owner": "owner_here"<br>  }<br>}</pre> | no |
+| node\_pools | List of maps containing node pools | `list(map(string))` | <pre>[<br>  {<br>    "auto_repair": true,<br>    "auto_upgrade": true,<br>    
+"disk_size_gb": "100",<br>    "disk_type": "pd-standard",<br>    "enable_secure_boot": true,<br>    "image_type": "cos_containerd",<br>    "initial_node_count": 5,<br>    "local_ssd_count": 0,<br>    "machine_type": "g1-small",<br>    "max_count": 15,<br>    "min_count": 1,<br>    "name": "core-pool",<br>    "node_locations": "us-central1-b",<br>    "preemptible": false<br>  }<br>]</pre> | no |
+| node\_pools\_labels | Map of maps containing node labels by node-pool name. | `map(map(string))` | <pre>{<br>  "all": {<br>    "environment": "environment_here",<br>    "owner": "owner_here"<br>  }<br>}</pre> | no |
 | project\_id | The project ID to host the cluster in (required) | `string` | n/a | yes |
 | region | Region to deploy cluster | `string` | `"us-central1"` | no |
-| regional | Whether is a regional cluster (zonal cluster if set false. WARNING: changing this after cluster creation is destructive!) | `bool` | `true` | no |   
+| regional | Whether is a regional cluster (zonal cluster if set false. WARNING: changing this after cluster creation is destructive!) | `bool` | `true` 
+| no |
+| release\_channel | The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `UNSPECIFIED`. 
+| `string` | `"STABLE"` | no |
 | remove\_default\_node\_pool | Remove default node pool while setting up the cluster | `bool` | `true` | no |
 | skip\_provisioners | Flag to skip local-exec provisioners | `bool` | `true` | no |
 | subnetwork | The subnetwork to host the cluster in (required) | `string` | n/a | yes |
-| zones | The zones to host the cluster in (optional if regional cluster / required if zonal) | `list(string)` | <pre>[<br>  "us-central1-a"<br>]</pre> | no |    
+| zones | The zones to host the cluster in (optional if regional cluster / required if zonal) | `list(string)` | <pre>[<br>  "us-central1-a"<br>]</pre> | no |
 
 ## Outputs
 

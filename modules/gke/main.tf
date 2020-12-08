@@ -34,22 +34,7 @@ module "gke" {
   enable_intranode_visibility        = var.enable_intranode_visibility
   authenticator_security_group       = "gke-security-groups@${var.authenticator_security_group}"
   node_pools                         = var.node_pools
-
-  # node_pools = [
-  #   {
-  #     name               = var.node_pool_1_name
-  #     machine_type       = var.node_pool_1_machine_type
-  #     min_count          = var.node_pool_1_min_count
-  #     max_count          = var.node_pool_1_max_count
-  #     local_ssd_count    = var.node_pool_1_local_ssd_count
-  #     auto_repair        = var.node_pool_1_auto_repair
-  #     auto_upgrade       = var.node_pool_1_auto_upgrade
-  #     preemptible        = var.node_pool_1_preemptible
-  #     initial_node_count = var.node_pool_1_initial_node_count
-  #     image_type         = var.node_pool_1_image_type
-  #     enable_secure_boot = var.node_pool_1_enable_secure_boot
-  #   },
-  # ]
+  release_channel                    = var.release_channel
 
   node_pools_labels = var.node_pools_labels
 }
