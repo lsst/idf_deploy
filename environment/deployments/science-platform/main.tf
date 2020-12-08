@@ -84,6 +84,6 @@ module "reserve_static_ip" {
   source = "../../../modules/ip_reservation"
 
   project = module.project_factory.project_id
-  region  = default_region
+  region  = var.default_region
   name    = var.static_ip_name
 }
