@@ -27,12 +27,6 @@ secondary_ranges = {
 
 # GKE
 master_ipv4_cidr_block = "172.17.0.0/28"
-# node_pool_1_name = "core-pool"
-# node_pool_1_machine_type = "e2-standard-4" # 4 vCPU 16GB RAM
-# node_pool_1_min_count = 1
-# node_pool_1_max_count = 15
-# node_pool_1_disk_size_gb = 100
-# node_pool_1_initial_node_count = 5
 
 node_pools = [
   {
