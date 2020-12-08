@@ -127,8 +127,8 @@ variable "remove_default_node_pool" {
 
 variable "release_channel" {
   type        = string
-  description = "The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `UNSPECIFIED`."
-  default     = "STABLE"
+  description = "The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `REGULAR`."
+  default     = "REGULAR"
 }
 
 variable "enable_resource_consumption_export" {

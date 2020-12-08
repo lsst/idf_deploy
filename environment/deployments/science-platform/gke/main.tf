@@ -39,6 +39,7 @@ module "gke" {
   subnetwork             = local.subnetwork
   master_ipv4_cidr_block = var.master_ipv4_cidr_block
   node_pools             = var.node_pools
+  release_channel        = var.release_channel
 
   # Labels
   cluster_resource_labels = {
