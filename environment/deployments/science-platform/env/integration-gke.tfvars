@@ -31,18 +31,19 @@ master_ipv4_cidr_block = "172.17.0.0/28"
 node_pools = [
   {
     name               = "core-pool"
-    machine_type       = "e2-standard-4"
-    node_locations     = "us-central1-b"
+    machine_type       = "n1-standard-8"
+    node_locations     = ["us-central1-b","us-central1-c"]
     min_count          = 1
     max_count          = 15
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
     preemptible        = false
-    initial_node_count = 5
     image_type         = "cos_containerd"
     enable_secure_boot = true
-    disk_size_gb       = "100"
-    disk_type          = "pd-standard"
+    disk_size_gb       = "200"
+    disk_type          = "pd-ssd"
+    autoscaling        = "false"
+    node_count         = 6
   },
 ]
