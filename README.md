@@ -25,3 +25,26 @@ The [deployments](./environment/deployments/projects) directory is used for the 
 
 #### [modules](./modules)
 The [modules](./modules) directory is where the blueprints of the infrastructure are stored.
+
+---
+## Runbook
+
+### Update Foundations
+
+This will include maintenance of the following:
+* Org policies
+* Org Groups and Roles
+* Logging
+* Shared VPC
+* Any project under the `Shared Services` Folder
+
+### New Projects
+
+This will include the maintenance and creation of new:
+* Deploy new applications (Qserv, Science Platform, etc)
+* Deploy different environments per applications (Dev, Int, Prod)
+* Update projects and clusters
+
+### New Pipelines
+
+This will include the creation of new pipelines and maintanece of existing pipelines:
