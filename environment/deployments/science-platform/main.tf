@@ -79,3 +79,11 @@ module "firewall_cert_manager" {
 
   }
 }
+
+module "reserve_static_ip" {
+  source = "../../../modules/ip_reservation"
+
+  project = module.project_factory.project_id
+  region  = var.default_region
+  name    = var.static_ip_name
+}
