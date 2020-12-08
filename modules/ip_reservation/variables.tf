@@ -42,7 +42,7 @@ variable "address_type" {
 variable "purpose" {
   description = "The purpose of this resource, which can be one of the following values:GCE_ENDPOINT or SHARED_LOADBALANCER_VIP "
   type        = string
-  default     = "GCE_ENDPOINT"
+  default     = "SHARED_LOADBALANCER_VIP"
 }
 
 variable "description" {
