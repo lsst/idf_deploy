@@ -281,5 +281,5 @@ variable "router_name" {
 variable "static_ip_name" {
   description = "Name to give to the static ip"
   type = string
-  default = "load balancer"
+  default = "load-balancer"
 }
