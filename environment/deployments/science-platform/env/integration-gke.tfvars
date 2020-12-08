@@ -37,7 +37,7 @@ master_ipv4_cidr_block = "172.17.0.0/28"
 node_pools = [
   {
     name               = "core-pool"
-    machine_type       = "g1-small"
+    machine_type       = "e2-standard-4"
     node_locations     = "us-central1-b"
     min_count          = 1
     max_count          = 15
@@ -51,19 +51,4 @@ node_pools = [
     disk_size_gb       = "100"
     disk_type          = "pd-standard"
   },
-  {
-    name               = "jhub-pool"
-    machine_type       = "g1-small"
-    node_locations     = "us-central1-b"
-    min_count          = 1
-    max_count          = 5
-    local_ssd_count    = 0
-    auto_repair        = true
-    auto_upgrade       = true
-    preemptible        = false
-    initial_node_count = 1
-    image_type         = "cos_containerd"
-    enable_secure_boot = true
-    disk_size_gb       = "100"
-    disk_type          = "pd-standard"
-  }]
+]
