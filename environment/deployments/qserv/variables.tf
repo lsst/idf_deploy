@@ -72,7 +72,7 @@ variable "vpc_type" {
 
 variable "budget_amount" {
   description = "The amount to use for the budget"
-  default     = 100
+  default     = 1000
   type        = number
 }
 
@@ -88,7 +88,9 @@ variable "project_iam_permissions" {
     "roles/container.admin",
     "roles/compute.instanceAdmin",
     "roles/logging.admin",
-    "roles/file.editor"
+    "roles/file.editor",
+    "roles/compute.networkAdmin",
+    "roles/compute.securityAdmin"
   ]
 }
 
@@ -137,8 +139,33 @@ variable "secondary_ranges" {
 
 # GKE
 
+variable "master_ipv4_cidr_block" {
+  default = "172.16.0.0/28"
+}
+
+variable "zones" {
+  description = "The zones to host the cluster in (optional if regional cluster / required if zonal)"
+  type        = list(string)
+  default     = ["us-central1-a"]
+}
+
+variable "maintenance_start_time" {
+  description = "Time window specified for daily maintenance operations in RFC3339 format"
+  type        = string
+  default     = "05:00"
+}
+
 variable "node_pool_1_name" {
   default = "core-pool"
+}
+
+variable "node_pool_1_image_type" {
+  default = "cos_containerd"
+}
+
+variable "node_pool_1_enable_secure_boot" {
+  description = "Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails."
+  default     = true
 }
 
 variable "node_pool_1_machine_type" {
@@ -165,6 +192,13 @@ variable "node_pool_1_initial_node_count" {
   default = 1
 }
 
+# variable "node_pools" {
+#   type        = list(map(string))
+#   description = "List of maps containing node pools"
+
+#   default = [{}]
+# }
+
 variable "cluster_resource_labels" {
   type        = map(string)
   description = "The GCE resource labels (a map of key/value pairs) to be applied to the cluster"
@@ -190,7 +224,7 @@ variable "node_pools_labels" {
 variable "name" {
   description = "The resource name of the instance."
   type        = string
-  default     = "fileshare-instance"
+  default     = "fshare-instance"
 }
 
 variable "zone" {
@@ -221,4 +255,31 @@ variable "modes" {
   description = "IP versions for which the instance has IP addresses assigned. Each value may be one of ADDRESS_MODE_UNSPECIFIED, MODE_IPV4, and MODE_IPV6."
   type        = list(string)
   default     = ["MODE_IPV4"]
+}
+
+# NAT
+
+variable "nats" {
+  description = "NATs to deploy on this router."
+  type        = any
+  default     = []
+  /*
+  default = [{
+      name = "example-nat"
+  }]
+  */
+}
+
+variable "router_name" {
+  type        = string
+  description = "Name of the router"
+  default     = "cloud-router"
+}
+
+# STATIC IP RESERVATION
+
+variable "static_ip_name" {
+  description = "Name to give to the static ip"
+  type = string
+  default = "load-balancer"
 }

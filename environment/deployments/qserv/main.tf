@@ -1,9 +1,9 @@
 module "project_factory" {
-  source          = "../../../modules/project_vpc"
-  org_id          = var.org_id
-  folder_id       = var.folder_id
-  billing_account = var.billing_account
-  project_prefix  = "${var.application_name}-${var.environment}"
+  source           = "../../../modules/project_vpc"
+  org_id           = var.org_id
+  folder_id        = var.folder_id
+  billing_account  = var.billing_account
+  project_prefix   = "${var.application_name}-${var.environment}"
   application_name = var.application_name
   environment      = var.environment
   activate_apis    = var.activate_apis
@@ -20,36 +20,12 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
-module "gke" {
-  source     = "../../../modules/gke"
-  name       = "${var.application_name}-${var.environment}"
-  network    = module.project_factory.network_name
-  project_id = module.project_factory.project_id
-  subnetwork = module.project_factory.subnets_names[0]
-  cluster_resource_labels = {
-    environment      = var.environment
-    project          = module.project_factory.project_name
-    application_name = var.application_name
-  }
-
-  node_pools_labels = {
-    all = {
-      environment      = var.environment
-      project          = module.project_factory.project_name
-      application_name = var.application_name
-      infrastructure   = "ok"
-      jupyterlab       = "ok"
-      dask             = "ok"
-    }
-  }
-}
-
 module "filestore" {
   source             = "../../../modules/filestore"
   fileshare_capacity = var.fileshare_capacity
-  fileshare_name     = "${var.fileshare_name}-${var.environment}"
+  fileshare_name     = var.fileshare_name
   modes              = var.modes
-  name               = var.name
+  name               = "${var.name}-${var.environment}"
   network            = module.project_factory.network_name
   project            = module.project_factory.project_id
   tier               = var.tier
@@ -58,15 +34,56 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
+module "nat" {
+  source  = "../../../modules/nat"
+  name    = var.router_name
+  project = module.project_factory.project_id
+  network = module.project_factory.network_name
+  region  = var.default_region
+  nats    = var.nats
+}
+
 module "service_account_cluster" {
-  source       = "terraform-google-modules/service-accounts/google"
-  version      = "~> 2.0"
-  project_id   = module.project_factory.project_id
-  prefix       = var.environment
-  #display_name = "Service Account for Kubernetes Cluster"
-  #description  = "A service account used for Cluster"
-  names        = ["cluster"]
+  source     = "terraform-google-modules/service-accounts/google"
+  version    = "~> 2.0"
+  project_id = module.project_factory.project_id
+  prefix     = var.environment
+  names      = ["cluster"]
   project_roles = [
     "${module.project_factory.project_id}=>roles/container.clusterAdmin",
   ]
+}
+
+module "firewall_cert_manager" {
+  source = "../../../modules/firewall"
+
+  project_id = module.project_factory.project_id
+  network    = module.project_factory.network_name
+  custom_rules = {
+    cert-manager = {
+      description          = "cert manager rule"
+      direction            = "INGRESS"
+      action               = "allow"
+      ranges               = []
+      sources              = []
+      targets              = ["gke-${var.application_name}-${var.environment}"]
+      use_service_accounts = false
+      rules = [
+        {
+          protocol = "tcp"
+          ports    = ["8443"]
+        }
+      ]
+      extra_attributes = {}
+    }
+
+  }
+}
+
+module "reserve_static_ip" {
+  source = "../../../modules/ip_reservation"
+
+  project = module.project_factory.project_id
+  region  = var.default_region
+  name    = var.static_ip_name
 }

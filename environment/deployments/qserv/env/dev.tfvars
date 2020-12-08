@@ -1,22 +1,17 @@
-activate_apis = [
-  "compute.googleapis.com",
-  "container.googleapis.com",
-  "stackdriver.googleapis.com",
-  "file.googleapis.com",
-  "storage.googleapis.com",
-  "billingbudgets.googleapis.com"
-]
-application_name        = "qserv" # name is also used for IAM
-billing_account         = "01122E-72D62B-0B0581"
-cost_centre             = "0123456789" # label
-default_region          = "us-central1"
-default_service_account = "keep"
-environment             = "qa"
+# Project
+environment             = "dev"
+application_name        = "science-platform"
 folder_id               = "985686879610"
-network_name            = "custom-vpc"
-org_id                  = "288991023210"
-#project_prefix          = "gke-splatform" # min. 4 characters
-routing_mode = "GLOBAL"
+
+# VPC
+network_name            = "science-platform-dev-vpc"
+subnets = [
+  {
+    "subnet_ip" : "10.128.0.0/23",
+    "subnet_name" : "subnet-us-central1-01",
+    "subnet_region" : "us-central1"
+  }
+]
 secondary_ranges = {
   "subnet-us-central1-01" : [
     {
@@ -29,11 +24,18 @@ secondary_ranges = {
     },
   ]
 }
-skip_gcloud_download = true
-subnets = [
-  {
-    "subnet_ip" : "10.128.0.0/23",
-    "subnet_name" : "subnet-us-central1-01",
-    "subnet_region" : "us-central1"
-  }
-]
+
+# GKE
+master_ipv4_cidr_block = "172.16.0.0/28"
+node_pool_1_name = "core-pool"
+node_pool_1_machine_type = "e2-standard-4" # 4 vCPU 16GB RAM
+node_pool_1_min_count = 1
+node_pool_1_max_count = 15
+node_pool_1_disk_size_gb = 100
+node_pool_1_initial_node_count = 5
+
+# Filestore
+fileshare_capacity = 2000
+
+# NAT
+nats = [{ name = "cloud-nat" }]
