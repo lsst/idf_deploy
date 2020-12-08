@@ -41,9 +41,9 @@ This will include maintenance of the following:
 ### New Projects
 
 This will include the maintenance and creation of new:
-* Deploy new applications (Qserv, Science Platform, etc)
-* Deploy different environments per applications (Dev, Int, Prod)
-* Update projects and clusters
+* [Deploy new applications (Qserv, Science Platform, etc)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-new-applications)
+* [Deploy different environments per applications (Dev, Int, Prod)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-different-environments-per-new-applications)
+* [Update projects and clusters](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#update-projects-and-clusters)
 
 ### New Pipelines
 
