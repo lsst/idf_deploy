@@ -3,7 +3,7 @@ name: 'TF Deploy QServ INT'
 on:
   push:
     paths:
-    - 'environment/deployments/qserv/env/int.tfvars'
+    - 'environment/deployments/qserv/env/integration.tfvars'
     branches:
     - master
   pull_request:
@@ -53,7 +53,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=env/int.tfvars -no-color
+      run: terraform plan -var-file=env/integration.tfvars -no-color
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
