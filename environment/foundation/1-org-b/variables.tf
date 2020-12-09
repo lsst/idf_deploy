@@ -11,7 +11,13 @@ variable "gcp_qserv_gke_cluster_admins_iam_permissions" {
     "roles/container.clusterAdmin",
     "roles/logging.admin",
     "roles/resourcemanager.projectCreator",
-    "roles/monitoring.admin"
+    "roles/monitoring.admin",
+    "roles/storage.admin",
+    "roles/compute.instanceAdmin",
+    "roles/logging.admin",
+    "roles/file.editor",
+    "roles/compute.networkAdmin",
+    "roles/compute.securityAdmin"
   ]
 }
 
@@ -23,7 +29,13 @@ variable "gcp_science_platform_gke_cluster_admins_iam_permissions" {
     "roles/container.clusterAdmin",
     "roles/logging.admin",
     "roles/resourcemanager.projectCreator",
-    "roles/monitoring.admin"
+    "roles/monitoring.admin",
+    "roles/storage.admin",
+    "roles/compute.instanceAdmin",
+    "roles/logging.admin",
+    "roles/file.editor",
+    "roles/compute.networkAdmin",
+    "roles/compute.securityAdmin"
   ]
 }
 
@@ -35,7 +47,13 @@ variable "gcp_processing_gke_cluster_admins_iam_permissions" {
     "roles/container.clusterAdmin",
     "roles/logging.admin",
     "roles/resourcemanager.projectCreator",
-    "roles/monitoring.admin"
+    "roles/monitoring.admin",
+    "roles/storage.admin",
+    "roles/compute.instanceAdmin",
+    "roles/logging.admin",
+    "roles/file.editor",
+    "roles/compute.networkAdmin",
+    "roles/compute.securityAdmin"
   ]
 }
 
@@ -47,7 +65,13 @@ variable "gcp_square_gke_cluster_admins_iam_permissions" {
     "roles/container.clusterAdmin",
     "roles/logging.admin",
     "roles/resourcemanager.projectCreator",
-    "roles/monitoring.admin"
+    "roles/monitoring.admin",
+    "roles/storage.admin",
+    "roles/compute.instanceAdmin",
+    "roles/logging.admin",
+    "roles/file.editor",
+    "roles/compute.networkAdmin",
+    "roles/compute.securityAdmin"
   ]
 }
 
