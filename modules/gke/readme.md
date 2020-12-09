@@ -4,6 +4,8 @@ This module handles opinionated Google Cloud Platform Kubernetes Engine cluster 
 
 This module illustrates how to create a simple private cluster.
 
+##
+
 ## Usage
 Simple example using the defaults and only the required inputs in the module.
 ```terraform
@@ -12,8 +14,29 @@ module "gke" {
     project_id = "my-exmaple-123"
     network = "default"
     subnetwork = "subnet-01"
+    node_pools = [
+    {
+        name               = "core-pool"
+        machine_type       = "n1-standard-4"
+        node_locations     = "us-central1-b,us-central1-c"
+        min_count          = 1
+        max_count          = 15
+        local_ssd_count    = 0
+        auto_repair        = true
+        auto_upgrade       = true
+        preemptible        = false
+        image_type         = "cos_containerd"
+        enable_secure_boot = true
+        disk_size_gb       = "200"
+        disk_type          = "pd-ssd"
+        autoscaling        = "false"
+        node_count         = 3
+    },
+    ]
 }
 ```
+
+>Note: if you deploy in multiplie zones, it will take the number of zones in `node_locations` * the `node_count` value. The example would produce 6 nodes if deployed.
 
 ## Inputs
 
@@ -63,3 +86,9 @@ module "gke" {
 | region | Cluster region |
 | service\_account | The default service account used for running nodes. |
 | zones | List of zones in which the cluster resides |
+
+## Private Cluster Requirements, restrictions and limitations
+
+Implementing a private cluster has technical requirements, restrictions and limitations. These are outline in [this link](https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters#req_res_lim)
+
+* One to be aware of is do not overlap with the range `172.17.0.0/16` as this is an IP range Google uses.
