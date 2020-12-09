@@ -3,7 +3,7 @@ environment             = "dev"
 application_name        = "qserv"
 
 # VPC
-#network_name            = "science-platform-dev-vpc"
+network_name            = "qserv-dev-vpc"
 subnets = [
   {
     "subnet_ip" : "10.134.0.0/23",
