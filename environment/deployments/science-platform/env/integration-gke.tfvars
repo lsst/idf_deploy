@@ -26,15 +26,13 @@ secondary_ranges = {
 
 
 # GKE
-master_ipv4_cidr_block = "172.19.0.0/28"
+master_ipv4_cidr_block = "172.18.0.0/28"
 
 node_pools = [
   {
     name               = "core-pool"
     machine_type       = "n1-standard-4"
     node_locations     = "us-central1-b, us-central1-c"
-    min_count          = 1
-    max_count          = 15
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
@@ -44,6 +42,6 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
     autoscaling        = "false"
-    node_count         = 6
+    node_count         = 3
   },
 ]
