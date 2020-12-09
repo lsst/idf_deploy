@@ -26,13 +26,12 @@ secondary_ranges = {
 
 # GKE
 master_ipv4_cidr_block = "172.20.0.0/28"
+release_channel = "RAPID"
 node_pools = [
   {
-    name               = "core-pool"
-    machine_type       = "n1-standard-4"
-    node_locations     = "us-central1-b,us-central1-c"
-    min_count          = 1
-    max_count          = 15
+    name               = "czar-pool"
+    machine_type       = "n2-standard-32"
+    node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
@@ -43,5 +42,20 @@ node_pools = [
     disk_type          = "pd-ssd"
     autoscaling        = "false"
     node_count         = 1
+  },
+  {
+    name               = "worker-pool"
+    machine_type       = "n2-standard-16"
+    node_locations     = "us-central1-b,us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = false
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "200"
+    disk_type          = "pd-standard"
+    autoscaling        = "false"
+    node_count         = 5
   },
 ]
