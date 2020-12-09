@@ -3,7 +3,7 @@ environment             = "int"
 application_name        = "science-platform"
 
 # VPC
-#network_name            = "science-platform-int-vpc"
+network_name            = "science-platform-int-vpc"
 subnets = [
   {
     "subnet_ip" : "10.130.0.0/23",
