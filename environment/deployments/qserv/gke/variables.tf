@@ -19,8 +19,6 @@ variable "network_name" {
 }
 
 
-
-
 # GKE
 
 variable "master_ipv4_cidr_block" {
@@ -38,43 +36,6 @@ variable "maintenance_start_time" {
   type        = string
   default     = "05:00"
 }
-
-# variable "node_pool_1_name" {
-#   default = "core-pool"
-# }
-
-# variable "node_pool_1_image_type" {
-#   default = "cos_containerd"
-# }
-
-# variable "node_pool_1_enable_secure_boot" {
-#   description = "Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails."
-#   default = true  
-# }
-
-# variable "node_pool_1_machine_type" {
-#   default = "g1-small"
-# }
-
-# variable "node_pool_1_min_count" {
-#   default = 1
-# }
-
-# variable "node_pool_1_max_count" {
-#   default = 15
-# }
-
-# variable "node_pool_1_local_ssd_count" {
-#   default = 0
-# }
-
-# variable "node_pool_1_disk_size_gb" {
-#   default = 100
-# }
-
-# variable "node_pool_1_initial_node_count" {
-#   default = 1
-# }
 
 variable "node_pools" {
   type        = list(map(string))
