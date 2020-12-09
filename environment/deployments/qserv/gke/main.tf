@@ -42,6 +42,7 @@ module "gke" {
   network                = var.network_name
   subnetwork             = local.subnetwork
   master_ipv4_cidr_block = var.master_ipv4_cidr_block
+  release_channel        = var.release_channel
   node_pools             = var.node_pools
 
   # Labels

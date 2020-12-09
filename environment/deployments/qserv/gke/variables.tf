@@ -37,6 +37,12 @@ variable "maintenance_start_time" {
   default     = "05:00"
 }
 
+variable "release_channel" {
+  type        = string
+  description = "The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `UNSPECIFIED`."
+  default     = "STABLE"
+}
+
 variable "node_pools" {
   type        = list(map(string))
   description = "List of maps containing node pools"
