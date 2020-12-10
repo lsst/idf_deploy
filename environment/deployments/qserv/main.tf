@@ -31,6 +31,11 @@ module "filestore" {
   project            = module.project_factory.project_id
   tier               = var.tier
   zone               = var.zone
+  labels = {
+    project          = module.project_factory.project_id
+    environment      = var.environment
+    application_name = var.application_name
+  }
 
   depends_on = [module.project_factory]
 }

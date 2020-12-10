@@ -160,6 +160,14 @@ variable "modes" {
   default     = ["MODE_IPV4"]
 }
 
+variable "labels" {
+  description = "Labels"
+  default = {
+    name             = "cluster"
+    application_name = "app_name"
+  }
+}
+
 # NAT
 
 variable "nats" {
