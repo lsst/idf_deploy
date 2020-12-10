@@ -67,7 +67,7 @@ module "firewall_cert_manager" {
   network    = module.project_factory.network_name
   custom_rules = {
     cert-manager = {
-      description          = "cert manager rule"
+      description          = "qserv-qserv"
       direction            = "INGRESS"
       action               = "allow"
       ranges               = []
@@ -77,7 +77,7 @@ module "firewall_cert_manager" {
       rules = [
         {
           protocol = "tcp"
-          ports    = ["8443"]
+          ports    = ["4040"]
         }
       ]
       extra_attributes = {}
