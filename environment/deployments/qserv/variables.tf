@@ -168,6 +168,14 @@ variable "labels" {
   }
 }
 
+# FIREWALL
+
+variable "fw_sources" {
+  description = "Firewall source IP addresses"
+  type = list(string)
+  default = []  
+}
+
 # NAT
 
 variable "router_name" {

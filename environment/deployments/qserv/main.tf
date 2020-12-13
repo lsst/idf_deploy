@@ -51,6 +51,7 @@ module "service_account_cluster" {
   ]
 }
 
+
 module "firewall_cert_manager" {
   source = "../../../modules/firewall"
 
@@ -62,7 +63,7 @@ module "firewall_cert_manager" {
       direction            = "INGRESS"
       action               = "allow"
       ranges               = []
-      sources              = []
+      sources              = var.fw_sources
       targets              = ["gke-${var.application_name}-${var.environment}"]
       use_service_accounts = false
       rules = [
