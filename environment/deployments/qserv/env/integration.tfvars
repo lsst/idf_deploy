@@ -29,4 +29,5 @@ secondary_ranges = {
 fileshare_capacity = 2000
 
 # NAT
-nats = [{ name = "cloud-nat" }]
+address_count = 1
+nat_name = "cloud-nat"
