@@ -43,6 +43,12 @@ variable "release_channel" {
   default     = "STABLE"
 }
 
+variable "network_policy" {
+  description = "Enable network policy addon"
+  type        = bool
+  default     = false
+}
+
 variable "node_pools" {
   type        = list(map(string))
   description = "List of maps containing node pools"

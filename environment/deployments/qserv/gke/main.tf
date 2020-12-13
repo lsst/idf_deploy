@@ -44,6 +44,7 @@ module "gke" {
   master_ipv4_cidr_block = var.master_ipv4_cidr_block
   release_channel        = var.release_channel
   node_pools             = var.node_pools
+  network_policy         = var.network_policy
 
   # Labels
   cluster_resource_labels = {
