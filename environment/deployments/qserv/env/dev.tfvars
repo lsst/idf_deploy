@@ -28,5 +28,9 @@ secondary_ranges = {
 # Filestore
 fileshare_capacity = 2000
 
+# Firewall
+fw_sources = ["10.128.0.0/23","10.128.16.0/20","10.129.0.0/16"] # Science-Platform-Integration CIDRs
+
 # NAT
-nats = [{ name = "cloud-nat" }]
+address_count = 1
+nat_name = "cloud-nat"
