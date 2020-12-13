@@ -170,19 +170,50 @@ variable "labels" {
 
 # NAT
 
-variable "nats" {
-  description = "NATs to deploy on this router."
-  type        = any
-  default     = []
-  /*
-  default = [{
-      name = "example-nat"
-  }]
-  */
+variable "router_name" {
+  description = "The name to give to the router"
+  type        = string
+  default     = "nat-router"
 }
 
-variable "router_name" {
+variable "address_count" {
+  description = "The number of reserved IP addresses needed"
+  type        = number
+  default     = 1
+}
+
+variable "address_name" {
+  description = "The name to give to the reserved IP address."
   type        = string
-  description = "Name of the router"
-  default     = "cloud-router"
+  default     = "nat-external-address"
+}
+
+variable "address_type" {
+  description = "The type of address to attach to the NAT. Options are `EXTERNAL` or `INTERNAL`"
+  type        = string
+  default     = "EXTERNAL"
+}
+
+variable "address_labels" {
+  description = "Labels to add to the reserved IP address"
+  type        = map(string)
+  default     = {}
+}
+
+variable "nat_name" {
+  description = "Name of the NAT service. Name must be 1-63 characters."
+  type        = string
+  default     = "cloud-nat"
+}
+
+variable "log_config_enable" {
+  description = ""
+  type        = bool
+  default     = false
+}
+
+variable "log_config_filter" {
+  description = "Specified the desired filtering of logs on this NAT. Possible values are `ERRORS_ONLY`, `TRANSLATIOSN_ONLY`, `ALL`"
+  type        = string
+  default     = "ERRORS_ONLY"
 }

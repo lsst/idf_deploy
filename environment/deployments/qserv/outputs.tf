@@ -42,3 +42,24 @@ output "subnets_self_links" {
   description = "The self-links of subnets being created"
   value       = module.project_factory.subnets_self_links
 }
+
+// Reserved IP
+output "reserved_ip_address" {
+  description = "The static external IP address represented by the resource"
+  value       = module.nat.address
+}
+
+output "address_name" {
+  description = "The name of the static ip address"
+  value       = module.nat.address_name
+}
+
+output "nat_name" {
+  description = "The name of the NAT"
+  value       = module.nat.nat_name
+}
+
+output "nat_id" {
+  description = "The self ID of the NAT"
+  value       = module.nat.nat_id
+}
