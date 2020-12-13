@@ -62,8 +62,8 @@ module "firewall_cert_manager" {
       description          = "qserv-qserv"
       direction            = "INGRESS"
       action               = "allow"
-      ranges               = []
-      sources              = var.fw_sources
+      ranges               = var.fw_sources
+      sources              = []
       targets              = ["gke-${var.application_name}-${var.environment}"]
       use_service_accounts = false
       rules = [
