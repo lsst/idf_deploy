@@ -43,6 +43,28 @@ output "subnets_self_links" {
   value       = module.project_factory.subnets_self_links
 }
 
+// Filestore
+
+output "filestore_name" {
+  description = "The name of the fileshare"
+  value       = module.filestore.name
+}
+
+output "filestore_id" {
+  description = "An identifier for the resource"
+  value       = module.filestore.id
+}
+
+output "filestore_ip_address" {
+  description = "A list of IPv4 or IPv6 addresses"
+  value       = module.filestore.ip_addresses
+}
+
+output "filestore_fileshares" {
+  description = "File share capacity in GiB"
+  value       = module.filestore.file_shares
+}
+
 // Reserved IP
 output "reserved_ip_address" {
   description = "The static external IP address represented by the resource"
