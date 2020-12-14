@@ -1,26 +1,22 @@
 # ----------------------------------------
 #   RETRIEVE PROJECT NAME BASED ON FILTERS
 # ----------------------------------------
-
+// Get project name from label filter
 data "google_projects" "host_project" {
   filter = "labels.application_name=${var.application_name} labels.environment=${var.environment}"
 }
 
+// Get Network
 data "google_compute_network" "network" {
   name    = var.network_name
   project = local.project_id
 }
 
-# output "subnetwork_self_link" {
-#     value = data.google_compute_network.network.subnetworks_self_links
-# }
-
+// Get Subnetwork
 data "google_compute_subnetwork" "subnetwork" {
   name    = "subnet-us-central1-01"
   region  = "us-central1"
   project = local.project_id
-  #self_link = data.google_compute_network.network.subnetworks_self_links[0]
-  #self_link = "https://www.googleapis.com/compute/v1/projects/science-platform-int-dc5d/regions/us-central1/subnetworks/subnet-us-central1-01"
 }
 
 # ----------------------------------------
