@@ -172,8 +172,8 @@ variable "labels" {
 
 variable "fw_sources" {
   description = "Firewall source IP addresses"
-  type = list(string)
-  default = []  
+  type        = list(string)
+  default     = []
 }
 
 # NAT
