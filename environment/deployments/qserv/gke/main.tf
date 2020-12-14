@@ -11,16 +11,10 @@ data "google_compute_network" "network" {
   project = local.project_id
 }
 
-# output "subnetwork_self_link" {
-#     value = data.google_compute_network.network.subnetworks_self_links
-# }
-
 data "google_compute_subnetwork" "subnetwork" {
   name    = "subnet-us-central1-01"
   region  = "us-central1"
   project = local.project_id
-  #self_link = data.google_compute_network.network.subnetworks_self_links[0]
-  #self_link = "https://www.googleapis.com/compute/v1/projects/science-platform-int-dc5d/regions/us-central1/subnetworks/subnet-us-central1-01"
 }
 
 # ----------------------------------------
@@ -61,7 +55,7 @@ module "gke" {
       project          = local.project_id
       application_name = var.application_name
     }
-    
+
     czar-pool = {
       tier = "czar"
     }
