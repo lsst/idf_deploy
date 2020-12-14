@@ -30,6 +30,11 @@ module "filestore" {
   project            = module.project_factory.project_id
   tier               = var.tier
   zone               = var.zone
+  labels = {
+    project          = module.project_factory.project_id
+    environment      = var.environment
+    application_name = var.application_name
+  }
 
   depends_on = [module.project_factory]
 }
@@ -80,10 +85,10 @@ module "firewall_cert_manager" {
   }
 }
 
-module "reserve_static_ip" {
-  source = "../../../modules/ip_reservation"
+# module "reserve_static_ip" {
+#   source = "../../../modules/ip_reservation"
 
-  project = module.project_factory.project_id
-  region  = var.default_region
-  name    = var.static_ip_name
-}
+#   project = module.project_factory.project_id
+#   region  = var.default_region
+#   name    = var.static_ip_name
+# }
