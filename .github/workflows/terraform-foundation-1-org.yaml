@@ -1,4 +1,4 @@
-name: 'Terraform Deploy'
+name: 'Terraform Deploy Org'
 
 on:
   push:

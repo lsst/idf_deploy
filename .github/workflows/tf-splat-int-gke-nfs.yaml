@@ -7,7 +7,7 @@ on:
 
 env:
   WORKING_DIR: ./environment/deployments/science-platform/gke
-  TF_CONFIG_PREFIX: science-platform/dev/gke
+  TF_CONFIG_PREFIX: science-platform/int/gke
   TF_VAR_FILE: ../env/integration-gke.tfvars
   GKE_PROJECT_ID: science-platform-int-dc5d
   YQ_VERSION: 3.4.1
