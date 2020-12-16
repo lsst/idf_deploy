@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/nfs/server
+  value: 10.32.92.1

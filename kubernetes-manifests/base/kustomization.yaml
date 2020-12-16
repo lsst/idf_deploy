@@ -1,0 +1,5 @@
+resources:
+- nfs.class.yaml
+- nfs.pv.yaml
+- nfs.pvc.claim.yaml
+- nfs.dir.deploy.yaml

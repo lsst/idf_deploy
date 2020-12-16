@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fs-provisioner
+spec:
+  template:
+    spec:
+      containers:
+        - image: lsstsqre/fs-provisioner:latest
+          imagePullPolicy: Always
+          name: fs-provisioner
+          volumeMounts:
+          - mountPath: /storage
+            name: storage
+      restartPolicy: Never
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: gcp-filestore-setup-claim
+          readOnly: false
