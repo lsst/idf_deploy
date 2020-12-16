@@ -34,7 +34,7 @@ jobs:
     - name: GCP login
       uses: google-github-actions/setup-gcloud@master
       with:
-        version: ${GCLOUD_VERSION}
+        version: '319.0.0'
         service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
