@@ -31,7 +31,7 @@ node_pools = [
   {
     name               = "czar-pool"
     machine_type       = "n2-standard-32"
-    node_locations     = "us-central1-b"
+    node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
@@ -46,7 +46,7 @@ node_pools = [
   {
     name               = "worker-pool"
     machine_type       = "n2-standard-16"
-    node_locations     = "us-central1-b,us-central1-c"
+    node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
