@@ -7,10 +7,8 @@ on:
 
 env:
   WORKING_DIR: ./environment/deployments/science-platform/gke
-  TF_VERSION: 0.12.29
   TF_CONFIG_PREFIX: science-platform/dev/gke
   TF_VAR_FILE: ../env/integration-gke.tfvars
-  GCLOUD_VERSION: 319.0.0
   GKE_PROJECT_ID: science-platform-int-dc5d
   YQ_VERSION: 3.4.1
 
@@ -43,7 +41,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: ${TF_VERSION}
+        terraform_version: 0.12.29
 
      # Checks for proper formatting
     - name: Terraform Fmt
