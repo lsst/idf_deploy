@@ -143,6 +143,12 @@ variable "enable_shielded_nodes" {
   default     = true
 }
 
+variable "gce_pd_csi_driver" {
+  description = "(Beta) Whether this cluster should enable the Google Compute Engine Persistent Disk Container Storage Interface (CSI) Driver."
+  type        = bool
+  default     = false
+}
+
 # ----------------------------------------
 #  NODE POOL VALUES
 # ----------------------------------------

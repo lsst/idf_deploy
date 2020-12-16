@@ -36,6 +36,7 @@ module "gke" {
   authenticator_security_group       = "gke-security-groups@${var.authenticator_security_group}"
   node_pools                         = var.node_pools
   release_channel                    = var.release_channel
+  gce_pd_csi_driver                  = var.gce_pd_csi_driver
 
   node_pools_labels = var.node_pools_labels
 }
