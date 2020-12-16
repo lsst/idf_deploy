@@ -66,12 +66,12 @@ jobs:
       run: terraform plan -var-file=${TF_VAR_FILE} -no-color
 
     # Set up yq
-      - name: Set up yq
-        run: |-
-          wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O yq
-          chmod +x yq
+    - name: Set up yq
+      run: |-
+        wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O yq
+        chmod +x yq
 
     # Update Filestore Address Persistent Volume Patch
-      - name: Update Filestore Address
-        run: |-
-          terraform output filestore_ip_address | ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value
+    - name: Update Filestore Address
+      run: |-
+        terraform output filestore_ip_address | ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value
