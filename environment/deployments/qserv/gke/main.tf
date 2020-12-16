@@ -39,6 +39,7 @@ module "gke" {
   release_channel        = var.release_channel
   node_pools             = var.node_pools
   network_policy         = var.network_policy
+  gce_pd_csi_driver      = var.gce_pd_csi_driver
 
   # Labels
   cluster_resource_labels = {
