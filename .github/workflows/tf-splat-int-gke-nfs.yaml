@@ -74,4 +74,5 @@ jobs:
     - name: Update Filestore Address
       working-directory: ./kubernetes-manifests
       run: |-
-        terraform output filestore_ip_address | ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value
+        FILESTORE_IP=$(terraform output filestore_ip_address)
+        ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value $FILESTORE_IP
