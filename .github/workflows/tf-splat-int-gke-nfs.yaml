@@ -64,7 +64,7 @@ jobs:
       run: terraform plan -var-file=${TF_VAR_FILE} -no-color
 
     # Creates variable for Filestore IP
-    - name: Terraform Plan
+    - name: Output Filestore IP
       id: plan
       run: |-
         FILESTORE_IP=$(terraform output filestore_ip_address)
