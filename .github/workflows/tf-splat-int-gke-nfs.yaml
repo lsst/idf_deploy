@@ -75,4 +75,5 @@ jobs:
       working-directory: ./kubernetes-manifests
       run: |-
         FILESTORE_IP=$(terraform output filestore_ip_address)
+        echo $FILESTORE_IP
         ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value $FILESTORE_IP
