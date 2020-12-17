@@ -65,11 +65,13 @@ jobs:
 
     # Set up yq
     - name: Set up yq
+      working-directory: ./kubernetes-manifests
       run: |-
         wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O yq
         chmod +x yq
 
     # Update Filestore Address Persistent Volume Patch
     - name: Update Filestore Address
+      working-directory: ./kubernetes-manifests
       run: |-
-        terraform output filestore_ip_address | ./yq w -i ./kubernetes-manifests/overlays/dev/nfs.ip.patch.yaml [].value
+        terraform output filestore_ip_address | ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value
