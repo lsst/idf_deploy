@@ -65,7 +65,7 @@ jobs:
 
     # Creates variable for Filestore IP
     - name: Output Filestore IP
-      id: plan
+      id: output-filestore-ip
       run: |-
         FILESTORE_IP=$(terraform output filestore_ip_address)
         echo $FILESTORE_IP
