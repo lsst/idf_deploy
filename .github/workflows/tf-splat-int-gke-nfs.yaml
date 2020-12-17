@@ -72,4 +72,4 @@ jobs:
     # Update Filestore Address Persistent Volume Patch
     - name: Update Filestore Address
       run: |-
-        terraform output filestore_ip_address | ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value
+        terraform output filestore_ip_address | ./yq w -i /kubernetes-manifests/overlays/dev/nfs.ip.patch.yaml [].value
