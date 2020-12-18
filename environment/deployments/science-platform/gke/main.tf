@@ -34,9 +34,10 @@ data "terraform_remote_state" "filestore" {
 # ----------------------------------------
 
 locals {
-  project_id = data.google_projects.host_project.projects[0].project_id
-  network    = data.google_compute_network.network.name
-  subnetwork = data.google_compute_subnetwork.subnetwork.name
+  project_id  = data.google_projects.host_project.projects[0].project_id
+  network     = data.google_compute_network.network.name
+  subnetwork  = data.google_compute_subnetwork.subnetwork.name
+  filestore_ip = data.filestore.filestore_ip_address
 }
 
 module "gke" {
