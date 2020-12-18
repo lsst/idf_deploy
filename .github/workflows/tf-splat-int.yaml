@@ -1,26 +1,30 @@
-name: 'TF Deploy Science Platform Integrate'
+name: 'Science Platform Integrate TF Deploy'
 
 on:
+  pull_request:
+    paths:
+      - 'environment/deployments/science-platform/env/integration.tfvars'
+    branches:
+      - master
   push:
     paths:
-    - 'environment/deployments/science-platform/env/integration.tfvars'
+      - 'environment/deployments/science-platform/env/integration.tfvars'
     branches:
-    - master
-  pull_request:
+      - master
 
 jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Sets default shell and working directory
     defaults:
       run:
         shell: bash
         working-directory: ./environment/deployments/science-platform
 
-    steps:
     # Checkout the repository to the GitHub Actions runner
+    steps:
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -33,12 +37,13 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
+    # Install Terraform
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 0.13.5
 
-     # Checks for proper formatting
+     # Checks for proper terraform code formatting
     - name: Terraform Fmt
       run: terraform fmt
 
@@ -50,13 +55,12 @@ jobs:
     - name: Terraform Validate
       run: terraform validate
 
-    # Generates an execution plan for Terraform
+    # Generates Terraform execution plan
     - name: Terraform Plan
       id: plan
       run: terraform plan -var-file=env/integration.tfvars -no-color
 
-
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -var-file=env/integration.tfvars -auto-approve
