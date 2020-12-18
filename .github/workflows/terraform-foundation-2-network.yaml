@@ -1,12 +1,15 @@
-name: 'Terraform Deploy Network'
+# Deploys GCP Network Foundation
+name: 'GCP Network Foundation'
 
 on:
-  push:
-    paths:
-    - 'environment/foundation/2-networks/**'
-    branches:
-    - master
   pull_request:
+    paths:
+      - 'environment/foundation/2-networks/**'
+  push:
+    branches:
+      - master
+    paths:
+      - 'environment/foundation/2-networks/**'
 
 jobs:
   terraform:
@@ -57,5 +60,5 @@ jobs:
 
     # # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-    #   #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -auto-approve
