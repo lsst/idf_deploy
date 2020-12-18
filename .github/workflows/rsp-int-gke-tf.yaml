@@ -1,9 +1,10 @@
-name: 'TF Deploy Science Platform STABLE'
+# Deploys Science Platform Integration GCP Project with Terraform
+name: 'TF Science Platform Int GKE'
 
 on:
   push:
     paths:
-    - 'environment/deployments/science-platform/env/stable.tfvars'
+    - 'environment/deployments/science-platform/env/integration-gke.tfvars'
     branches:
     - master
   pull_request:
@@ -17,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./environment/deployments/science-platform
+        working-directory: ./environment/deployments/science-platform/gke
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -36,7 +37,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.13.5
+        terraform_version: 0.12.29
 
      # Checks for proper formatting
     - name: Terraform Fmt
@@ -44,19 +45,19 @@ jobs:
 
      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=science-platform/dev
+      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=science-platform/int/gke
 
     # Checks that all Terraform configuration files adhere to a canonical format
-    # - name: Terraform Validate
-    #   run: terraform validate
+    - name: Terraform Validate
+      run: terraform validate
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=env/stable.tfvars -no-color
-      continue-on-error: true
+      run: terraform plan -var-file=../env/integration-gke.tfvars -no-color
+      #continue-on-error: true
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -var-file=env/stable.tfvars -auto-approve
+      run: terraform apply -var-file=../env/integration-gke.tfvars -auto-approve
