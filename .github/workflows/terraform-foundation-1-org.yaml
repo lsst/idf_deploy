@@ -1,12 +1,15 @@
-name: 'Terraform Deploy Org'
+# Deploys GCP Organization level settings with Terraform
+name: 'GCP Organization Level Settings'
 
 on:
+  pull_request:
+    paths:
+      - 'environment/foundation/1-org/**'
   push:
     paths:
-    - 'environment/foundation/1-org/**'
+      - 'environment/foundation/1-org/**'
     branches:
-    - master
-  pull_request:
+      - master
 
 jobs:
   terraform:
@@ -19,12 +22,12 @@ jobs:
         shell: bash
         working-directory: ./environment/foundation/1-org/
 
-    steps:
     # Checkout the repository to the GitHub Actions runner
+    steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # Gcloud CLI setup
+    # gcloud CLI setup
     - name: GCP login
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -33,16 +36,17 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
+    # Installs terraform
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 0.13.5
 
-     # Checks for proper formatting
+    # Checks for proper formatting in terraform code
     - name: Terraform Fmt
       run: terraform fmt
 
-     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    # Initialize a new or existing terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
 
@@ -51,11 +55,11 @@ jobs:
     # - name: Terraform Validate
     #   run: terraform validate
 
-    # Generates an execution plan for Terraform
+    # Generates an execution plan for terraform
     - name: Terraform Plan
       run: terraform plan
 
-    # # On push to main, build or change infrastructure according to Terraform configuration files
+    # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-    #   #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -auto-approve
