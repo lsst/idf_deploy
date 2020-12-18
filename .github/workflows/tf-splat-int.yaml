@@ -1,11 +1,10 @@
+# Deploys Science Platform Integration GCP Project with Terraform
 name: 'Science Platform Integrate TF Deploy'
 
 on:
   pull_request:
     paths:
       - 'environment/deployments/science-platform/env/integration.tfvars'
-    branches:
-      - master
   push:
     paths:
       - 'environment/deployments/science-platform/env/integration.tfvars'
