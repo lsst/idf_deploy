@@ -45,3 +45,7 @@ node_pools = [
     node_count         = 3
   },
 ]
+
+# TF State
+bucket = "lsst-terraform-state"
+prefix = "qserv/int/gke"
