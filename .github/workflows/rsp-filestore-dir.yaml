@@ -1,0 +1,75 @@
+# Sets up directories on NFS for Filestore.  Do not run more than once.
+name: 'RSP FILESTORE DIR'
+
+on:
+  workflow_dispatch:
+    inputs:
+      gcpProject:
+        description: GCP Project ID
+        required: true
+      gkeCluster:
+        description: 'GKE Cluster used to prep NFS dirs'     
+        required: true
+      filestore:
+        description: 'Filestore to configure NFS dirs'
+        required: true
+
+jobs:
+  build:
+    name: 'Setups directories on GCP filestore for use'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./kubernetes-manifests
+  
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Gcloud CLI setup
+      - name: GCP login
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '319.0.0'
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          project_id: ${{ github.event.inputs.gcpProject }}
+          export_default_credentials: true
+
+      # Set up yq
+      - name: Set up yq
+        run: |-
+          wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O yq
+          chmod +x yq
+        env:
+          YQ_VERSION: 3.4.1
+
+      # Get the Filestore IP
+      - name: Get Filestore IP
+        run: |-
+          FILESTORE_IP=$(gcloud filestore instances list --filter=name:"${{ github.event.inputs.filestore }}"  --format="value(IP_ADDRESS)")
+
+      # Update Filestore Address Persistent Volume Patch
+      - name: Update Filestore Address
+        run: |-
+          ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value $FILESTORE_IP
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - name: GKE Credential Setup
+        run: |-
+          gcloud container clusters get-credentials "${{ github.event.inputs.gkeCluster }}" --zone "${GKE_REGION}"
+        env:
+          GKE_REGION: us-central1
+
+      # Validate the kubernetes manifest from kustomize
+      - name: Validate Kubernetes Manifests
+        run: |-
+          kustomize build overlays/dev
+
+      # Deploy the kubernetes manifest from kustomize
+      - name: Deploy Kubernetes Manifests
+        run: |-
+          kustomize build overlays/dev | kubectl apply -f -
