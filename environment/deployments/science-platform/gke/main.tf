@@ -19,16 +19,6 @@ data "google_compute_subnetwork" "subnetwork" {
   project = local.project_id
 }
 
-# // Get Filestore IP Address
-# data "terraform_remote_state" "filestore" {
-#   backend    = "gcs"
-#   config = {
-#     bucket = var.bucket
-#     prefix = var.prefix
-#   }
-# }
-
-
 # ----------------------------------------
 #   GKE
 # ----------------------------------------
@@ -37,7 +27,6 @@ locals {
   project_id  = data.google_projects.host_project.projects[0].project_id
   network     = data.google_compute_network.network.name
   subnetwork  = data.google_compute_subnetwork.subnetwork.name
-  # filestore_ip = data.terraform_remote_state.filestore.filestore_ip_address
 }
 
 module "gke" {
