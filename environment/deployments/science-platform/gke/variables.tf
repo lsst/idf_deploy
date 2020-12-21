@@ -10,15 +10,15 @@ variable "environment" {
   type        = string
 }
 
-# TF State in GCS for data blocks
+# # TF State in GCS for data blocks
 
-variable bucket {
-  description = "GCS bucket name that stores state"
-}
+# variable bucket {
+#   description = "GCS bucket name that stores state"
+# }
 
-variable prefix {
-  description = "GCS folder name"
-}
+# variable prefix {
+#   description = "GCS folder name"
+# }
 
 # VPC
 
