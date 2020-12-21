@@ -23,7 +23,7 @@ GitHub Actions to deploy GCP Foundation
 
 ## Filestore Directory Creation
 
-Run the [RSP FILESTORE DIR](rsp-filestore-dir.yaml) workflow once a GKE cluster is built to create the GCP persistent volume, storage class, persistent volume claim, and a job that mounts the volume to create the NFS directories.  The code is [here](/../../kubernetes-manifests)  Kustomize is used to build the kubernetes yaml for deployment. The structure is setup so that in the future if there are other components that need setup they can use the kustomize directory structure. 
+Run the [RSP FILESTORE DIR](rsp-filestore-dir.yaml) workflow once a GKE cluster is built to create the GCP persistent volume, storage class, persistent volume claim, and a job that mounts the volume to create the NFS directories.  The code is [here](/kubernetes-manifests)  Kustomize is used to build the kubernetes yaml for deployment. The structure is setup so that in the future if there are other components that need setup they can use the kustomize directory structure. 
 
 The worklow is setup for manual invokation.  A fully automated workflow was considered for the filestore dirs setup to run after the terraform GKE pipeline.  This approach was not used because the Filestore Directory Creation is a one time setup item and the terraform GKE pipelines will be run ongoing to modify things like node pool configuration.  
 
