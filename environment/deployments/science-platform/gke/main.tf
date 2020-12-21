@@ -24,9 +24,9 @@ data "google_compute_subnetwork" "subnetwork" {
 # ----------------------------------------
 
 locals {
-  project_id  = data.google_projects.host_project.projects[0].project_id
-  network     = data.google_compute_network.network.name
-  subnetwork  = data.google_compute_subnetwork.subnetwork.name
+  project_id = data.google_projects.host_project.projects[0].project_id
+  network    = data.google_compute_network.network.name
+  subnetwork = data.google_compute_subnetwork.subnetwork.name
 }
 
 module "gke" {
