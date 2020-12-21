@@ -4,16 +4,6 @@ kind: Kustomization
 resources:
   - ../../base/filestore
 
-#patchesJson6902:
-#  - target:
-#      name: gcp-filestore
-#      kind: PersistentVolume
-#      version: v1
-#    patch: |-
-#      - op: replace
-#        path: /spec/nfs/server
-#        value: "10.2.1.2"
-
 patches:
   - path: nfs.ip.patch.yaml
     target:
