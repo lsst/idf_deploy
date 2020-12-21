@@ -51,10 +51,12 @@ jobs:
       - name: Get Filestore IP
         run: |-
           FILESTORE_IP=$(gcloud filestore instances list --filter=name:"${{ github.event.inputs.filestore }}"  --format="value(IP_ADDRESS)")
+          echo $FILESTORE_IP
 
       # Update Filestore Address Persistent Volume Patch
       - name: Update Filestore Address
         run: |-
+          echo $FILESTORE_IP
           ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value $FILESTORE_IP
 
       # Get the GKE credentials so we can deploy to the cluster

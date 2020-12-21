@@ -9,5 +9,4 @@ patches:
     target:
       version: v1
       kind: PersistentVolume
-      name: gcp-filestore 
-    
+      name: gcp-filestore

@@ -14,7 +14,7 @@ spec:
             name: storage
       restartPolicy: Never
       volumes:
-      - name: gcp-filestore
+      - name: storage
         persistentVolumeClaim:
           claimName: gcp-filestore-setup-claim
           readOnly: false
