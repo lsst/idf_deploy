@@ -2,6 +2,22 @@
 
 This code repo is intended to deploy a solid Google Cloud Platform foundation based off of [Google's Cloud security foundation guide](https://services.google.com/fh/files/misc/google-cloud-security-foundations-guide.pdf). This guide provides our opinionated security foundations blueprint and captures a step-by-step view of how to configure and deploy your Google Cloud estate. This document can provide a good reference and starting point because we highlight key topics to consider. In each topic, we provide background and discussion of why we made each of our choices.
 
+## Repo Structure
+
+### [.github workflows](./github/workflows)
+The [.github workflows](./github/workflows) directory contains the build steps used when a pipeline is initiated. All of the pipelines are located in this directory.
+
+### [deployments under environment](./environment/deployments/projects)
+The [deployments](./environment/deployments/projects) directory is used as the main directory to place new applications. Each new application will have its own dedicated directory with a subdirectory with the different `*.tfvars` files for differences between different environments like `dev`,`int`, and `stable`. These `*.tfvars` files help differentiate between projects and supply the inputs for the different modules.
+
+### [modules](./modules)
+The [modules](./modules) directory is where the blueprints of the infrastructure are stored.
+
+### [runbook](./runbook)
+The rubnook directory is used for documentation.
+
+
+
 ## Where to Begin
 
 To start, you will need to go into the [foundation](./environment/foundation) directory. This directoy is the building block to deploying a solid and secure GCP foundation. The foundation directory has it's own [readme](./environment/foundation/readme.md) with steps.
@@ -12,24 +28,10 @@ After all the steps have been completed from the [foundation](./environment/foun
 
 To build new projects with new infrastructure, these should be built under the [modules](./modules) directory. To seperate out different inputs or to have different environments these will go under the [deployments](./environment/deployments/projects) directory. Additional folders under deployments can be used if desired.
 
-### Repo Structure
-
-#### [cloudbuild](./cloudbuild)
-The [cloudbuild](./cloudbuild) directory contains the Cloud Build steps used when a Cloud Build trigger is initiated.
-
-#### [custom-image](./custom-image)
-The [custom-image](./custom-image) directory contains the steps to create a custom container for Cloud Build. A custom container at times may be needed when code from a container needs to access `gcloud` commands and `terraform`.
-
-#### [deployments under environment](./environment/deployments/projects)
-The [deployments](./environment/deployments/projects) directory is used for the `*.tfvars` files. These files help differentiate between projects and supply the inputs for the different modules.
-
-#### [modules](./modules)
-The [modules](./modules) directory is where the blueprints of the infrastructure are stored.
-
 ---
 ## Runbook
 
-### Update Foundations
+### [Foundation](./runbook/update-foundations.md)
 
 This will include maintenance of the following:
 * Org policies
@@ -38,13 +40,15 @@ This will include maintenance of the following:
 * Shared VPC
 * Any project under the `Shared Services` Folder
 
-### New Projects
+### [New Projects](./runbook/new-projects.md)
 
 This will include the maintenance and creation of new:
 * [Deploy new applications (Qserv, Science Platform, etc)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-new-applications)
 * [Deploy different environments per applications (Dev, Int, Prod)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-different-environments-per-new-applications)
 * [Update projects and clusters](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#update-projects-and-clusters)
 
-### New Pipelines
+### [Pipelines](./runbook/pipelines.md)
 
 This will include the creation of new pipelines and maintanece of existing pipelines:
+* Creating new pipelines
+* Updating existing pipelines
