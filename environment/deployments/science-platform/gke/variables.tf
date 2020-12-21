@@ -10,16 +10,6 @@ variable "environment" {
   type        = string
 }
 
-# # TF State in GCS for data blocks
-
-# variable bucket {
-#   description = "GCS bucket name that stores state"
-# }
-
-# variable prefix {
-#   description = "GCS folder name"
-# }
-
 # VPC
 
 variable "network_name" {
