@@ -1,5 +1,5 @@
 # Terraform GitHub Actions
-GitHub Actions to deploy GCP Foundation 
+Workflows GitHub Actions are configured to deploy organization level settings, folders, projects, Google Kubernetes Engine, and Filestore.  Terraform state is stored in the lsst-terraform-state Google Cloud Storage Bucket.  Each Workflow below has its own prefix to seperate state files. All terraform init, plan, and apply is performed using GitHub Actions so there is no need to run Terraform outside of GitHub Actions to make changes.  
 
 | Workflow                        | File                                | Trigger Type     | Description                                                 |
 |---------------------------------|-------------------------------------|------------------|-------------------------------------------------------------|
@@ -19,6 +19,19 @@ GitHub Actions to deploy GCP Foundation
 | QSERV INT GKE                   | qserv-int-gke-tf.yaml               | tfvars Pull/Push | Creates and manages settings on qserv int GKE Cluster       |
 | QSERV STABLE GCP PROJECT        | qserv-stable-proj-tf.yaml           | tfvars Pull/Push | Creates prod qserv GCP Project, setups billing              |
 | QSERV STABLE GKE                | qsrv-stable-gke-tf.yaml             | tfvars Pull/Push | Creates and manages settings on qserv prod GKE Cluster      |
+
+
+## Deploying GKE with Kubernetes
+
+During testing a bug was discovered with Terraform 0.13 function in deploying GKE.  There was a higher level issue in Terraform with count that we ran into when deploying multiple node pools.  [This](https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/issues/690) is the bug
+
+The following examples are changes that can be made in Terraform without destroying the GKE Cluster.
+
+* Addition or removal of Node Pools
+* Changing Node Pool settings.  Please note that the Node Pool itself will be deleted if changed so will affect pods running on the nodes.
+* Enabling of Autoscaling on Node Pools
+* Changing of Maintenance Window
+* Change of Release
 
 
 ## Filestore Directory Creation
