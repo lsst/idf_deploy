@@ -74,3 +74,25 @@ output "filestore_fileshares" {
   description = "File share capacity in GiB"
   value       = module.filestore.file_shares
 }
+
+// Filestore_2
+
+output "filestore_name" {
+  description = "The name of the fileshare"
+  value       = module.filestore_2.name
+}
+
+output "filestore_id" {
+  description = "An identifier for the resource"
+  value       = module.filestore_2.id
+}
+
+output "filestore_ip_address" {
+  description = "A list of IPv4 or IPv6 addresses"
+  value       = module.filestore_2.ip_addresses
+}
+
+output "filestore_fileshares" {
+  description = "File share capacity in GiB"
+  value       = module.filestore_2.file_shares
+}
