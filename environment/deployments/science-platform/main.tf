@@ -39,6 +39,25 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
+module "filestore_2" {
+  source             = "../../../modules/filestore"
+  fileshare_capacity = var.fs2_fileshare_capacity
+  fileshare_name     = var.fs2_fileshare_name
+  modes              = var.fs2_modes
+  name               = "${var.name}-${var.environment}-2"
+  network            = module.project_factory.network_name
+  project            = module.project_factory.project_id
+  tier               = var.fs2_tier
+  zone               = var.fs2_zone
+  labels = {
+    project          = module.project_factory.project_id
+    environment      = var.environment
+    application_name = var.application_name
+  }
+
+  depends_on = [module.project_factory]
+}
+
 module "nat" {
   source  = "../../../modules/nat"
   name    = var.router_name

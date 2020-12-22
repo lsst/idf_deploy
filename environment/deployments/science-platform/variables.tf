@@ -257,6 +257,37 @@ variable "modes" {
   default     = ["MODE_IPV4"]
 }
 
+
+# FILESTORE_2
+
+variable "fs2_zone" {
+  description = "The name of the Filestore zone of the instance"
+  type        = string
+  default     = "us-central1-b"
+}
+
+variable "fs2_fileshare_name" {
+  description = "The name of the fileshare (16 characters or less)"
+  type        = string
+  default     = "share1"
+}
+
+variable "fs2_fileshare_capacity" {
+  description = "File share capacity in GiB. This must be at least 1024 GiB for the standard tier, or 2560 GiB for the premium tier."
+  type        = number
+}
+
+variable "fs2_tier" {
+  description = "The service tier of the instance. Possible values are TIER_UNSPECIFIED, STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, and HIGH_SCALE_SSD."
+  type        = string
+}
+
+variable "fs2_modes" {
+  description = "IP versions for which the instance has IP addresses assigned. Each value may be one of ADDRESS_MODE_UNSPECIFIED, MODE_IPV4, and MODE_IPV6."
+  type        = list(string)
+  default     = ["MODE_IPV4"]
+}
+
 # NAT
 
 variable "nats" {
@@ -280,6 +311,6 @@ variable "router_name" {
 
 variable "static_ip_name" {
   description = "Name to give to the static ip"
-  type = string
-  default = "load-balancer"
+  type        = string
+  default     = "load-balancer"
 }
