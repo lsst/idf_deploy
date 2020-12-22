@@ -1,4 +1,5 @@
 # Project
+# AJT null change to force deployment, 2020-12-21 6:11 PM MST
 environment             = "int"
 application_name        = "science-platform"
 folder_id               = "19762437767"
