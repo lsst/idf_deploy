@@ -192,12 +192,12 @@ variable "node_pool_1_initial_node_count" {
   default = 1
 }
 
-# variable "node_pools" {
-#   type        = list(map(string))
-#   description = "List of maps containing node pools"
+variable "node_pools" {
+  type        = list(map(string))
+  description = "List of maps containing node pools"
 
-#   default = [{}]
-# }
+  default = [{}]
+}
 
 variable "cluster_resource_labels" {
   type        = map(string)
