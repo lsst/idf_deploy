@@ -84,8 +84,8 @@ module "firewall_cert_manager" {
   project_id = module.project_factory.project_id
   network    = module.project_factory.network_name
   custom_rules = {
-    cert-manager = {
-      description          = "cert manager rule"
+    cert-manager-terraform = {
+      description          = "cert manager rule created by terraform"
       direction            = "INGRESS"
       action               = "allow"
       ranges               = []
@@ -103,11 +103,3 @@ module "firewall_cert_manager" {
 
   }
 }
-
-# module "reserve_static_ip" {
-#   source = "../../../modules/ip_reservation"
-
-#   project = module.project_factory.project_id
-#   region  = var.default_region
-#   name    = var.static_ip_name
-# }
