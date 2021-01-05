@@ -24,6 +24,10 @@ variable "master_ipv4_cidr_block" {
   default = "172.16.0.0/28"
 }
 
+variable "release_channel" {
+  default = "REGULAR"
+}
+
 variable "zones" {
   description = "The zones to host the cluster in (optional if regional cluster / required if zonal)"
   type        = list(string)

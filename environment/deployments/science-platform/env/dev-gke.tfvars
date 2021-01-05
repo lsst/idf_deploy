@@ -25,6 +25,7 @@ secondary_ranges = {
 }
 
 # GKE
+release_channel = "RAPID"
 master_ipv4_cidr_block = "172.16.0.0/28"
 # node_pool_1_name = "core-pool"
 # node_pool_1_machine_type = "e2-standard-4" # 4 vCPU 16GB RAM
