@@ -7,7 +7,7 @@ This code repo is intended to deploy a solid Google Cloud Platform foundation ba
 ### [.github workflows](./github/workflows)
 The [.github workflows](./github/workflows) directory contains the build steps used when a pipeline is initiated. All of the pipelines are located in this directory.
 
-### [deployments under environment](./environment/deployments/projects)
+### [deployments under environment](./environment/deployments)
 The [deployments](./environment/deployments/projects) directory is used as the main directory to place new applications. Each new application will have its own dedicated directory with a subdirectory with the different `*.tfvars` files for differences between different environments like `dev`,`int`, and `stable`. These `*.tfvars` files help differentiate between projects and supply the inputs for the different modules.
 
 ### [modules](./modules)
@@ -26,7 +26,7 @@ To start, you will need to go into the [foundation](./environment/foundation) di
 
 After all the steps have been completed from the [foundation](./environment/foundation) directory, next is day-to-day operations. Most of the time, deployments are decentralized meaning a project is created and handed over to a PI or researcher to be used for their initiatives. Terraform may never be used again to manage the project, but is used for consistency and repeatability.
 
-To build new projects with new infrastructure, these should be built under the [modules](./modules) directory. To seperate out different inputs or to have different environments these will go under the [deployments](./environment/deployments/projects) directory. Additional folders under deployments can be used if desired.
+To build new projects with new infrastructure, these should be built under the [modules](./modules) directory. To seperate out different inputs or to have different environments these will go under the [deployments](./environment/deployments) directory. Additional folders under deployments can be used if desired.
 
 ---
 ## Runbook
