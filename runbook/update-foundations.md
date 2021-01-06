@@ -1,6 +1,6 @@
 # Foundations
 
-The foundations logic is located in the [environment/foundation](./environment/foundation) directory. Anything in this directory is used to help manage and govern the GCP platform. Services like org level IAM permissions, folder structures, and shared services projects.
+The foundations logic is located in the [environment/foundation](../environment/foundation) directory. Anything in this directory is used to help manage and govern the GCP platform. Services like org level IAM permissions, folder structures, and shared services projects.
 
 
 
