@@ -1,6 +1,6 @@
 # Foundations
 
-The foundations logic is located in the [environment/foundation](./enviornment/foundation) directory. Anything in this directory is used to help manage and govern the GCP platform. Services like org level IAM permissions, folder structures, and shared services projects.
+The foundations logic is located in the [environment/foundation](./environment/foundation) directory. Anything in this directory is used to help manage and govern the GCP platform. Services like org level IAM permissions, folder structures, and shared services projects.
 
 
 
@@ -19,7 +19,7 @@ The purpose of this step is to setup any sub-level folders for environments like
 ### [1-org-c](../environment/foundation/1-org-c)
 These are the documented steps performed manually that could not be automated at the time of deployment.
 
-### [2-network](../environment/foundation/2-network)
+### [2-network](../environment/foundation/2-networks)
 The purpose of this step is to setup shared VPCs with default DNS, NAT, and baseline firewall rules.
 
 ---

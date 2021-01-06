@@ -68,7 +68,7 @@ To enable sharing of G Suite data with Cloud Audit Logs from your G Suite, Cloud
 
 ### Share data with Google Cloud Platform services
 
-1. Log into the [G Suite Admin console](https://admin.googlecom).
+1. Log into the [G Suite Admin console](https://admin.google.com).
 1. From the Admin console Home page, go to Account settingsand thenLegal & compliance.
 1. Click <b>Sharing options</b>.
   * To share data, click <b>Enabled</b>.
