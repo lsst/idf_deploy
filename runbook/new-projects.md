@@ -19,8 +19,8 @@ To follow the current folder structure, each new application will have its own t
 In the GCP Console, use the `Select a project` drop down menu from the blue ribbon and click the three dots next to New Project. Then select `Manage Resources`.
 
 Select `Create Folder` and provide the following:
-* Folder Name - Either productions, Intergration or Dev.
-* Location - This should be the name of the top-level folder that this sub-leve folder will be nested in. 
+* Folder Name - Production, Intergration or Dev.
+* Location - This should be the name of the top-level folder that this sub-level folder will be nested in. 
 
 Click `Create`.
 
@@ -28,7 +28,7 @@ Repeat this process for the remaining environments.
 
 <br>
 
-<h1>Update Projects and Clusters</h1>
+<h1>New Projects and Clusters</h1>
 
 To follow the current folder structure, each new application will have its own top-level folder and sub-folders will further break out the environments. Place newly created projects in the folder structure accordingly. 
 
