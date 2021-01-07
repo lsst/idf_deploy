@@ -55,6 +55,13 @@ variable "network_policy" {
   default     = false
 }
 
+variable "cluster_telemetry_type" {
+  type        = string
+  description = "Available options include ENABLED, DISABLED, and SYSTEM_ONLY"
+  default     = "SYSTEM_ONLY"
+}
+
+
 variable "node_pools" {
   type        = list(map(string))
   description = "List of maps containing node pools"
