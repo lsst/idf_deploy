@@ -37,6 +37,7 @@ module "gke" {
   node_pools                         = var.node_pools
   release_channel                    = var.release_channel
   gce_pd_csi_driver                  = var.gce_pd_csi_driver
+  cluster_telemetry_type             = var.cluster_telemetry_type
 
   node_pools_labels = var.node_pools_labels
 }
