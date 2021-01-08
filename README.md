@@ -52,3 +52,5 @@ This will include the maintenance and creation of new:
 This will include the creation of new pipelines and maintanece of existing pipelines:
 * Creating new pipelines
 * Updating existing pipelines
+
+### [VPC Peering](./modules/vpc_peering)
