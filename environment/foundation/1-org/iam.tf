@@ -12,6 +12,13 @@ resource "google_organization_iam_member" "org_admins_group" {
   member   = "group:${module.constants.values.groups.org_admins}"
 }
 
+resource "google_organization_iam_member" "org_viewer_group" {
+  for_each = toset(var.org_billing_administrator_iam_permissions)
+  org_id   = module.constants.values.org_id
+  role     = each.value
+  member   = "group:${module.constants.values.groups.billing_admins}"
+}
+
 resource "google_organization_iam_member" "org_network_admins_group" {
   for_each = toset(var.org_network_admins_org_iam_permissions)
   org_id   = module.constants.values.org_id
@@ -31,4 +38,18 @@ resource "google_organization_iam_member" "org_viewer_group" {
   org_id   = module.constants.values.org_id
   role     = each.value
   member   = "group:${module.constants.values.groups.org_viewers}"
+}
+
+resource "google_organization_iam_member" "org_monitoring_admins" {
+  for_each = toset(var.org_monitoring_admins_iam_permissions)
+  org_id   = module.constants.values.org_id
+  role     = each.value
+  member   = "group:${module.constants.values.groups.monitoring_admins}"
+}
+
+resource "google_organization_iam_member" "org_monitoring_viewer" {
+  for_each = toset(var.org_monitoring_viewer_iam_permissions)
+  org_id   = module.constants.values.org_id
+  role     = each.value
+  member   = "group:${module.constants.values.groups.monitoring_viewer}"
 }
