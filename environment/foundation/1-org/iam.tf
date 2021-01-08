@@ -12,7 +12,7 @@ resource "google_organization_iam_member" "org_admins_group" {
   member   = "group:${module.constants.values.groups.org_admins}"
 }
 
-resource "google_organization_iam_member" "org_viewer_group" {
+resource "google_organization_iam_member" "org_billing_admins_group" {
   for_each = toset(var.org_billing_administrator_iam_permissions)
   org_id   = module.constants.values.org_id
   role     = each.value
