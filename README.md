@@ -4,17 +4,17 @@ This code repo is intended to deploy a solid Google Cloud Platform foundation ba
 
 ## Repo Structure
 
-### [.github workflows](./github/workflows)
-The [.github workflows](./github/workflows) directory contains the build steps used when a pipeline is initiated. All of the pipelines are located in this directory.
+### [.github workflows](./.github/workflows)
+The [.github workflows](./.github/workflows) directory contains the build steps used when a pipeline is initiated. All of the pipelines are located in this directory.
 
 ### [deployments under environment](./environment/deployments)
-The [deployments](./environment/deployments/projects) directory is used as the main directory to place new applications. Each new application will have its own dedicated directory with a subdirectory with the different `*.tfvars` files for differences between different environments like `dev`,`int`, and `stable`. These `*.tfvars` files help differentiate between projects and supply the inputs for the different modules.
+The [deployments](./environment/deployments) directory is used as the main directory to place new applications. Each new application will have its own dedicated directory with a subdirectory with the different `*.tfvars` files for differences between different environments like `dev`,`int`, and `stable`. These `*.tfvars` files help differentiate between projects and supply the inputs for the different modules.
 
 ### [modules](./modules)
 The [modules](./modules) directory is where the blueprints of the infrastructure are stored.
 
 ### [runbook](./runbook)
-The rubnook directory is used for documentation.
+The runbook directory is used for documentation.
 
 
 
