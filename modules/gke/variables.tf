@@ -149,6 +149,18 @@ variable "gce_pd_csi_driver" {
   default     = false
 }
 
+variable "cluster_telemetry_type" {
+  type        = string
+  description = "Available options include ENABLED, DISABLED, and SYSTEM_ONLY"
+  default     = null
+}
+
+variable "authenticator_security_group" {
+  type        = string
+  description = "The name of the RBAC security group for use with Google security groups in Kubernetes RBAC. Group name must be in format gke-security-groups@yourdomain.com"
+  default     = "lsst.cloud"
+}
+
 # ----------------------------------------
 #  NODE POOL VALUES
 # ----------------------------------------
@@ -177,62 +189,6 @@ variable "node_pools" {
   ]
 }
 
-# variable "node_pool_1_name" {
-#   default = "core-pool"
-# }
-
-# variable "node_pool_1_machine_type" {
-#   default = "g1-small"
-# }
-
-# variable "node_pool_1_min_count" {
-#   default = 1
-# }
-
-# variable "node_pool_1_max_count" {
-#   default = 15
-# }
-
-# variable "node_pool_1_local_ssd_count" {
-#   default = 0
-# }
-
-# variable "node_pool_1_disk_size_gb" {
-#   default = 100
-# }
-
-# variable "node_pool_1_disk_type" {
-#   default = "pd-standard"
-# }
-
-# variable "node_pool_1_image_type" {
-#   default = "cos_containerd"
-# }
-
-# variable "node_pool_1_enable_secure_boot" {
-#   description = "Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails."
-#   default     = true
-# }
-
-# variable "node_pool_1_auto_repair" {
-#   default = true
-# }
-
-# variable "node_pool_1_auto_upgrade" {
-#   default = true
-# }
-
-# variable "node_pool_1_preemptible" {
-#   default = false
-# }
-
-# variable "node_pool_1_initial_node_count" {
-#   default = 1
-# }
-
-# variable "node_pool_1_oauth_scope" {
-#   default = "https://www.googleapis.com/auth/cloud-platform"
-# }
 
 variable "node_pools_labels" {
   type        = map(map(string))
@@ -243,10 +199,4 @@ variable "node_pools_labels" {
       environment = "environment_here"
     }
   }
-}
-
-variable "authenticator_security_group" {
-  type        = string
-  description = "The name of the RBAC security group for use with Google security groups in Kubernetes RBAC. Group name must be in format gke-security-groups@yourdomain.com"
-  default     = "lsst.cloud"
 }

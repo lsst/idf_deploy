@@ -57,6 +57,21 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-standard"
     autoscaling        = "false"
-    node_count         = 10
+    node_count         = 5
+  },
+  {
+    name               = "utility-pool"
+    machine_type       = "n1-standard-4"
+    node_locations     = "us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = false
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "100"
+    disk_type          = "pd-standard"
+    autoscaling        = "false"
+    node_count         = 1
   },
 ]
