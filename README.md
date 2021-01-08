@@ -54,3 +54,5 @@ This will include the creation of new pipelines and maintanece of existing pipel
 * Updating existing pipelines
 
 ### [VPC Peering](./modules/vpc_peering)
+
+This will include the creation of VPC Network Peering between two networks.
