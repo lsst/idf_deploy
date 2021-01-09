@@ -56,6 +56,18 @@ resource "google_folder_iam_member" "gcp_processing_gke_developer_iam_permission
   role     = each.value
   member   = "group:${module.constants.values.groups.gcp_processing_gke_developer}"
 }
+resource "google_folder_iam_member" "gcp_processing_nongke_admins_iam_permissions" {
+  for_each = toset(var.gcp_processing_nongke_admins_iam_permissions)
+  folder   = data.google_active_folder.processing_sub_folder.name
+  role     = each.value
+  member   = "group:${module.constants.values.groups.gcp_processing_nongke_admins}"
+}
+resource "google_folder_iam_member" "gcp_processing_nongke_developer_iam_permissions" {
+  for_each = toset(var.gcp_processing_nongke_developer_iam_permissions)
+  folder   = data.google_active_folder.processing_sub_folder.name
+  role     = each.value
+  member   = "group:${module.constants.values.groups.gcp_processing_nongke_developer}"
+}
 
 resource "google_folder_iam_member" "gcp_processing_administrator_iam_permissions" {
   for_each = toset(var.gcp_processing_administrators_iam_permissions)

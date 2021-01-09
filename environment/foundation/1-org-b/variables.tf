@@ -75,6 +75,22 @@ variable "gcp_square_gke_cluster_admins_iam_permissions" {
   ]
 }
 
+variable "gcp_processing_nongke_admins_iam_permissions" {
+  description = "List of permissions granted to the group."
+  type        = list(string)
+  default = [
+    "roles/iam.serviceAccountUser",
+    "roles/compute.instanceAdmin.v1",
+    "roles/compute.admin",
+    "roles/compute.networkAdmin",
+    "roles/cloudsql.admin",
+    "roles/logging.admin",
+    "roles/monitoring.admin",
+    "roles/storage.admin",
+    "roles/file.editor"
+  ]
+}
+
 // CLUSTER DEVELOPERS
 variable "gcp_qserv_gke_developer_iam_permissions" {
   description = "List of permissions granted to the group."
@@ -125,6 +141,19 @@ variable "gcp_square_gke_developer_iam_permissions" {
     "roles/logging.viewer",
     "roles/monitoring.editor",
     "roles/storage.objectViewer",
+  ]
+}
+
+variable "gcp_processing_nongke_developer_iam_permissions" {
+  description = "List of permissions granted to the group."
+  type        = list(string)
+  default = [
+    "roles/iam.serviceAccountUser",
+    "roles/compute.instanceAdmin.v1",
+    "roles/cloudsql.client",
+    "roles/logging.viewer",
+    "roles/monitoring.viewer",
+    "roles/storage.objectViewer"
   ]
 }
 

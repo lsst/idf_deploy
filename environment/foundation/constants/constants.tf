@@ -34,6 +34,9 @@ locals {
       gcp_processing_gke_developer       = "gcp-processing-gke-developer@lsst.cloud"
       gcp_science_platform_gke_developer = "gcp-science-platform-gke-developer@lsst.cloud"
       gcp_qserv_gke_developer            = "gcp-qserv-gke-developer@lsst.cloud"
+
+      gcp_processing_nongke_admins       = "gcp-processing-nongke-admins@lsst.cloud"
+      gcp_processing_nongke_developer    = "gcp-processing-nongke-developer@lsst.cloud"
     }
 
     // Shared VPC
