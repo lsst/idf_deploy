@@ -87,6 +87,7 @@ variable "gcp_processing_nongke_admins_iam_permissions" {
     "roles/logging.admin",
     "roles/monitoring.admin",
     "roles/storage.admin",
+    "roles/cloudbuild.builds.editor",
     "roles/file.editor"
   ]
 }
