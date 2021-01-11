@@ -61,7 +61,7 @@ variable "labels" {
 
 variable "machine_type" {
   description = "Machine type to create, e.g. n1-standard-1"
-  default     = "n1-standard-1"
+  default     = "n2-standard-4"
 }
 
 variable "can_ip_forward" {
