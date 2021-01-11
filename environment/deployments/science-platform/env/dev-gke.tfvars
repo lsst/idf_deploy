@@ -55,13 +55,13 @@ node_pools = [
     name               = "dask-pool"
     machine_type       = "n2-standard-4"
     node_locations     = "us-central1-b"
-    min_count          = 15
-    max_count          = 15
+    min_count          = 0
+    max_count          = 0
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
     preemptible        = false
-    initial_node_count = 15
+    initial_node_count = 0
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "200"
@@ -70,11 +70,16 @@ node_pools = [
 ]
 
 node_pools_labels = {
+  all = {
+      environment      = var.environment
+      project          = local.project_id
+      application_name = var.application_name
+  },
   core-pool = {
-    dask= ""
+    infrastructure = "ok"
+    jupyterlab = "ok"
   },
   dask-pool = {
-    jupyterlab = ""
-    infrastructure = ""
+    dask = "ok"
   }
 }
