@@ -30,7 +30,7 @@ If the push is going to the main branch, terraform fromatting checks will happen
 
 Step 1 - Create a new branch. 
 
-![Picture6](./images/Picture6.png)
+![Picture6](./images/Picture6.PNG)
 
 Step 2 - On the newly created branch, Update the `.tfvars` file. In the below example, the fileshare capacity is being modified. 
 ```diff
