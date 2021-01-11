@@ -36,7 +36,7 @@ secondary_ranges = {
 
 # Filestore
 fileshare_capacity = 2600
-fileshare_capacity = "BASIC_SSD"
+fileshare_tier = "BASIC_SSD"
 fs2_fileshare_capacity = 2600
 fs2_tier = "BASIC_SSD"
 
