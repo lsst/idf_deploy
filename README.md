@@ -47,12 +47,11 @@ This will include the maintenance and creation of new:
 * [Different environments per applications (Prod, Int, Dev)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-different-environments-per-new-applications)
 * [Projects and clusters](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#update-projects-and-clusters)
 
-### [Pipelines](./runbook/pipelines.md)
+### [Github Actions](./runbook/pipelines.md)
 
-This will include the creation of new pipelines and maintanece of existing pipelines:
-* Creating new pipelines
-* Updating existing pipelines
+This will include an overview of Github Actions YAML files and how to modify them. 
 
 ### [VPC Peering](./modules/vpc_peering)
 
 This will include the creation of VPC Network Peering between two networks.
+
