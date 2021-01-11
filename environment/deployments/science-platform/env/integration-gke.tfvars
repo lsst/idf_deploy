@@ -33,7 +33,7 @@ node_pools = [
   {
     name               = "core-pool"
     machine_type       = "n1-standard-4"
-    node_locations     = "us-central1-b,us-central1-c"
+    node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
