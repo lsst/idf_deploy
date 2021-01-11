@@ -12,11 +12,13 @@ locals {
 
     // Google Workspace / Cloud Identity Google Groups
     groups = {
-      org_admins      = "gcp-organization-administrators@lsst.cloud"
-      billing_admins  = "gcp-billing-administrators@lsst.cloud"
-      network_admins  = "gcp-network-administrators@lsst.cloud"
-      security_admins = "gcp-security-administrators@lsst.cloud"
-      org_viewers     = "gcp-organization-viewer@lsst.cloud"
+      org_admins        = "gcp-organization-administrators@lsst.cloud"
+      billing_admins    = "gcp-billing-administrators@lsst.cloud"
+      network_admins    = "gcp-network-administrators@lsst.cloud"
+      security_admins   = "gcp-security-administrators@lsst.cloud"
+      org_viewers       = "gcp-organization-viewer@lsst.cloud"
+      monitoring_admins = "gcp-monitoring-admins@lsst.cloud"
+      monitoring_viewer = "gcp-monitoring-viewer@lsst.cloud"
 
       gcp_qserv_administrators            = "gcp-qserv-administrators@lsst.cloud"
       gcp_science_platform_administrators = "gcp-science-platform-administrators@lsst.cloud"
@@ -26,7 +28,7 @@ locals {
       gcp_qserv_gke_cluster_admins            = "gcp-qserv-gke-cluster-admins@lsst.cloud"
       gcp_science_platform_gke_cluster_admins = "gcp-science-platform-gke-cluster-admins@lsst.cloud"
       gcp_processing_gke_cluster_admins       = "gcp-processing-gke-cluster-admins@lsst.cloud"
-      gcp_square_gke_cluster_admins            = "gcp-square-gke-cluster-admins@lsst.cloud"
+      gcp_square_gke_cluster_admins           = "gcp-square-gke-cluster-admins@lsst.cloud"
 
       gcp_square_gke_developer           = "gcp-square-gke-developer@lsst.cloud"
       gcp_processing_gke_developer       = "gcp-processing-gke-developer@lsst.cloud"

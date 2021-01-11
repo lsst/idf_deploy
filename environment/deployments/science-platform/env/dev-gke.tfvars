@@ -53,7 +53,7 @@ node_pools = [
   },
   {
     name               = "dask-pool"
-    machine_type       = "e2-standard-4"
+    machine_type       = "n2-standard-4"
     node_locations     = "us-central1-b"
     min_count          = 15
     max_count          = 15
@@ -68,3 +68,13 @@ node_pools = [
     disk_type          = "pd-ssd"
   }
 ]
+
+node_pools_labels = {
+  core-pool = {
+    dask= ""
+  },
+  dask-pool = {
+    jupyterlab = ""
+    infrastructure = ""
+  }
+}

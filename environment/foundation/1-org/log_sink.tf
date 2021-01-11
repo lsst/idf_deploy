@@ -87,11 +87,13 @@ resource "google_pubsub_topic" "scc_notification_topic" {
   project = module.org_audit_logs[0].project_id
 }
 
-resource "google_pubsub_subscription" "scc_notification_subscription" {
-  name    = var.scc_notification_subscription
-  topic   = google_pubsub_topic.scc_notification_topic.name
-  project = module.org_audit_logs[0].project_id
-}
+# Uncommen if you need to enable pub/sub subscriptions
+
+# resource "google_pubsub_subscription" "scc_notification_subscription" {
+#   name    = var.scc_notification_subscription
+#   topic   = google_pubsub_topic.scc_notification_topic.name
+#   project = module.org_audit_logs[0].project_id
+# }
 
 
 

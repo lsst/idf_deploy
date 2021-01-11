@@ -35,7 +35,8 @@ variable "org_admins_org_iam_permissions" {
     "roles/resourcemanager.organizationAdmin",
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.projectCreator",
-    "roles/iam.organizationRoleAdmin"
+    "roles/iam.organizationRoleAdmin",
+    "roles/iam.serviceAccountAdmin"
   ]
 }
 
@@ -76,6 +77,31 @@ variable "org_viewer_org_iam_permissions" {
     "roles/logging.privateLogViewer",
     "roles/bigquery.dataViewer",
     "roles/resourcemanager.folderViewer"
+  ]
+}
+
+variable "org_billing_administrator_iam_permissions" {
+  description = "List of permissions granted to the group supplied in billing_admins variable across the GCP organization."
+  type        = list(string)
+  default = [
+    "roles/billing.admin",
+  ]
+}
+
+variable "org_monitoring_admins_iam_permissions" {
+  description = "List of permissions granted to the group supplied in monitoring_admins variable across the GCP organization."
+  type        = list(string)
+  default = [
+    "roles/monitoring.admin",
+    "roles/monitoring.editor",
+  ]
+}
+
+variable "org_monitoring_viewer_iam_permissions" {
+  description = "List of permissions granted to the group supplied in monitoring_viewer variable across the GCP organization."
+  type        = list(string)
+  default = [
+    "roles/monitoring.viewer",
   ]
 }
 
@@ -192,7 +218,7 @@ variable "data_access_project_name" {
 variable "activate_apis_data_access_project" {
   description = "What APIs to activate for this project."
   type        = list(string)
-  default     = ["sql-component.googleapis.com","storage.googleapis.com","logging.googleapis.com", "bigquery.googleapis.com", "stackdriver.googleapis.com", "pubsub.googleapis.com", "billingbudgets.googleapis.com"]
+  default     = ["sql-component.googleapis.com", "storage.googleapis.com", "logging.googleapis.com", "bigquery.googleapis.com", "stackdriver.googleapis.com", "pubsub.googleapis.com", "billingbudgets.googleapis.com"]
 }
 
 variable "org_data_access_project_alert_spent_percents" {
