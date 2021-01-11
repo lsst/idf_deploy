@@ -25,15 +25,15 @@ variable "num_instances" {
   default     = 1
 }
 
-variable "nat_ip" {
-  description = "Public ip address"
-  default     = null
-}
+# variable "nat_ip" {
+#   description = "Public ip address"
+#   default     = null
+# }
 
-variable "network_tier" {
-  description = "Network network_tier"
-  default     = "PREMIUM"
-}
+# variable "network_tier" {
+#   description = "Network network_tier"
+#   default     = "PREMIUM"
+# }
 
 variable "service_account" {
   default = ({
@@ -50,11 +50,13 @@ variable "service_account" {
 variable "tags" {
   type        = list(string)
   description = "Network tags, provided as a list"
+  default     = []
 }
 
 variable "labels" {
   type        = map(string)
   description = "Labels, provided as a map"
+  default     = {}
 }
 
 variable "machine_type" {
@@ -119,4 +121,39 @@ variable "metadata" {
   type        = map(string)
   description = "Metadata, provided as a map"
   default     = {}
+}
+
+###########################
+# Shielded VMs
+###########################
+variable "enable_shielded_vm" {
+  default     = true
+  description = "Whether to enable the Shielded VM configuration on the instance. Note that the instance image must support Shielded VMs. See https://cloud.google.com/compute/docs/images"
+}
+
+variable "shielded_instance_config" {
+  description = "Not used unless enable_shielded_vm is true. Shielded VM configuration for the instance."
+  type = object({
+    enable_secure_boot          = bool
+    enable_vtpm                 = bool
+    enable_integrity_monitoring = bool
+  })
+
+  default = {
+    enable_secure_boot          = true
+    enable_vtpm                 = true
+    enable_integrity_monitoring = true
+  }
+}
+
+###########################
+# Public IP
+###########################
+variable "access_config" {
+  description = "Access configurations, i.e. IPs via which the VM instance can be accessed via the Internet."
+  type = list(object({
+    nat_ip       = string
+    network_tier = string
+  }))
+  default = []
 }

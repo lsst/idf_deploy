@@ -23,6 +23,14 @@ module "instance_template" {
   #metadata
   startup_script = var.startup_script
   metadata       = var.metadata
+
+  #shielded vms
+  enable_shielded_vm       = var.enable_shielded_vm
+  shielded_instance_config = var.shielded_instance_config
+
+  #public ip
+  access_config = var.access_config
+
 }
 
 module "compute_instance" {
@@ -34,10 +42,4 @@ module "compute_instance" {
   num_instances     = var.num_instances
   hostname          = var.hostname
   instance_template = module.instance_template.self_link
-
-
-  access_config = [{
-    nat_ip       = var.nat_ip
-    network_tier = var.network_tier
-  }, ]
 }
