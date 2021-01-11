@@ -43,9 +43,36 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
     autoscaling        = "false"
-    node_count         = 4
+    node_count         = 5
   },
+  {
+    name               = "dask-pool"
+    machine_type       = "n1-standard-4"
+    node_locations     = "us-central1-b,us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = false
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "200"
+    disk_type          = "pd-ssd"
+    autoscaling        = "false"
+    node_count         = 0
+  }
 ]
+
+node_pools_labels = {
+  core-pool = {
+    infrastructure = "ok",
+    jupyterlab = "ok"
+   }
+  },
+    dask-pool = {
+      dask = "ok"
+  }
+}
+
 
 # TF State
 bucket = "lsst-terraform-state"
