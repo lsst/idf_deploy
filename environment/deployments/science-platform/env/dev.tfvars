@@ -29,10 +29,8 @@ secondary_ranges = {
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
 # Filestore
-fileshare_capacity = 2600
-fileshare_tier = "BASIC_SSD"
-fs2_fileshare_capacity = 2600
-fs2_tier = "BASIC_SSD"
+#fileshare_capacity = 2600
+#fileshare_tier = "BASIC_SSD"
 
 # NAT
 nats = [{ name = "cloud-nat" }]
