@@ -25,3 +25,8 @@ data "google_active_folder" "square_sub_folder" {
   parent       = local.parent
   display_name = var.square_display_name
 }
+
+data "google_active_folder" "shared_services_folder" {
+  parent       = local.parent
+  display_name = var.shared_services_display_name
+}

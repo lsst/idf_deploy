@@ -170,6 +170,14 @@ variable "gcp_square_administrators_iam_permissions" {
   ]
 }
 
+variable "gcp_org_administrators_shared_service_iam_permissions" {
+  description = "List of permissions granted to the group."
+  type        = list(string)
+  default = [
+    "roles/storage.admin"
+  ]
+}
+
 
 
 # ----------------------------------------
@@ -204,6 +212,12 @@ variable "square_display_name" {
   description = "The display name of the parent folder."
   type        = string
   default     = "SQuaRE"
+}
+
+variable "shared_services_display_name" {
+  description = "The display name of the parent folder."
+  type        = string
+  default     = "Shared Services"
 }
 
 variable "sub_folder_names" {

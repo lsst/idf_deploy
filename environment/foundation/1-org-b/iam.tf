@@ -85,3 +85,11 @@ resource "google_folder_iam_member" "gcp_square_administrator_iam_permissions" {
   role     = each.value
   member   = "group:${module.constants.values.groups.gcp_square_administrators}"
 }
+
+// Shared Services Folder
+resource "google_folder_iam_member" "gcp_shared_service_org_admin_iam_permissions" {
+  for_each = toset(var.gcp_org_administrators_shared_service_iam_permissions)
+  folder   = data.google_active_folder.shared_services_folder.name
+  role     = each.value
+  member   = "group:${module.constants.values.groups.org_admins}"
+}
