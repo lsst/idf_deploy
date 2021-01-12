@@ -46,7 +46,7 @@ node_pools = [
 ]
 
 # Filestore
-fileshare_capacity = 2600
+#fileshare_capacity = 2600
 
 # NAT
 nats = [{ name = "cloud-nat" }]
