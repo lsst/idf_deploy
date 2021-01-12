@@ -27,25 +27,17 @@ secondary_ranges = {
 # GKE
 release_channel = "RAPID"
 master_ipv4_cidr_block = "172.16.0.0/28"
-# node_pool_1_name = "core-pool"
-# node_pool_1_machine_type = "e2-standard-4" # 4 vCPU 16GB RAM
-# node_pool_1_min_count = 1
-# node_pool_1_max_count = 15
-# node_pool_1_disk_size_gb = 100
-# node_pool_1_initial_node_count = 5
 
 node_pools = [
   {
     name               = "core-pool"
-    machine_type       = "e2-standard-4"
+    machine_type       = "n2-standard-4"
     node_locations     = "us-central1-b"
-    min_count          = 5
-    max_count          = 5
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
     preemptible        = false
-    initial_node_count = 5
+    node_count         = 5
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "200"
@@ -55,13 +47,11 @@ node_pools = [
     name               = "dask-pool"
     machine_type       = "n2-standard-4"
     node_locations     = "us-central1-b"
-    min_count          = 15
-    max_count          = 15
+    node_count         = 0
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
     preemptible        = false
-    initial_node_count = 15
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "200"
@@ -71,10 +61,10 @@ node_pools = [
 
 node_pools_labels = {
   core-pool = {
-    dask= ""
+    infrastructure = "ok"
+    jupyterlab = "ok"
   },
   dask-pool = {
-    jupyterlab = ""
-    infrastructure = ""
+    dask = "ok"
   }
 }

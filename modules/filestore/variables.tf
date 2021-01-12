@@ -32,7 +32,7 @@ variable "zone" {
 variable "tier" {
   description = "The service tier of the instance. Possible values are TIER_UNSPECIFIED, STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, and HIGH_SCALE_SSD."
   type        = string
-  default     = "STANDARD"
+  default     = "BASIC_SSD"
 }
 
 variable "fileshare_name" {
@@ -44,7 +44,7 @@ variable "fileshare_name" {
 variable "fileshare_capacity" {
   description = "File share capacity in GiB. This must be at least 1024 GiB for the standard tier, or 2560 GiB for the premium tier."
   type        = number
-  default     = 2660
+  default     = 2600
 }
 
 variable "network" {

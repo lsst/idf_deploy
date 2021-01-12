@@ -55,9 +55,6 @@ module "gke" {
       environment      = var.environment
       project          = local.project_id
       application_name = var.application_name
-      infrastructure   = "ok"
-      jupyterlab       = "ok"
-      dask             = "ok"
     }
   }
 }

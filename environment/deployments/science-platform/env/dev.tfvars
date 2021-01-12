@@ -27,15 +27,10 @@ secondary_ranges = {
 
 # GKE
 # master_ipv4_cidr_block = "172.16.0.0/28"
-# node_pool_1_name = "core-pool"
-# node_pool_1_machine_type = "e2-standard-4" # 4 vCPU 16GB RAM
-# node_pool_1_min_count = 1
-# node_pool_1_max_count = 15
-# node_pool_1_disk_size_gb = 100
-# node_pool_1_initial_node_count = 5
 
 # Filestore
-fileshare_capacity = 2000
+fileshare_capacity = 2600
+fileshare_tier = "BASIC_SSD"
 fs2_fileshare_capacity = 2600
 fs2_tier = "BASIC_SSD"
 
