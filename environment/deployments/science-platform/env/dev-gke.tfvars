@@ -38,6 +38,7 @@ node_pools = [
     auto_repair        = true
     auto_upgrade       = true
     preemptible        = false
+    autoscaling        = false
     node_count         = 5
     image_type         = "cos_containerd"
     enable_secure_boot = true
@@ -55,6 +56,7 @@ node_pools = [
     preemptible        = false
     image_type         = "cos_containerd"
     enable_secure_boot = true
+    autoscaling        = false
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
   }
