@@ -1,5 +1,5 @@
 # Project
-# null update to force change
+# null update to force redeployment
 environment             = "dev"
 application_name        = "science-platform"
 
