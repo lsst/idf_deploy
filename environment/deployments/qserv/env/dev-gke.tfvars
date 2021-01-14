@@ -27,6 +27,7 @@ secondary_ranges = {
 # GKE
 master_ipv4_cidr_block = "172.20.0.0/28"
 release_channel = "RAPID"
+cluster_telemetry_type = "SYSTEM_ONLY"
 node_pools = [
   {
     name               = "czar-pool"
