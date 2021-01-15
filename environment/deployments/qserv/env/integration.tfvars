@@ -47,11 +47,7 @@ custom_rules = {
     ]
 
 
-    extra_attributes = {
-      log_config = {
-        metadata = "INCLUDE_ALL_METADATA"
-      }
-    }
+    extra_attributes = {}
   }
 }
 
