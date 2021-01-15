@@ -61,7 +61,7 @@ Instructions below for working with GKE.  The GKE VS Cloud Code plugin is availa
 * [Setting Cluster Monitoring and Logging](runbook/monitoring-logging.md#setting-gke-monitoring-and-logging)
 * [Viewing Application Logs](runbook/monitoring-logging.md#viewing-gke-application-logs)
 * [GCP Monitoring Dashboards](runbook/monitoring-logging.md#monitoring)
-* [Reuse Persistent Disks](runbook/persistent-disks-retain.md)
+* [Reuse Persistent Disks](runbook/persistent-disk-retain.md)
 
 ### [VPC Peering](./modules/vpc_peering)
 
