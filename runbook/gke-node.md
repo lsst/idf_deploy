@@ -1,7 +1,7 @@
-<h1>GKE Node Pools Terraform</h1>
+# GKE Node Pools Terraform
 
 
-# Increasing or Decreasing Node Counts
+## Increasing or Decreasing Node Counts
 Below are instructions for increasing or decreasing the GKE node count.  The GKE node count in dev or integration clusters can be reduced when not used to reduce costs.
 
 * Navigate to the [terraform deployments directory](../environment/deployments)
@@ -19,3 +19,5 @@ node_pools = [
 ```
 * Save and check in the file to GitHub.  An automated GitHub Action will now run to perform a terraform plan to check syntax and formatting of the change. The GitHub Actions for GKE end with GKE.  Example is QServ DEV GKE. Navigate to the [Actions](https://github.com/lsst/idf_deploy/actions) to watch that status.
 * Once the GitHub Action worklow runs successfully approve the pull request.  The same GitHub Action will now run with terraform apply.
+
+##  Adding Node Pools

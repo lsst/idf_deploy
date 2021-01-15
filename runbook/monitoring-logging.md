@@ -1,11 +1,23 @@
 # GCP Monitoring and Logging
 
-Logs can be viewed via the GCP Logging service inside the GCP project.  Log costs are [here]((https://cloud.google.com/stackdriver/pricing)
+Logs can be viewed via the GCP Logging service inside the GCP project.  Log costs are [here](https://cloud.google.com/stackdriver/pricing)
+
+## Monitoring
+
+A centralized GCP monitoring workspace is created in the [rubin-monitoring GCP project](https://console.cloud.google.com/monitoring?project=rubin-monitoring-1abd&timeDomain=1h). Logs and Metrics from all the RSP and QServ projects are collected.  The following dashboards are created.
+
+* GKE - Built in Dashboard with info on all monitored GKE clusters. Broken out by Clusters, Namespaces, Nodes, Services, Deployments, and Pods
+* Infrastructure Summary - Built in Dashboard showing top VMs by CPU, 
+* RSP GKE - Custom Dashboard with Science Platform GKE CPU, Memory data
+* RSP GKE Disk - Custom Dashboard with Science Platform GKE IO, bandwidth data on Filestore and Persistent Disks
+
+The following roles are provisioned for access to view and configure dashboards.
+* GCP Monitoring Viewer - view dashboards only
+* GCP Monitoring Admins - create, edit dashboards and alerts.  Add projects to workspace
 
 ## GKE Logging
 
 [GKE provides system and application logs](https://cloud.google.com/stackdriver/docs/solutions/gke/using-logs).  The system logs include admin activity, data access, and events.  Application logs are collected from container STDOUT and STDERR.
-
 
 The default value for GKE is system and application logs.  At the time of initial deployment QServ was generating a large amount logs.  The QServ terraform configuration was adjusted to add a cluster monitoring and logging variable.  The [section](# Setting GKE Cluster Monitoring and Logging) describes how to change the setting.
 
