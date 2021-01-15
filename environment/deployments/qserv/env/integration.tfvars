@@ -30,6 +30,26 @@ fileshare_capacity = 2000
 
 # Firewall
 fw_sources = ["10.130.0.0/23","10.131.0.0/16","10.130.16.0/20"] # Science-Platform-Integration CIDRs
+custom_rules = {
+  cert-manager = {
+    description          = "qserv-qserv"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["10.130.0.0/23","10.131.0.0/16","10.130.16.0/20"]
+    sources              = []
+    targets              = ["gke-qserv-int"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["4040"]
+      }
+    ]
+    extra_attributes = {
+      flow_logs = true
+    }
+  }
+}
 
 # NAT
 address_count = 1

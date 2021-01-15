@@ -55,26 +55,9 @@ module "service_account_cluster" {
 module "firewall_cert_manager" {
   source = "../../../modules/firewall"
 
-  project_id = module.project_factory.project_id
-  network    = module.project_factory.network_name
-  custom_rules = {
-    cert-manager = {
-      description          = "qserv-qserv"
-      direction            = "INGRESS"
-      action               = "allow"
-      ranges               = var.fw_sources
-      sources              = []
-      targets              = ["gke-${var.application_name}-${var.environment}"]
-      use_service_accounts = false
-      rules = [
-        {
-          protocol = "tcp"
-          ports    = ["4040"]
-        }
-      ]
-      extra_attributes = {}
-    }
-  }
+  project_id   = module.project_factory.project_id
+  network      = module.project_factory.network_name
+  custom_rules = var.custom_rules
 }
 
 module "nat" {
