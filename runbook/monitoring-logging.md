@@ -4,7 +4,7 @@ Logs can be viewed via the GCP Logging service inside the GCP project.  Log cost
 
 ## GKE Logging
 
-[GKE provides system and application logs](https://cloud.google.com/stackdriver/docs/solutions/gke/using-logs)).  The system logs include admin activity, data access, and events.  Application logs are collected from container STDOUT and STDERR.
+[GKE provides system and application logs](https://cloud.google.com/stackdriver/docs/solutions/gke/using-logs).  The system logs include admin activity, data access, and events.  Application logs are collected from container STDOUT and STDERR.
 
 
 The default value for GKE is system and application logs.  At the time of initial deployment QServ was generating a large amount logs.  The QServ terraform configuration was adjusted to add a cluster monitoring and logging variable.  The [section](# Setting GKE Cluster Monitoring and Logging) describes how to change the setting.

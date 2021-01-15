@@ -57,6 +57,7 @@ Instructions below for working with GKE.  The GKE VS Cloud Code plugin is availa
 
 * [Increase Node Pool Size or Turn Down Nodes](runbook/gke-node.md#increasing-or-decreasing-node-counts)
 * [Setting Cluster Monitoring and Logging](runbook/monitoring-logging.md#setting-gke-monitoring-and-logging)
+* [Viewing Application Logs](runbook/monitoring-logging.md#viewing-gke-application-logs)
 * [Reuse Persistent Disks](runbook/persistent-disks.md)
 
 ### [VPC Peering](./modules/vpc_peering)
