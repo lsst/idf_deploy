@@ -45,8 +45,12 @@ custom_rules = {
         ports    = ["4040"]
       }
     ]
-    log_config = {
-      flow_logs = true
+
+
+    extra_attributes = {
+      log_config = {
+        flow_logs = true
+    }
     }
   }
 }
