@@ -50,10 +50,6 @@ custom_rules = {
     extra_attributes = {
       disabled = false
     }
-
-    log_config = {
-      metadata = "INCLUDE_ALL_METADATA"
-    }
   }
 }
 
