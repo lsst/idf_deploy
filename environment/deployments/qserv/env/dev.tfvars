@@ -1,10 +1,13 @@
 # Project
-environment             = "dev"
-application_name        = "qserv"
-folder_id               = "195355585008"
+environment                 = "dev"
+application_name            = "qserv"
+folder_id                   = "195355585008"
+budget_amount               = 1000
+budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
+
 
 # VPC
-network_name            = "qserv-dev-vpc"
+network_name = "qserv-dev-vpc"
 subnets = [
   {
     "subnet_ip" : "10.134.0.0/23",
@@ -29,8 +32,8 @@ secondary_ranges = {
 fileshare_capacity = 2000
 
 # Firewall
-fw_sources = ["10.128.0.0/23","10.128.16.0/20","10.129.0.0/16"] # Science-Platform-Integration CIDRs
+fw_sources = ["10.128.0.0/23", "10.128.16.0/20", "10.129.0.0/16"] # Science-Platform-Integration CIDRs
 
 # NAT
 address_count = 1
-nat_name = "cloud-nat"
+nat_name      = "cloud-nat"
