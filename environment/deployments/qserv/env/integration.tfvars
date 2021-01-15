@@ -49,6 +49,8 @@ custom_rules = {
     extra_attributes = {
       disabled = false
     }
+
+    log_config = {}
   }
 }
 
