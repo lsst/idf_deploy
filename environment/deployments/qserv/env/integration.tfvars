@@ -46,8 +46,9 @@ custom_rules = {
       }
     ]
 
-
-    extra_attributes = {}
+    extra_attributes = {
+      disabled = false
+    }
   }
 }
 
