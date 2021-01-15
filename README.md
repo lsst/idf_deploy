@@ -47,9 +47,12 @@ This will include the maintenance and creation of new:
 * [Different environments per applications (Prod, Int, Dev)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-different-environments-per-new-applications)
 * [Projects and clusters](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#update-projects-and-clusters)
 
-### [Github Actions](./runbook/pipelines.md)
+### [Github Actions](./runbook/github-actions.md)
 
 This will include an overview of Github Actions YAML files and how to modify them. 
+
+* [Overview](./runbook/github-actions.md)
+* [Creating New Pipelines](./runbook/new-pipelines.md)
 
 ### [GKE](./modules/gke)
 
