@@ -40,12 +40,11 @@ This will include maintenance of the following:
 * Shared VPC
 * Any project under the `Shared Services` Folder
 
-### [New Projects](./runbook/new-projects.md)
+### [Projects](./runbook/new-projects.md)
 
 This will include the maintenance and creation of new:
-* [Applications (Qserv, Science Platform, etc)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-new-applications)
-* [Different environments per applications (Prod, Int, Dev)](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#deploying-different-environments-per-new-applications)
-* [Projects and clusters](https://github.com/lsst/idf_deploy/blob/master/runbook/new-projects.md#update-projects-and-clusters)
+* [New Projects](./runbook/new-projects.md)
+* [Project Modification](./runbook/project-modification.md)
 
 ### [Github Actions](./runbook/github-actions.md)
 
