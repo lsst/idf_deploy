@@ -43,7 +43,7 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
     autoscaling        = "false"
-    node_count         = 1
+    node_count         = 0
   },
   {
     name               = "worker-pool"
@@ -58,7 +58,7 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-standard"
     autoscaling        = "false"
-    node_count         = 5
+    node_count         = 0
   },
   {
     name               = "utility-pool"
