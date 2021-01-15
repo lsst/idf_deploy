@@ -39,6 +39,7 @@ custom_rules = {
     sources              = []
     targets              = ["gke-qserv-int"]
     flow_logs            = true
+    flow_logs_metadata   = "INCLUDE_ALL_METADATA"
     use_service_accounts = false
     rules = [
       {
