@@ -52,7 +52,7 @@ module "service_account_cluster" {
 }
 
 
-module "firewall_cert_manager" {
+module "firewall_1" {
   source = "../../../modules/firewall"
 
   project_id   = module.project_factory.project_id
