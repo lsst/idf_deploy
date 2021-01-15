@@ -53,8 +53,11 @@ This will include an overview of Github Actions YAML files and how to modify the
 
 ### [GKE](./modules/gke)
 
-Instructions below for working with GKE.
-* [Increase Node Pool Size or Turn Down Nodes](runbook/gke-node.md)
+Instructions below for working with GKE.  The GKE VS Cloud Code plugin is available [here](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
+
+* [Increase Node Pool Size or Turn Down Nodes](runbook/gke-node.md#increasing-or-decreasing-node-counts)
+* [Setting Cluster Monitoring and Logging](runbook/monitoring-logging.md#setting-gke-monitoring-and-logging)
+* [Reuse Persistent Disks](runbook/persistent-disks.md)
 
 ### [VPC Peering](./modules/vpc_peering)
 
