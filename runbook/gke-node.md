@@ -1,10 +1,10 @@
 <h1>GKE Node Pools Terraform</h1>
 
 
-* Increasing or Decreasing Node Counts
+# Increasing or Decreasing Node Counts
 Below are instructions for increasing or decreasing the GKE node count.  The GKE node count in dev or integration clusters can be reduced when not used to reduce costs.
 
-* Navigate to the [terraform deployments directory](environment/deployments)
+* Navigate to the [terraform deployments directory](../environment/deployments)
 * Open either qserv or science platform. Then go into env directory.
 * Modify the tfvars file.  The naming syntax is <env>-<gke>.tfvars.  For development clusters open dev-gke.tfvars.  For integration open int-gke.tfvars
 * Perform a pull request to a new branch to edit the gke tfvars file
