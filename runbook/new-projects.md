@@ -28,7 +28,7 @@ Repeat this process for the remaining environments.
 
 <br>
 
-<h1>New Projects and Clusters</h1>
+<h1>New Projects</h1>
 
 To follow the current folder structure, each new application will have its own top-level folder and sub-folders will further break out the environments. Place newly created projects in the folder structure accordingly. 
 
