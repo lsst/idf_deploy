@@ -49,6 +49,6 @@ node_pools_labels = {
 }
 
 
-# TF State
-bucket = "lsst-terraform-state"
-prefix = "qserv/int/gke"
+# TF State declared during pipeline
+# bucket = "lsst-terraform-state"
+# prefix = "qserv/int/gke"
