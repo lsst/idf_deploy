@@ -2,7 +2,7 @@ variable "project" {
   type = string
 }
 
-variable "http_lb_dashboard_enable" {
+variable "https_lb_dashboard_enable" {
   type = bool
 }
 
