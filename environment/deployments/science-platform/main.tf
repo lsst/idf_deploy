@@ -62,25 +62,7 @@ module "service_account_cluster" {
 module "firewall_cert_manager" {
   source = "../../../modules/firewall"
 
-  project_id = module.project_factory.project_id
-  network    = module.project_factory.network_name
-  custom_rules = {
-    cert-manager-terraform = {
-      description          = "cert manager rule created by terraform"
-      direction            = "INGRESS"
-      action               = "allow"
-      ranges               = []
-      sources              = []
-      targets              = ["gke-${var.application_name}-${var.environment}"]
-      use_service_accounts = false
-      rules = [
-        {
-          protocol = "tcp"
-          ports    = ["8443"]
-        }
-      ]
-      extra_attributes = {}
-    }
-
-  }
+  project_id   = module.project_factory.project_id
+  network      = module.project_factory.network_name
+  custom_rules = var.custom_rules
 }
