@@ -28,20 +28,20 @@ If the push is going to the main branch, terraform fromatting checks will happen
 
 ## Example updated .tfvars file
 
-Step 1 - Create a new branch. 
+* Create a new branch. 
 
 ![Picture6](./images/Picture6.PNG)
 
-Step 2 - On the newly created branch, Update the `.tfvars` file. In the below example, the fileshare capacity is being modified. 
+*  On the newly created branch, Update the `.tfvars` file. In the below example, the fileshare capacity is being modified. 
 ```diff
 -   fileshare_capacity = 2000
 +   fileshare_capacity = 2500
 ```
-Step 3 - Commit and push the changes onto the main branch. 
+* Commit and push the changes onto the main branch. 
 
-Step 4 - Merge the pull request from the Pull Request tab.
+* Merge the pull request from the Pull Request tab.
 
-Step 5 - View the real time logs from the Actions tab of the build process. 
+* View the real time logs from the Actions tab of the build process. 
 
 
 

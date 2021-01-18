@@ -26,9 +26,9 @@ This is an example of how to modify existing node pools by adding additonal node
 
 **Steps**
 
-Step 1 - Navigate to the [terraform deployments directory](../environment/deployments)
+* Navigate to the [terraform deployments directory](../environment/deployments)
 
-Step 2 - Update the `.tfvars` file for GKE. For development clusters open dev-gke.tfvars.  For integration open int-gke.tfvars. 
+* Update the `.tfvars` file for GKE. For development clusters open dev-gke.tfvars.  For integration open int-gke.tfvars. 
 
 In the below example, the czar-pool and worker-pool already existed and now a new pool, utility-pool is being added. 
 ```diff
@@ -79,11 +79,11 @@ In the below example, the czar-pool and worker-pool already existed and now a ne
 +    node_count         = 1
 +  }
 ```
-Step 3 - Commit and push the changes onto the main branch. 
+* Commit and push the changes onto the main branch. 
 
-Step 4 - Merge the pull request.
+* Merge the pull request.
 
-Step 5 - Save and check in the file to GitHub. An automated GitHub Action will now run to perform a terraform plan to check syntax and formatting of the change. The GitHub Actions for GKE end with GKE. 
+* Save and check in the file to GitHub. An automated GitHub Action will now run to perform a terraform plan to check syntax and formatting of the change. The GitHub Actions for GKE end with GKE. 
   * Example is QServ DEV GKE. 
 
-Step 6 - Navigate to the Actions to watch that status.Once the GitHub Action worklow runs s uccessfully approve the pull request. The same GitHub Action will now run with terraform apply.
+* Navigate to the Actions to watch that status.Once the GitHub Action worklow runs s uccessfully approve the pull request. The same GitHub Action will now run with terraform apply.

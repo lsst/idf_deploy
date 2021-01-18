@@ -35,7 +35,7 @@ To build new projects with new infrastructure, these should be built under the [
 
 This will include maintenance of the following:
 * Org policies
-* Org Groups and Roles
+* IAM Groups and Roles
 * Logging
 * Shared VPC
 * Any project under the `Shared Services` Folder
