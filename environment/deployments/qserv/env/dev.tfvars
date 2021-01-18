@@ -48,7 +48,7 @@ custom_rules = {
 
     extra_attributes = {
       disabled  = false
-      flow_logs = "INCLUDE_ALL_METADATA"
+      metadata  = "INCLUDE_ALL_METADATA"
     }
   }
 }
