@@ -3,7 +3,7 @@ environment             = "int"
 application_name        = "qserv"
 
 # VPC
-network_name            = "qserv-int-vpc"
+#network_name            = "qserv-int-vpc"
 
 # GKE
 master_ipv4_cidr_block = "172.21.0.0/28"
