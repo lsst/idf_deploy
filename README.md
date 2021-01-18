@@ -43,7 +43,7 @@ This will include maintenance of the following:
 ### [Projects](./runbook/new-projects.md)
 
 This will include the maintenance and creation of new:
-* [New Projects](./runbook/new-projects.md)
+* [Manual Creation of New Projects](./runbook/new-projects.md)
 * [Project Modification](./runbook/project-modification.md)
 
 ### [Github Actions](./runbook/github-actions.md)
