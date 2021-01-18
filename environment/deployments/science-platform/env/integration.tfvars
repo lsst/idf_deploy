@@ -36,7 +36,7 @@ custom_rules = {
     action               = "allow"
     ranges               = ["172.16.0.0/28"]
     sources              = []
-    targets              = ["gke-${var.application_name}-${var.environment}"]
+    targets              = ["gke-science-platform-int"]
     use_service_accounts = false
     rules = [
       {
