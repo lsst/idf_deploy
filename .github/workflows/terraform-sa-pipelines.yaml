@@ -1,5 +1,5 @@
 # Deploys Service Accounts for Pipelines
-name: 'GCP Google Groups'
+name: 'GCP SA for Pipelines'
 
 on:
   pull_request:
