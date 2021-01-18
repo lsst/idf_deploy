@@ -38,8 +38,6 @@ custom_rules = {
     ranges               = ["10.130.0.0/23", "10.131.0.0/16", "10.130.16.0/20"]
     sources              = []
     targets              = ["gke-qserv-int"]
-    
-    flow_logs_metadata   = "INCLUDE_ALL_METADATA"
     use_service_accounts = false
     rules = [
       {
@@ -49,8 +47,8 @@ custom_rules = {
     ]
 
     extra_attributes = {
-      disabled = false
-      flow_logs            = true
+      disabled  = false
+      flow_logs = true
     }
   }
 }
