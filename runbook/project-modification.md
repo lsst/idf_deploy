@@ -1,6 +1,6 @@
 # Overview
 
-This example demonstartes how to modify projects by addings new modules and how to  make smaller modifications, such as updating budgeting. 
+This example demonstrates how to modify projects by adding new modules and how to  make smaller modifications, such as updating project budgets. 
 
 **Adding a New Module**
 
@@ -41,4 +41,26 @@ Step 6 - Save and check in the file to GitHub. An automated GitHub Action will n
 
 Step 7 - Navigate to the Actions to watch that status.Once the GitHub Action worklow runs successfully approve the pull request. The same GitHub Action will now run with terraform apply.
 
+<br>
+
 **Changing Project Budget Amount**
+
+Step 1 - Navigate to the [terraform deployments directory](../environment/deployments).
+
+Step 2 - Open either qserv or science platform. Then go into env directory.
+
+Step 3 - Modify the .tfvars file for production, intergration or dev.
+
+For example, the budget was previously set to 5000 and now it will be modified to 10000.
+
+```diff
+- budget_amount = 1000
++ budget_amount = 5000
+```
+Step 4 - Perform a pull request to a new branch to edit the project tfvars file. 
+
+Step 5 - Commit and push the changes onto the main branch. 
+
+Step 6 - Save and check in the file to GitHub. An automated GitHub Action will now run to perform a terraform plan to check syntax and formatting of the change.
+
+Step 7 - Navigate to the Actions to watch that status.Once the GitHub Action worklow runs successfully approve the pull request. The same GitHub Action will now run with terraform apply.
