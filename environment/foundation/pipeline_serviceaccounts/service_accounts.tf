@@ -1,17 +1,20 @@
-module "qserv_projects_sa" {
+module "gke_pipeline_accounts" {
   source  = "../../../modules/service_accounts/"
 
-  project_id         = var.project_id
-  prefix             = var.prefix
-  names              = var.names
-  project_roles      = var.project_roles
-  grant_billing_role = var.grant_billing_role
-  billing_account_id = var.billing_account_id
-  grant_xpn_roles    = var.grant_xpn_roles
-  org_id             = var.org_id
-  generate_keys      = var.generate_keys
-  display_name       = var.display_name
-  description        = var.description
+  project_id         = "rubin-automation-prod"
+  prefix             = "pipeline"
+  #names              = ["qserv-int-gka-sa","qserv-dev-gka-sa"]
+  names = var.gke_names
+  display_name       = "Pipelines for Qserv Int"
+  description        = "Github action pipellne service account managed by Terraform"
+
+  project_roles = [
+    "qserv-int-8069=>roles/browser",
+    "qserv-int-8069=>roles/compute.admin",
+    "qserv-int-8069=>roles/container.admin",
+    "qserv-int-8069=>roles/container.clusteradmin",
+    "qserv-int-8069=>roles/iam.serviceAccountUser",
+  ]
 }
 
 # variable "project_id" {
@@ -25,11 +28,11 @@ module "qserv_projects_sa" {
 #   default     = "test-sa"
 # }
 
-# variable "names" {
-#   type        = list(string)
-#   description = "Names of the service accounts to create."
-#   default     = []
-# }
+variable "gke_names" {
+  type        = list(string)
+  description = "Names of the service accounts to create."
+  default     = []
+}
 
 # variable "project_roles" {
 #   type        = list(string)
@@ -81,10 +84,10 @@ module "qserv_projects_sa" {
 
 output "email" {
   description = "The service account email."
-  value       = module.service_accounts.service_account.email
+  value       = module.qserv_gke_pipeline_accounts.service_account.email
 }
 
 output "iam_email" {
   description = "The service account IAM-format email."
-  value       = module.service_accounts.iam_email
+  value       = module.qserv_gke_pipeline_accounts.iam_email
 }
