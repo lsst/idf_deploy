@@ -21,17 +21,17 @@ module "cloudsql_dashboard" {
 }
 
 module "https_lb_dashboard" {
-    source                    = "./modules/https_lb"
-    project                   = var.project
-    network_dashboard_enable  = var.https_lb_dashboard_enable
-    network_dashboard_name    = var.https_lb_dashboard_name  
+    source                     = "./modules/https_lb"
+    project                    = var.project
+    https_lb_dashboard_enable  = var.https_lb_dashboard_enable
+    https_lb_dashboard_name    = var.https_lb_dashboard_name  
 }
 
 module "network_tcp_lb_dashboard" {
-    source                    = "./modules/network_tcp_lb"
-    project                   = var.project
-    network_dashboard_enable  = var.network_tcp_lb_dashboard_enable
-    network_dashboard_name    = var.network_tcp_lb_dashboard_name  
+    source                           = "./modules/network_tcp_lb"
+    project                          = var.project
+    network_tcp_lb_dashboard_enable  = var.network_tcp_lb_dashboard_enable
+    network_tcp_lb_dashboard_name    = var.network_tcp_lb_dashboard_name  
 }
 
 module "postgres_dashboard" {
