@@ -170,12 +170,6 @@ variable "labels" {
 
 # FIREWALL
 
-variable "fw_sources" {
-  description = "Firewall source IP addresses"
-  type        = list(string)
-  default     = []
-}
-
 variable "custom_rules" {
   description = "List of custom rule definitions (refer to variables file for syntax)."
   default     = {}
