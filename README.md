@@ -55,15 +55,19 @@ This will include an overview of Github Actions YAML files and how to modify the
 
 ### [GKE](./modules/gke)
 
-Instructions below for working with GKE.  The GKE VS Cloud Code plugin is available [here](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
+Instructions below for working with GKE.
 
-#### Node Pools
-* [Increase Node Pool Size or Turn Down Nodes](runbook/gke-node.md#increasing-or-decreasing-node-counts)
-* [Setting Cluster Monitoring and Logging](runbook/monitoring-logging.md#setting-gke-monitoring-and-logging)
+### Connecting to GKE Cluster
+* [kubectl](runbook/gcp-access.md#kubectl)
+* [GKE VS Cloud Code plugin link](https://marketplace.visualstudio.com/items?itemName=GoogleCloudTools.cloudcode)
 
 #### Monitoring and Logging
 * [Viewing Application Logs](runbook/monitoring-logging.md#viewing-gke-application-logs)
 * [GCP Monitoring Dashboards](runbook/monitoring-logging.md#monitoring)
+
+#### Node Pools
+* [Increase Node Pool Size or Turn Down Nodes](runbook/gke-node.md#increasing-or-decreasing-node-counts)
+* [Setting Cluster Monitoring and Logging](runbook/monitoring-logging.md#setting-gke-monitoring-and-logging)
 
 #### Storage
 * [Filestore Directory Prep](runbook/filestore.md#filestore-directory-prep)
