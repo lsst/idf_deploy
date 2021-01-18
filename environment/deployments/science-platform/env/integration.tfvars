@@ -1,10 +1,10 @@
 # Project
-environment             = "int"
-application_name        = "science-platform"
-folder_id               = "19762437767"
+environment      = "int"
+application_name = "science-platform"
+folder_id        = "19762437767"
 
 # VPC
-network_name            = "science-platform-int-vpc"
+network_name = "science-platform-int-vpc"
 subnets = [
   {
     "subnet_ip" : "10.130.0.0/23",
@@ -25,28 +25,29 @@ secondary_ranges = {
   ]
 }
 
-# GKE
-master_ipv4_cidr_block = "172.17.0.0/28"
-
-node_pools = [
-  {
-    name               = "core-pool"
-    machine_type       = "n1-standard-4"
-    node_locations     = "us-central1-b"
-    local_ssd_count    = 0
-    auto_repair        = true
-    auto_upgrade       = true
-    preemptible        = false
-    node_count         = 5
-    image_type         = "cos_containerd"
-    enable_secure_boot = true
-    disk_size_gb       = "200"
-    disk_type          = "pd-ssd"
-  }
-]
-
 # Filestore
 #fileshare_capacity = 2600
+
+# FIREWALL
+custom_rules = {
+  cert-manager-terraform = {
+    description          = "cert manager rule created by terraform"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["172.16.0.0/28"]
+    sources              = []
+    targets              = ["gke-science-platform-int"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["8443"]
+      }
+    ]
+    extra_attributes = {}
+  }
+
+}
 
 # NAT
 nats = [{ name = "cloud-nat" }]
