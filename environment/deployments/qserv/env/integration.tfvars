@@ -1,7 +1,9 @@
 # Project
-environment      = "int"
-application_name = "qserv"
-folder_id        = "506501599000"
+environment                 = "int"
+application_name            = "qserv"
+folder_id                   = "506501599000"
+budget_amount               = 1000
+budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 
 # VPC
 network_name = "qserv-int-vpc"

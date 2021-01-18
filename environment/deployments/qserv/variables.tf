@@ -61,6 +61,12 @@ variable "budget_amount" {
   type        = number
 }
 
+variable "budget_alert_spent_percents" {
+  description = "The list of percentages of the budget to alert on"
+  type        = list(number)
+  default     = [0.7, 0.8, 0.9, 1.0]
+}
+
 # IAM
 
 variable "project_iam_permissions" {
