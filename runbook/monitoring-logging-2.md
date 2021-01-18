@@ -1,7 +1,4 @@
 # GCP Monitoring and Logging
-Google Cloud Monitoring also known as Stackdriver is the Google Cloud Built in monitoring tool.  Overview of GCP Monitoring and Logging below.  
-
-![Monitoring Overview](images/monitoring-overview.png)
 
 Logs can be viewed via the GCP Logging service inside the GCP project.  Log costs are [here](https://cloud.google.com/stackdriver/pricing)
 
@@ -18,41 +15,7 @@ The following roles are provisioned for access to view and configure dashboards.
 * GCP Monitoring Viewer - view dashboards only
 * GCP Monitoring Admins - create, edit dashboards and alerts.  Add projects to workspace
 
-Additional examples in the subdirectores below are provided and can be imported.
-* [Compute](compute)
-* [Networking](networking)
-* [Storage](storage)
 
-## Monitoring Design Considerations
-Below are some design considerations when using GCP monitoring.
-* Monitoring specific projects as a GCP monitoring workspace to aggregate metrics from multiple projects for teams or applications.  The limit is 100 projects per workspace.
-* Metrics from the API and Services page are viewable as metrics giving you historical view of API usage.  Viewing metric usage is helpful is trying to determine if code is calling GCP or successfully authenticating
-* Using Labels so that resources are grouped using the Group feature in GCP Monitoring dashboards
-* Anything in Stackdriver logs can be viewed as a metric.  This is useful for custom logs are seeing operational issues over time that are not exposed as GCP monitoring metrics like preemption events or GKE pod scheduling errors
-* Alert thresholds are useful to monitor if something is within range.  An example is a setting a threshold for the number of files written to Cloud Storage in an hour or number of PubSub messages generated
-
-### Monitoring Dashboards
-Dashboards can be created via in the GCP monitoring console, exported and then imported as JSON with gcloud, or deployed as infrastructurea as code via Terraform or gcloud.  Charts are created from metrics. A full metrics list is [here](https://cloud.google.com/monitoring/api/metrics) Google provided dashboard samples are [here](https://github.com/GoogleCloudPlatform/monitoring-dashboard-samples/)
-
-### Creating Dashboards via gcloud
-Use the `gcloud monitoring dashboards` create command to create a dashboard. Make sure you replace the [file-name.json] in the command:
-
-```
-gcloud monitoring dashboards create --config-from-file=[file_name.json]
-```
-
-To export a dashboard use the gcloud command like to export the dashboard to a JSON file.
-```
-gcloud monitoring dashboards describe \
-projects/$PROJECT_NUMBER/dashboards/$DASH_ID --format=json > $FILE_NAME 
-```
-
-After exporting open the exported JSON file in an editor and remove the etag / name fields. Alternatively, you can use the sed command on a Linux or MAC terminal, for example:
-
-```
-sed -i '/"name":/d' $FILE_NAME
-sed -i '/"etag":/d' $FILE_NAME
-```
 
 ## GKE Logging
 
