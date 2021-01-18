@@ -94,6 +94,7 @@ variable "org_monitoring_admins_iam_permissions" {
   default = [
     "roles/monitoring.admin",
     "roles/monitoring.editor",
+    "roles/viewer",
   ]
 }
 
@@ -102,6 +103,7 @@ variable "org_monitoring_viewer_iam_permissions" {
   type        = list(string)
   default = [
     "roles/monitoring.viewer",
+    "roles/viewer",
   ]
 }
 
