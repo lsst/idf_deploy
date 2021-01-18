@@ -1,3 +1,8 @@
+data "google_compute_network" "network" {
+  name    = var.vpc_network
+  project = var.project_id
+}
+
 module "cloudsql-db" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
   version = "~> 4.0"
@@ -25,20 +30,33 @@ module "cloudsql-db" {
   database_flags      = var.database_flags
 
   ip_configuration = {
-    ipv4_enabled        = true
-    private_network     = null
+    ipv4_enabled        = false
+    private_network     = data.google_compute_network.network.self_link
     require_ssl         = true
     authorized_networks = var.authorized_networks
   }
+
+  module_depends_on = var.module_depends_on
 }
 
 module "private-service-access" {
   source = "../private_service_access"
-  
+
   project_id    = var.project_id
   vpc_network   = var.vpc_network
   address       = var.address
   prefix_length = var.prefix_length
   ip_version    = var.ip_version
   labels        = var.labels
+}
+
+module "service_accounts" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~> 3.0"
+  project_id    = var.project_id
+  display_name  = var.display_name
+  description   = var.description
+  prefix        = var.prefix
+  names         = var.names
+  project_roles = var.project_roles
 }
