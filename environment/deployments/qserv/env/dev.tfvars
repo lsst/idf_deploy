@@ -1,7 +1,9 @@
 # Project
-environment      = "dev"
-application_name = "qserv"
-folder_id        = "195355585008"
+environment                 = "dev"
+application_name            = "qserv"
+folder_id                   = "195355585008"
+budget_amount               = 1000
+budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 
 # VPC
 network_name = "qserv-dev-vpc"
@@ -31,8 +33,8 @@ fileshare_capacity = 2000
 
 # Firewall
 custom_rules = {
-  qserv-qserv = {
-    description          = "qserv-qserv"
+  qserv = {
+    description          = "Deployed with Terraform"
     direction            = "INGRESS"
     action               = "allow"
     ranges               = ["10.128.0.0/23", "10.128.16.0/20", "10.129.0.0/16"]
@@ -47,9 +49,9 @@ custom_rules = {
     ]
 
     extra_attributes = {
-      disabled  = false
-      flow_logs = true
-      flow_logs_metadata  = "INCLUDE_ALL_METADATA"
+      disabled           = false
+      flow_logs          = true
+      flow_logs_metadata = "INCLUDE_ALL_METADATA"
     }
   }
 }
