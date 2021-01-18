@@ -29,7 +29,28 @@ secondary_ranges = {
 fileshare_capacity = 2000
 
 # Firewall
-fw_sources = ["10.128.0.0/23","10.128.16.0/20","10.129.0.0/16"] # Science-Platform-Integration CIDRs
+custom_rules = {
+  qserv-qserv = {
+    description          = "qserv-qserv"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["10.128.0.0/23","10.128.16.0/20","10.129.0.0/16"]
+    sources              = []
+    targets              = ["gke-qserv-dev"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["4040"]
+      }
+    ]
+
+    extra_attributes = {
+      disabled  = false
+      flow_logs = "INCLUDE_ALL_METADATA"
+    }
+  }
+}
 
 # NAT
 address_count = 1
