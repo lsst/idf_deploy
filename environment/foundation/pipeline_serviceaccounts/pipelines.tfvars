@@ -1,2 +1,2 @@
 # GKE Service Account Pipelines
-gke_names = ["qserv-int-gka-sa"]
+qserv_int_gke_names = ["qserv-int-gka-sa"]

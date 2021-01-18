@@ -3,7 +3,7 @@ module "qserv_gke_pipeline_accounts" {
 
   project_id   = "rubin-automation-prod"
   prefix       = "pipeline"
-  names        = var.gke_names
+  names        = var.qserv_int_gke_names
   display_name = "Pipelines for Qserv Int"
   description  = "Github action pipellne service account managed by Terraform"
 
@@ -16,7 +16,7 @@ module "qserv_gke_pipeline_accounts" {
   ]
 }
 
-variable "gke_names" {
+variable "qserv_int_gke_names" {
   type        = list(string)
   description = "Names of the service accounts to create."
   default     = []
@@ -24,7 +24,7 @@ variable "gke_names" {
 
 output "email" {
   description = "The service account email."
-  value       = module.qserv_gke_pipeline_accounts.service_account.email
+  value       = module.qserv_gke_pipeline_accounts.email
 }
 
 output "iam_email" {
