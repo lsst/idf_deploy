@@ -32,5 +32,26 @@ secondary_ranges = {
 #fileshare_capacity = 2600
 #fileshare_tier = "BASIC_SSD"
 
+# FIREWALL
+custom_rules = {
+  cert-manager-terraform = {
+    description          = "cert manager rule created by terraform"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["172.16.0.0/28"]
+    sources              = []
+    targets              = ["gke-science-platform-dev"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["8443"]
+      }
+    ]
+    extra_attributes = {}
+  }
+}
+
+
 # NAT
 nats = [{ name = "cloud-nat" }]
