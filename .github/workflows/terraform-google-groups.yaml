@@ -1,5 +1,5 @@
-# Deploys Science Platform Dev GCP Project with Terraform
-name: 'RSP Dev GCP Project'
+# Deploys GCP Google Groups Foundation
+name: 'GCP Google Groups'
 
 on:
   pull_request:
