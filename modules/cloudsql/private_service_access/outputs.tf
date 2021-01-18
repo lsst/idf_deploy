@@ -1,29 +1,14 @@
-# output "project_id" {
-#   value       = var.project_id
-#   description = "The project to run tests against"
-# }
+output "address" {
+  value       = module.private-service-access.address
+  description = "First IP of the reserved range."
+}
 
-# output "name" {
-#   value       = module.cloudsql-db.instance_name
-#   description = "The name for Cloud SQL instance"
-# }
+output "google_compute_global_address_name" {
+  value       = module.private-service-access.google_compute_global_address_name
+  description = "URL of the reserved range."
+}
 
-# output "mysql_conn" {
-#   value       = module.cloudsql-db.instance_connection_name
-#   description = "The connection name of the master instance to be used in connection strings"
-# }
-
-# output "mysql_user_pass" {
-#   value       = module.cloudsql-db.generated_user_password
-#   description = "The password for the default user. If not set, a random one will be generated and available in the generated_user_password output variable."
-# }
-
-# output "public_ip_address" {
-#   description = "The first public (PRIMARY) IPv4 address assigned for the master instance"
-#   value       = module.cloudsql-db.public_ip_address
-# }
-
-# output "private_ip_address" {
-#   description = "The first private (PRIVATE) IPv4 address assigned for the master instance"
-#   value       = module.cloudsql-db.private_ip_address
-# }
+output "peering_completed" {
+  value       = module.private-service-access.peering_completed
+  description = "Use for enforce ordering between resource creation"
+}
