@@ -33,8 +33,8 @@ fileshare_capacity = 2000
 
 # Firewall
 custom_rules = {
-  qserv-qserv = {
-    description          = "qserv-qserv"
+  qserv = {
+    description          = "Deployed with Terraform"
     direction            = "INGRESS"
     action               = "allow"
     ranges               = ["10.128.0.0/23", "10.128.16.0/20", "10.129.0.0/16"]
