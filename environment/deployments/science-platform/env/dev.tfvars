@@ -1,15 +1,16 @@
 # Project
-environment             = "dev"
-application_name        = "science-platform"
-folder_id               = "985686879610"
+environment      = "dev"
+application_name = "science-platform"
+folder_id        = "985686879610"
 
 # VPC
-network_name            = "science-platform-dev-vpc"
+network_name = "science-platform-dev-vpc"
 subnets = [
   {
-    "subnet_ip" : "10.128.0.0/23",
-    "subnet_name" : "subnet-us-central1-01",
-    "subnet_region" : "us-central1"
+    "subnet_ip"             = "10.128.0.0/23",
+    "subnet_name"           = "subnet-us-central1-01",
+    "subnet_region"         = "us-central1"
+    "subnet_private_access" = "true"
   }
 ]
 secondary_ranges = {
