@@ -59,6 +59,22 @@ variable "disk_autoresize" {
   default     = true
 }
 
+# variable "backup_configuration" {
+#   description = "The backup_configuration settings subblock for the database setings"
+#   type = object({
+#     binary_log_enabled = bool
+#     enabled            = bool
+#     start_time         = string
+#     location           = string
+#   })
+#   default = {
+#     binary_log_enabled = false
+#     enabled            = false
+#     start_time         = null
+#     location           = null
+#   }
+# }
+
 variable "backup_configuration" {
   description = "The backup_configuration settings subblock for the database setings"
   type = object({
@@ -73,6 +89,24 @@ variable "backup_configuration" {
     location                       = null
     point_in_time_recovery_enabled = false
   }
+}
+
+variable "assign_public_ip" {
+  description = "Set to true if the master instance should also have a public IP (less secure)."
+  type        = string
+  default     = false
+}
+
+variable "activation_policy" {
+  description = "The activation policy for the master instance. Can be either `ALWAYS`, `NEVER` or `ON_DEMAND`."
+  type        = string
+  default     = "ALWAYS"
+}
+
+variable "availability_type" {
+  description = "The availability type for the master instance. Can be either `REGIONAL` or `null`."
+  type        = string
+  default     = "REGIONAL"
 }
 
 variable "maintenance_window_day" {
@@ -132,18 +166,24 @@ variable "database_flags" {
   default = []
 }
 
+# variable "vpc_network" {
+#   description = "Existing VPC network to which instances are connected. The networks needs to be configured with https://cloud.google.com/vpc/docs/configure-private-services-access."
+#   type        = string
+# }
+
 variable "random_instance_name" {
   type        = bool
   description = "Sets random suffix at the end of the Cloud SQL resource name"
   default     = true
 }
 
-// Private Service Access
+variable "module_depends_on" {
+  description = "List of modules or resources this module depends on."
+  type        = list(any)
+  default     = []
+}
 
-# variable "project_id" {
-#   description = "The project ID of the VPC network to peer. This can be a shared VPC host projec."
-#   type        = string
-# }
+// Private Service Access
 
 variable "vpc_network" {
   description = "Name of the VPC network to peer."
@@ -172,4 +212,36 @@ variable "labels" {
   description = "The key/value labels for the IP range allocated to the peered network."
   type        = map(string)
   default     = {}
+}
+
+// Service Account
+
+variable "prefix" {
+  type        = string
+  description = "Prefix applied to service account names."
+  default     = ""
+}
+
+variable "names" {
+  type        = list(string)
+  description = "Names of the service accounts to create."
+  default     = []
+}
+
+variable "project_roles" {
+  type        = list(string)
+  description = "Common roles to apply to all service accounts, project=>role as elements."
+  default     = []
+}
+
+variable "display_name" {
+  type        = string
+  description = "Display names of the created service accounts (defaults to 'Terraform-managed service account')"
+  default     = "Terraform-managed service account"
+}
+
+variable "description" {
+  type        = string
+  description = "Descriptions of the created service accounts (defaults to no description)"
+  default     = "Service Account created by Terraform"
 }
