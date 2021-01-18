@@ -1,5 +1,7 @@
 # Filestore
 
+Runbook sections on how to work with GCP Filestore.
+
 ## Editing Filestore Instance
 
 Once deployed a GCP Filestore instance [cannot change tier](https://cloud.google.com/filestore/docs/service-tiers#selecting_a_tier).  A new Filestore instance with the new tier setting must be deployed and data migrated.  
@@ -16,7 +18,7 @@ Filestore size can be changed via terraform by the folling the below instruction
 fileshare_capacity = 3600
 ```
 
-### Deploying GKE Configuration for Filestore
+### Filestore Directory Prep
 
 When a new filestore is provisioned for science platform the NFS directores needs to be created before use from pods in GKE.  The [RSP FILESTORE DIR GitHub Action](/.github/workflows/rsp-filestore-dir.yaml) automates the provisioning of directories by running a Kubernetes job with shell script that runs mkdir -p for each directory.  The job references a NFS storage class, persistent volume, and persistent volume claim for connecting to Filestore.  This is setup using kustomize templates.  A [base directory](/kubernetes-manifests/base/filestore) contains the nfs storage class, persistent volume, persistent volume claim, and job manifests.  An [overlays directory](/kubernetes-manifests/overlays/dev) directory overlays the Filestore IP using kustomize patches.  This allows the base directory to be used in in the future for other use cases.
 

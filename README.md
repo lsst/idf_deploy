@@ -61,12 +61,13 @@ Instructions below for working with GKE.  The GKE VS Cloud Code plugin is availa
 * [Increase Node Pool Size or Turn Down Nodes](runbook/gke-node.md#increasing-or-decreasing-node-counts)
 * [Setting Cluster Monitoring and Logging](runbook/monitoring-logging.md#setting-gke-monitoring-and-logging)
 
-### Monitoring and Logging
+#### Monitoring and Logging
 * [Viewing Application Logs](runbook/monitoring-logging.md#viewing-gke-application-logs)
 * [GCP Monitoring Dashboards](runbook/monitoring-logging.md#monitoring)
 
-### Storage
-* [Filesote Directory Prep](runbook/filestore.md#deploying-gke-configuration-for-filestore)
+#### Storage
+* [Filestore Directory Prep](runbook/filestore.md#filestore-directory-prep)
+* [Editing Filestore Instance](runbook/filestore.md#editing-filestore-instance)
 * [Persistent Disks Retain](runbook/persistent-disk-retain.md)
 
 ### [VPC Peering](./modules/vpc_peering)
