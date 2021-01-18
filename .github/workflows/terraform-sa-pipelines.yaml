@@ -1,15 +1,15 @@
-# Deploys QServ Dev GKE with Terraform
-name: 'QServ INT GKE'
+# Deploys Service Accounts for Pipelines
+name: 'GCP SA for Pipelines'
 
 on:
   pull_request:
     paths:
-      - 'environment/deployments/qserv/env/integration-gke.tfvars'
+      - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
   push:
+    paths:
+      - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
     branches:
       - master
-    paths:
-      - 'environment/deployments/qserv/env/integration-gke.tfvars'
 
 jobs:
   terraform:
@@ -20,8 +20,8 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./environment/deployments/qserv/gke
-
+        working-directory: ./environment/foundation/pipeline_serviceaccounts/
+    
     # Checkout the repository to the GitHub Actions runner
     steps:
     - name: Checkout
@@ -32,23 +32,23 @@ jobs:
       uses: google-github-actions/setup-gcloud@master
       with:
         version: '319.0.0'
-        service_account_key: ${{ secrets.PIPELINE_QSERV_INT_GKE }}
+        service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
-    # Install terraform
+    # Installs terraform
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.12.29
+        terraform_version: 0.13.5
 
-    # Checks for proper terraform code formatting
+    # Checks for proper formatting in terraform code
     - name: Terraform Fmt
       run: terraform fmt
 
     # Initialize a new or existing terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=qserv/int/gke
+      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=foundation/pipeline_serviceaccounts
 
     # Checks that all terraform configuration files adhere to a canonical format
     - name: Terraform Validate
@@ -57,9 +57,9 @@ jobs:
     # Generates an execution plan for terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=../env/integration-gke.tfvars -no-color
+      run: terraform plan -var-file=pipelines.tfvars -no-color
 
-    # On push to main, build or change infrastructure according to Terraform configuration files
+    # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -var-file=../env/integration-gke.tfvars -refresh=false -auto-approve
+      run: terraform apply -var-file=pipelines.tfvars -auto-approve
