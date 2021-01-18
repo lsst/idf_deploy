@@ -1,7 +1,9 @@
 # Project
-environment      = "int"
-application_name = "science-platform"
-folder_id        = "19762437767"
+environment                 = "int"
+application_name            = "science-platform"
+folder_id                   = "19762437767"
+budget_amount               = 1000
+budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 
 # VPC
 network_name = "science-platform-int-vpc"
