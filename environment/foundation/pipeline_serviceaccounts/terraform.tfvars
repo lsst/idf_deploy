@@ -1,6 +1,6 @@
 # GKE Service Account Pipelines
-qserv_int_gke_names = ["qserv-int-gka-sa"]
-qserv_dev_gke_names = ["qserv-dev-gka-sa"]
+qserv_int_gke_names = ["qserv-int-gke-sa"]
+qserv_dev_gke_names = ["qserv-dev-gke-sa"]
 rsp_int_gke_names   = ["rsp-int-gke-sa"]
 rsp_dev_gke_names   = ["rsp-dev-gke-sa"]
 
