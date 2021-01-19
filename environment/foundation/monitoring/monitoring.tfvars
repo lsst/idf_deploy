@@ -16,6 +16,11 @@ cloudsql_dashboard_name = "CloudSQL Dashboard"
 https_lb_dashboard_enable = true
 https_lb_dashboard_name = "HTTPS Load Balancer Dashboard"
 
+# GKE Dashboard
+gke_dashboard_enable = true
+gke_dashboard_filter = "science-platform"
+gke_dashboard_name = "RSP GKE Dashboard"
+
 # Network TCP Load Balancer Dashboard
 network_tcp_lb_dashboard_enable = true
 network_tcp_lb_dashboard_name = "Network TCP Load Balancer Dashboard"
