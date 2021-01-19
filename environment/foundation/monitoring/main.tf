@@ -27,6 +27,14 @@ module "https_lb_dashboard" {
     https_lb_dashboard_name         = var.https_lb_dashboard_name  
 }
 
+module "gke_dashboard" {
+    source                          = "../../../modules/monitoring/gke"
+    project                         = var.project
+    gke_dashboard_enable            = var.gke_dashboard_enable
+    gke_dashboard_filter            = var.gke_dashboard_filter
+    gke_dashboard_name              = var.gke_dashboard_name  
+}
+
 module "network_tcp_lb_dashboard" {
     source                           = "../../../modules/monitoring/network_tcp_lb"
     project                          = var.project
