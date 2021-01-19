@@ -9,3 +9,4 @@ qserv_int_names = ["qserv-int-sa"]
 qserv_dev_names = ["qserv-dev-sa"]
 rsp_dev_names   = ["rsp-dev-sa"]
 rsp_int_names   = ["rsp-int-sa"]
+
