@@ -27,7 +27,7 @@ resource "google_monitoring_dashboard" "gke_dashboard" {
                     ],
                     "perSeriesAligner": "ALIGN_MEAN"
                   },
-                  "filter": "metric.type=\"kubernetes.io/container/cpu/request_utilization\" resource.type=\"k8s_container\" resource.label.\"cluster_name\"=starts_with(\""${var.gke_dashboard_filter}\")",
+                  "filter": "metric.type=\"kubernetes.io/container/cpu/request_utilization\" resource.type=\"k8s_container\" resource.label.\"cluster_name\"=starts_with(\"${var.gke_dashboard_filter}\")",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
@@ -65,7 +65,7 @@ resource "google_monitoring_dashboard" "gke_dashboard" {
                     ],
                     "perSeriesAligner": "ALIGN_MEAN"
                   },
-                  "filter": "metric.type=\"kubernetes.io/container/memory/request_utilization\" resource.type=\"k8s_container\" resource.label.\"cluster_name\"=starts_with(\""${var.gke_dashboard_filter}"\")",
+                  "filter": "metric.type=\"kubernetes.io/container/memory/request_utilization\" resource.type=\"k8s_container\" resource.label.\"cluster_name\"=starts_with(\"${var.gke_dashboard_filter}\")",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
@@ -103,7 +103,7 @@ resource "google_monitoring_dashboard" "gke_dashboard" {
                     ],
                     "perSeriesAligner": "ALIGN_MEAN"
                   },
-                  "filter": "metric.type=\"kubernetes.io/container/memory/limit_utilization\" resource.type=\"k8s_container\" resource.label.\"cluster_name\"=starts_with(\""${var.gke_dashboard_filter}"\")",
+                  "filter": "metric.type=\"kubernetes.io/container/memory/limit_utilization\" resource.type=\"k8s_container\" resource.label.\"cluster_name\"=starts_with(\"${var.gke_dashboard_filter}\")",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
