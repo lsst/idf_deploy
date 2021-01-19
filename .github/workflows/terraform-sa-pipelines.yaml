@@ -3,7 +3,7 @@ name: 'GCP SA for Pipelines'
 
 on:
   pull_request:
-    paths:
+    paths:      
       - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
   push:
     paths:
