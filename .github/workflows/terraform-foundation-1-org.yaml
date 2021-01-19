@@ -4,10 +4,10 @@ name: 'GCP Organization Level Settings'
 on:
   pull_request:
     paths:
-      - 'environment/foundation/1-org/**'
+      - 'environment/foundation/1-org/1-org.tfvars'
   push:
     paths:
-      - 'environment/foundation/1-org/**'
+      - 'environment/foundation/1-org/1-org.tfvars'
     branches:
       - master
 
@@ -48,18 +48,17 @@ jobs:
 
     # Initialize a new or existing terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
+      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=foundation/1-org
 
     # Checks that all Terraform configuration files adhere to a canonical format
-    # commenting out to troubleshoot later. Taking a long time to run and validate
-    # - name: Terraform Validate
-    #   run: terraform validate
+    - name: Terraform Validate
+      run: terraform validate
 
     # Generates an execution plan for terraform
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -var-file=1-org.tfvars -no-color
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+      run: terraform apply -var-file=1-org.tfvars -refresh=false -auto-approve
