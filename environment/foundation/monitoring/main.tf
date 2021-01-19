@@ -1,6 +1,6 @@
 
 module "compute_dashboard" {
-    source                    = "./modules/compute"
+    source                    = "../../../modules/monitoring/compute"
     project                   = var.project
     compute_dashboard_enable  = var.compute_dashboard_enable
     compute_dashboard_name    = var.compute_dashboard_name
