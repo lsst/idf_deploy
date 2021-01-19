@@ -52,7 +52,7 @@ variable "rsp_int_names" {
   default     = []
 }
 
-variable "billing_acocunt_id" {
+variable "billing_account_id" {
   description = "The billing account id"
   type        = string
 }
