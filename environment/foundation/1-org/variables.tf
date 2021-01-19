@@ -95,6 +95,7 @@ variable "org_monitoring_admins_iam_permissions" {
     "roles/monitoring.admin",
     "roles/monitoring.editor",
     "roles/viewer",
+    "roles/serviceusage.serviceUsageConsumer"
   ]
 }
 
@@ -104,6 +105,7 @@ variable "org_monitoring_viewer_iam_permissions" {
   default = [
     "roles/monitoring.viewer",
     "roles/viewer",
+    "roles/serviceusage.serviceUsageConsumer"
   ]
 }
 
