@@ -37,6 +37,8 @@ module "qserv_dev_pipeline_accounts" {
   project_roles = [
     "qserv-dev-3d7e=>roles/editor",
     "qserv-dev-3d7e=>roles/resourcemanager.projectIamAdmin",
+    "qserv-dev-3d7e=>roles/billing.admin",
+
   ]
 }
 // Storage access to read tfstate
