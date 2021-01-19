@@ -11,7 +11,7 @@ module "qserv_gke_pipeline_accounts" {
     "qserv-int-8069=>roles/browser",
     "qserv-int-8069=>roles/compute.admin",
     "qserv-int-8069=>roles/container.admin",
-    "qserv-int-8069=>roles/container.clusteradmin",
+    "qserv-int-8069=>roles/container.clusterAdmin",
     "qserv-int-8069=>roles/iam.serviceAccountUser",
   ]
 }
