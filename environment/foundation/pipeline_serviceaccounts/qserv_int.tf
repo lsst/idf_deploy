@@ -6,7 +6,7 @@ module "qserv_int_pipeline_accounts" {
   prefix       = "pipeline"
   names        = var.qserv_int_names
   display_name = "Pipelines for Qserv Int Project"
-  description  = "Github action pipellne service account managed by Terraform"
+  description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
     "qserv-int-8069=>roles/editor",

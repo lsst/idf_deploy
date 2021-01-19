@@ -6,7 +6,7 @@ module "qserv_int_gke_pipeline_accounts" {
   prefix       = "pipeline"
   names        = var.qserv_int_gke_names
   display_name = "Pipelines for Qserv Int GKE"
-  description  = "Github action pipellne service account managed by Terraform"
+  description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
     "qserv-int-8069=>roles/browser",

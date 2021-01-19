@@ -5,8 +5,8 @@ module "rsp_dev_pipeline_accounts" {
   project_id   = "rubin-automation-prod"
   prefix       = "pipeline"
   names        = var.rsp_dev_names
-  display_name = "Pipelines for Science Platform Dev GKE"
-  description  = "Github action pipellne service account managed by Terraform"
+  display_name = "Pipelines for Science Platform Dev Project"
+  description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
     "science-platform-dev-7696=>roles/editor",
