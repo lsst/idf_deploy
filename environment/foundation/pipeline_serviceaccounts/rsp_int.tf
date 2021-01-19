@@ -26,12 +26,12 @@ variable "rsp_int_names" {
   default     = []
 }
 
-output "email" {
+output "rsp_int_email" {
   description = "The service account email."
   value       = module.rsp_int_pipeline_accounts.email
 }
 
-output "iam_email" {
+output "rsp_int_iam_email" {
   description = "The service account IAM-format email."
   value       = module.rsp_int_pipeline_accounts.iam_email
 }
