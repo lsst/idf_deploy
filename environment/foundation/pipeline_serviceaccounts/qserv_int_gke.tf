@@ -29,12 +29,12 @@ variable "qserv_int_gke_names" {
   default     = []
 }
 
-output "email" {
+output "qserv_int_email" {
   description = "The service account email."
   value       = module.qserv_int_gke_pipeline_accounts.email
 }
 
-output "iam_email" {
+output "qserv_int_iam_email" {
   description = "The service account IAM-format email."
   value       = module.qserv_int_gke_pipeline_accounts.iam_email
 }

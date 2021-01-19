@@ -26,12 +26,12 @@ variable "qserv_dev_names" {
   default     = []
 }
 
-output "email" {
+output "qserv_dev_email" {
   description = "The service account email."
   value       = module.qserv_dev_pipeline_accounts.email
 }
 
-output "iam_email" {
+output "qserv_dev_iam_email" {
   description = "The service account IAM-format email."
   value       = module.qserv_dev_pipeline_accounts.iam_email
 }
