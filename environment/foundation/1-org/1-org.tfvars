@@ -4,7 +4,7 @@ parent_folder                 = ""
 folder_names                  = ["QServ", "SQuaRE", "Science Platform", "Processing"]
 seed_folder_name              = "370233560583"
 
-// Org Viewer IAM Roles
+// Organization Viewer IAM Roles
 
 org_viewer_org_iam_permissions = [
   "roles/orgpolicy.policyViewer",
