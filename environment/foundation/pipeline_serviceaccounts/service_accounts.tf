@@ -7,13 +7,13 @@ module "qserv_gke_pipeline_accounts" {
   display_name = "Pipelines for Qserv Int"
   description  = "Github action pipellne service account managed by Terraform"
 
-  project_roles = [
-    "qserv-int-8069=>roles/browser",
-    "qserv-int-8069=>roles/compute.admin",
-    "qserv-int-8069=>roles/container.admin",
-    "qserv-int-8069=>roles/container.clusteradmin",
-    "qserv-int-8069=>roles/iam.serviceAccountUser",
-  ]
+  # project_roles = [
+  #   "qserv-int-8069=>roles/browser",
+  #   "qserv-int-8069=>roles/compute.admin",
+  #   "qserv-int-8069=>roles/container.admin",
+  #   "qserv-int-8069=>roles/container.clusteradmin",
+  #   "qserv-int-8069=>roles/iam.serviceAccountUser",
+  # ]
 }
 
 variable "qserv_int_gke_names" {
