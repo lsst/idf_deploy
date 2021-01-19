@@ -51,7 +51,7 @@ For example, to add a GCS Bucket use the bucket module:
 
 * Modify the .tfvars file for production, intergration or dev.
 
-For example, the budget was previously set to 5000 and now it will be modified to 10000.
+For example, the budget was previously set to 1000 and now it will be modified to 5000.
 
 ```diff
 - budget_amount = 1000
