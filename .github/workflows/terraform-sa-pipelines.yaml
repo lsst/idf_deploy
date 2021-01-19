@@ -4,12 +4,12 @@ name: 'GCP SA for Pipelines'
 on:
   pull_request:
     paths:      
-      - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
+      - 'environment/foundation/pipeline_serviceaccounts/terraform.tfvars'
   push:
     branches:
       - master
     paths:
-      - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
+      - 'environment/foundation/pipeline_serviceaccounts/terraform.tfvars'
 
 jobs:
   terraform:
@@ -57,9 +57,9 @@ jobs:
     # Generates an execution plan for terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=pipelines.tfvars -no-color
+      run: terraform plan -var-file=terraform.tfvars -no-color
 
     # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -var-file=pipelines.tfvars -auto-approve
+      run: terraform apply -var-file=terraform.tfvars -auto-approve
