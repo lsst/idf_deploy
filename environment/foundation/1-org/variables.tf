@@ -281,7 +281,7 @@ variable "org_audit_log_project_budget_amount" {
 }
 
 
-// SHARED VPC HOST PROJECT VARS
+// SHARED SERVICE PROJECT VARS
 variable "enable_shared_services_project" {
   description = "Option to enable or disable the creation of the project for: Shared Host Project"
   type        = number
