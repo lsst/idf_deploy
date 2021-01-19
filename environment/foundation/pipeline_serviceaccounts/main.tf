@@ -37,8 +37,6 @@ module "qserv_dev_pipeline_accounts" {
   project_roles = [
     "qserv-dev-3d7e=>roles/editor",
     "qserv-dev-3d7e=>roles/resourcemanager.projectIamAdmin",
-    "qserv-dev-3d7e=>roles/billing.admin",
-
   ]
 }
 // Storage access to read tfstate
@@ -46,6 +44,13 @@ resource "google_storage_bucket_iam_member" "qserv_dev" {
   bucket = "lsst-terraform-state"
   role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${module.qserv_dev_pipeline_accounts.email}"
+}
+
+// Billing Account to update budgets
+resource "google_billing_account_iam_member" "qserv_dev" {
+  billing_account_id = var.billing_account_id
+  role               = "roles/billing.admin"
+  member             = "serviceAccount:${module.qserv_dev_pipeline_accounts.email}"
 }
 
 // QServ Int GKE
