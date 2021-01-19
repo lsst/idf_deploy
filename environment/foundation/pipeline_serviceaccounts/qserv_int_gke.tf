@@ -1,4 +1,5 @@
-module "qserv_gke_pipeline_accounts" {
+// QServ Int GKE
+module "qserv_int_gke_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
   project_id   = "rubin-automation-prod"
@@ -15,11 +16,11 @@ module "qserv_gke_pipeline_accounts" {
     "qserv-int-8069=>roles/iam.serviceAccountUser",
   ]
 }
-
+// Storage access to read tfstate
 resource "google_storage_bucket_iam_member" "qserv_int_gke" {
   bucket = "lsst-terraform-state"
   role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${module.qserv_gke_pipeline_accounts.email}"
+  member = "serviceAccount:${module.qserv_int_gke_pipeline_accounts.email}"
 }
 
 variable "qserv_int_gke_names" {
@@ -30,10 +31,10 @@ variable "qserv_int_gke_names" {
 
 output "email" {
   description = "The service account email."
-  value       = module.qserv_gke_pipeline_accounts.email
+  value       = module.qserv_int_gke_pipeline_accounts.email
 }
 
 output "iam_email" {
   description = "The service account IAM-format email."
-  value       = module.qserv_gke_pipeline_accounts.iam_email
+  value       = module.qserv_int_gke_pipeline_accounts.iam_email
 }
