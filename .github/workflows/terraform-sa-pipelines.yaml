@@ -6,10 +6,10 @@ on:
     paths:      
       - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
   push:
-    paths:
-      - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
     branches:
       - master
+    paths:
+      - 'environment/foundation/pipeline_serviceaccounts/pipelines.tfvars'
 
 jobs:
   terraform:
