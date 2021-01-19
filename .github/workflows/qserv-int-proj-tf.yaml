@@ -32,7 +32,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@master
       with:
         version: '319.0.0'
-        service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+        service_account_key: ${{ secrets.PIPELINE_QSERV_INT_PROJECT }}
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
