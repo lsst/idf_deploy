@@ -109,7 +109,7 @@ resource "google_storage_bucket_iam_member" "qserv_int" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "qserv_dev" {
+resource "google_billing_account_iam_member" "qserv_int" {
   billing_account_id = var.billing_account_id
   role               = "roles/billing.admin"
   member             = "serviceAccount:${module.qserv_int_pipeline_accounts.email}"
@@ -167,7 +167,7 @@ resource "google_storage_bucket_iam_member" "rsp_dev" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "qserv_dev" {
+resource "google_billing_account_iam_member" "rsp_dev" {
   billing_account_id = var.billing_account_id
   role               = "roles/billing.admin"
   member             = "serviceAccount:${module.rsp_dev_pipeline_accounts.email}"
@@ -225,7 +225,7 @@ resource "google_storage_bucket_iam_member" "rsp_int" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "qserv_dev" {
+resource "google_billing_account_iam_member" "rsp_int" {
   billing_account_id = var.billing_account_id
   role               = "roles/billing.admin"
   member             = "serviceAccount:${module.rsp_int_pipeline_accounts.email}"
