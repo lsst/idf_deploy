@@ -1,4 +1,6 @@
-// QServ Dev GKE
+#---------------------------------------------------------------
+# QServ Dev GKE
+#---------------------------------------------------------------
 module "qserv_dev_gke_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -24,7 +26,10 @@ resource "google_storage_bucket_iam_member" "qserv_dev_gke" {
   member = "serviceAccount:${module.qserv_dev_gke_pipeline_accounts.email}"
 }
 
-// QServ Dev Project
+
+ #---------------------------------------------------------------
+ # QServ Dev Project
+ #---------------------------------------------------------------
 module "qserv_dev_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -52,8 +57,9 @@ resource "google_billing_account_iam_member" "qserv_dev" {
   role               = "roles/billing.admin"
   member             = "serviceAccount:${module.qserv_dev_pipeline_accounts.email}"
 }
-
+#---------------------------------------------------------------
 // QServ Int GKE
+#---------------------------------------------------------------
 module "qserv_int_gke_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -78,7 +84,9 @@ resource "google_storage_bucket_iam_member" "qserv_int_gke" {
   member = "serviceAccount:${module.qserv_int_gke_pipeline_accounts.email}"
 }
 
-// QServ Int Project
+#---------------------------------------------------------------
+# QServ Int Project
+#---------------------------------------------------------------
 module "qserv_int_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -100,7 +108,16 @@ resource "google_storage_bucket_iam_member" "qserv_int" {
   member = "serviceAccount:${module.qserv_int_pipeline_accounts.email}"
 }
 
+// Billing Account to update budgets
+resource "google_billing_account_iam_member" "qserv_dev" {
+  billing_account_id = var.billing_account_id
+  role               = "roles/billing.admin"
+  member             = "serviceAccount:${module.qserv_int_pipeline_accounts.email}"
+}
+
+#---------------------------------------------------------------
 // Science Platform Dev GKE
+#---------------------------------------------------------------
 module "rsp_dev_gke_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -125,7 +142,9 @@ resource "google_storage_bucket_iam_member" "rsp_dev_gke" {
   member = "serviceAccount:${module.rsp_dev_gke_pipeline_accounts.email}"
 }
 
+#---------------------------------------------------------------
 // Science Platform Dev Project
+#---------------------------------------------------------------
 module "rsp_dev_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -147,11 +166,16 @@ resource "google_storage_bucket_iam_member" "rsp_dev" {
   member = "serviceAccount:${module.rsp_dev_pipeline_accounts.email}"
 }
 
+// Billing Account to update budgets
+resource "google_billing_account_iam_member" "qserv_dev" {
+  billing_account_id = var.billing_account_id
+  role               = "roles/billing.admin"
+  member             = "serviceAccount:${module.rsp_dev_pipeline_accounts.email}"
+}
 
-
-
-
+#---------------------------------------------------------------
 // Science Platform Int GKE
+#---------------------------------------------------------------
 module "rsp_int_gke_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -176,7 +200,9 @@ resource "google_storage_bucket_iam_member" "rsp_int_gke" {
   member = "serviceAccount:${module.rsp_int_gke_pipeline_accounts.email}"
 }
 
+#---------------------------------------------------------------
 // Science Platform Int
+#---------------------------------------------------------------
 module "rsp_int_pipeline_accounts" {
   source = "../../../modules/service_accounts/"
 
@@ -198,7 +224,9 @@ resource "google_storage_bucket_iam_member" "rsp_int" {
   member = "serviceAccount:${module.rsp_int_pipeline_accounts.email}"
 }
 
-
-
-
-
+// Billing Account to update budgets
+resource "google_billing_account_iam_member" "qserv_dev" {
+  billing_account_id = var.billing_account_id
+  role               = "roles/billing.admin"
+  member             = "serviceAccount:${module.rsp_int_pipeline_accounts.email}"
+}
