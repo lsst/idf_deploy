@@ -16,6 +16,12 @@ module "qserv_gke_pipeline_accounts" {
   ]
 }
 
+resource "google_storage_bucket_iam_member" "qserv_int_gke" {
+  bucket = "lsst-terraform-state"
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${module.qserv_gke_pipeline_accounts.email}"
+}
+
 variable "qserv_int_gke_names" {
   type        = list(string)
   description = "Names of the service accounts to create."
