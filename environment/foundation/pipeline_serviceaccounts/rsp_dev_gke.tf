@@ -6,7 +6,7 @@ module "rsp_dev_gke_pipeline_accounts" {
   prefix       = "pipeline"
   names        = var.rsp_dev_gke_names
   display_name = "Pipelines for Science Platform Dev GKE"
-  description  = "Github action pipellne service account managed by Terraform"
+  description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
     "science-platform-dev-7696=>roles/browser",

@@ -4,9 +4,9 @@ module "qserv_dev_gke_pipeline_accounts" {
 
   project_id   = "rubin-automation-prod"
   prefix       = "pipeline"
-  names        = var.qserv_dev_names
+  names        = var.qserv_dev_gke_names
   display_name = "Pipelines for Qserv Dev GKE"
-  description  = "Github action pipellne service account managed by Terraform"
+  description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
     "qserv-dev-3d7e=>roles/browser",

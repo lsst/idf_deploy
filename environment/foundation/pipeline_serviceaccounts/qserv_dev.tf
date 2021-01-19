@@ -6,7 +6,7 @@ module "qserv_dev_pipeline_accounts" {
   prefix       = "pipeline"
   names        = var.qserv_dev_names
   display_name = "Pipelines for Qserv Dev Project"
-  description  = "Github action pipellne service account managed by Terraform"
+  description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
     "qserv-dev-3d7e=>roles/editor",
