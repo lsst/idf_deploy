@@ -51,3 +51,9 @@ variable "rsp_int_names" {
   description = "Names of the service accounts to create."
   default     = []
 }
+
+// Billing Account ID
+variable "billing_account_id" {
+  description = "The billing account id"
+  type        = string
+}
