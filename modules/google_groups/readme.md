@@ -2,7 +2,7 @@
 
 This module manages Cloud Identity Groups and Memberships using Cloud Identity Group API.
 
-There is a base folder located under [environment\foundation\google_groups](../../environment/foundation/google_groups) where new modules for new groups can be appended with a subdirectory (`.\env`) with a `tfvars` file. There is a GitHub Action pipeline created to monitor for changes to this `tfvars` file.
+There is a base folder located under [environment\foundation\google_groups](../../environment/foundation/google_groups) where new modules for new groups can be appended with a subdirectory (`.\env`) with a `tfvars` file. There is a [GitHub Action](../../.github/workflows/terraform-google-groups.yaml) pipeline created to monitor for changes to this `tfvars` file.
 
 ## Usage
 The example below shows a basic usage of this module.
