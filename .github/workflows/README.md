@@ -20,6 +20,36 @@ Workflows GitHub Actions are configured to deploy organization level settings, f
 | QSERV STABLE GCP PROJECT        | qserv-stable-proj-tf.yaml           | tfvars Pull/Push | Creates prod qserv GCP Project, setups billing              |
 | QSERV STABLE GKE                | qsrv-stable-gke-tf.yaml             | tfvars Pull/Push | Creates and manages settings on qserv prod GKE Cluster      |
 
+## Creating new workflows
+When creating a new Google GCP project, two pipelines are normally needed. These two pipelines help reduce the blast radius as well as create different [Terraform State](https://www.terraform.io/docs/state/index.html) files.
+
+1. A pipeline that deploys and maintains `project` related stuff like the project itself, attached billing accounts, IAM permissions, filestore, etc. Anything that's not Kubernetes specific.
+1. A pipeline to create and maintain the Kubernetes cluster.
+
+### Usage
+Below is a simple example of re-using an existing workflow and modifying to be used for a new application:
+
+* We'll use the `qserv-int-proj-tf.yaml` as an example to be used to create a new pipeline to create and manage a new application in the [environments/deployments](../../environments/deployments) directory. Copy and rename it to something like {app}-{env}-proj.tf.yaml.
+```diff
+- qserv-int-proj-tf.yaml
++ panda-dev-proj-tf.yaml
+```
+
+* We need to make our new workflow unique and change the paths of the working directories for [Terraform to initialize](https://www.terraform.io/docs/commands/init.html). Search and replace the following:
+
+```diff
+- name: 'QServ INT GCP Project'
++ name: 'PanDa DEV GCP Project`
+
+- 'environment/deployments/qserv/env/integration.tfvars'
++ 'environment/deployments/panda/env/dev.tfvars'
+
+- working-directory: ./environment/deployments/qserv
++ working-directory: ./environment/deployments/panda
+```
+
+* (Optional) Update any of the Terrform specifics like `terraform_version`, or the path to the `tfvars` file.
+
 
 ## Deploying GCP Projects
 
