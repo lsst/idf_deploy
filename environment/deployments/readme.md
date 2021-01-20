@@ -5,7 +5,7 @@ The purpose of the `Deployments` directory is to deploy new projects.
 ## Automated Pipelines
 
 GitHub Actions is used as the CI/CD deployment tool. GitHub Actions is connected to the `remote` git repo hosted in client git repo. There are automated pipelines configured in .github/workflows that watch for changes in the different deployments directories.
->Note: Filters for all pipelines have been configured to only watch for changes in the `envrionment/deployments` directory, specifically changes to `tfvars` files.
+>Note: Filters for all pipelines have been configured to only watch for changes in the `envrionment/deployments/{application}/env` directory, specifically changes to `tfvars` files.
 
 ### Setup
 
