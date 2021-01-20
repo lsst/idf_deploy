@@ -4,20 +4,8 @@ The purpose of the `Deployments` directory is to deploy new projects.
 
 ## Automated Pipelines
 
-Cloud Build is used as the CI/CD deployment tool and it's enabled in the `Terraform` GCP project. Cloud Build is connected to the `remote` git repo hosted in client git repo. There are 2 automated pipelines configured in Cloud Build that watch for changes in the `central-hpc-terraform` repo.
->Note: Filters for all pipelines have been configured to only watch for changes in the `envrionment/deployments` directory.
-
-1. The first pipeline - Terraform Plan - watches for any changes in the `Deployments` directory that's NOT the master branch. 
-2. The second pipeline - Terraform Apply - watches for any changes in the `Deployments` directory that IS the master branch.
-
-### Terraform Plan Pipeline
-
-The first pipeline has a `terraform plan` associated with it, with some additional checks like `terraform fmt`. When the plan pipeline is complete, a `tfplan` output is created and named to match the `branch name`. The `$BRANCH_NAME.tfplan` is upload to a GCS bucket. This `tfplan` is used during the `apply` pipeline.
-
->Important Note: the folder name in the `Deployments` directory must match the branch name. This is how the pipeline keeps track of the the different branches with the different `tfplans`.
-
-### Terraform Apply Pipeline
-The second pipeline has a `terraform apply` associated with it. It will check the tfplan matches with the `$BRANCH_NAME`, if it doesn't it will fail.
+GitHub Actions is used as the CI/CD deployment tool. GitHub Actions is connected to the `remote` git repo hosted in client git repo. There are automated pipelines configured in .github/workflows that watch for changes in the different deployments directories.
+>Note: Filters for all pipelines have been configured to only watch for changes in the `envrionment/deployments` directory, specifically changes to `tfvars` files.
 
 ### Setup
 
