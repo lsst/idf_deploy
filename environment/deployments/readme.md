@@ -19,11 +19,9 @@ The first pipeline has a `terraform plan` associated with it, with some addition
 ### Terraform Apply Pipeline
 The second pipeline has a `terraform apply` associated with it. It will check the tfplan matches with the `$BRANCH_NAME`, if it doesn't it will fail.
 
-## Usage
+### Setup
 
-### Setup to run via Cloud Build
-
-1. Clone repo from Bitbucket `git clone caltechimss/central-hpc-terraform.git`
+1. Clone repo from GitHub `git clone lsst/idf_deploy.git`
 1. Change freshly cloned repo and change to non master branch `git checkout -b simple-project`
 1. Create a new folder in the deployments directory with the same name as the branch name `mkdir envrionment\deployments\simple-project`
 1. Copy example contents from `modules\{template}\examples` to new folder `cp -r modules/project_iam_vpc/example/simple-project envrionment/deployments/simple-project` (modify accordingly based on your current directory).
