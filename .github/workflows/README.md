@@ -29,7 +29,7 @@ When creating a new Google GCP project, two pipelines are normally needed. These
 ### Usage
 Below is a simple example of re-using an existing workflow and modifying to be used for a new application:
 
-* We'll use the `qserv-int-proj-tf.yaml` as an example to be used to create a new pipeline to create and manage a new application in the [environments/deployments](../../environments/deployments) directory. Copy and rename it to something like {app}-{env}-proj.tf.yaml.
+* We'll use the `qserv-int-proj-tf.yaml` as an example to be used to create a new pipeline to create and manage a new application in the [environment/deployments](../../environment/deployments) directory. Copy and rename it to something like {app}-{env}-proj.tf.yaml.
 ```diff
 - qserv-int-proj-tf.yaml
 + panda-dev-proj-tf.yaml
