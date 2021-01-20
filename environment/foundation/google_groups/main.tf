@@ -9,3 +9,8 @@ module "group" {
   managers     = var.managers
   members      = var.members
 }
+
+// Aditional Unique Groups added here
+# module "unique_groupname" {
+#     ...
+# }
