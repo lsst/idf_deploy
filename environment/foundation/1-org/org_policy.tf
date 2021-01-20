@@ -4,7 +4,7 @@ locals {
 }
 
 # ----------------------------------------
-#   DOMAIN RESTRCITED SHARING
+#   DOMAIN RESTRICTED SHARING
 # ----------------------------------------
 
 module "org_domain_restricted_sharing" {

@@ -1,6 +1,6 @@
 resource "google_monitoring_dashboard" "postgres_dashboard_enable" {
-  project = var.project
-  count=var.postgres_dashboard_enable ? 1: 0
+  project        = var.project
+  count          = var.postgres_dashboard_enable ? 1 : 0
   dashboard_json = <<EOF
 {
   "displayName": "${var.postgres_dashboard_name}",

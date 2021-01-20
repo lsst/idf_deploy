@@ -1,6 +1,6 @@
 resource "google_monitoring_dashboard" "gke_dashboard" {
-  project = var.project
-  count=var.gke_dashboard_enable ? 1: 0
+  project        = var.project
+  count          = var.gke_dashboard_enable ? 1 : 0
   dashboard_json = <<EOF
 {
   "displayName": "${var.gke_dashboard_name}",
