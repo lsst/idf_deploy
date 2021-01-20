@@ -32,7 +32,7 @@ org_billing_administrator_iam_permissions = [
   "roles/billing.admin"
 ]
 
-// Org IAM Roles Monitoring
+// Organization IAM Roles Monitoring
 
 org_monitoring_viewer_iam_permissions = [
   "roles/monitoring.viewer",
