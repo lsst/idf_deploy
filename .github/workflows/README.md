@@ -35,7 +35,7 @@ Below is a simple example of re-using an existing workflow and modifying to be u
 + panda-dev-proj-tf.yaml
 ```
 
-* We need to make our new workflow unique and change the paths of the working directories for [Terraform to initialize](https://www.terraform.io/docs/commands/init.html). Search and replace the following:
+* We need to make our new workflow unique and change the paths of the working directories for [Terraform to initialize](https://www.terraform.io/docs/commands/init.html). Open the newly created file and search and replace the following lines:
 
 ```diff
 - name: 'QServ INT GCP Project'
