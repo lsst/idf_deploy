@@ -29,11 +29,8 @@ The purpose of this step is to setup shared VPCs with default DNS, NAT, and base
 Each one of these steps has its own `tfstate` but also its own pipeline. There are three pipelines, one for each step (except manual). The pipelines are set to monitor for any push and for any changes to the modules corresponding directory.
 
 ### Example of IAM Update
-To add an additional role, like `roles/project.viewer`, to the `Org Admins` group must be done in the [1-org](../environment/foundation/1-org) directory. The IAM permissions are listed in the `variables.tf` file and this must be updated.
+To add an additional role, like `roles/project.viewer`, to the `Org Admins` group must be done in the [1-org](../environment/foundation/1-org) directory. The IAM permissions are listed in the tf vars file `1-org.tfvars` file and this must be updated.
 ```diff
-variable "org_admins_org_iam_permissions" {
-  description = "List of permissions granted to the group supplied in group_org_admins variable across the GCP organization."
-  type        = list(string)
   default = [
     "roles/billing.user",
     "roles/resourcemanager.organizationAdmin",
@@ -41,12 +38,14 @@ variable "org_admins_org_iam_permissions" {
     "roles/resourcemanager.projectCreator",
 +   "roles/iam.organizationRoleAdmin",
 +   "roles/project.Viewer
-  ]
 }
 ```
+
+Note that permissions are also set in the variables.tf file in this directory.  1-org.tfvars and tfvars in general will overwrite default values.
+
 ## Organization Policy Update
 
-Organization Policies are in place for domain restricted sharing, removing the default network, preventing Public IPs in CloudSQL, requiring shielded VMs at the organization level.  If Organization Policies need to be updated the [Organization Policy Terraform File](environment/1-org/org-polilcy.tf) to remove or add an organization policy.  If an Organization Policy needs to selected applied at folder level only and not organization change the parent value.
+Organization Policies are in place for domain restricted sharing, removing the default network, preventing Public IPs in CloudSQL, requiring shielded VMs at the organization level.  If Organization Policies need to be updated the [Organization Policy Terraform File](environment/1-org/org-polilcy.tf) to remove or add an organization policy.  If an Organization Policy needs to selected applied at folder level only change the input values for .
 
 
 ### Example of Folder Update
