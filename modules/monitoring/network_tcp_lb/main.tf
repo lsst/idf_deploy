@@ -1,6 +1,6 @@
 resource "google_monitoring_dashboard" "network_tcp_lb_dashboard" {
-  project = var.project
-  count=var.network_tcp_lb_dashboard_enable ? 1: 0
+  project        = var.project
+  count          = var.network_tcp_lb_dashboard_enable ? 1 : 0
   dashboard_json = <<EOF
 
 {
