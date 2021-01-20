@@ -4,7 +4,7 @@ label_application_name = "org-shared-services-prod"
 
 network_name           = "shared-vpc-prod"
 
-// Subnets
+// Subnets for Shared VPC
 
 subnets = [
   {
