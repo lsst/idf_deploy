@@ -34,15 +34,27 @@ variable "https_lb_dashboard_name" {
   type = string
 }
 
-variable "gke_dashboard_enable" {
+variable "rsp_gke_dashboard_enable" {
   type = bool
 }
 
-variable "gke_dashboard_filter" {
+variable "rsp_gke_dashboard_" {
   type = string
 }
 
-variable "gke_dashboard_name" {
+variable "rsp_gke_dashboard_name" {
+  type = string
+}
+
+variable "qserv_gke_dashboard_enable" {
+  type = bool
+}
+
+variable "qserv_gke_dashboard_" {
+  type = string
+}
+
+variable "qserv_gke_dashboard_name" {
   type = string
 }
 
