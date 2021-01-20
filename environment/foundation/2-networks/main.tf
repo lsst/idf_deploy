@@ -22,7 +22,7 @@ module "constants" {
 # ----------------------------------------
 
 module "shared_vpc_prod" {
-  source         = "./modules/standard_shared_vpc"
+  source         = "../../../modules/standard_shared_vpc"
   project_id     = local.prod_host_project_id
   default_region = module.constants.values.default_region
   network_name   = var.network_name
