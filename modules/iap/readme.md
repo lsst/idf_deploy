@@ -56,6 +56,45 @@ module "iap_tunneling" {
 }
 ```
 
+## Example
+Working example
+```terraform
+data "google_compute_network" "my-network" {
+    name = "shared-vpc-prod"
+    project = var.project_id
+}
+
+data "google_compute_subnetwork" "my-subnetwork" {
+  name   = "us-central1-prod-0"
+  region = "us-central1"
+  project = var.project_id
+}
+
+module "iap_tunnel" {
+    source = "../../modules/iap"
+
+    project = var.project_id
+    network = data.google_compute_network.my-network.self_link
+    members = ["user:astrong@lsst.cloud"]
+    instances = [{
+        name = "instance-simple-001"
+        zone = "us-central1-a"
+    }]
+
+    depends_on = [ module.vm ]
+}
+
+module "vm" {
+    source = "../../modules/compute"
+    project_id = var.project_id
+    subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
+}
+
+variable "project_id" {
+    default = "rubin-shared-services-71ec"  
+}
+```
+
 ## Requirements
 
 No requirements.
