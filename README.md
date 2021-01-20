@@ -39,7 +39,8 @@ The GCP Organization, Organization Policies, Organization Level IAM, projects, m
 * [Folder Changes](./runbook/update-foundations.md#example-of-folder-update)
 
 ## IAM
-* [IAM Changes](./runbook/update-foundations.md#example-of-iam-update)
+* [IAM Role Changes](./runbook/update-foundations.md#example-of-iam-update)
+* [Organization Policy Changes](./runbook/update-foundations.md#organization-policy-update)
 
 ### Projects
 * [Manual Creation of New Projects](./runbook/new-projects.md)

@@ -44,6 +44,9 @@ variable "org_admins_org_iam_permissions" {
   ]
 }
 ```
+## Organization Policy Update
+
+Organization Policies are in place for domain restricted sharing, removing the default network, preventing Public IPs in CloudSQL, requiring shielded VMs at the organization level.  If Organization Policies need to be updated the [Organization Policy Terraform File](environment/1-org/org-polilcy.tf) to remove or add an organization policy.  If an Organization Policy needs to selected applied at folder level only and not organization change the parent value.
 
 
 ### Example of Folder Update
