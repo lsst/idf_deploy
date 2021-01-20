@@ -2,6 +2,52 @@
 
 This module manages Cloud Identity Groups and Memberships using Cloud Identity Group API.
 
+There is a base folder located under `environment\foundation\google_groups` where new modules for new groups can be appended with a subdirectory (`.\env`) with a `tfvars` file. There is a GitHub Action pipeline created to monitor for changes to this `tfvars` file.
+
+## Usage
+The example below shows a basic usage of this module.
+* Append the new group to in `main.tf`
+* Append the new input variables to the `variables.tf`
+* Append the new values to the `tfvars` file
+
+```terraform
+module "foo_group" {
+  source  = "../../../modules/google_groups"
+  
+  id           = var.foo_id
+  display_name = var.foo_display_name
+  description  = var.foo_description
+  domain       = var.foo_domain
+  owners       = var.foo_owners
+  managers     = var.foo_managers
+  members      = var.foo_members
+}
+// Additional Google Groups
+module "bar_group" {
+    <...>
+}
+```
+After a new module has been appended, those new input variables need to be declared in the `variables.tf` file.
+```terraform
+variable "foo_id" {}
+variable "foo_display_name" {}
+variable "foo_description" {}
+variable "foo_domain" {}
+variable "foo_owners" {}
+variable "foo_managers" {}
+variable "foo_members" {}
+```
+After the new input variables has been appended, a new set of distint values must be added to the `tfvars` under the subdirectory of `.\env`. These new values will trigger our CI pipeline.
+```tfvars
+foo_id           = "example-group@example.com"
+foo_display_name = "example-group"
+foo_description  = "Example Group"
+foo_domain       = "example.com"
+foo_owners       = ["owner@example.com"]
+foo_managers     = ["manager@example.com"]
+foo_members      = ["user1@example.com","user2@example.com"]
+```
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
