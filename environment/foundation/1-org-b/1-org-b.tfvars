@@ -77,7 +77,7 @@ gcp_qserv_gke_developer_iam_permissions = [
   "roles/storage.objectViewer"
 ]
 
-// Science Platform IAM Roles
+// Science Platform
 
 splatform_display_name       = "Science Platform"
 
@@ -108,7 +108,7 @@ gcp_science_platform_gke_developer_iam_permissions = [
   "roles/storage.objectViewer"
 ]
 
-// SQaRE
+// SQuaRE
 
 square_display_name          = "SQuaRE"
 
