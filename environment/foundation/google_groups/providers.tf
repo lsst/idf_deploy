@@ -3,10 +3,7 @@
 # ------------------------------------------------------------
 
 terraform {
-  backend "gcs" {
-    bucket = "lsst-terraform-state"
-    prefix = "foundation/google_groups"
-  }
+  backend "gcs" {}
   required_providers {
     google      = "~> 3.1"
     google-beta = "~> 3.1"
