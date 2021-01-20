@@ -31,31 +31,31 @@ To build new projects with new infrastructure, these should be built under the [
 ---
 ## Runbook
 
-### [Foundation](./runbook/update-foundations.md)
+### [Foundation Terraform](./runbook/update-foundations.md)
 
-This will include maintenance of the following:
-* Org policies
-* IAM Groups and Roles
-* Logging
-* Shared VPC
-* Any project under the `Shared Services` Folder
+The GCP Organization, Organization Policies, Organization Level IAM, projects, monitoring, and logging are in the Foundation Terraform code and GitHub Actions.Input below for creating folders, modifying IAM roles,and modifiying Projects created by Terraform.  Also below is how to manually create GCP projects in the scratch folder.
 
-### [Projects](./runbook/new-projects.md)
+## Folders
+* [Folder Changes](./runbook/update-foundations.md#example-of-folder-update)
 
-This will include the maintenance and creation of new:
+## IAM
+* [IAM Changes](./runbook/update-foundations.md#example-of-iam-update)
+
+### Projects
 * [Manual Creation of New Projects](./runbook/new-projects.md)
-* [Project Modification](./runbook/project-modification.md)
+* [Terraform Project Modification](./runbook/project-modification.md)
+
 
 ### [Github Actions](./runbook/github-actions.md)
 
-This will include an overview of Github Actions YAML files and how to modify them. 
+Overview of Github Actions YAML files and input on how to modify them. 
 
 * [Overview](./runbook/github-actions.md)
 * [Creating New Pipelines](./runbook/new-pipelines.md)
 
 ### [GKE](./modules/gke)
 
-Instructions below for working with GKE.
+Input below for working with GKE.
 
 ### Connecting to GKE Cluster
 * [kubectl](runbook/gcp-access.md#kubectl)
@@ -73,6 +73,7 @@ Instructions below for working with GKE.
 * [Filestore Directory Prep](runbook/filestore.md#filestore-directory-prep)
 * [Editing Filestore Instance](runbook/filestore.md#editing-filestore-instance)
 * [Persistent Disks Retain](runbook/persistent-disk-retain.md)
+
 
 ### [VPC Peering](./modules/vpc_peering)
 
