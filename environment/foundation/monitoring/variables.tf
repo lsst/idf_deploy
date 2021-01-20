@@ -38,11 +38,11 @@ variable "rsp_gke_dashboard_enable" {
   type = bool
 }
 
-variable "rsp_gke_dashboard_" {
+variable "rsp_gke_dashboard_name" {
   type = string
 }
 
-variable "rsp_gke_dashboard_name" {
+variable "rsp_gke_dashboard_filter" {
   type = string
 }
 
@@ -50,7 +50,7 @@ variable "qserv_gke_dashboard_enable" {
   type = bool
 }
 
-variable "qserv_gke_dashboard_" {
+variable "qserv_gke_dashboard_filter" {
   type = string
 }
 
