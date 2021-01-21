@@ -22,7 +22,11 @@ variable "network_name" {
 # GKE
 
 variable "master_ipv4_cidr_block" {
-  default = "172.16.0.0/28"
+  default = "172.22.0.0/28"
+}
+
+variable "master_ipv4_cidr_block_2" {
+  default = "172.23.0.0/28"
 }
 
 variable "zones" {
