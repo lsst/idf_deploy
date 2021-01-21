@@ -21,10 +21,20 @@ rsp_gke_dashboard_enable = true
 rsp_gke_dashboard_filter = "science-platform"
 rsp_gke_dashboard_name   = "RSP GKE Dashboard"
 
+# RSP GKE Disk Dashboard
+rsp_gke_disk_dashboard_enable = true
+rsp_gke_disk_dashboard_filter = "science-platform"
+rsp_gke_disk_dashboard_name   = "RSP GKE Disk Dashboard"
+
 # QServ GKE Dashboard
 qserv_gke_dashboard_enable = true
 qserv_gke_dashboard_filter = "qserv"
 qserv_gke_dashboard_name   = "QServ GKE Dashboard"
+
+# QServ GKE Disk Dashboard
+qserv_gke_disk_dashboard_enable = true
+qserv_gke_disk_dashboard_filter = "qserv"
+qserv_gke_dashboard_name   = "QServ GKE Disk Dashboard"
 
 # Network TCP Load Balancer Dashboard
 network_tcp_lb_dashboard_enable = true
