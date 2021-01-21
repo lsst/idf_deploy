@@ -46,6 +46,18 @@ variable "rsp_gke_dashboard_filter" {
   type = string
 }
 
+variable "rsp_gke_disk_dashboard_enable" {
+  type = bool
+}
+
+variable "rsp_gke_disk_dashboard_filter" {
+  type = string
+}
+
+variable "rsp_gke_disk_dashboard_name" {
+  type = string
+}
+
 variable "qserv_gke_dashboard_enable" {
   type = bool
 }
@@ -55,6 +67,18 @@ variable "qserv_gke_dashboard_filter" {
 }
 
 variable "qserv_gke_dashboard_name" {
+  type = string
+}
+
+variable "qserv_gke_disk_dashboard_enable" {
+  type = bool
+}
+
+variable "qserv_gke_disk_dashboard_filter" {
+  type = string
+}
+
+variable "qserv_gke_disk_dashboard_name" {
   type = string
 }
 

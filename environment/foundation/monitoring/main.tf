@@ -35,12 +35,28 @@ module "rsp_gke_dashboard" {
   gke_dashboard_name   = var.rsp_gke_dashboard_name
 }
 
+module "rsp_gke_disk_dashboard" {
+  source               = "../../../modules/monitoring/gke_disk"
+  project              = var.project
+  gke_disk_dashboard_enable = var.rsp_gke_disk_dashboard_enable
+  gke_disk_dashboard_filter = var.rsp_gke_disk_dashboard_filter
+  gke_disk_dashboard_name   = var.rsp_gke_disk_dashboard_name
+}
+
 module "qserv_gke_dashboard" {
   source               = "../../../modules/monitoring/gke"
   project              = var.project
   gke_dashboard_enable = var.qserv_gke_dashboard_enable
   gke_dashboard_filter = var.qserv_gke_dashboard_filter
   gke_dashboard_name   = var.qserv_gke_dashboard_name
+}
+
+module "qserv_gke_disk_dashboard" {
+  source               = "../../../modules/monitoring/gke_disk"
+  project              = var.project
+  gke_disk_dashboard_enable = var.qserv_gke_disk_dashboard_enable
+  gke_disk_dashboard_filter = var.qserv_gke_disk_dashboard_filter
+  gke_disk_dashboard_name   = var.qserv_gke_disk_dashboard_name
 }
 
 module "network_tcp_lb_dashboard" {
