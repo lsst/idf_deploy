@@ -77,7 +77,5 @@ Input below for working with GKE.
 * [Persistent Disks Retain](runbook/persistent-disk-retain.md)
 
 
-### [VPC Peering](./modules/vpc_peering)
-
-This will include the creation of VPC Network Peering between two networks.
-
+### VPC Peering
+* [Create a VPC Peer](./runbook/vpc-peering.md)
