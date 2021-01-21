@@ -26,7 +26,7 @@ resource "google_monitoring_dashboard" "gke_disk_dashboard" {
                     ],
                     "perSeriesAligner": "ALIGN_RATE"
                   },
-                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/read_ops_count\" resource.type=\"gce_instance\" resource.label.\"project_id\"=starts_with(\"${var.gke_disk_dashboard_filter}\")",
+                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/read_ops_count\" resource.type=\"gce_instance\" metadata.user_labels.\"application_name\"=\"${var.gke_disk_dashboard_filter}\"",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
@@ -64,7 +64,7 @@ resource "google_monitoring_dashboard" "gke_disk_dashboard" {
                     ],
                     "perSeriesAligner": "ALIGN_RATE"
                   },
-                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/write_ops_count\" resource.type=\"gce_instance\" resource.label.\"project_id\"=starts_with(\"${var.gke_disk_dashboard_filter}\")",
+                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/write_ops_count\" resource.type=\"gce_instance\" metadata.user_labels.\"application_name\"=\"${var.gke_disk_dashboard_filter}\"",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
@@ -104,14 +104,14 @@ resource "google_monitoring_dashboard" "gke_disk_dashboard" {
                     ],
                     "perSeriesAligner": "ALIGN_MEAN"
                   },
-                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/max_read_ops_count\" resource.type=\"gce_instance\" resource.label.\"project_id\"=starts_with(\"${var.gke_disk_dashboard_filter}\")",
+                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/max_read_ops_count\" resource.type=\"gce_instance\" metadata.user_labels.\"application_name\"=\"${var.gke_disk_dashboard_filter}\"",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
                     "rankingMethod": "METHOD_MEAN"
-                  }
-                },
-                "unitOverride": "1"
+                  },
+                  "secondaryAggregation": {}
+                }
               }
             }
           ],
@@ -141,14 +141,14 @@ resource "google_monitoring_dashboard" "gke_disk_dashboard" {
                     ],
                     "perSeriesAligner": "ALIGN_MEAN"
                   },
-                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/max_write_ops_count\" resource.type=\"gce_instance\" resource.label.\"project_id\"=starts_with(\"${var.gke_disk_dashboard_filter}\")",
+                  "filter": "metric.type=\"compute.googleapis.com/instance/disk/max_write_ops_count\" resource.type=\"gce_instance\" metadata.user_labels.\"application_name\"=\"${var.gke_disk_dashboard_filter}\"",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
                     "rankingMethod": "METHOD_MEAN"
-                  }
-                },
-                "unitOverride": "1"
+                  },
+                  "secondaryAggregation": {}
+                }
               }
             }
           ],
@@ -174,14 +174,16 @@ resource "google_monitoring_dashboard" "gke_disk_dashboard" {
                   "aggregation": {
                     "perSeriesAligner": "ALIGN_RATE"
                   },
-                  "filter": "metric.type=\"file.googleapis.com/nfs/server/read_bytes_count\" resource.type=\"filestore_instance\" resource.label.\"project_id\"=starts_with(\"${var.gke_disk_dashboard_filter}\")",
+                  "filter": "metric.type=\"file.googleapis.com/nfs/server/read_bytes_count\" resource.type=\"filestore_instance\"",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
                     "rankingMethod": "METHOD_MEAN"
+                  },
+                  "secondaryAggregation": {
+                    "perSeriesAligner": "ALIGN_MEAN"
                   }
-                },
-                "unitOverride": "By"
+                }
               }
             }
           ],
@@ -207,14 +209,16 @@ resource "google_monitoring_dashboard" "gke_disk_dashboard" {
                   "aggregation": {
                     "perSeriesAligner": "ALIGN_RATE"
                   },
-                  "filter": "metric.type=\"file.googleapis.com/nfs/server/write_bytes_count\" resource.type=\"filestore_instance\" resource.label.\"project_id\"=starts_with(\"${var.gke_disk_dashboard_filter}\")",
+                  "filter": "metric.type=\"file.googleapis.com/nfs/server/write_bytes_count\" resource.type=\"filestore_instance\"",
                   "pickTimeSeriesFilter": {
                     "direction": "TOP",
                     "numTimeSeries": 5,
                     "rankingMethod": "METHOD_MEAN"
+                  },
+                  "secondaryAggregation": {
+                    "perSeriesAligner": "ALIGN_MEAN"
                   }
-                },
-                "unitOverride": "By"
+                }
               }
             }
           ],
@@ -228,6 +232,7 @@ resource "google_monitoring_dashboard" "gke_disk_dashboard" {
     ]
   }
 }
+
 
 EOF
 }
