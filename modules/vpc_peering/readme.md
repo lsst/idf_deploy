@@ -43,6 +43,10 @@ module "peering-a-c" {
 }
 ```
 
+## Help Get Network Self Link
+
+The module requires knowing the VPC Network Self Link for the `lcoal_network` as well as the `peer_network`. A Terraform `data` resource block can be used to help get this information. Go [here](../../runbook/vpc-peering.md) in the runbook for an example.
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
