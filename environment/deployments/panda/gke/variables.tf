@@ -65,8 +65,14 @@ variable "cluster_telemetry_type" {
   default     = "SYSTEM_ONLY"
 }
 
-
 variable "node_pools" {
+  type        = list(map(string))
+  description = "List of maps containing node pools"
+
+  default = [{}]
+}
+
+variable "node_pools_2" {
   type        = list(map(string))
   description = "List of maps containing node pools"
 
