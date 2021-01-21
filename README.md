@@ -46,6 +46,7 @@ The GCP Organization, Organization Policies, Organization Level IAM, projects, m
 ### Projects
 * [Manual Creation of New Projects](./runbook/new-projects.md)
 * [Terraform Project Modification](./runbook/project-modification.md)
+* [Terraform Project Deployment Creation](./environment/deployments)
 
 
 ### [Github Actions](./runbook/github-actions.md)
