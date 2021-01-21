@@ -22,7 +22,11 @@ variable "network_name" {
 # GKE
 
 variable "master_ipv4_cidr_block" {
-  default = "172.16.0.0/28"
+  default = "172.22.0.0/28"
+}
+
+variable "master_ipv4_cidr_block_2" {
+  default = "172.23.0.0/28"
 }
 
 variable "zones" {
@@ -61,8 +65,14 @@ variable "cluster_telemetry_type" {
   default     = "SYSTEM_ONLY"
 }
 
-
 variable "node_pools" {
+  type        = list(map(string))
+  description = "List of maps containing node pools"
+
+  default = [{}]
+}
+
+variable "node_pools_2" {
   type        = list(map(string))
   description = "List of maps containing node pools"
 
