@@ -19,6 +19,7 @@ GitHub Actions is used as the CI/CD deployment tool. GitHub Actions is connected
     >Note: New modules normally go into the `main.tf` file. Variables go into the `variables.tf` file.
 1. Update the `terraform.tfvars` file in the `\env` folder with values for your environment.
 1. Commit changes with `git add .` and `git commit -m 'Your message'`
+    >Pipeline: [Build a new pipeline](../../runbook/new-pipelines.md) to go along with the new project.
 1. Push your non master branch to trigger a plan `git push --set-upstream origin simple-project`
 1. Merge the changes to master with `git checkout -b master` and `git push origin master`
 1. Delete the branch
