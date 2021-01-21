@@ -40,6 +40,6 @@ qserv_gke_disk_dashboard_name   = "QServ GKE Disk Dashboard"
 network_tcp_lb_dashboard_enable = true
 network_tcp_lb_dashboard_name = "Network TCP Load Balancer Dashboard"
 
-# Postgres Dashboard
+# PostgreSQL Dashboard
 postgres_dashboard_enable = true
 postgres_dashboard_name = "PostgreSQL Dashboard"
