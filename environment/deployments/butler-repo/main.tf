@@ -74,7 +74,7 @@ data "google_compute_subnetwork" "my-subnetwork" {
 
 // Enable Identity Aware Proxy
 module "iap_tunnel" {
-  source = "../../modules/iap"
+  source = "../../../modules/iap"
   project = module.project_factory.project_id
   network = data.google_compute_network.my-network.self_link
   members = ["group:gcp-butler-administrators@lsst.cloud"]
@@ -87,14 +87,14 @@ module "iap_tunnel" {
 
 // Create a Private Instance
 module "vm" {
-  source     = "../../modules/compute"
+  source     = "../../../modules/compute"
   project_id = module.project_factory.project_id
   subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
 }
 
 // Private Postgres
 module "private-postgres" {
-  source = "../../modules/cloudsql/postgres-private"
+  source = "../../../modules/cloudsql/postgres-private"
   authorized_networks = [
     {
       "name" : "sample-gcp-health-checkers-range",
@@ -113,7 +113,7 @@ module "private-postgres" {
 
 // Storage Bucket
 module "storage_bucket" {
-  source      = "../../modules/bucket"
+  source      = "../../../modules/bucket"
   project_id = module.project_factory.project_id
   suffix_name = ["dev", "prod"]
   prefix_name = "butler-datastore"
@@ -132,7 +132,7 @@ module "storage_bucket" {
 }
 
 module "butler_admin_group" {
-  source  = "../../modules/google_groups"
+  source  = "../../../modules/google_groups"
   
   id           = ""
   display_name = "gcp-butler-administrators"
