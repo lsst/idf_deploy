@@ -13,22 +13,22 @@ Basic usage of this module is as follows:
 
 ```terraform
 module "storage_bucket" {
-    source     = "./"
-    project_id = "rubin-shared-services-71ec"
-    names      = ["first","second"]
-    prefix     = "a-unique-suffix"
-    versioning = {
-        first  = true
-        second = false
-    }
-    force_destroy = {
-        first  = true
-        second = false
-    }
-    labels = {
-        environment = "test"
-        application = "shared_services"
-    }
+  source      = "../../modules/bucket"
+  project_id  = "rubin-shared-services-71ec"
+  suffix_name = ["first", "second"]
+  prefix_name = "a-unique-suffix"
+  versioning = {
+    first  = true
+    second = false
+  }
+  force_destroy = {
+    first  = true
+    second = true
+  }
+  labels = {
+    environment = "test"
+    application = "shared_services"
+  }
 }
 ```
 
