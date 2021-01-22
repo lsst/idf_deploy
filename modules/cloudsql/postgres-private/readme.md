@@ -1,6 +1,31 @@
 # Terraform Module for Cloud SQL Public - PostgreSQL
 CloudSQL provides disk autoresize feature which can cause a Terraform configuration drift due to the value in disk_size variable, and hence any updates to this variable is ignored in the Terraform lifecycle.
 
+## Usage
+
+Here's a basic usage of this module:
+
+```terraform
+module "private-postgres" {
+  source = "../../modules/cloudsql/postgres-private"
+
+  authorized_networks = [
+    {
+      "name" : "sample-gcp-health-checkers-range",
+      "value" : "130.211.0.0/28"
+    }
+  ]
+  database_version    = "POSTGRES_9_6"
+  db_name             = "example-postgresql-private"
+  names               = ["service-account"]
+  project_roles       = ["rubin-shared-services-71ec=>roles/cloudsql.client"]
+  project_id          = "rubin-shared-services-71ec"
+  vpc_network         = "shared-vpc-prod"
+  module_depends_on   = ["module.private-service-access.peering_completed"]
+  deletion_protection = false
+}
+```
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
