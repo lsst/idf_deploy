@@ -19,7 +19,7 @@ module "iam_admin" {
   source                  = "../../../modules/iam"
   project                 = module.project_factory.project_id
   project_iam_permissions = var.project_iam_permissions
-  member                  = module.butler_admin_group.id
+  member                  = "group:${module.butler_admin_group.id}"
   #member                  = "gcp-${var.application_name}-administrators@lsst.cloud"  
 }
 
