@@ -135,11 +135,12 @@ module "storage_bucket" {
 module "butler_admin_group" {
   source = "../../../modules/google_groups"
 
-  id           = "gcp-butler-administrators@lsst.cloud"
-  display_name = "gcp-butler-administrators"
-  description  = "GCP Butler Administrators"
-  domain       = "lsst.cloud"
-  owners       = ["hchiang-admin@lsst.cloud"]
-  managers     = ["hchiang-admin@lsst.cloud"]
-  members      = ["hchiang@lsst.cloud","kuropat@lsst.cloud","yanny@lsst.cloud"]
+  id           = var.id
+  display_name = var.display_name
+  description  = var.description
+  domain       = var.domain
+  owners       = var.owners
+  managers     = var.managers
+  members      = var.members
 }
+
