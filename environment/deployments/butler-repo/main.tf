@@ -19,7 +19,8 @@ module "iam_admin" {
   source                  = "../../../modules/iam"
   project                 = module.project_factory.project_id
   project_iam_permissions = var.project_iam_permissions
-  member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
+  member                  = module.butler_admin_group.id
+  #member                  = "gcp-${var.application_name}-administrators@lsst.cloud"  
 }
 
 module "service_account_cluster" {
@@ -74,7 +75,7 @@ data "google_compute_subnetwork" "my-subnetwork" {
 
 // Enable Identity Aware Proxy
 module "iap_tunnel" {
-  source = "../../../modules/iap"
+  source  = "../../../modules/iap"
   project = module.project_factory.project_id
   network = data.google_compute_network.my-network.self_link
   members = ["group:gcp-butler-administrators@lsst.cloud"]
@@ -115,16 +116,16 @@ module "private-postgres" {
 // Storage Bucket
 module "storage_bucket" {
   source      = "../../../modules/bucket"
-  project_id = module.project_factory.project_id
+  project_id  = module.project_factory.project_id
   suffix_name = ["dev", "prod"]
   prefix_name = "butler-datastore"
   versioning = {
-    dev    = true
-    prod   = true
+    dev  = true
+    prod = true
   }
   force_destroy = {
-    dev    = true
-    prod   = true
+    dev  = true
+    prod = true
   }
   #labels = {
   #  environment = "test"
@@ -133,13 +134,13 @@ module "storage_bucket" {
 }
 
 module "butler_admin_group" {
-  source  = "../../../modules/google_groups"
-  
+  source = "../../../modules/google_groups"
+
   id           = ""
   display_name = "gcp-butler-administrators"
   description  = "GCP Butler Administrators"
   domain       = "lsst.cloud"
-  owners       = ["hchiang-admin@lsst.cloud"] 
-  managers     = ["hchiang-admin@lsst.cloud"] 
+  owners       = ["hchiang-admin@lsst.cloud"]
+  managers     = ["hchiang-admin@lsst.cloud"]
   members      = ["hchiang@lsst.cloud", "kuropat@lsst.cloud", "yanny@lsst.cloud"]
 }
