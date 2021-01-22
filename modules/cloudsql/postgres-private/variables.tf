@@ -59,22 +59,6 @@ variable "disk_autoresize" {
   default     = true
 }
 
-# variable "backup_configuration" {
-#   description = "The backup_configuration settings subblock for the database setings"
-#   type = object({
-#     binary_log_enabled = bool
-#     enabled            = bool
-#     start_time         = string
-#     location           = string
-#   })
-#   default = {
-#     binary_log_enabled = false
-#     enabled            = false
-#     start_time         = null
-#     location           = null
-#   }
-# }
-
 variable "backup_configuration" {
   description = "The backup_configuration settings subblock for the database setings"
   type = object({
@@ -166,21 +150,10 @@ variable "database_flags" {
   default = []
 }
 
-# variable "vpc_network" {
-#   description = "Existing VPC network to which instances are connected. The networks needs to be configured with https://cloud.google.com/vpc/docs/configure-private-services-access."
-#   type        = string
-# }
-
 variable "random_instance_name" {
   type        = bool
   description = "Sets random suffix at the end of the Cloud SQL resource name"
   default     = true
-}
-
-variable "module_depends_on" {
-  description = "List of modules or resources this module depends on."
-  type        = list(any)
-  default     = []
 }
 
 // Private Service Access

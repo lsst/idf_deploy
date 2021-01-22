@@ -36,7 +36,7 @@ module "cloudsql-db" {
     authorized_networks = var.authorized_networks
   }
 
-  module_depends_on = var.module_depends_on
+  depends_on = [module.private-service-access]
 }
 
 module "private-service-access" {
