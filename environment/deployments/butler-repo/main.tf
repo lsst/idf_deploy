@@ -92,7 +92,7 @@ module "vm" {
   subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
 }
 
-// Private Postgres
+/*
 module "private-postgres" {
   source = "../../../modules/cloudsql/postgres-private"
   authorized_networks = [
@@ -110,6 +110,7 @@ module "private-postgres" {
   #module_depends_on   = ["module.private-service-access.peering_completed"]
   deletion_protection = false
 }
+*/
 
 // Storage Bucket
 module "storage_bucket" {
