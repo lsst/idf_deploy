@@ -56,3 +56,12 @@ custom_rules = {
 # NAT
 address_count = 1
 nat_name      = "cloud-nat"
+
+# Google Group
+  id           = "gcp-butler-administrators@lsst.cloud"
+  display_name = "gcp-butler-administrators"
+  description  = "GCP Butler Administrators"
+  domain       = "lsst.cloud"
+  owners       = ["hchiang-admin@lsst.cloud"]
+  managers     = ["hchiang-admin@lsst.cloud"]
+  members      = ["hchiang@lsst.cloud","kuropat@lsst.cloud","yanny@lsst.cloud"]
