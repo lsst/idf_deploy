@@ -19,7 +19,7 @@ module "iam_admin" {
   source                  = "../../../modules/iam"
   project                 = module.project_factory.project_id
   project_iam_permissions = var.project_iam_permissions
-  member                  = "group:${module.butler_admin_group.id}"
+  member                  = module.butler_admin_group.id
   #member                  = "gcp-${var.application_name}-administrators@lsst.cloud"  
 }
 
@@ -136,11 +136,11 @@ module "storage_bucket" {
 module "butler_admin_group" {
   source = "../../../modules/google_groups"
 
-  id           = ""
+  id           = "288991023210"
   display_name = "gcp-butler-administrators"
   description  = "GCP Butler Administrators"
-  domain       = "lsst.cloud"
+  domain       = ""
   owners       = ["hchiang-admin@lsst.cloud"]
   managers     = ["hchiang-admin@lsst.cloud"]
-  members      = ["hchiang@lsst.cloud", "kuropat@lsst.cloud", "yanny@lsst.cloud"]
+  members      = ["hchiang@lsst.cloud","kuropat@lsst.cloud","yanny@lsst.cloud"]
 }
