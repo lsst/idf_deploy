@@ -4,9 +4,9 @@ environment             = "dev"
 network_name            = "butler-dev-vpc"
 
 // Remote Project labels and VPC Name
-remote_application_name = "science-platform"
+remote_application_name = "panda"
 remote_environment      = "dev"
-remote_network_name     = "custom-vpc"
+remote_network_name     = "panda-dev-vpc"
 
 # // Remote Project labels and VPC Name
 # remote_application_name2 = "panda"
