@@ -32,7 +32,7 @@ secondary_ranges = {
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
 # Filestore
-#fileshare_capacity = 2600
+fileshare_capacity = 3000
 #fileshare_tier = "BASIC_SSD"
 
 # FIREWALL

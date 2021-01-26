@@ -49,6 +49,3 @@ node_pools_labels = {
     dask = "ok"
   }
 }
-
-# Filestore
-fileshare_capacity=3000
