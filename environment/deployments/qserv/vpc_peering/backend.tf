@@ -3,10 +3,7 @@
 # ------------------------------------------------------------
 
 terraform {
-  backend "gcs" {
-    bucket = "lsst-terraform-state"
-    prefix = "qserv/dev/vpc_peer"
-  }
+  backend "gcs" {}
   required_providers {
     google      = "~> 3.1"
     google-beta = "~> 3.1"
