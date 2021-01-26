@@ -24,6 +24,13 @@ data "google_compute_network" "local_network" {
 
 You may use the same example block to get the `network_self_link` for the `remote peer` by changing the appropriate labels for the filter and providing the correct network name.
 
+## Hub and Spoke via VPC Peers
+
+There may be times where a hub and spoke design is desired where the hub project is peered with multiple spoke projects. The [VPC Peering Module](../modules/vpc_peering) only peers between two projects. To have multiple peers, we need to create multiple `tfvars` files with a dedicated pipeline.
+
+An example project is the `butler-dev` project where it's peerd with `science-platform-dev` and `panda-dev`. In the [butler ./env directory](../environment/deployments/butler-repo/env) there are two different `tfvars files` with two different pipelines.
+
+
 ## GitHub Actions
 
 A new pipeline needs to be created and deployed using the existing [vpc peering pipeline](../.github/workflows/qserv-dev-vpcpeer-tf.yaml) as an example. Be sure to change the appropriate directory names and `tfvars` file names in the pipeline.
