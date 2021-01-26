@@ -1,12 +1,12 @@
 // Local Project labels and VPC Name
-application_name        = "butler"
+application_name        = "panda"
 environment             = "dev"
-network_name            = "butler-dev-vpc"
+network_name            = "panda-dev-vpc"
 
 // Remote Project labels and VPC Name
-remote_application_name = "panda"
+remote_application_name = "butler"
 remote_environment      = "dev"
-remote_network_name     = "panda-dev-vpc"
+remote_network_name     = "butler-dev-vpc"
 
 # // Remote Project labels and VPC Name
 # remote_application_name2 = "panda"
