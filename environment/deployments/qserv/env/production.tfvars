@@ -1,7 +1,7 @@
 # Project
 environment                 = "prod"
 application_name            = "qserv"
-folder_id                   = "506501599000"
+folder_id                   = "183477048917"
 budget_amount               = 1000
 budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 
