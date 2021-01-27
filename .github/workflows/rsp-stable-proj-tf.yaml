@@ -4,10 +4,10 @@ name: 'RSP STABLE GCP Project'
 on:
   pull_request:
     paths:
-      - 'environment/deployments/science-platform/env/stable.tfvars'
+      - 'environment/deployments/science-platform/env/production.tfvars'
   push:
     paths:
-      - 'environment/deployments/science-platform/env/stable.tfvars'
+      - 'environment/deployments/science-platform/env/production.tfvars'
     branches:
       - master
 
@@ -57,10 +57,10 @@ jobs:
     # Generates an execution plan for terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=env/stable.tfvars -no-color
+      run: terraform plan -var-file=env/production.tfvars -no-color
       continue-on-error: true
 
     # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -var-file=env/stable.tfvars -auto-approve
+      run: terraform apply -var-file=env/production.tfvars -auto-approve
