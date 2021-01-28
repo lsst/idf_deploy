@@ -64,5 +64,4 @@ nat_name      = "cloud-nat"
   domain       = "lsst.cloud"
   owners       = ["hchiang@lsst.cloud"]
   managers     = ["hchiang@lsst.cloud"]
-  members      = ["hchiang@lsst.cloud","kuropat@lsst.cloud","yanny@lsst.cloud"]
-
+  members      = ["hchiang@lsst.cloud"]
