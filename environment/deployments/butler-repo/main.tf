@@ -102,7 +102,7 @@ module "private-postgres" {
       "value" : "130.211.0.0/28"
     }
   ]
-  database_version    = "POSTGRES_13"
+  database_version    = "POSTGRES_12"
   db_name             = "butler-postgresql-private"
   names               = ["service-account"]
   project_roles       = ["${module.project_factory.project_id}=>roles/cloudsql.client"]

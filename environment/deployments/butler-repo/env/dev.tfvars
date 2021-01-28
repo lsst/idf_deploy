@@ -59,8 +59,8 @@ nat_name      = "cloud-nat"
 
 # Google Group
   id           = "gcp-butler-administrators@lsst.cloud"
-  display_name = "gcp-butler-administrators"
-  description  = "GCP Butler Administrators"
+  display_name = "GCP Butler Administrators"
+  description  = "GCP Butler Repos Administrators"
   domain       = "lsst.cloud"
   owners       = ["hchiang-admin@lsst.cloud"]
   managers     = ["hchiang-admin@lsst.cloud"]
