@@ -11,7 +11,7 @@ subnets = [
   {
     "subnet_ip"             = "10.128.0.0/23",
     "subnet_name"           = "subnet-us-central1-01",
-    "subnet_region"         = "us-central1"
+    "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
   }
 ]
