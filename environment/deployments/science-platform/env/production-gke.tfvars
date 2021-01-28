@@ -51,3 +51,27 @@ node_pools_labels = {
 # TF State declared during pipeline
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/stable/gke"
+
+# FIREWALL
+custom_rules = {
+  cert-manager-terraform = {
+    description          = "cert manager rule NOT created by terraform"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["172.30.0.0/28"]
+    sources              = []
+    targets              = ["gke-science-platform-stable"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["8443"]
+      }
+    ]
+    extra_attributes = {}
+  }
+
+}
+
+# NAT
+nats = [{ name = "cloud-nat" }]
