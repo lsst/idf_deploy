@@ -30,7 +30,8 @@ variable "activate_apis" {
     "stackdriver.googleapis.com",
     "file.googleapis.com",
     "storage.googleapis.com",
-    "billingbudgets.googleapis.com"
+    "billingbudgets.googleapis.com",
+    "sql-component.googleapis.com"
   ]
 }
 
