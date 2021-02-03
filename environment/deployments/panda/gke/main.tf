@@ -17,14 +17,20 @@ data "google_compute_subnetwork" "subnetwork" {
   project = local.project_id
 }
 
+data "google_compute_subnetwork" "subnetwork_2" {
+  name    = "subnet-us-central1-02"
+  region  = "us-central1"
+  project = local.project_id
+}
 # ----------------------------------------
 #   GKE
 # ----------------------------------------
 
 locals {
-  project_id = data.google_projects.host_project.projects[0].project_id
-  network    = data.google_compute_network.network.name
-  subnetwork = data.google_compute_subnetwork.subnetwork.name
+  project_id   = data.google_projects.host_project.projects[0].project_id
+  network      = data.google_compute_network.network.name
+  subnetwork   = data.google_compute_subnetwork.subnetwork.name
+  subnetwork_2 = data.google_compute_subnetwork.subnetwork_2.name
 }
 
 module "gke" {
@@ -67,20 +73,21 @@ module "gke_2" {
   name                   = "${var.application_name}-${var.environment}-2"
   project_id             = local.project_id
   network                = var.network_name
-  subnetwork             = local.subnetwork
+  subnetwork             = local.subnetwork_2
   master_ipv4_cidr_block = var.master_ipv4_cidr_block_2
   release_channel        = var.release_channel
   node_pools             = var.node_pools_2
   network_policy         = var.network_policy
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type
+  zones                  = var.zones
 
   # Labels
   cluster_resource_labels = {
     environment      = var.environment
     project          = local.project_id
     application_name = var.application_name
-    subnetwork       = local.subnetwork
+    subnetwork       = local.subnetwork_2
   }
 
   # Node Pools
