@@ -80,6 +80,7 @@ module "gke_2" {
   network_policy         = var.network_policy
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type
+  zones                  = var.zones
 
   # Labels
   cluster_resource_labels = {
