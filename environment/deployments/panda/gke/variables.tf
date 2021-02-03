@@ -32,7 +32,7 @@ variable "master_ipv4_cidr_block_2" {
 variable "zones" {
   description = "The zones to host the cluster in (optional if regional cluster / required if zonal)"
   type        = list(string)
-  default     = ["us-central1-a"]
+  default     = ["us-central1-c"]
 }
 
 variable "gce_pd_csi_driver" {
