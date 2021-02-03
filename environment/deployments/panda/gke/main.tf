@@ -87,7 +87,7 @@ module "gke_2" {
     environment      = var.environment
     project          = local.project_id
     application_name = var.application_name
-    subnetwork       = local.subnetwork
+    subnetwork       = local.subnetwork_2
   }
 
   # Node Pools
