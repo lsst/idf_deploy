@@ -116,7 +116,8 @@ square_display_name          = "SQuaRE"
 gcp_square_administrators_iam_permissions = [
   "roles/resourcemanager.projectCreator",
   "roles/container.admin",
-  "roles/editor"
+  "roles/editor",
+  "roles/artifactregistry.admin"
 ]
 gcp_square_gke_cluster_admins_iam_permissions = [
   "roles/container.admin",
