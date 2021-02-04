@@ -1,7 +1,7 @@
 # GCP Service API
-Below on how to interact and manage GCP APIs.  GCP Services are controlled by enabling or disabling APIs.  To see APIs enabled on a project `gcloud services list`
+Information on how interact and manage GCP APIs.  GCP Services are controlled by enabling or disabling APIs.  To view APIs enabled on a project `gcloud services list`
 
-To see available GCP APIs enter `gcloud services list --available`  This provides a list of available APIs. Snippet below.
+To view available GCP APIs enter `gcloud services list --available`  This provides a list of available APIs. Snippet below.
 NAME                                                               TITLE
 abusiveexperiencereport.googleapis.com                             Abusive Experience Report API
 acceleratedmobilepageurl.googleapis.com                            Accelerated Mobile Pages (AMP) URL API
@@ -11,15 +11,15 @@ actions.googleapis.com                                             Actions API
 
 ## Service Management Terraform
 
-GCP Service APIs are managed by Terraform.  Using the default variables in Terraform a list of APIs is enabled for each application environment (Science Platform, QServ, Pandas).  This is set as default to keep the APIs consistent between development, integration, and production environments.
+GCP Service APIs are managed by Terraform.  Using the default variables in Terraform a list of APIs is enabled for each application (Science Platform, QServ, Pandas) and associated environments.  This is set as default to keep the APIs consistent between development, integration, and production environments.
 
-### Change Default Application Environment APIs
+### Change Default Service APIs for all Application Environments
 
 To change the defaults perform the following.
 
 * In this repository navigate to the [environment deployments directory](../environment/deployments)
 * Navigate to the environment folder.  Example science-platform, qserv, pandas, etc..
-* Navigate to env folder.  Create a branch and perform pull request to modify the variables.tf file.  Add in the API to the list.  Make sure comma is added between APIs.  The `gcloud services list --available` command can be used to determine API name.
+* Navigate to env folder.  Create a branch and perform a pull request to modify the variables.tf file.  Add in the API to the list.  Make sure a comma is added between APIs.  The `gcloud services list --available` command can be used to determine API name.
 
 ```
 variable "activate_apis" {
@@ -35,7 +35,7 @@ variable "activate_apis" {
   ]
 }
 ```
-* Submit pull request so that terraform plan will run like to validate the changes.  In the GitHub Actions worklow the new APis will be listed to be created under the Terraform Plan step.
+* Submit pull request so that terraform plan will run to validate the changes.  In the GitHub Actions worklow the new APis will be listed to be created under the Terraform Plan step.
 
 ![Pull request](./images/pull-req-api.PNG)
 
@@ -60,9 +60,9 @@ variable "activate_apis" {
 ```
 * Approve pull request if plan successful and API will be enabled.
 
-### Change Specific Development APIs
+### Change Service APIs for a Specific Application Environments Only
 
-For when testing or experimentation with a GCP service a variable can be added to the Terraform tfvars file for the environment.  Setting the variable in tfvars will override the default variable setting describe in the previous section. This approach is for when you do not want to also add an API to production.  Please note if you standardize on the API later refer to previous section to add to default API variable.
+For when testing or experimentation with a GCP service a variable can be added to the Terraform tfvars file for the environment.  Setting the variable in tfvars will override the default variable setting describe in the previous section. This approach is for when you do not want to also add an API to production at the same time.  Please note if you standardize on the API later refer to previous section to add to default API variable.
 
 To change the defaults perform the following.
 
@@ -84,7 +84,7 @@ variable "activate_apis" {
   ]
 }
 ```
-* Create a branch and perform pull request to modify the dev.tfvars file (or int or production tfvar depending on environment). Creat the `activate_apis` variable and add in the API to the list.  Make sure comma is added between APIs.  The `gcloud services list --available` command can be used to determine API name.  Example below.
+* Create a branch and perform pull request to modify the dev.tfvars file (or int or production tfvar depending on environment). Create the `activate_apis` variable and add in the API to the list.  Make sure comma is added between APIs.  The `gcloud services list --available` command can be used to determine API name.  Example below.
 
 ```
 activate_apis = [
@@ -99,7 +99,7 @@ activate_apis = [
     "sqladmin.googleapis.com"
   ]
 ```
-* Submit pull request so that terraform plan will run like to validate the changes.  In the GitHub Actions worklow the new APis will be listed to be created under the Terraform Plan step.
+* Submit pull request so that terraform plan will run to validate the changes.  In the GitHub Actions workflow the new APis will be listed to be created under the Terraform Plan step.
 
 ![Pull request](./images/pull-req-api.PNG)
 
@@ -123,4 +123,3 @@ activate_apis = [
     ***
 ```
 * Approve pull request if plan successful and API will be enabled.
-
