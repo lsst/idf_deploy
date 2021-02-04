@@ -59,3 +59,13 @@ custom_rules = {
 # NAT
 nats = [{ name = "cloud-nat" }]
 
+# Enable Google Artifact Registry in addition to our standard APIs
+"activate_apis" = [
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "stackdriver.googleapis.com",
+    "file.googleapis.com",
+    "storage.googleapis.com",
+    "billingbudgets.googleapis.com",
+    "artifactregistry.googleapis.com"
+]
