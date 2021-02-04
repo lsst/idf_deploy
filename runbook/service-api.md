@@ -60,7 +60,7 @@ variable "activate_apis" {
 ```
 * Approve pull request if plan successful and API will be enabled.
 
-### Change Service APIs for a Specific Application Environments Only
+### Change Service APIs for a Specific Application Environment Only
 
 For when testing or experimentation with a GCP service a variable can be added to the Terraform tfvars file for the environment.  Setting the variable in tfvars will override the default variable setting describe in the previous section. This approach is for when you do not want to also add an API to production at the same time.  Please note if you standardize on the API later refer to previous section to add to default API variable.
 
