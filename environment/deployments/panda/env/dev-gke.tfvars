@@ -43,4 +43,6 @@ node_pools_2 = [
     autoscaling        = "true"
     node_count         = 0
   }
-]
+ ]
+
+
