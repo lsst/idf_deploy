@@ -37,7 +37,7 @@ module "gke" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "${var.application_name}-${var.environment}"
+  name                   = "moderatemem"
   project_id             = local.project_id
   network                = var.network_name
   subnetwork             = local.subnetwork
@@ -70,7 +70,7 @@ module "gke_2" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "${var.application_name}-${var.environment}-2"
+  name                   = "highmem"
   project_id             = local.project_id
   network                = var.network_name
   subnetwork             = local.subnetwork_2
