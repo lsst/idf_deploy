@@ -58,9 +58,9 @@ jobs:
       run: terraform plan -destroy -var-file=../env/dev-gke.tfvars -no-color  
 
     # Generates an execution destroy for terraform
-    # - name: Terraform Destroy
-    #   id: destroy
-    #   run: terraform destroy -var-file=../env/dev-gke.tfvars -no-color -auto-approve
+    - name: Terraform Destroy
+      id: destroy
+      run: terraform destroy -var-file=../env/dev-gke.tfvars -no-color -auto-approve
 
     # On push to main, build or change infrastructure according to terraform configuration files
     # - name: Terraform Destroy Approve
