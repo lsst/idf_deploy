@@ -6,7 +6,7 @@ on:
     inputs:
       tfvars:
         description: The TFVARS file to use
-        required: true
+        required: false
         default: dev-gke.tfvars
 
 jobs:
