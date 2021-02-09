@@ -25,7 +25,7 @@ node_pools = [
     disk_type          = "pd-standard"
     autoscaling        = "true"
     node_count         = 0
-  }
+  },
   {
     name               = "panda-low-mem-1-pool"
     machine_type       = "e2-custom-2-6144"
