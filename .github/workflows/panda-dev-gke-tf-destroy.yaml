@@ -3,11 +3,11 @@ name: 'PanDA DEV GKE Destroy'
 
 on:
   workflow_dispatch:
-  inputs:
-    tfvars:
-      description: The TFVARS file to use
-      required: true
-      default: dev-gke.tfvars
+    inputs:
+      tfvars:
+        description: The TFVARS file to use
+        required: true
+        default: dev-gke.tfvars
 
 jobs:
   terraform:
