@@ -22,11 +22,28 @@ node_pools = [
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "32"
-    disk_type          = "pd-ssd"
+    disk_type          = "pd-standard"
+    autoscaling        = "true"
+    node_count         = 0
+  }
+  {
+    name               = "panda-low-mem-1-pool"
+    machine_type       = "e2-custom-2-6144"
+    node_locations     = "us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = true
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "32"
+    disk_type          = "pd-standard"
     autoscaling        = "true"
     node_count         = 0
   }
 ]
+
+
 node_pools_2 = [
   { 
     name               = "panda-high-mem-0-pool"
@@ -39,7 +56,7 @@ node_pools_2 = [
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "32"
-    disk_type          = "pd-ssd"
+    disk_type          = "pd-standard"
     autoscaling        = "true"
     node_count         = 0
   }
