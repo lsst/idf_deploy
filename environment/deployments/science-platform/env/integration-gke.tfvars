@@ -8,7 +8,7 @@ master_ipv4_cidr_block = "172.18.0.0/28"
 node_pools = [
   {
     name               = "core-pool"
-    machine_type       = "n2-standard-4"
+    machine_type       = "n2-standard-8"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
@@ -19,11 +19,11 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
     autoscaling        = false
-    node_count         = 5
+    node_count         = 3
   },
   {
     name               = "dask-pool"
-    machine_type       = "n2-standard-4"
+    machine_type       = "n2-standard-8"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
