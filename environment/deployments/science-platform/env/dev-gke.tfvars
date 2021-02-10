@@ -1,4 +1,5 @@
 # Project
+# Force redeployment
 environment             = "dev"
 application_name        = "science-platform"
 
