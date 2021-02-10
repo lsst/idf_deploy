@@ -1,5 +1,4 @@
 # Project
-# Force redeployment
 environment             = "dev"
 application_name        = "science-platform"
 
@@ -19,7 +18,7 @@ node_pools = [
     autoscaling        = true
     initial_node_count = 1
     min_count          = 1
-    max_count          = 6
+    max_count          = 5
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "200"
