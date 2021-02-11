@@ -43,7 +43,7 @@ node_pools = [
   },
     {
     name               = "utility-pool"
-    machine_type       = "n1-standard-4"
+    machine_type       = "n2-standard-4"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
