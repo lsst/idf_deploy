@@ -63,5 +63,4 @@ nat_name      = "cloud-nat"
   description  = "GCP Butler Repos Administrators"
   domain       = "lsst.cloud"
   owners       = ["hchiang-admin@lsst.cloud"]
-  managers     = ["hchiang@lsst.cloud"]
   members      = ["hchiang@lsst.cloud"]
