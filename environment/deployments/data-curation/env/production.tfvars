@@ -63,4 +63,4 @@ display_name = "GCP Data Curation Administrators"
 description  = "GCP Data Curation Administrators"
 domain       = "lsst.cloud"
 
-project_iam_permissions = []
+project_iam_permissions = ["roles/storage.admin"]
