@@ -67,6 +67,7 @@ module "storage_bucket" {
   source      = "../../../modules/bucket"
   project_id  = module.project_factory.project_id
   storage_class = "REGIONAL"
+  location   = "us-central1"
   suffix_name = ["desc-dc2-dr6"]
   prefix_name = "curation"
   versioning = {
