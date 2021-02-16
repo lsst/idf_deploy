@@ -62,3 +62,4 @@ id           = "gcp-data-curation-administrators@lsst.cloud"
 display_name = "GCP Data Curation Administrators"
 description  = "GCP Data Curation Administrators"
 domain       = "lsst.cloud"
+
