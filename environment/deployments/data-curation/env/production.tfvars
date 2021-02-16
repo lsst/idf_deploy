@@ -56,3 +56,9 @@ custom_rules = {
 # NAT
 address_count = 1
 nat_name      = "cloud-nat"
+
+# Google Group
+id           = "gcp-data-curation-administrators@lsst.cloud"
+display_name = "GCP Data Curation Administrators"
+description  = "GCP Data Curation Administrators"
+domain       = "lsst.cloud"

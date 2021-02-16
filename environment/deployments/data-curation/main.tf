@@ -80,3 +80,12 @@ module "storage_bucket" {
     application = var.application_name
   }
 }
+
+module "data_curation_admin_group" {
+  source = "../../../modules/google_groups"
+
+  id           = var.id
+  display_name = var.display_name
+  description  = var.description
+  domain       = var.domain
+}
