@@ -15,7 +15,6 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -62,5 +61,6 @@ jobs:
 
     # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
+      timeout-minutes: 30
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -var-file=env/dev.tfvars -auto-approve
