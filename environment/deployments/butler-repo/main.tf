@@ -116,8 +116,10 @@ module "private-postgres" {
 module "storage_bucket" {
   source      = "../../../modules/bucket"
   project_id  = module.project_factory.project_id
-  suffix_name = ["dev", "prod"]
-  prefix_name = "butler-datastore"
+  storage_class = "REGIONAL"
+  location   = "us-central1"
+  suffix_name = ["hsc-ci", "hsc-rc2", "desc-dc2"]
+  prefix_name = "butler"
   versioning = {
     dev  = true
     prod = true
@@ -126,10 +128,10 @@ module "storage_bucket" {
     dev  = true
     prod = true
   }
-  #labels = {
-  #  environment = "test"
-  #  application = "shared_services"
-  #}
+  labels = {
+    environment = var.environment
+    application = "butler"
+  }
 }
 
 module "butler_admin_group" {
