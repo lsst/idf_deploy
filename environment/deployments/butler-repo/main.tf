@@ -94,6 +94,7 @@ module "vm" {
 }
 
 
+/*
 module "private-postgres" {
   source = "../../../modules/cloudsql/postgres-private"
   authorized_networks = [
@@ -110,7 +111,7 @@ module "private-postgres" {
   vpc_network         = "butler-dev-vpc"
   deletion_protection = false
 }
-
+*/
 
 // Storage Bucket
 module "storage_bucket" {
