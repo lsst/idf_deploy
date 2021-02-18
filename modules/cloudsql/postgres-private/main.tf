@@ -22,6 +22,8 @@ module "cloudsql-db" {
   maintenance_window_hour         = var.maintenance_window_hour
   maintenance_window_update_track = var.maintenance_window_update_track
   pricing_plan                    = var.pricing_plan
+  create_timeout                  = var.create_timeout
+  update_timeout                  = var.update_timeout
 
   user_labels         = var.user_labels
   user_name           = var.user_name

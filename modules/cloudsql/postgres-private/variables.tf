@@ -218,3 +218,15 @@ variable "description" {
   description = "Descriptions of the created service accounts (defaults to no description)"
   default     = "Service Account created by Terraform"
 }
+
+variable "create_timeout" {
+  description = "The optional timout that is applied to limit long database creates."
+  type        = string
+  default     = "20m"
+}
+
+variable "update_timeout" {
+  description = "The optional timout that is applied to limit long database updates."
+  type        = string
+  default     = "20m"
+}
