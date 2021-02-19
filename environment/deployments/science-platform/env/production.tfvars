@@ -31,6 +31,10 @@ fileshare_capacity = 8000
 
 
 # FIREWALL
+#
+# This allows the Kubernetes master to talk to validation controllers
+# running inside the GKE cluster.  The IP range must match
+# master_ipv4_cidr_block in the GKE configuration.
 custom_rules = {
   cert-manager-terraform = {
     description          = "cert manager rule created by terraform"
