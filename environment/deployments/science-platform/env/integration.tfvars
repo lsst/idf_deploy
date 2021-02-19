@@ -32,12 +32,16 @@ secondary_ranges = {
 #fileshare_capacity = 2600
 
 # FIREWALL
+#
+# This allows the Kubernetes master to talk to validation controllers
+# running inside the GKE cluster.  The IP range must match
+# master_ipv4_cidr_block in the GKE configuration.
 custom_rules = {
   cert-manager-terraform = {
     description          = "cert manager rule created by terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["172.16.0.0/28"]
+    ranges               = ["172.18.0.0/28"]
     sources              = []
     targets              = ["gke-science-platform-int"]
     use_service_accounts = false
