@@ -1,3 +1,14 @@
+variable "project_id" {
+  description = "The ID of the project in which resources will be provisioned."
+  type        = string
+}
+
+variable "network" {
+  description = "Name of the VPC"
+  type        = string
+  default     = "custom-vpc"
+}
+
 variable "db_name" {
   description = "The name of the SQL Database instance"
   default     = "example-postgresql-public"

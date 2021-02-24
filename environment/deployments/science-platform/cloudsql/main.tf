@@ -11,8 +11,8 @@ module "private-postgres" {
   tier                = var.tier
   database_flags      = var.database_flags
   names               = ["service-account"]
-  project_roles       = ["${module.project_factory.project_id}=>roles/cloudsql.client"]
-  project_id          = module.project_factory.project_id
-  vpc_network         = module.project_factory.network_name
+  project_roles       = ["${var.project_id}=>roles/cloudsql.client"]
+  project_id          = var.project_id
+  vpc_network         = var.network
   deletion_protection = false
 }
