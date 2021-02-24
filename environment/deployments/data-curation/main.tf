@@ -82,6 +82,30 @@ module "storage_bucket" {
   }
 }
 
+// Storage Bucket
+module "storage_bucket_2" {
+  source      = "../../../modules/bucket"
+  project_id  = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location   = "us-central1"
+  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev"]
+  prefix_name = "butler"
+  versioning = {
+    dp01-dev  = true
+    dp01-int  = true
+    dp01      = true
+  }
+  force_destroy = {
+    dp01-dev  = true
+    dp01-int  = true
+    dp01      = true
+  }
+  labels = {
+    environment = var.environment
+    application = var.application_name
+  }
+}
+
 module "data_curation_admin_group" {
   source = "../../../modules/google_groups"
 
