@@ -47,6 +47,12 @@ org_monitoring_admins_iam_permissions = [
   "roles/serviceusage.serviceUsageConsumer"
 ]
 
+// Org IAM Roles Cloud SQL
+
+org_cloudsql_admins_iam_permissions = [
+    "roles/cloudsql.admin",
+]
+
 // Org IAM Roles Networking
 
 org_network_admins_org_iam_permissions = [

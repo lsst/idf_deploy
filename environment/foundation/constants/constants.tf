@@ -19,6 +19,7 @@ locals {
       org_viewers       = "gcp-organization-viewer@lsst.cloud"
       monitoring_admins = "gcp-monitoring-admins@lsst.cloud"
       monitoring_viewer = "gcp-monitoring-viewer@lsst.cloud"
+      cloudsql_admins   = "gcp-cloudsql-admins@lsst.cloud"
 
       gcp_qserv_administrators            = "gcp-qserv-administrators@lsst.cloud"
       gcp_science_platform_administrators = "gcp-science-platform-administrators@lsst.cloud"
