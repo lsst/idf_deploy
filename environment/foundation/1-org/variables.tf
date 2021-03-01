@@ -109,6 +109,14 @@ variable "org_monitoring_viewer_iam_permissions" {
   ]
 }
 
+variable "org_cloudsql_admins_iam_permissions" {
+  description = "List of permissions granted to the group supplied in cloudsql_admins variable across the GCP organization."
+  type        = list(string)
+  default = [
+    "roles/cloudsql.admin"
+  ]
+}
+
 # ----------------------------------------
 #   LOG SINK
 # ----------------------------------------
