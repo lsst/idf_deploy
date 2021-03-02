@@ -53,3 +53,10 @@ resource "google_organization_iam_member" "org_monitoring_viewer" {
   role     = each.value
   member   = "group:${module.constants.values.groups.monitoring_viewer}"
 }
+
+resource "google_organization_iam_member" "org_cloudsql_admins" {
+  for_each = toset(var.org_cloudsql_admins_iam_permissions)
+  org_id   = module.constants.values.org_id
+  role     = each.value
+  member   = "group:${module.constants.values.groups.cloudsql_admins}"
+}
