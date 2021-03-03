@@ -68,5 +68,6 @@ activate_apis = [
     "storage.googleapis.com",
     "billingbudgets.googleapis.com",
     "servicenetworking.googleapis.com",
-    "serviceusage.googleapis.com"
+    "serviceusage.googleapis.com",
+    "sqladmin.googleapis.com"
 ]
