@@ -4,6 +4,15 @@ application_name            = "panda"
 folder_id                   = "133576577272"
 budget_amount               = 1000
 budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
+activate_apis = [
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "stackdriver.googleapis.com",
+    "file.googleapis.com",
+    "storage.googleapis.com",
+    "billingbudgets.googleapis.com",
+    "servicenetworking.googleapis.com"
+  ]
 
 # VPC
 network_name = "panda-dev-vpc"
