@@ -58,3 +58,15 @@ custom_rules = {
 
 # NAT
 nats = [{ name = "cloud-nat" }]
+
+# Enable Service Usage API in addition to our standard APIs
+activate_apis = [
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "stackdriver.googleapis.com",
+    "file.googleapis.com",
+    "storage.googleapis.com",
+    "billingbudgets.googleapis.com",
+    "servicenetworking.googleapis.com",
+    "serviceusage.googleapis.com"
+]
