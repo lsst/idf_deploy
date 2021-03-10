@@ -98,7 +98,8 @@ gcp_science_platform_gke_cluster_admins_iam_permissions = [
   "roles/file.editor",
   "roles/compute.networkAdmin",
   "roles/compute.securityAdmin",
-  "roles/artifactregistry.admin"
+  "roles/artifactregistry.admin",
+  "roles/oauthconfig.editor"
 ]
 gcp_science_platform_gke_developer_iam_permissions = [
   "roles/container.clusterViewer",
