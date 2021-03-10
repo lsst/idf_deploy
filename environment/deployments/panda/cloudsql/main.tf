@@ -14,5 +14,6 @@ module "private-postgres" {
   project_roles       = ["${var.project_id}=>roles/cloudsql.client"]
   project_id          = var.project_id
   vpc_network         = var.network
+  require_ssl         = var.require_ssl
   deletion_protection = false
 }
