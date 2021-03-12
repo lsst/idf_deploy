@@ -78,7 +78,7 @@ variable "project_iam_permissions" {
     "roles/storage.admin",
     "roles/container.clusterAdmin",
     "roles/container.admin",
-    "roles/compute.instanceAdmin",
+    "roles/compute.instanceAdmin.v1",
     "roles/logging.admin",
     "roles/file.editor",
     "roles/compute.networkAdmin",
