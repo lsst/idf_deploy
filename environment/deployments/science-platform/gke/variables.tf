@@ -34,6 +34,12 @@ variable "zones" {
   default     = ["us-central1-a"]
 }
 
+variable "gce_pd_csi_driver" {
+  description = "(Beta) Whether this cluster should enable the Google Compute Engine Persistent Disk Container Storage Interface (CSI) Driver."
+  type        = bool
+  default     = false
+}
+
 variable "maintenance_start_time" {
   description = "Time window specified for daily maintenance operations in RFC3339 format"
   type        = string

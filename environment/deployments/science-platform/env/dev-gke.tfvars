@@ -3,8 +3,9 @@ environment             = "dev"
 application_name        = "science-platform"
 
 # GKE
-release_channel = "RAPID"
+release_channel        = "RAPID"
 master_ipv4_cidr_block = "172.16.0.0/28"
+gce_pd_csi_driver      = true
 
 node_pools = [
   {
