@@ -13,7 +13,7 @@ cluster_telemetry_type = "SYSTEM_ONLY"
 node_pools = [
   {
     name               = "panda-low-mem-1-pool"
-    machine_type       = "e2-custom-2-6144"
+    machine_type       = "n2-custom-4-8800"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
@@ -21,9 +21,9 @@ node_pools = [
     preemptible        = true
     image_type         = "cos_containerd"
     enable_secure_boot = true
-    disk_size_gb       = "32"
+    disk_size_gb       = "200"
     disk_type          = "pd-standard"
-    autoscaling        = "true"
+    autoscaling        = true
     node_count         = 0
   }
 ]
@@ -32,7 +32,7 @@ node_pools = [
 node_pools_2 = [
   { 
     name               = "panda-high-mem-0-pool"
-    machine_type       = "e2-highmem-2"
+    machine_type       = "n2-custom-4-66200"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
@@ -40,10 +40,9 @@ node_pools_2 = [
     preemptible        = true
     image_type         = "cos_containerd"
     enable_secure_boot = true
-    disk_size_gb       = "32"
+    disk_size_gb       = "200"
     disk_type          = "pd-standard"
-    autoscaling        = "true"
+    autoscaling        = true
     node_count         = 0
   }
  ]
-
