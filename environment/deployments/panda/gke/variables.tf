@@ -29,6 +29,10 @@ variable "master_ipv4_cidr_block_2" {
   default = "172.23.0.0/28"
 }
 
+variable "master_ipv4_cidr_block_3" {
+  default = "172.24.0.0/28"
+}
+
 variable "zones" {
   description = "The zones to host the cluster in (optional if regional cluster / required if zonal)"
   type        = list(string)
@@ -97,4 +101,45 @@ variable "node_pools_labels" {
       environment = "environment_here"
     }
   }
+}
+
+# Autoscaling definition for GKE clusters
+variable "cluster_autoscaling_1" {
+   type = object({
+     enabled = bool
+     autoscaling_profile = string
+     min_cpu_cores = number
+     max_cpu_cores = number
+     min_memory_gb = number
+     max_memory_gb = number
+   })
+  default = {
+   enabled             = true
+   autoscaling_profile = "BALANCED"
+   min_cpu_cores       = 4
+   max_cpu_cores       = 10000
+   min_memory_gb       = 8
+   max_memory_gb       = 20000
+   }
+}
+
+
+# Autoscaling definition for GKE clusters
+variable "cluster_autoscaling_2" {
+   type = object({
+     enabled = bool
+     autoscaling_profile = string
+     min_cpu_cores = number
+     max_cpu_cores = number
+     min_memory_gb = number
+     max_memory_gb = number
+   })
+   default = {
+   enabled             = true
+   autoscaling_profile = "BALANCED"
+   min_cpu_cores       = 4
+   max_cpu_cores       = 5000
+   min_memory_gb       = 64
+   max_memory_gb       = 320000
+   }
 }
