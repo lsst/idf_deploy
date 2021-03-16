@@ -29,7 +29,7 @@ secondary_ranges = {
 }
 
 # Filestore
-fileshare_capacity = 3500
+fileshare_capacity = 4000
 
 # FIREWALL
 #
