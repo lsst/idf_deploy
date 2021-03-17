@@ -68,13 +68,15 @@ module "storage_bucket" {
   project_id  = module.project_factory.project_id
   storage_class = "REGIONAL"
   location   = "us-central1"
-  suffix_name = ["desc-dc2-dr6"]
+  suffix_name = ["desc-dc2-dr6", "desc-dc2-run22i"]
   prefix_name = "curation"
   versioning = {
     desc-dc2-dr6  = true
+    desc-dc2-run22i = true
   }
   force_destroy = {
     desc-dc2-dr6  = true
+    desc-dc2-run22i = true
   }
   labels = {
     environment = var.environment
@@ -88,17 +90,19 @@ module "storage_bucket_2" {
   project_id  = module.project_factory.project_id
   storage_class = "REGIONAL"
   location   = "us-central1"
-  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev"]
+  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6"]
   prefix_name = "butler"
   versioning = {
     dp01-dev  = true
     dp01-int  = true
     dp01      = true
+    dp01-desc-dr6 = true
   }
   force_destroy = {
     dp01-dev  = true
     dp01-int  = true
     dp01      = true
+    dp01-desc-dr6 = true
   }
   labels = {
     environment = var.environment
