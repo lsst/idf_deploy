@@ -38,6 +38,7 @@ locals {
   network      = data.google_compute_network.network.name
   subnetwork   = data.google_compute_subnetwork.subnetwork.name
   subnetwork_2 = data.google_compute_subnetwork.subnetwork_2.name
+  subnetwork_3 = data.google_compute_subnetwork.subnetwork_3.name
 }
 
 module "gke" {
