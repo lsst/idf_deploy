@@ -117,7 +117,7 @@ module "gke_dev" {
   name                   = "developmentcluster"
   project_id             = local.project_id
   network                = var.network_name
-  subnetwork             = local.subnetwork_3
+  subnetwork             = "subnet-us-central1-03"
   master_ipv4_cidr_block = var.master_ipv4_cidr_block_3
   release_channel        = var.release_channel
   node_pools             = var.node_pools
@@ -131,7 +131,7 @@ module "gke_dev" {
     environment      = var.environment
     project          = local.project_id
     application_name = var.application_name
-    subnetwork       = local.subnetwork_3
+    subnetwork       = "subnet-us-central1-03"
   }
 
   # Node Pools
