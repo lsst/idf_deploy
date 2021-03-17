@@ -29,6 +29,10 @@ variable "master_ipv4_cidr_block_2" {
   default = "172.23.0.0/28"
 }
 
+variable "master_ipv4_cidr_block_3" {
+  default = "172.24.0.0/28"
+}
+
 variable "zones" {
   description = "The zones to host the cluster in (optional if regional cluster / required if zonal)"
   type        = list(string)
