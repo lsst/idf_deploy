@@ -47,5 +47,3 @@ node_pools_2 = [
     node_count         = 0
   }
  ]
-
-
