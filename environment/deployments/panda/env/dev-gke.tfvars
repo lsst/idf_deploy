@@ -33,7 +33,7 @@ node_pools = [
 node_pools_2 = [
   { 
     name               = "panda-high-mem-0-pool"
-    machine_type       = "n2-custom-2-32768"
+    machine_type       = "n2-custom-2-33792-ext"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
