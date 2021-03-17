@@ -29,7 +29,6 @@ node_pools = [
   }
 ]
 
-
 node_pools_2 = [
   { 
     name               = "panda-high-mem-0-pool"
@@ -47,3 +46,5 @@ node_pools_2 = [
     node_count         = 0
   }
  ]
+
+
