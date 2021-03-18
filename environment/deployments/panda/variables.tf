@@ -83,6 +83,7 @@ variable "project_iam_permissions" {
     "roles/file.editor",
     "roles/compute.networkAdmin",
     "roles/compute.securityAdmin",
+    "roles/iam.serviceAccountUser",
     "roles/iap.tunnelResourceAccessor"
   ]
 }
