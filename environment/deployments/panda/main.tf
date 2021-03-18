@@ -60,3 +60,35 @@ module "nat" {
     environment      = var.environment
   }
 }
+
+data "google_compute_network" "my-network" {
+  name    = "panda-dev-vpc"
+  project = module.project_factory.project_id
+}
+
+data "google_compute_subnetwork" "my-subnetwork" {
+  name    = "subnet-us-central1-01"
+  region  = "us-central1"
+  project = module.project_factory.project_id
+}
+
+// Enable Identity Aware Proxy
+module "iap_tunnel" {
+  source  = "../../../modules/iap"
+  project = module.project_factory.project_id
+  network = data.google_compute_network.my-network.self_link
+  members = ["group:gcp-panda-administrators@lsst.cloud"]
+  instances = [{
+    name = "submit-001"
+    zone = "us-central1-a"
+  }]
+  depends_on = [module.vm]
+}
+
+// Create a Private Instance
+module "vm" {
+  source     = "../../../modules/compute"
+  project_id = module.project_factory.project_id
+  subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
+  hostname   = "submit"
+}
