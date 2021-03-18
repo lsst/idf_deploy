@@ -11,7 +11,8 @@ activate_apis = [
     "file.googleapis.com",
     "storage.googleapis.com",
     "billingbudgets.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "servicenetworking.googleapis.com",
+    "iap.googleapis.com"
   ]
 
 # VPC
