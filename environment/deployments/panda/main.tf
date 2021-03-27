@@ -87,6 +87,7 @@ module "iap_tunnel" {
 
 resource "google_compute_address" "ip_address" {
   name = "external-ip"
+  region = var.default_region
 }
 
 locals {
