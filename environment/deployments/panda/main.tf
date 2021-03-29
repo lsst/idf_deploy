@@ -90,6 +90,11 @@ resource "google_compute_address" "ip_address" {
   region = var.default_region
 }
 
+resource "google_compute_address" "reserve_ip_address" {
+  name = "external-ip"
+  region = var.default_region
+}
+
 # locals {
 #   access_config = {
 #     nat_ip       = google_compute_address.ip_address.address
@@ -105,6 +110,18 @@ module "vm" {
   hostname   = "submit"
   access_config = [{
     nat_ip       = google_compute_address.ip_address.address
+    network_tier = "PREMIUM"
+  }]
+}
+
+// Create a Public Instance
+module "public_vm" {
+  source     = "../../../modules/compute"
+  project_id = module.project_factory.project_id
+  subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
+  hostname   = "public"
+  access_config = [{
+    nat_ip       = google_compute_address.reserve_ip_address.address
     network_tier = "PREMIUM"
   }]
 }
