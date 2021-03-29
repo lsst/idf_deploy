@@ -29,7 +29,7 @@ secondary_ranges = {
 }
 
 # Filestore
-#fileshare_capacity = 2600
+fileshare_capacity = 4000
 
 # FIREWALL
 #
@@ -68,5 +68,6 @@ activate_apis = [
     "storage.googleapis.com",
     "billingbudgets.googleapis.com",
     "servicenetworking.googleapis.com",
-    "serviceusage.googleapis.com"
+    "serviceusage.googleapis.com",
+    "sqladmin.googleapis.com"
 ]

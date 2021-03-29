@@ -34,7 +34,7 @@ module "cloudsql-db" {
   ip_configuration = {
     ipv4_enabled        = false
     private_network     = data.google_compute_network.network.self_link
-    require_ssl         = true
+    require_ssl         = var.require_ssl
     authorized_networks = var.authorized_networks
   }
 

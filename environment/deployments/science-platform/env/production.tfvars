@@ -29,7 +29,6 @@ secondary_ranges = {
 # Filestore
 fileshare_capacity = 8000
 
-
 # FIREWALL
 #
 # This allows the Kubernetes master to talk to validation controllers

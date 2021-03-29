@@ -22,6 +22,13 @@ data "google_compute_subnetwork" "subnetwork_2" {
   region  = "us-central1"
   project = local.project_id
 }
+
+data "google_compute_subnetwork" "subnetwork_3" {
+  name    = "subnet-us-central1-03"
+  region  = "us-central1"
+  project = local.project_id
+}
+
 # ----------------------------------------
 #   GKE
 # ----------------------------------------
@@ -31,6 +38,7 @@ locals {
   network      = data.google_compute_network.network.name
   subnetwork   = data.google_compute_subnetwork.subnetwork.name
   subnetwork_2 = data.google_compute_subnetwork.subnetwork_2.name
+  subnetwork_3 = data.google_compute_subnetwork.subnetwork_3.name
 }
 
 module "gke" {
@@ -47,6 +55,7 @@ module "gke" {
   network_policy         = var.network_policy
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type
+  cluster_autoscaling    = var.cluster_autoscaling_1
 
   # Labels
   cluster_resource_labels = {
@@ -81,6 +90,7 @@ module "gke_2" {
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type
   zones                  = var.zones
+  cluster_autoscaling    = var.cluster_autoscaling_2
 
   # Labels
   cluster_resource_labels = {
@@ -88,6 +98,40 @@ module "gke_2" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = local.subnetwork_2
+  }
+
+  # Node Pools
+  node_pools_labels = {
+    all = {
+      environment      = var.environment
+      project          = local.project_id
+      application_name = var.application_name
+    }
+  }
+}
+
+module "gke_dev" {
+  source = "../../../../modules/gke"
+
+  # Cluster
+  name                   = "developmentcluster"
+  project_id             = local.project_id
+  network                = var.network_name
+  subnetwork             = "subnet-us-central1-03"
+  master_ipv4_cidr_block = var.master_ipv4_cidr_block_3
+  release_channel        = var.release_channel
+  node_pools             = var.node_pools
+  network_policy         = var.network_policy
+  gce_pd_csi_driver      = var.gce_pd_csi_driver
+  cluster_telemetry_type = var.cluster_telemetry_type
+  zones                  = var.zones
+
+  # Labels
+  cluster_resource_labels = {
+    environment      = var.environment
+    project          = local.project_id
+    application_name = var.application_name
+    subnetwork       = "subnet-us-central1-03"
   }
 
   # Node Pools
