@@ -104,4 +104,8 @@ module "vm" {
   subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
   hostname   = "submit"
   access_config = [local.access_config]
+
+  depends_on = [
+    google_compute_address.ip_address
+  ]
 }
