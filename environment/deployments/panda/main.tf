@@ -91,7 +91,7 @@ resource "google_compute_address" "ip_address" {
 }
 
 resource "google_compute_address" "reserve_ip_address" {
-  name = "external-ip"
+  name = "external-ip-2"
   region = var.default_region
 }
 
