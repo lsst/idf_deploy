@@ -81,17 +81,18 @@ data "google_compute_subnetwork" "my-subnetwork" {
 }
 
 // Enable Identity Aware Proxy
-module "iap_tunnel" {
-  source  = "../../../modules/iap"
-  project = module.project_factory.project_id
-  network = data.google_compute_network.my-network.self_link
-  members = ["group:gcp-panda-administrators@lsst.cloud"]
-  instances = [{
-    name = "submit-001"
-    zone = "us-central1-a"
-  }]
-  depends_on = [module.vm]
-}
+// Commented out because we no longer needed IAP, but want to leave for future use case
+# module "iap_tunnel" {
+#   source  = "../../../modules/iap"
+#   project = module.project_factory.project_id
+#   network = data.google_compute_network.my-network.self_link
+#   members = ["group:gcp-panda-administrators@lsst.cloud"]
+#   instances = [{
+#     name = "submit-001"
+#     zone = "us-central1-a"
+#   }]
+#   depends_on = [module.vm]
+# }
 
 # resource "google_compute_address" "ip_address" {
 #   name   = "external-ip"
