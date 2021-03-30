@@ -106,6 +106,7 @@ resource "google_compute_address" "reserve_ip_address" {
 resource "google_compute_address" "external_ip_address" {
   name   = "public-ip"
   region = var.default_region
+  project = module.project_factory.project_id
 }
 
 // Create a Private Instance
