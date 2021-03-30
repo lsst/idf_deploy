@@ -33,7 +33,6 @@ module "service_account_cluster" {
   ]
 }
 
-
 module "firewall_1" {
   source = "../../../modules/firewall"
 
@@ -42,6 +41,7 @@ module "firewall_1" {
   custom_rules = var.custom_rules
 }
 
+// Create fw rule to allow-ssh for PyCharm Access
 module "firewall_2" {
   source = "../../../modules/firewall"
 
@@ -93,15 +93,15 @@ module "iap_tunnel" {
   depends_on = [module.vm]
 }
 
-resource "google_compute_address" "ip_address" {
-  name   = "external-ip"
-  region = var.default_region
-}
+# resource "google_compute_address" "ip_address" {
+#   name   = "external-ip"
+#   region = var.default_region
+# }
 
-resource "google_compute_address" "reserve_ip_address" {
-  name   = "external-ip-2"
-  region = var.default_region
-}
+# resource "google_compute_address" "reserve_ip_address" {
+#   name   = "external-ip-2"
+#   region = var.default_region
+# }
 
 resource "google_compute_address" "external_ip_address" {
   name    = "public-ip"
@@ -110,29 +110,30 @@ resource "google_compute_address" "external_ip_address" {
 }
 
 // Create a Private Instance
-module "vm" {
-  source     = "../../../modules/compute"
-  project_id = module.project_factory.project_id
-  subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
-  hostname   = "submit"
-  access_config = [{
-    nat_ip       = google_compute_address.ip_address.address
-    network_tier = "PREMIUM"
-  }]
-}
+# module "vm" {
+#   source     = "../../../modules/compute"
+#   project_id = module.project_factory.project_id
+#   subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
+#   hostname   = "submit"
+#   access_config = [{
+#     nat_ip       = google_compute_address.ip_address.address
+#     network_tier = "PREMIUM"
+#   }]
+# }
 
-// Create a Public Instance
-module "public_vm" {
-  source     = "../../../modules/compute"
-  project_id = module.project_factory.project_id
-  subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
-  hostname   = "public"
-  access_config = [{
-    nat_ip       = google_compute_address.reserve_ip_address.address
-    network_tier = "PREMIUM"
-  }]
-}
+# // Create a Public Instance
+# module "public_vm" {
+#   source     = "../../../modules/compute"
+#   project_id = module.project_factory.project_id
+#   subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
+#   hostname   = "public"
+#   access_config = [{
+#     nat_ip       = google_compute_address.reserve_ip_address.address
+#     network_tier = "PREMIUM"
+#   }]
+# }
 
+// Create a Public Instance for PyCharm Access
 module "external_vm" {
   source               = "../../../modules/compute_instance"
   project              = module.project_factory.project_id
