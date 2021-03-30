@@ -95,6 +95,39 @@ custom_rules = {
   }
 }
 
+custom_rules2  = {
+  allow-ssh = {
+    description          = "Deployed with Terraform"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = []
+    sources              = []
+    targets              = ["allow-ssh"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["22"]
+      }
+    ]
+
+    extra_attributes = {
+      disabled = false
+      priority = 900
+    }
+  }
+}
+
 # NAT
 address_count = 1
 nat_name      = "cloud-nat"
+
+
+# INSTANCE
+machine_type = "n1-standard-4"
+num_instances = "1"
+size = 100
+source_image_family  = "centos-7"
+source_image_project = "centos-cloud"
+tags = ["allow-ssh"]
+type = "pd-standard"
