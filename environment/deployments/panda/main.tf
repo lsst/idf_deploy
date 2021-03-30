@@ -42,6 +42,14 @@ module "firewall_1" {
   custom_rules = var.custom_rules
 }
 
+module "firewall_2" {
+  source = "../../../modules/firewall"
+
+  project_id   = module.project_factory.project_id
+  network      = module.project_factory.network_name
+  custom_rules = var.custom_rules2
+}
+
 module "nat" {
   source = "../../../modules/cloud_nat"
 
@@ -86,21 +94,19 @@ module "iap_tunnel" {
 }
 
 resource "google_compute_address" "ip_address" {
-  name = "external-ip"
+  name   = "external-ip"
   region = var.default_region
 }
 
 resource "google_compute_address" "reserve_ip_address" {
-  name = "external-ip-2"
+  name   = "external-ip-2"
   region = var.default_region
 }
 
-# locals {
-#   access_config = {
-#     nat_ip       = google_compute_address.ip_address.address
-#     network_tier = "PREMIUM"
-#   }
-# }
+resource "google_compute_address" "external_ip_address" {
+  name   = "public-ip"
+  region = var.default_region
+}
 
 // Create a Private Instance
 module "vm" {
@@ -122,6 +128,26 @@ module "public_vm" {
   hostname   = "public"
   access_config = [{
     nat_ip       = google_compute_address.reserve_ip_address.address
+    network_tier = "PREMIUM"
+  }]
+}
+
+module "external_vm" {
+  source               = "../../../modules/compute_instance"
+  project              = module.project_factory.project_id
+  subnetwork           = data.google_compute_subnetwork.my-subnetwork.self_link
+  subnetwork_project   = module.project_factory.project_id
+  hostname             = "${var.application_name}-${var.environment}-public"
+  machine_type         = var.machine_type
+  num_instances        = var.num_instances
+  size                 = var.size
+  source_image_family  = var.source_image_family
+  source_image_project = var.source_image_project
+  region               = var.default_region
+  tags                 = var.tags
+
+  access_config = [{
+    nat_ip       = google_compute_address.external_ip_address.address
     network_tier = "PREMIUM"
   }]
 }

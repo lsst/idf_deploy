@@ -152,6 +152,25 @@ variable "custom_rules" {
   }))
 }
 
+variable "custom_rules2" {
+  description = "List of custom rule definitions (refer to variables file for syntax)."
+  default     = {}
+  type = map(object({
+    description          = string
+    direction            = string
+    action               = string # (allow|deny)
+    ranges               = list(string)
+    sources              = list(string)
+    targets              = list(string)
+    use_service_accounts = bool
+    rules = list(object({
+      protocol = string
+      ports    = list(string)
+    }))
+    extra_attributes = map(string)
+  }))
+}
+
 # NAT
 
 variable "router_name" {
@@ -200,4 +219,44 @@ variable "log_config_filter" {
   description = "Specified the desired filtering of logs on this NAT. Possible values are `ERRORS_ONLY`, `TRANSLATIOSN_ONLY`, `ALL`"
   type        = string
   default     = "ERRORS_ONLY"
+}
+
+# INSTANCE
+variable "machine_type" {
+  description = "The machine type to create"
+  type        = string
+  default     = "e2-medium"
+}
+
+variable "num_instances" {
+  description = "Number of instances to create. This value is ignored if static_ips is provided."
+  default     = "1"
+}
+
+variable "size" {
+  description = "The size of the image in gigabytes."
+  type        = number
+  default     = 50
+}
+
+variable "source_image_family" {
+  description = "Source image family. If neither source_image nor source_image_family is specified, defaults to the latest public CentOS image."
+  default     = "centos-7"
+}
+
+variable "source_image_project" {
+  description = "Project where the source image comes from. The default project contains CentOS images."
+  default     = ""
+}
+
+variable "tags" {
+  description = "A list of network tags to attach to the instance"
+  type        = list(string)
+  default     = []
+}
+
+variable "type" {
+  description = "The GCE disk type. Maybe `pd-standard`,`pd-balanced`, `pd-ssd`"
+  type        = string
+  default     = "pd-standard"
 }
