@@ -122,6 +122,8 @@ custom_rules2  = {
 address_count = 1
 nat_name      = "cloud-nat"
 
+# IAP
+members = ["group:gcp-panda-administrators@lsst.cloud"]
 
 # INSTANCE
 machine_type = "n1-standard-4"
