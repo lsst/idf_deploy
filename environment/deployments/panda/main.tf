@@ -83,7 +83,7 @@ data "google_compute_subnetwork" "my-subnetwork" {
 // Enable Identity Aware Proxy
 // Commented out because we no longer needed IAP, but want to leave for future use case
 module "iap_tunnel" {
-  for_each = toset(module.external_vm.name)
+  for_each   = toset(length(module.external_vm.name))
   source  = "../../../modules/iap"
   project = module.project_factory.project_id
   network = data.google_compute_network.my-network.self_link
@@ -92,6 +92,7 @@ module "iap_tunnel" {
     name = each.value
     zone = "us-central1-a"
   }]
+
   depends_on = [module.external_vm]
 }
 
