@@ -221,6 +221,12 @@ variable "log_config_filter" {
   default     = "ERRORS_ONLY"
 }
 
+# IAP
+variable "members" {
+  description = "List of IAM resources to allow using the IAP tunnel."
+  type        = list(string)
+}
+
 # INSTANCE
 variable "machine_type" {
   description = "The machine type to create"
