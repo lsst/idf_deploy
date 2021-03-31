@@ -100,7 +100,7 @@ custom_rules2  = {
     description          = "Deployed with Terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = []
+    ranges               = ["69.119.24.0/22","130.199.0.0/16"]
     sources              = []
     targets              = ["allow-ssh"]
     use_service_accounts = false
@@ -122,6 +122,8 @@ custom_rules2  = {
 address_count = 1
 nat_name      = "cloud-nat"
 
+# IAP
+members = ["group:gcp-panda-administrators@lsst.cloud"]
 
 # INSTANCE
 machine_type = "n1-standard-4"
