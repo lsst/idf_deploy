@@ -19,8 +19,10 @@ node_pools = [
     enable_secure_boot = true
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
-    autoscaling        = false
-    node_count         = 5
+    autoscaling        = true
+    initial_node_count = 3
+    min_count          = 3
+    max_count          = 12
   },
   {
     name               = "dask-pool"
