@@ -14,7 +14,7 @@ cluster_telemetry_type = "SYSTEM_ONLY"
 node_pools = [
   {
     name               = "panda-low-mem-1-pool"
-    machine_type       = "n2-custom-5-8960"
+    machine_type       = "n2-custom-6-8960"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
@@ -33,7 +33,7 @@ node_pools = [
 node_pools_2 = [
   { 
     name               = "panda-high-mem-0-pool"
-    machine_type       = "n2-custom-3-33792-ext"
+    machine_type       = "n2-custom-4-33792-ext"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
