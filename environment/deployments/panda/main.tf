@@ -121,3 +121,25 @@ module "external_vm" {
     network_tier = "PREMIUM"
   }]
 }
+
+// Storage Bucket
+module "storage_bucket" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = ["logging", "containers"]
+  prefix_name   = "drp"
+  versioning    = {
+    logging     = true
+    containers  = true
+  }
+  force_destroy = {
+    logging     = false
+    containers  = false
+  }
+  labels        = {
+    environment = var.environment
+    application = var.application_name
+  }
+}
