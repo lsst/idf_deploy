@@ -6,8 +6,7 @@ CloudSQL provides disk autoresize feature which can cause a Terraform configurat
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | authorized\_networks | List of mapped public networks authorized to access to the instances. Default - short range of GCP health-checkers IPs | `list(map(string))` | <pre>[<br>  {<br>    "name": "sample-gcp-health-checkers-range",<br>    "value": "130.211.0.0/28"<br>  }<br>]</pre> | no |
-| backup\_configuration | The backup\_configuration settings subblock for the database setings | <pre>object({<br>    binary_log_enabled = bool<br>    enabled            = bool<br>    start_time         = string<br>    location           = string<br>  })</pre> | <pre>{<br>  "binary_log_enabled": false,<br>  
-"enabled": false,<br>  "location": null,<br>  "start_time": null<br>}</pre> | no |
+| backup\_configuration | The backup\_configuration settings subblock for the database setings | <pre>object({<br>    binary_log_enabled = bool<br>    enabled            = bool<br>    start_time         = string<br>    location           = string<br>  })</pre> | <pre>{<br>  "binary_log_enabled": false,<br>  "enabled": false,<br>  "location": null,<br>  "start_time": null<br>}</pre> | no |
 | database\_flags | List of Cloud SQL flags that are applied to the database server. See [more details](https://cloud.google.com/sql/docs/mysql/flags) | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | database\_version | value | `string` | `"MYSQL_5_6"` | no |
 | db\_name | The name of the SQL Database instance | `string` | `"example-mysql-public"` | no |
