@@ -96,45 +96,11 @@ module "iap_tunnel" {
   depends_on = [module.external_vm]
 }
 
-# resource "google_compute_address" "ip_address" {
-#   name   = "external-ip"
-#   region = var.default_region
-# }
-
-# resource "google_compute_address" "reserve_ip_address" {
-#   name   = "external-ip-2"
-#   region = var.default_region
-# }
-
 resource "google_compute_address" "external_ip_address" {
   name    = "public-ip"
   region  = var.default_region
   project = module.project_factory.project_id
 }
-
-// Create a Private Instance
-# module "vm" {
-#   source     = "../../../modules/compute"
-#   project_id = module.project_factory.project_id
-#   subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
-#   hostname   = "submit"
-#   access_config = [{
-#     nat_ip       = google_compute_address.ip_address.address
-#     network_tier = "PREMIUM"
-#   }]
-# }
-
-# // Create a Public Instance
-# module "public_vm" {
-#   source     = "../../../modules/compute"
-#   project_id = module.project_factory.project_id
-#   subnetwork = data.google_compute_subnetwork.my-subnetwork.self_link
-#   hostname   = "public"
-#   access_config = [{
-#     nat_ip       = google_compute_address.reserve_ip_address.address
-#     network_tier = "PREMIUM"
-#   }]
-# }
 
 // Create a Public Instance for PyCharm Access
 module "external_vm" {
@@ -146,8 +112,6 @@ module "external_vm" {
   machine_type       = var.machine_type
   num_instances      = var.num_instances
   size               = var.size
-  # source_image_family  = var.source_image_family
-  # source_image_project = var.source_image_project
   image  = "centos-7-v20210316"
   region = var.default_region
   tags   = var.tags
