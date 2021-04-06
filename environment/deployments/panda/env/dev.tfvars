@@ -5,15 +5,15 @@ folder_id                   = "133576577272"
 budget_amount               = 1000
 budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 activate_apis = [
-    "compute.googleapis.com",
-    "container.googleapis.com",
-    "stackdriver.googleapis.com",
-    "file.googleapis.com",
-    "storage.googleapis.com",
-    "billingbudgets.googleapis.com",
-    "servicenetworking.googleapis.com",
-    "iap.googleapis.com"
-  ]
+  "compute.googleapis.com",
+  "container.googleapis.com",
+  "stackdriver.googleapis.com",
+  "file.googleapis.com",
+  "storage.googleapis.com",
+  "billingbudgets.googleapis.com",
+  "servicenetworking.googleapis.com",
+  "iap.googleapis.com"
+]
 
 # VPC
 network_name = "panda-dev-vpc"
@@ -95,12 +95,12 @@ custom_rules = {
   }
 }
 
-custom_rules2  = {
+custom_rules2 = {
   allow-ssh = {
     description          = "Deployed with Terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["69.119.24.0/22","130.199.0.0/16"]
+    ranges               = ["69.119.24.0/22", "130.199.0.0/16"]
     sources              = []
     targets              = ["allow-ssh"]
     use_service_accounts = false
@@ -126,10 +126,11 @@ nat_name      = "cloud-nat"
 members = ["group:gcp-panda-administrators@lsst.cloud"]
 
 # INSTANCE
-machine_type = "n1-standard-4"
+machine_type  = "n1-standard-4"
 num_instances = "1"
-size = 100
-source_image_family  = "centos-7"
-source_image_project = "centos-cloud"
-tags = ["allow-ssh"]
-type = "pd-standard"
+size          = 100
+image         = "centos-7-v20210316"
+tags          = ["allow-ssh"]
+type          = "pd-standard"
+# source_image_family  = "centos-7"
+# source_image_project = "centos-cloud"
