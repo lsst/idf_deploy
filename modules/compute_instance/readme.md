@@ -43,31 +43,30 @@ module "instance_template" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | access\_config | Access configurations, i.e. IPs via which the VM instance can be accessed via the Internet. | <pre>list(object({<br>    nat_ip       = string<br>    network_tier = string<br>  }))</pre> | `[]` | no |
-| can\_ip\_forward | Enable IP forwarding, for NAT instances for example | `string` | `"false"` | no |
+| can\_ip\_forward | Enable IP forwarding, for NAT instances for example | `string` | `"false"` | no |      
 | enable\_shielded\_vm | Whether to enable the Shielded VM configuration on the instance. Note that the instance image must support Shielded VMs. See https://cloud.google.com/compute/docs/images | `bool` | `true` | no |
 | hostname | Hostname of instances | `string` | `""` | no |
+| image | The image from which to initialize this disk. | `string` | n/a | yes |
 | labels | Labels, provided as a map | `map(string)` | `{}` | no |
 | machine\_type | The machine type to create | `string` | `"e2-medium"` | no |
 | metadata | Metadata, provided as a map | `map(string)` | `{}` | no |
-| name\_reservation | The name of the IP reservation | `string` | `""` | no |
-| network | The name or self\_link of the network to attach this interface to. Use network attribute for Legacy or Auto subnetted networks and subnetwork for custom subnetted networks. | `string` | `""` | no |
+| network | The name or self\_link of the network to attach this interface to. Use network attribute for Legacy or Auto subnetted networks and subnetwork for custom subnetted networks. | `string` | `""` | no |       
 | network\_ip | The private IP address to assign to the instance. If emtpy, the address will be automatically assigned. | `string` | `""` | no |
-| network\_tier | The networking tier used for configuring this instance. This field can take the following values: PREMIUM or STANDARD. | `string` | `"PREMIUM"` | no |
+| network\_tier | The networking tier for the instance. Can take `PREMIUM` or `STANDARD`. | `string` | `"PREMIUM"` | no |
 | num\_instances | Number of instances to create. This value is ignored if static\_ips is provided. | `string` | `"1"` | no |
 | preemptible | Allow the instance to be preempted | `bool` | `false` | no |
 | project | The project id | `string` | n/a | yes |
-| region | The region to reserve the IP address | `string` | `null` | no |
+| region | The region to deploy the instance. | `string` | n/a | yes |
 | service\_account | Service account to attach to the instance. See https://www.terraform.io/docs/providers/google/r/compute_instance_template.html#service_account. | <pre>object({<br>    email  = string<br>    scopes = set(string)<br>  })</pre> | `null` | no |
-| shielded\_instance\_config | Not used unless enable\_shielded\_vm is true. Shielded VM configuration for the instance. | <pre>object({<br>    enable_secure_boot          = bool<br>    enable_vtpm                 = bool<br>    enable_integrity_monitoring = bool<br>  })</pre> | <pre>{<br>  "enable_integrity_monitoring": true,<br>  "enable_secure_boot": true,<br>  "enable_vtpm": true<br>}</pre> | no |
+| shielded\_instance\_config | Not used unless enable\_shielded\_vm is true. Shielded VM configuration for the instance. | <pre>object({<br>    enable_secure_boot          = bool<br>    enable_vtpm                 = 
+bool<br>    enable_integrity_monitoring = bool<br>  })</pre> | <pre>{<br>  "enable_integrity_monitoring": true,<br>  "enable_secure_boot": true,<br>  "enable_vtpm": true<br>}</pre> | no |
 | size | The size of the image in gigabytes. | `number` | `50` | no |
-| source\_image\_family | Source image family. If neither source\_image nor source\_image\_family is specified, defaults to the latest public CentOS image. | `string` | `"centos-7"` | no |
-| source\_image\_project | Project where the source image comes from. The default project contains CentOS images. | `string` | `""` | no |
 | startup\_script | User startup script to run when instances spin up | `string` | `""` | no |
 | static\_ips | List of static IPs for VM instances | `list(string)` | `[]` | no |
 | subnetwork | The name of the subnetwork to attach this interface to. The subnetwork must exist in the same region this instance will be created in. Either network or subnetwork must be provided. | `string` | `""` | no |
 | subnetwork\_project | The ID of the project in which the subnetwork belongs. If it is not provided, the provider project is used. | `string` | `""` | no |
 | tags | A list of network tags to attach to the instance | `list(string)` | `[]` | no |
-| type | The GCE disk type. Maybe `pd-standard`,`pd-balanced`, `pd-ssd` | `string` | `"pd-standard"` | no |
+| type | The GCE disk type. Maybe `pd-standard`,`pd-balanced`, `pd-ssd` | `string` | `"pd-standard"` | no | 
 | zone | The zone that the machine should be created in | `string` | `"us-central1-a"` | no |
 
 ## Outputs
@@ -75,5 +74,6 @@ module "instance_template" {
 | Name | Description |
 |------|-------------|
 | available\_zones | List of available zones in a region |
+| instance\_zone | The zone the instance deployed into |
 | instances\_self\_link | name of the instance |
 | name | Name(s) of the instance |

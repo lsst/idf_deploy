@@ -13,19 +13,18 @@ locals {
   shielded_vm_configs = var.enable_shielded_vm ? [true] : []
 }
 
-###############
+# -------------
 # Data Sources
-###############
-# data "google_compute_image" "image_family" {
-#   project = var.source_image_family != "" ? var.source_image_project : "centos-cloud"
-#   family  = var.source_image_family != "" ? var.source_image_family : "centos-7"
-# }
-
+# -------------
 data "google_compute_zones" "available" {
   project = var.project
   region  = var.region
   status  = "UP"
 }
+
+# -------------
+# Resource
+# -------------
 
 resource "google_compute_instance" "default" {
   count                   = var.num_instances
@@ -45,7 +44,6 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      #image = data.google_compute_image.image_family.self_link
       image = var.image
       size  = var.size
       type  = var.type
