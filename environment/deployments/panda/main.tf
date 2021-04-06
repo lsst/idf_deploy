@@ -138,18 +138,19 @@ resource "google_compute_address" "external_ip_address" {
 
 // Create a Public Instance for PyCharm Access
 module "external_vm" {
-  source               = "../../../modules/compute_instance"
-  project              = module.project_factory.project_id
-  subnetwork           = data.google_compute_subnetwork.my-subnetwork.self_link
-  subnetwork_project   = module.project_factory.project_id
-  hostname             = "${var.application_name}-${var.environment}-public"
-  machine_type         = var.machine_type
-  num_instances        = var.num_instances
-  size                 = var.size
-  source_image_family  = var.source_image_family
-  source_image_project = var.source_image_project
-  region               = var.default_region
-  tags                 = var.tags
+  source             = "../../../modules/compute_instance"
+  project            = module.project_factory.project_id
+  subnetwork         = data.google_compute_subnetwork.my-subnetwork.self_link
+  subnetwork_project = module.project_factory.project_id
+  hostname           = "${var.application_name}-${var.environment}-public"
+  machine_type       = var.machine_type
+  num_instances      = var.num_instances
+  size               = var.size
+  # source_image_family  = var.source_image_family
+  # source_image_project = var.source_image_project
+  image  = "centos-7-v20210316"
+  region = var.default_region
+  tags   = var.tags
 
   access_config = [{
     nat_ip       = google_compute_address.external_ip_address.address

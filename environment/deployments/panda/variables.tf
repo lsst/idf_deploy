@@ -245,14 +245,19 @@ variable "size" {
   default     = 50
 }
 
-variable "source_image_family" {
-  description = "Source image family. If neither source_image nor source_image_family is specified, defaults to the latest public CentOS image."
-  default     = "centos-7"
-}
+# variable "source_image_family" {
+#   description = "Source image family. If neither source_image nor source_image_family is specified, defaults to the latest public CentOS image."
+#   default     = "centos-7"
+# }
 
-variable "source_image_project" {
-  description = "Project where the source image comes from. The default project contains CentOS images."
-  default     = ""
+# variable "source_image_project" {
+#   description = "Project where the source image comes from. The default project contains CentOS images."
+#   default     = ""
+# }
+
+variable "image" {
+  description = "The image from which to initialize this disk."
+  type        = string
 }
 
 variable "tags" {
