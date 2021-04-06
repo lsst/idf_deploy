@@ -59,6 +59,18 @@ variable "disk_autoresize" {
   default     = true
 }
 
+variable "enable_default_db" {
+  description = "Enable or disable the creation of the default database"
+  type        = bool
+  default     = true
+}
+
+variable "enable_default_user" {
+  description = "Enable or disable the creation of the default user"
+  type        = bool
+  default     = true
+}
+
 variable "backup_configuration" {
   description = "The backup_configuration settings subblock for the database setings"
   type = object({
@@ -154,6 +166,25 @@ variable "random_instance_name" {
   type        = bool
   description = "Sets random suffix at the end of the Cloud SQL resource name"
   default     = true
+}
+
+variable "additional_databases" {
+  description = "A list of databases to be created in your cluster"
+  type = list(object({
+    name      = string
+    charset   = string
+    collation = string
+  }))
+  default = []
+}
+
+variable "additional_users" {
+  description = "A list of users to be created in your cluster"
+  type = list(object({
+    name     = string
+    password = string
+  }))
+  default = []
 }
 
 // Private Service Access
