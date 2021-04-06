@@ -75,6 +75,18 @@ variable "backup_configuration" {
   }
 }
 
+variable "enable_default_db" {
+  description = "Enable or disable the creation of the default database"
+  type        = bool
+  default     = true
+}
+
+variable "enable_default_user" {
+  description = "Enable or disable the creation of the default user"
+  type        = bool
+  default     = true
+}
+
 variable "maintenance_window_day" {
   description = "The day of week (1-7) for the master instance maintenance."
   type        = number
@@ -136,4 +148,35 @@ variable "random_instance_name" {
   type        = bool
   description = "Sets random suffix at the end of the Cloud SQL resource name"
   default     = true
+}
+
+variable "additional_databases" {
+  description = "A list of databases to be created in your cluster"
+  type = list(object({
+    name      = string
+    charset   = string
+    collation = string
+  }))
+  default = []
+}
+
+variable "additional_users" {
+  description = "A list of users to be created in your cluster"
+  type = list(object({
+    name     = string
+    password = string
+  }))
+  default = []
+}
+
+variable "ipv4_enabled" {
+  description = "Whether this Cloud SQL instance should be assigned a public IPV4 address"
+  type        = bool
+  default     = true
+}
+
+variable "private_network" {
+  description = "The VPC network from which the Cloud SQL instance is accessible for private IP. For example, projects/myProject/global/networks/default. Specifying a network enables private IP. Either `ipv4_enabled` must be enabled or a `private_network` must be configured. This setting can be updated, but it cannot be removed after it is set."
+  type        = string
+  default     = null
 }

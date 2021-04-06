@@ -25,7 +25,7 @@ data "google_compute_subnetwork" "subnetwork" {
 
 locals {
   project_id = data.google_projects.host_project.projects[0].project_id
-  network    = data.google_compute_network.network.name
+  network    = data.google_compute_network.network.self_link
   subnetwork = data.google_compute_subnetwork.subnetwork.name
 }
 
@@ -71,8 +71,8 @@ resource "random_password" "gafaelfawr" {
   special = false
 }
 
-module "private-postgres" {
-  source = "../../../../modules/cloudsql/postgres-private"
+module "postgres" {
+  source = "../../../../modules/cloudsql/postgres-sql"
 
   authorized_networks             = []
   database_version                = var.database_version
@@ -85,7 +85,8 @@ module "private-postgres" {
   maintenance_window_update_track = var.db_maintenance_window_update_track
   project_id                      = local.project_id
   random_instance_name            = false
-  vpc_network                     = var.network_name
+  ipv4_enabled                    = false
+  private_network                 = local.network
 
   additional_databases = [
     {
@@ -108,7 +109,13 @@ module "private-postgres" {
       value = "scram-sha-256"
     }
   ]
+}
 
+module "service_accounts" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~> 3.0"
+
+  project_id    = local.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
   names         = ["gafaelfawr"]

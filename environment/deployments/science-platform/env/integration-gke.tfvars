@@ -53,6 +53,7 @@ node_pools_labels = {
 db_maintenance_window_day  = 2
 db_maintenance_window_hour = 22
 
+
 # TF State declared during pipeline
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/int/gke"
