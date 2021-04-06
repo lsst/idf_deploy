@@ -102,6 +102,13 @@ module "private-postgres" {
     }
   ]
 
+  database_flags = [
+    {
+      name  = "password_encryption"
+      value = "scram-sha-256"
+    }
+  ]
+
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
   names         = ["gafaelfawr"]
