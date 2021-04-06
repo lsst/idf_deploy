@@ -16,10 +16,10 @@ locals {
 ###############
 # Data Sources
 ###############
-data "google_compute_image" "image_family" {
-  project = var.source_image_family != "" ? var.source_image_project : "centos-cloud"
-  family  = var.source_image_family != "" ? var.source_image_family : "centos-7"
-}
+# data "google_compute_image" "image_family" {
+#   project = var.source_image_family != "" ? var.source_image_project : "centos-cloud"
+#   family  = var.source_image_family != "" ? var.source_image_family : "centos-7"
+# }
 
 data "google_compute_zones" "available" {
   project = var.project
@@ -45,7 +45,8 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image = data.google_compute_image.image_family.self_link
+      #image = data.google_compute_image.image_family.self_link
+      image = var.image
       size  = var.size
       type  = var.type
     }
@@ -73,11 +74,4 @@ resource "google_compute_instance" "default" {
       enable_integrity_monitoring = lookup(var.shielded_instance_config, "enable_integrity_monitoring", shielded_instance_config.value)
     }
   }
-  # dynamic "service_account" {
-  #   for_each = [var.service_account]
-  #   content {
-  #     email  = lookup(service_account.value, "email", "")
-  #     scopes = lookup(service_account.value, "scopes", null)
-  #   }
-  # }
 }
