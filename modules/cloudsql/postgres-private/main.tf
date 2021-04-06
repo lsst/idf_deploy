@@ -42,8 +42,6 @@ module "cloudsql-db" {
     require_ssl         = var.require_ssl
     authorized_networks = var.authorized_networks
   }
-
-  depends_on = [module.private-service-access]
 }
 
 module "private-service-access" {
