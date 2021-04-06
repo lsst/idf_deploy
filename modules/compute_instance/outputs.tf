@@ -15,5 +15,5 @@ output "available_zones" {
 
 output "instance_zone" {
   description = "The zone the instance deployed into"
-  value = google_compute_instance.default.*.zone
+  value       = google_compute_instance.default.*.zone
 }

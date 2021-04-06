@@ -68,10 +68,10 @@ output "nat_id" {
 // Instance
 output "instance_name" {
   description = "Name of the instance"
-  value = module.external_vm.name
+  value       = module.external_vm.name
 }
 
 output "instance_zone" {
   description = "The zone the instance was deployed"
-  value = module.external_vm.instance_zone
+  value       = module.external_vm.instance_zone
 }
