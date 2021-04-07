@@ -84,7 +84,7 @@ module "postgres" {
   maintenance_window_hour         = var.db_maintenance_window_hour
   maintenance_window_update_track = var.db_maintenance_window_update_track
   project_id                      = local.project_id
-  random_instance_name            = false
+  random_instance_name            = true
   ipv4_enabled                    = false
   private_network                 = local.network
 
