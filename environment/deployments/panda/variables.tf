@@ -84,6 +84,7 @@ variable "project_iam_permissions" {
     "roles/compute.networkAdmin",
     "roles/compute.securityAdmin",
     "roles/iam.serviceAccountUser",
+    "roles/iam.serviceAccountCreator",
     "roles/iap.tunnelResourceAccessor"
   ]
 }
