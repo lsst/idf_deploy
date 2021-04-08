@@ -1,6 +1,16 @@
-project_id  = "science-platform-dev-7696"
-db_name     = "butler-registry-dev"
-require_ssl = false
-database_flags = [
+# Project
+environment      = "dev"
+application_name = "science-platform"
+project_id       = "science-platform-dev-7696"
+
+# Butler database
+butler_db_name        = "butler-registry-dev"
+butler_require_ssl    = false
+butler_database_flags = [
   {name = "password_encryption", value = "scram-sha-256"}
 ]
+
+# General database
+db_maintenance_window_day          = 1
+db_maintenance_window_hour         = 22
+db_maintenance_window_update_track = "canary"
