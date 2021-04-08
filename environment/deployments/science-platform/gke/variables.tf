@@ -72,29 +72,3 @@ variable "node_pools_labels" {
     }
   }
 }
-
-# CloudSQL
-
-variable "database_version" {
-  type        = string
-  description = "The database version to use"
-  default     = "POSTGRES_13"
-}
-
-variable "db_maintenance_window_day" {
-  type        = number
-  description = "The day of week (1-7) for the master instance maintenance."
-  default     = 1
-}
-
-variable "db_maintenance_window_hour" {
-  type        = number
-  description = "The hour of day (0-23) maintenance window for the master instance maintenance."
-  default     = 23
-}
-
-variable "db_maintenance_window_update_track" {
-  type        = string
-  description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
-  default     = "stable"
-}
