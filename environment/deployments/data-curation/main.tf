@@ -71,7 +71,7 @@ module "storage_bucket" {
   suffix_name = ["desc-dc2-dr6", "desc-dc2-run22i"]
   prefix_name = "curation"
   versioning = {
-    desc-dc2-dr6  = true
+    desc-dc2-dr6  = false
     desc-dc2-run22i = true
   }
   force_destroy = {
@@ -95,7 +95,7 @@ module "storage_bucket_2" {
   versioning = {
     dp01-dev  = true
     dp01-int  = true
-    dp01      = true
+    dp01      = false
     dp01-desc-dr6 = true
   }
   force_destroy = {
