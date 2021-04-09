@@ -120,7 +120,7 @@ module "gke_dev" {
   subnetwork             = "subnet-us-central1-03"
   master_ipv4_cidr_block = var.master_ipv4_cidr_block_3
   release_channel        = var.release_channel
-  node_pools             = var.node_pools
+  node_pools             = var.node_pools_dev
   network_policy         = var.network_policy
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type

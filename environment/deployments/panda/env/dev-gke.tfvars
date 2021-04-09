@@ -47,3 +47,21 @@ node_pools_2 = [
     node_count         = 0
   }
  ]
+
+node_pools_dev = [
+  { 
+    name               = "panda-low-mem-1-pool"
+    machine_type       = "n2-custom-6-8960"
+    node_locations     = "us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = true
+    image_type         = "ubuntu"
+    enable_secure_boot = true
+    disk_size_gb       = "200"
+    disk_type          = "pd-standard"
+    autoscaling        = true
+    node_count         = 0
+  }
+ ]
