@@ -83,6 +83,12 @@ variable "node_pools_2" {
   default = [{}]
 }
 
+variable "node_pools_dev" {
+  type        = list(map(string))
+  description = "List of maps containing node pools"
+  default = [{}]
+}
+
 variable "cluster_resource_labels" {
   type        = map(string)
   description = "The GCE resource labels (a map of key/value pairs) to be applied to the cluster"
