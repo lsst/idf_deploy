@@ -12,3 +12,4 @@ butler_database_flags = [
 # General database
 db_maintenance_window_day  = 2
 db_maintenance_window_hour = 22
+
