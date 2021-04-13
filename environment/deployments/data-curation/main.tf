@@ -148,7 +148,7 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dc2_run2
 }
 // RO storage access to DESC DR6 bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dr6" {
-  bucket = "butler-us-central1-desc-dr6"
+  bucket = "butler-us-central1-dp01-desc-dr6"
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
