@@ -125,7 +125,7 @@ module "data_curation_admin_group" {
 module "data_curation_prod_accounts" {
   source = "../../../modules/service_accounts/"
 
-  project_id   = "data-curation-prod"
+  project_id   = "data-curation-prod-fbdb"
   prefix       = "butler-gcs"
   names        = var.data_curation_prod_names
   display_name = "Butler GCS Service account for Data Curation Prod"
