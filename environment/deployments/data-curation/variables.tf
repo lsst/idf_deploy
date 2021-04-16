@@ -238,3 +238,10 @@ variable "members" {
   description = "Members of the group. Each entry is the ID of an entity. For Google-managed entities, the ID must be the email address of an existing group, user or service account"
   default     = []
 }
+
+// Data Curation Prod
+variable "data_curation_prod_names" {
+  type        = list(string)
+  description = "Names of the service accounts to create."
+  default     = []
+}

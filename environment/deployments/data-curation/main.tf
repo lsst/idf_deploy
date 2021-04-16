@@ -71,7 +71,7 @@ module "storage_bucket" {
   suffix_name = ["desc-dc2-dr6", "desc-dc2-run22i"]
   prefix_name = "curation"
   versioning = {
-    desc-dc2-dr6  = true
+    desc-dc2-dr6  = false
     desc-dc2-run22i = true
   }
   force_destroy = {
@@ -95,7 +95,7 @@ module "storage_bucket_2" {
   versioning = {
     dp01-dev  = true
     dp01-int  = true
-    dp01      = true
+    dp01      = false
     dp01-desc-dr6 = true
   }
   force_destroy = {
@@ -117,4 +117,38 @@ module "data_curation_admin_group" {
   display_name = var.display_name
   description  = var.description
   domain       = var.domain
+}
+
+#---------------------------------------------------------------
+// Data Curation Prod
+#---------------------------------------------------------------
+module "data_curation_prod_accounts" {
+  source = "../../../modules/service_accounts/"
+
+  project_id   = "data-curation-prod-fbdb"
+  prefix       = "butler-gcs"
+  names        = var.data_curation_prod_names
+  display_name = "Butler GCS Service account for Data Curation Prod"
+  description  = "Butler GCS access service account managed by Terraform"
+
+  project_roles = [
+  ]
+}
+// RW storage access to DP 0.1 bucket for Butler
+resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0" {
+  bucket = "butler-us-central1-dp01"
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
+// RO storage access to DESC DC2 Run22i bucket
+resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dc2_run22i" {
+  bucket = "curation-us-central1-desc-dc2-run22i"
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
+// RO storage access to DESC DR6 bucket
+resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dr6" {
+  bucket = "butler-us-central1-dp01-desc-dr6"
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }

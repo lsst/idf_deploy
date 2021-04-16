@@ -57,7 +57,9 @@ module "org_disable_service_account_key_create" {
   folder_id       = local.folder_id
   policy_for      = local.parent_resource_type
   policy_type     = "boolean"
-  enforce         = "true"
+# enforce         = "true" # TURN BACK ON ONCE WE HAVE GENERATED SA KEYS
+#                          # FOR GCS BUTLER
+  enforce         = "false"
   constraint      = "constraints/iam.disableServiceAccountKeyCreation"
 }
 
