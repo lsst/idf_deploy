@@ -136,8 +136,9 @@ module "data_curation_prod_accounts" {
 }
 // RW storage access to DP 0.1 bucket for Butler
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0" {
+  for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket = "butler-us-central1-dp01"
-  role   = "roles/storage.objectAdmin"
+  role   = each.value
   member = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RO storage access to DESC DC2 Run22i bucket
