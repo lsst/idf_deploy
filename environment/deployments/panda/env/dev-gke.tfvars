@@ -69,4 +69,3 @@ node_pools_dev = [
     node_count         = 0
   }
  ]
-
