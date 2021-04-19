@@ -26,7 +26,7 @@ node_pools = [
     disk_type          = "pd-standard"
     autoscaling        = true
     node_count         = 0
-    autoscaling {
+    autoscaling = {
       min_node_count = 0
       max_node_count = 1000
     }
