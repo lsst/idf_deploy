@@ -93,6 +93,11 @@ variable "skip_provisioners" {
   default     = true
 }
 
+variable "default_max_pods_per_node" {
+  description = "The maximum number of pods to schedule per node"
+  default     = 110
+}
+
 variable "http_load_balancing" {
   description = "Enable httpload balancer addon"
   type        = bool

@@ -38,6 +38,7 @@ module "gke" {
   release_channel                    = var.release_channel
   gce_pd_csi_driver                  = var.gce_pd_csi_driver
   cluster_telemetry_type             = var.cluster_telemetry_type
+  default_max_pods_per_node          = var.default_max_pods_per_node
 
   node_pools_labels = var.node_pools_labels
 }
