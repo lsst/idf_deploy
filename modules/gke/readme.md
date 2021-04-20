@@ -45,6 +45,7 @@ module "gke" {
 | authenticator\_security\_group | The name of the RBAC security group for use with Google security groups in Kubernetes RBAC. Group name must be in format gke-security-groups@yourdomain.com | `string` | `"lsst.cloud"` | no |
 | cluster\_resource\_labels | The GCE resource labels (a map of key/value pairs) to be applied to the cluster | `map(string)` | <pre>{<br>  "environment": "environment",<br>  "owner": "owner_here"<br>}</pre> | no |
 | create\_service\_account | Defines if service account specified to run nodes should be created. | `bool` | `true` | no |
+| default\_max\_pods\_per\_node | The maximum number of pods to schedule per node | `number` | `110` | no |
 | enable\_intranode\_visibility | Whether Intra-node visibility is enabled for this cluster. This makes same node pod to pod traffic visible for VPC network | `bool` | `true` | no |
 | enable\_private\_nodes | n/a | `bool` | `true` | no |
 | enable\_resource\_consumption\_export | Whether to enable resource consumption metering on this cluster. When enabled, a table will be created in the resource export BigQuery dataset to store resource consumption data. The resulting table can be joined with the resource usage table or with BigQuery billing export. | `bool` | `false` | no |
