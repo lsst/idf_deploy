@@ -56,6 +56,7 @@ module "gke" {
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type
   cluster_autoscaling    = var.cluster_autoscaling_1
+  default_max_pods_per_node = var.default_max_pods_per_node
 
   # Labels
   cluster_resource_labels = {

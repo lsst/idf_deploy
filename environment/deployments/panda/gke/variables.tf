@@ -63,6 +63,11 @@ variable "network_policy" {
   default     = false
 }
 
+variable "default_max_pods_per_node" {
+  description = "The maximum number of pods to schedule per node"
+  default     = 110
+}
+
 variable "cluster_telemetry_type" {
   type        = string
   description = "Available options include ENABLED, DISABLED, and SYSTEM_ONLY"
