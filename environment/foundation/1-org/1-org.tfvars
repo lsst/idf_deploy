@@ -23,7 +23,8 @@ org_admins_org_iam_permissions = [
   "roles/resourcemanager.folderAdmin",
   "roles/resourcemanager.projectCreator",
   "roles/iam.organizationRoleAdmin",
-  "roles/iam.serviceAccountAdmin"
+  "roles/iam.serviceAccountAdmin",
+  "roles/servicemanagement.quotaAdmin"
 ]
 
 // Organization Billing Admin IAM Roles
