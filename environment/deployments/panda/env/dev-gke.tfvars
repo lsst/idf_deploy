@@ -48,8 +48,8 @@ node_pools_2 = [
     disk_type          = "pd-standard"
     autoscaling        = true
     node_count         = 0
-    min_node_count = 0
-    max_node_count = 500
+    min_count = 0
+    max_count = 1000
   }
  ]
 
