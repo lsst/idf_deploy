@@ -11,7 +11,7 @@ master_ipv4_cidr_block_2 = "172.23.0.0/28"
 master_ipv4_cidr_block_3 = "172.24.0.0/28"
 release_channel = "RAPID"
 cluster_telemetry_type = "SYSTEM_ONLY"
-moderatemem_max_pods_per_node = "15"
+max_pods_per_node = "15"
 node_pools = [
   {
     name               = "panda-low-mem-1-pool"

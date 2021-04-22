@@ -63,7 +63,7 @@ variable "network_policy" {
   default     = false
 }
 
-variable "moderatemem_max_pods_per_node" {
+variable "max_pods_per_node" {
   description = "The maximum number of pods to schedule per node"
   default     = 110
 }
