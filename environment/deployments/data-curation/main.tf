@@ -68,7 +68,7 @@ module "storage_bucket" {
   project_id  = module.project_factory.project_id
   storage_class = "REGIONAL"
   location   = "us-central1"
-  suffix_name = ["desc-dc2-dr6", "desc-dc2-run22i"]
+  suffix_name = ["desc-dc2-run22i"]
   prefix_name = "curation"
   versioning = {
     desc-dc2-dr6  = false
