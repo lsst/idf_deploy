@@ -126,7 +126,7 @@ nat_name      = "cloud-nat"
 members = ["group:gcp-panda-administrators@lsst.cloud"]
 
 # INSTANCE
-machine_type  = "n1-standard-4"
+machine_type  = "n2-highmem-4"
 num_instances = "1"
 size          = 100
 image         = "centos-7-v20210316"
