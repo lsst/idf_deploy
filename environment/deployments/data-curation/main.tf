@@ -153,3 +153,17 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dr6" {
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
+// RW storage access to the -dev Butler bucket
+resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_dev" {
+  for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
+  bucket = "butler-us-central1-dp01-dev"
+  role   = each.value
+  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
+// RW storage access to the -int Butler bucket
+resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_int" {
+  for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
+  bucket = "butler-us-central1-dp01-int"
+  role   = each.value
+  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
