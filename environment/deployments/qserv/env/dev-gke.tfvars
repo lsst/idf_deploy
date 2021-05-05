@@ -39,7 +39,7 @@ node_pools = [
     disk_size_gb       = "200"
     disk_type          = "pd-standard"
     autoscaling        = "false"
-    node_count         = 5
+    node_count         = 10
   },
   {
     name               = "utility-pool"
