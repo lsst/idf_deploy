@@ -47,6 +47,13 @@ module "db_science_platform" {
   ipv4_enabled                    = false
   private_network                 = data.google_compute_network.network.self_link
 
+  backup_configuration = {
+    enabled                        = var.backups_enabled
+    start_time                     = "09:00"
+    location                       = "us-central1"
+    point_in_time_recovery_enabled = false
+  }
+
   additional_databases = [
     {
       name      = "gafaelfawr"

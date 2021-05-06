@@ -74,3 +74,9 @@ variable "db_maintenance_window_update_track" {
   description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
   default     = "stable"
 }
+
+variable "backups_enabled" {
+  type        = bool
+  description = "True if backup configuration is enabled"
+  default     = false
+}
