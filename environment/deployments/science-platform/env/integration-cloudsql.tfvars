@@ -15,3 +15,4 @@ butler_database_flags = [
 db_maintenance_window_day  = 2
 db_maintenance_window_hour = 22
 backups_enabled            = true
+
