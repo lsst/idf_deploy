@@ -87,3 +87,13 @@ module "service_accounts" {
   names         = ["gafaelfawr"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
+
+resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
+  service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
+  role               = "roles/iam.workloadIdentityUser"
+
+  members = [
+    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]",
+    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-tokens]",
+  ]
+}
