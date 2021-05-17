@@ -5,17 +5,11 @@ on:
   pull_request:
     paths:
       - 'environment/deployments/science-platform/env/dev-cloudsql.tfvars'
-      - 'environment/deployments/science-platform/cloudsql/*'
-      - 'modules/cloudsql/postgres-*/*'
-      - 'modules/cloudsql/private_service_access/*'
   push:
     branches:
       - master
     paths:
       - 'environment/deployments/science-platform/env/dev-cloudsql.tfvars'
-      - 'environment/deployments/science-platform/cloudsql/*'
-      - 'modules/cloudsql/postgres-*/*'
-      - 'modules/cloudsql/private_service_access/*'
 
 jobs:
   terraform:
