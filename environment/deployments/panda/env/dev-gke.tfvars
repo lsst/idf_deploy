@@ -15,7 +15,7 @@ max_pods_per_node = "15"
 node_pools = [
   {
     name               = "panda-low-mem-1-pool"
-    machine_type       = "n2-custom-4-8960"
+    machine_type       = "n2-standard-4"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
