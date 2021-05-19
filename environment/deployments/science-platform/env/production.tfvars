@@ -56,3 +56,17 @@ custom_rules = {
 
 # NAT
 nats = [{ name = "cloud-nat" }]
+
+# Enable Google Artifact Registry, Service Networking, and Cloud SQL Admin
+# (required for the Cloud SQL Auth Proxy) in addition to our standard APIs.
+activate_apis = [
+  "compute.googleapis.com",
+  "container.googleapis.com",
+  "stackdriver.googleapis.com",
+  "file.googleapis.com",
+  "storage.googleapis.com",
+  "billingbudgets.googleapis.com",
+  "artifactregistry.googleapis.com",
+  "servicenetworking.googleapis.com",
+  "sqladmin.googleapis.com"
+]

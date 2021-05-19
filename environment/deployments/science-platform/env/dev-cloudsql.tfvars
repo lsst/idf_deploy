@@ -14,3 +14,4 @@ butler_database_flags = [
 db_maintenance_window_day          = 1
 db_maintenance_window_hour         = 22
 db_maintenance_window_update_track = "canary"
+backups_enabled                    = true

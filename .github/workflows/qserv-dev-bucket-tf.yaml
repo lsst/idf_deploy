@@ -1,15 +1,15 @@
-# Deploys Science Platform Int GCP Project with Terraform
-name: 'RSP INT CLOUD SQL'
+# Deploys QServ Integration VPC Peering with Terraform
+name: 'QServ DEV Buckets'
 
 on:
   pull_request:
     paths:
-      - 'environment/deployments/science-platform/env/integration-cloudsql.tfvars'
+      - 'environment/deployments/qserv/env/dev-bucket.tfvars'
   push:
     branches:
       - master
     paths:
-      - 'environment/deployments/science-platform/env/integration-cloudsql.tfvars'
+      - 'environment/deployments/qserv/env/dev-bucket.tfvars'
 
 jobs:
   terraform:
@@ -20,14 +20,14 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./environment/deployments/science-platform/cloudsql
+        working-directory: ./environment/deployments/qserv/bucket
 
     # Checkout the repository to the GitHub Actions runner
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # gcloud setup
+    # gcloud CLI setup
     - name: GCP login
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -42,13 +42,13 @@ jobs:
       with:
         terraform_version: 0.13.5
 
-     # Checks for proper formatting for terraform
+     # Checks for proper formatting in terraform code
     - name: Terraform Fmt
       run: terraform fmt
 
      # Initialize a new or existing terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=science-platform/int/cloudsql
+      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=qserv/dev/bucket
 
     # Checks that all terraform configuration files adhere to a canonical format
     - name: Terraform Validate
@@ -57,9 +57,9 @@ jobs:
     # Generates an execution plan for terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=../env/integration-cloudsql.tfvars -no-color
+      run: terraform plan -var-file=../env/dev-bucket.tfvars -no-color
 
-    # On push to main, build or change infrastructure according to Terraform configuration files
+    # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -var-file=../env/integration-cloudsql.tfvars -auto-approve
+      run: terraform apply -var-file=../env/dev-bucket.tfvars -refresh=false -auto-approve
