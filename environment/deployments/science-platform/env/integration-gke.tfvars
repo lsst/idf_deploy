@@ -9,7 +9,7 @@ gce_pd_csi_driver      = true
 node_pools = [
   {
     name               = "core-pool"
-    machine_type       = "n2-standard-8"
+    machine_type       = "n2-standard-32"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
@@ -19,12 +19,14 @@ node_pools = [
     enable_secure_boot = true
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
-    autoscaling        = false
-    node_count         = 3
+    autoscaling        = true
+    initial_node_count = 3
+    min_count          = 3
+    max_count          = 20
   },
   {
     name               = "dask-pool"
-    machine_type       = "n2-standard-8"
+    machine_type       = "n2-standard-32"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
