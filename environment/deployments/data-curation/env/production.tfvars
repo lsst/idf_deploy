@@ -57,12 +57,6 @@ custom_rules = {
 address_count = 1
 nat_name      = "cloud-nat"
 
-# Google Group
-id           = "gcp-data-curation-administrators@lsst.cloud"
-display_name = "GCP Data Curation Administrators"
-description  = "GCP Data Curation Administrators"
-domain       = "lsst.cloud"
-
 project_iam_permissions = ["roles/storage.admin", "roles/storagetransfer.admin"]
 
 # Butler GCS Access Service Account

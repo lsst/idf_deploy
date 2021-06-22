@@ -47,6 +47,13 @@ module "db_science_platform" {
   ipv4_enabled                    = false
   private_network                 = data.google_compute_network.network.self_link
 
+  backup_configuration = {
+    enabled                        = var.backups_enabled
+    start_time                     = "09:00"
+    location                       = "us-central1"
+    point_in_time_recovery_enabled = false
+  }
+
   additional_databases = [
     {
       name      = "gafaelfawr"
@@ -79,4 +86,14 @@ module "service_accounts" {
   description   = "Terraform-managed service account for PostgreSQL access"
   names         = ["gafaelfawr"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
+}
+
+resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
+  service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
+  role               = "roles/iam.workloadIdentityUser"
+
+  members = [
+    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]",
+    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-tokens]",
+  ]
 }
