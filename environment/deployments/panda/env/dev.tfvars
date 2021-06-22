@@ -100,7 +100,9 @@ custom_rules2 = {
     description          = "Deployed with Terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["69.119.24.0/22", "130.199.0.0/16"]
+#   ranges              = ["69.119.24.0/22", "130.199.0.0/16"]
+    ranges               = ["0.0.0.0/0"]
+
     sources              = []
     targets              = ["allow-ssh"]
     use_service_accounts = false
