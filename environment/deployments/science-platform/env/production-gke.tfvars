@@ -22,7 +22,7 @@ node_pools = [
     autoscaling        = true
     initial_node_count = 3
     min_count          = 3
-    max_count          = 20
+    max_count          = 100
   },
   {
     name               = "dask-pool"
