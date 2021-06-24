@@ -46,6 +46,7 @@ module "db_science_platform" {
   random_instance_name            = true
   ipv4_enabled                    = false
   private_network                 = data.google_compute_network.network.self_link
+  tier                            = var.database_tier
 
   backup_configuration = {
     enabled                        = var.backups_enabled
@@ -70,6 +71,10 @@ module "db_science_platform" {
   ]
 
   database_flags = [
+    {
+      name  = "max_connections"
+      value = 100
+    },
     {
       name  = "password_encryption"
       value = "scram-sha-256"
