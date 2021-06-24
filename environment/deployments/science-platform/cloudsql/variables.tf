@@ -51,6 +51,12 @@ variable "butler_require_ssl" {
   default     = true
 }
 
+variable "database_tier" {
+  description = "The tier for general database"
+  type        = string
+  default     = "db-g1-small"
+}
+
 variable "database_version" {
   description = "The database version to use for the general database"
   type        = string
