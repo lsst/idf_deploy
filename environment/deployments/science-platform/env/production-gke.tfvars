@@ -54,3 +54,6 @@ node_pools_labels = {
 # TF State declared during pipeline
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/stable/gke"
+
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
