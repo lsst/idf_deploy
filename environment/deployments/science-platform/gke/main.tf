@@ -29,34 +29,34 @@ locals {
   subnetwork = data.google_compute_subnetwork.subnetwork.name
 }
 
-module "gke" {
-  source = "../../../../modules/gke"
-
-  # Cluster
-  name                   = "${var.application_name}-${var.environment}"
-  project_id             = local.project_id
-  network                = var.network_name
-  subnetwork             = local.subnetwork
-  master_ipv4_cidr_block = var.master_ipv4_cidr_block
-  node_pools             = var.node_pools
-  release_channel        = var.release_channel
-  gce_pd_csi_driver      = var.gce_pd_csi_driver
-  network_policy         = var.network_policy
-
-  # Labels
-  cluster_resource_labels = {
-    environment      = var.environment
-    project          = local.project_id
-    application_name = var.application_name
-    subnetwork       = local.subnetwork
-  }
-
-  # Node Pools
-  node_pools_labels = {
-    all = {
-      environment      = var.environment
-      project          = local.project_id
-      application_name = var.application_name
-    }
-  }
-}
+#module "gke" {
+#  source = "../../../../modules/gke"
+#
+#  # Cluster
+#  name                   = "${var.application_name}-${var.environment}"
+#  project_id             = local.project_id
+#  network                = var.network_name
+#  subnetwork             = local.subnetwork
+#  master_ipv4_cidr_block = var.master_ipv4_cidr_block
+#  node_pools             = var.node_pools
+#  release_channel        = var.release_channel
+#  gce_pd_csi_driver      = var.gce_pd_csi_driver
+#  network_policy         = var.network_policy
+#
+#  # Labels
+#  cluster_resource_labels = {
+#    environment      = var.environment
+#    project          = local.project_id
+#    application_name = var.application_name
+#    subnetwork       = local.subnetwork
+#  }
+#
+#  # Node Pools
+#  node_pools_labels = {
+#    all = {
+#      environment      = var.environment
+#      project          = local.project_id
+#      application_name = var.application_name
+#    }
+#  }
+#}
