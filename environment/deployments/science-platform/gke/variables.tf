@@ -46,6 +46,12 @@ variable "maintenance_start_time" {
   default     = "05:00"
 }
 
+variable "network_policy" {
+  description = "Enable network policy addon"
+  type        = bool
+  default     = true
+}
+
 variable "node_pools" {
   type        = list(map(string))
   description = "List of maps containing node pools"
