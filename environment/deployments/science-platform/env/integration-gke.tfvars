@@ -5,6 +5,7 @@ application_name        = "science-platform"
 # GKE
 master_ipv4_cidr_block = "172.18.0.0/28"
 gce_pd_csi_driver      = true
+network_policy         = false
 
 node_pools = [
   {
@@ -54,3 +55,6 @@ node_pools_labels = {
 # TF State declared during pipeline
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/int/gke"
+
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
