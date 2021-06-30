@@ -5,6 +5,7 @@ application_name        = "science-platform"
 # GKE
 master_ipv4_cidr_block = "172.30.0.0/28"
 gce_pd_csi_driver      = true
+network_policy         = false
 
 node_pools = [
   {
