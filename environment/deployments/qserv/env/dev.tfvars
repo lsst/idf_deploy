@@ -73,9 +73,9 @@ custom_rules_2 = {
     ]
 
     extra_attributes = {
-      disabled           = false
-      flow_logs          = true
-      flow_logs_metadata = "INCLUDE_ALL_METADATA"
+      disabled           = true
+      flow_logs          = false
+      flow_logs_metadata = ""
     }
   }
 }
