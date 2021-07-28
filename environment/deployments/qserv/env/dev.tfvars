@@ -73,7 +73,7 @@ custom_rules_2 = {
     ]
 
     extra_attributes = {
-      disabled           = true
+      disabled           = false
       flow_logs          = false
       flow_logs_metadata = ""
     }
