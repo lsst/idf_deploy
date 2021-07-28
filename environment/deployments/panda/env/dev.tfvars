@@ -140,5 +140,5 @@ type          = "pd-standard"
 # source_image_project = "centos-cloud"
 
 bucket_policy_only = {
-  "drp-us-central1-containers" = false
+  "containers" = false
 }
