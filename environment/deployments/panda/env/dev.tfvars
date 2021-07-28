@@ -123,6 +123,7 @@ custom_rules2 = {
 # NAT
 address_count = 1
 nat_name      = "cloud-nat"
+nat_ip_allocate_option = "AUTO_ONLY"
 
 # IAP
 members = ["group:gcp-panda-administrators@lsst.cloud"]
