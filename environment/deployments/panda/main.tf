@@ -132,6 +132,7 @@ module "storage_bucket" {
   location      = "us-central1"
   suffix_name   = ["logging", "containers"]
   prefix_name   = "drp"
+  bucket_policy_only = var.bucket_policy_only
   versioning = {
     logging    = true
     containers = true
