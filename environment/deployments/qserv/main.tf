@@ -63,9 +63,10 @@ module "firewall_1" {
 
 module "firewall_2" {
   source = "../../../modules/firewall"
-  
+
   project_id   = module.project_factory.project_id
   network      = module.project_factory.network_name
+  custom_rules = var.custom_rules_2
 }
 
 module "nat" {
