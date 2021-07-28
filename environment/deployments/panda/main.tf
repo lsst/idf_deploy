@@ -53,17 +53,18 @@ module "firewall_2" {
 module "nat" {
   source = "../../../modules/cloud_nat"
 
-  project_id        = module.project_factory.project_id
-  region            = var.default_region
-  network           = module.project_factory.network_name
-  router_name       = var.router_name
-  address_count     = var.address_count
-  address_name      = var.address_name
-  address_type      = var.address_type
+  project_id             = module.project_factory.project_id
+  region                 = var.default_region
+  network                = module.project_factory.network_name
+  router_name            = var.router_name
+  address_count          = var.address_count
+  address_name           = var.address_name
+  address_type           = var.address_type
   nat_ip_allocate_option = var.nat_ip_allocate_option
-  nat_name          = "${var.application_name}-${var.environment}-cloud-nat"
-  log_config_enable = var.log_config_enable
-  log_config_filter = var.log_config_filter
+  min_ports_per_vm       = var.min_ports_per_vm
+  nat_name               = "${var.application_name}-${var.environment}-cloud-nat"
+  log_config_enable      = var.log_config_enable
+  log_config_filter      = var.log_config_filter
   address_labels = {
     application_name = var.application_name
     environment      = var.environment
@@ -113,9 +114,9 @@ module "external_vm" {
   machine_type       = var.machine_type
   num_instances      = var.num_instances
   size               = var.size
-  image  = "centos-7-v20210316"
-  region = var.default_region
-  tags   = var.tags
+  image              = "centos-7-v20210316"
+  region             = var.default_region
+  tags               = var.tags
 
   access_config = [{
     nat_ip       = google_compute_address.external_ip_address.address
@@ -131,15 +132,15 @@ module "storage_bucket" {
   location      = "us-central1"
   suffix_name   = ["logging", "containers"]
   prefix_name   = "drp"
-  versioning    = {
-    logging     = true
-    containers  = true
+  versioning = {
+    logging    = true
+    containers = true
   }
   force_destroy = {
-    logging     = false
-    containers  = false
+    logging    = false
+    containers = false
   }
-  labels        = {
+  labels = {
     environment = var.environment
     application = var.application_name
   }
