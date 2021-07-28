@@ -66,6 +66,12 @@ variable "nat_ip_allocate_option" {
   default     = "MANUAL_ONLY"
 }
 
+variable "min_ports_per_vm" {
+  description = "Minimum number of ports allocated to a VM from this NAT."
+  type        = string
+  default     = ""
+}
+
 variable "source_subnetwork_ip_ranges_to_nat" {
   description = "How NAT should be configured per subnetwork.Possible values are `ALL_SUBNETWORKS_ALL_IP_RANGES`, `ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGE`S, and `LIST_OF_SUBNETWORKS`"
   type        = string

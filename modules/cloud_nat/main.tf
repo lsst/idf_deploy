@@ -30,6 +30,7 @@ resource "google_compute_router_nat" "default_nat" {
   nat_ip_allocate_option             = var.nat_ip_allocate_option
   nat_ips                            = google_compute_address.external_addresses.*.self_link
   source_subnetwork_ip_ranges_to_nat = var.source_subnetwork_ip_ranges_to_nat
+  min_ports_per_vm                   = var.min_ports_per_vm
 
   log_config {
     filter = var.log_config_filter
