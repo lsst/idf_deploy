@@ -2,6 +2,25 @@
 
 This module allows creation of a minimal VPC firewall.
 
+Custom rules are set through a map where keys are rules names and values use this custom type:
+
+```terraform
+map(object({
+  description          = string
+  direction            = string       # (INGRESS|EGRESS)
+  action               = string       # (allow|deny)
+  ranges               = list(string) # list of IP CIDR ranges
+  sources              = list(string) # tags or SAs (ignored for EGRESS)
+  targets              = list(string) # tags or SAs
+  use_service_accounts = bool         # use tags or SAs in sources/targets
+  rules = list(object({
+    protocol = string
+    ports    = list(string)
+  }))
+  extra_attributes = map(string)      # map, optional keys disabled or priority
+}))
+```
+
 ## Usage
 Simple example using the defaults and only the required inputs in the module.
 ```terraform
