@@ -60,6 +60,7 @@ module "nat" {
   address_count     = var.address_count
   address_name      = var.address_name
   address_type      = var.address_type
+  nat_ip_allocate_option = var.nat_ip_allocate_option
   nat_name          = "${var.application_name}-${var.environment}-cloud-nat"
   log_config_enable = var.log_config_enable
   log_config_filter = var.log_config_filter

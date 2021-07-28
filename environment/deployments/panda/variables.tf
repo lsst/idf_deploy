@@ -211,6 +211,12 @@ variable "nat_name" {
   default     = "cloud-nat"
 }
 
+variable "nat_ip_allocate_option" {
+  description = "How external IPs should be allocated for this NAT. Valid values are `AUTO_ONLY` or `MANUAL_ONLY`"
+  type        = string
+  default     = "AUTO_ONLY"
+}
+
 variable "log_config_enable" {
   description = ""
   type        = bool
