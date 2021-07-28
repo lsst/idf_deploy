@@ -31,7 +31,7 @@ secondary_ranges = {
 # Filestore
 fileshare_capacity = 2000
 
-# Firewall
+# Firewalls
 custom_rules = {
   qserv = {
     description          = "Deployed with Terraform"
