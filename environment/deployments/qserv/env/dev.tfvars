@@ -57,7 +57,7 @@ custom_rules = {
 }
 
 custom_rules_2 = {
-  qserv = {
+  olm-connectivity = {
     description          = "Deployed with Terraform. OLM Connectivity"
     direction            = "INGRESS"
     action               = "allow"
