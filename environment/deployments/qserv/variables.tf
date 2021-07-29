@@ -267,5 +267,5 @@ variable "log_config_filter" {
 variable "min_ports_per_vm" {
   description = "Minimum number of ports allocated to a VM from this NAT."
   type        = string
-  default     = ""
+  default     = "64"
 }
