@@ -150,5 +150,6 @@ gcp_epo_administrators_iam_permissions = [
   "roles/resourcemanager.projectCreator",
   "roles/container.admin",
   "roles/editor",
-  "roles/artifactregistry.admin"
+  "roles/artifactregistry.admin",
+  "roles/resourcemanager.folderViewer"
 ]
