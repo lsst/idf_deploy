@@ -82,6 +82,7 @@ module "nat" {
   nat_name          = "${var.application_name}-${var.environment}-cloud-nat"
   log_config_enable = var.log_config_enable
   log_config_filter = var.log_config_filter
+  min_ports_per_vm  = var.min_ports_per_vm
   address_labels = {
     application_name = var.application_name
     environment      = var.environment

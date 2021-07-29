@@ -263,3 +263,9 @@ variable "log_config_filter" {
   type        = string
   default     = "ERRORS_ONLY"
 }
+
+variable "min_ports_per_vm" {
+  description = "Minimum number of ports allocated to a VM from this NAT."
+  type        = string
+  default     = "64"
+}
