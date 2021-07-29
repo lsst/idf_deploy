@@ -121,7 +121,7 @@ custom_rules2 = {
 }
 
 # NAT
-address_count          = 1
+address_count          = 0 # Do not need an address if using `AUTO_ONLY`
 nat_name               = "cloud-nat"
 nat_ip_allocate_option = "AUTO_ONLY"
 min_ports_per_vm       = 4096
