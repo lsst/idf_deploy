@@ -145,30 +145,3 @@ gcp_square_gke_developer_iam_permissions = [
 // EPO
 
 epo_display_name      = "EPO"
-
-gcp_processing_administrators_iam_permissions = [        
-  "roles/resourcemanager.projectCreator",
-  "roles/container.admin",
-  "roles/editor"
-]
-gcp_processing_gke_cluster_admins_iam_permissions = [    
-  "roles/container.admin",
-  "roles/container.clusterAdmin",
-  "roles/logging.admin",
-  "roles/resourcemanager.projectCreator",
-  "roles/monitoring.admin",
-  "roles/storage.admin",
-  "roles/compute.instanceAdmin",
-  "roles/logging.admin",
-  "roles/file.editor",
-  "roles/compute.networkAdmin",
-  "roles/compute.securityAdmin"
-]
-gcp_processing_gke_developer_iam_permissions = [
-  "roles/container.clusterViewer",
-  "roles/container.viewer",
-  "roles/container.developer",
-  "roles/logging.viewer",
-  "roles/monitoring.editor",
-  "roles/storage.objectViewer"
-]
