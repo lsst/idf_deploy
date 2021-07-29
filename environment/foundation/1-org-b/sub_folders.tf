@@ -33,3 +33,12 @@ module "sub_folders_square" {
   parent = data.google_active_folder.square_sub_folder.name
   names  = var.sub_folder_names
 }
+
+// Build Sub Folders for EPO
+module "sub_folders_epo" {
+  source  = "terraform-google-modules/folders/google"
+  version = "~> 2.0"
+
+  parent = data.google_active_folder.epo_sub_folder.name
+  names  = var.sub_folder_names
+}

@@ -220,6 +220,12 @@ variable "shared_services_display_name" {
   default     = "Shared Services"
 }
 
+variable "epo_display_name" {
+  description = "The display name of the parent folder."
+  type        = string
+  default     = "EPO"
+}
+
 variable "sub_folder_names" {
   description = "List out the sub folders to be created."
   type        = list(string)
