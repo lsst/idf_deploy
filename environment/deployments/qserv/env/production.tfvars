@@ -31,7 +31,7 @@ secondary_ranges = {
 # Filestore
 fileshare_capacity = 2000
 
-# Firewall
+# Firewalls
 custom_rules = {
   qserv-qserv = {
     description          = "qserv-qserv"
@@ -51,6 +51,30 @@ custom_rules = {
     extra_attributes = {
       disabled  = false
       flow_logs = "INCLUDE_ALL_METADATA"
+    }
+  }
+}
+
+custom_rules_2 = {
+  olm-connectivity = {
+    description          = "Deployed with Terraform. OLM Connectivity"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["172.23.0.0/28"]
+    sources              = []
+    targets              = ["gke-qserv-prod"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["5443"]
+      }
+    ]
+
+    extra_attributes = {
+      disabled           = false
+      flow_logs          = false
+      flow_logs_metadata = ""
     }
   }
 }
