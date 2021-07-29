@@ -27,6 +27,12 @@ variable "admins" {
   default     = []
 }
 
+variable "bucket_policy_only" {
+  description = "Disable ad-hoc ACLs on specified buckets. Defaults to true. Map of lowercase unprefixed name => boolean"
+  type        = map
+  default     = {}
+}
+
 variable "versioning" {
   description = "Optional map of lowercase unprefixed name => boolean, defaults to false."
   type        = map

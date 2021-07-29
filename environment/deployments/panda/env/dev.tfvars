@@ -97,11 +97,11 @@ custom_rules = {
 
 custom_rules2 = {
   allow-ssh = {
-    description          = "Deployed with Terraform"
-    direction            = "INGRESS"
-    action               = "allow"
-#   ranges              = ["69.119.24.0/22", "130.199.0.0/16"]
-    ranges               = ["0.0.0.0/0"]
+    description = "Deployed with Terraform"
+    direction   = "INGRESS"
+    action      = "allow"
+    #   ranges              = ["69.119.24.0/22", "130.199.0.0/16"]
+    ranges = ["0.0.0.0/0"]
 
     sources              = []
     targets              = ["allow-ssh"]
@@ -121,8 +121,10 @@ custom_rules2 = {
 }
 
 # NAT
-address_count = 1
-nat_name      = "cloud-nat"
+address_count          = 1
+nat_name               = "cloud-nat"
+nat_ip_allocate_option = "AUTO_ONLY"
+min_ports_per_vm       = 4096
 
 # IAP
 members = ["group:gcp-panda-administrators@lsst.cloud"]
@@ -137,3 +139,6 @@ type          = "pd-standard"
 # source_image_family  = "centos-7"
 # source_image_project = "centos-cloud"
 
+bucket_policy_only = {
+  "containers" = false
+}
