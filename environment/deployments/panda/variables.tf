@@ -211,6 +211,18 @@ variable "nat_name" {
   default     = "cloud-nat"
 }
 
+variable "nat_ip_allocate_option" {
+  description = "How external IPs should be allocated for this NAT. Valid values are `AUTO_ONLY` or `MANUAL_ONLY`"
+  type        = string
+  default     = "AUTO_ONLY"
+}
+
+variable "min_ports_per_vm" {
+  description = "Minimum number of ports allocated to a VM from this NAT."
+  type        = string
+  default     = ""
+}
+
 variable "log_config_enable" {
   description = ""
   type        = bool
@@ -262,4 +274,12 @@ variable "type" {
   description = "The GCE disk type. Maybe `pd-standard`,`pd-balanced`, `pd-ssd`"
   type        = string
   default     = "pd-standard"
+}
+
+# BUCKET
+
+variable "bucket_policy_only" {
+  description = "Disable ad-hoc ACLs on specified buckets. Defaults to true. Map of lowercase unprefixed name => boolean"
+  type        = map
+  default     = {}
 }

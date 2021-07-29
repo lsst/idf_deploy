@@ -141,3 +141,15 @@ gcp_square_gke_developer_iam_permissions = [
   "roles/monitoring.editor",
   "roles/storage.objectViewer"
 ]
+
+// EPO
+
+epo_display_name      = "EPO"
+
+gcp_epo_administrators_iam_permissions = [
+  "roles/resourcemanager.projectCreator",
+  "roles/container.admin",
+  "roles/editor",
+  "roles/artifactregistry.admin",
+  "roles/resourcemanager.folderViewer"
+]
