@@ -1,7 +1,7 @@
 // Folder Variables
 
 parent_folder                 = ""
-folder_names                  = ["QServ", "SQuaRE", "Science Platform", "Processing", "Scratch"]
+folder_names                  = ["QServ", "SQuaRE", "Science Platform", "Processing", "Scratch", "EPO"]
 seed_folder_name              = "370233560583"
 
 // Organization Viewer IAM Roles
