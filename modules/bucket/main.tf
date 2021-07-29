@@ -8,6 +8,7 @@ module "gcs_bucket" {
   set_admin_roles      = var.set_admin_roles
   admins               = var.admins
   versioning           = var.versioning
+  bucket_policy_only   = var.bucket_policy_only
   bucket_admins        = var.bucket_admins
   bucket_creators      = var.bucket_creators
   bucket_viewers       = var.bucket_viewers
