@@ -37,8 +37,10 @@ node_pools = [
     enable_secure_boot = true
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
-    autoscaling        = false
-    node_count         = 0
+    autoscaling        = true
+    initial_node_count = 0
+    min_count          = 0
+    max_count          = 100
   }
 ]
 
