@@ -40,3 +40,9 @@ variable "require_ssl" {
   type        = bool
   default     = true
 }
+
+variable "backups_enabled" {
+  type        = bool
+  description = "True if backup configuration is enabled"
+  default     = false
+}

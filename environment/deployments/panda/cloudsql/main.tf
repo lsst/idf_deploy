@@ -15,5 +15,12 @@ module "private-postgres" {
   project_id          = var.project_id
   vpc_network         = var.network
   require_ssl         = var.require_ssl
-  deletion_protection = false
+  deletion_protection = true
+
+  backup_configuration = {
+    enabled                        = var.backups_enabled
+    start_time                     = "09:00"
+    location                       = "us-central1"
+    point_in_time_recovery_enabled = false
+  }
 }

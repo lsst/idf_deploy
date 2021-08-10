@@ -11,3 +11,4 @@ database_flags = [
   {name = "effective_cache_size", value = 3250000 },
   {name = "password_encryption", value = "scram-sha-256"}
 ]
+backups_enabled = true
