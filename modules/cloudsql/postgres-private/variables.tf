@@ -267,3 +267,9 @@ variable "require_ssl" {
   type        = bool
   default     = true
 }
+
+variable "ipv4_enabled" {
+  description = "Whether this Cloud SQL instance should be assigned a public IPV4 address"
+  type        = bool
+  default     = false
+}

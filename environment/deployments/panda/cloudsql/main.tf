@@ -4,6 +4,14 @@ module "private-postgres" {
     {
       "name" : "sample-gcp-health-checkers-range",
       "value" : "130.211.0.0/28"
+    },
+    {
+      "name" : "science-platform-int external-nat-ip",
+      "value" : "35.239.140.105/32"
+    },
+    {
+      "name" : "test-docker",
+      "value" : "35.223.19.106/32"
     }
   ]
   database_version    = var.database_version
@@ -16,6 +24,7 @@ module "private-postgres" {
   vpc_network         = var.network
   require_ssl         = var.require_ssl
   deletion_protection = true
+  ipv4_enabled=true
 
   backup_configuration = {
     enabled                        = var.backups_enabled
