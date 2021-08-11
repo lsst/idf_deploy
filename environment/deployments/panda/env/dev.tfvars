@@ -15,6 +15,10 @@ activate_apis = [
   "iap.googleapis.com"
 ]
 
+project_iam_sa_gcs_access = [
+  "roles/logging.logWriter"
+]
+
 # VPC
 network_name = "panda-dev-vpc"
 subnets = [
