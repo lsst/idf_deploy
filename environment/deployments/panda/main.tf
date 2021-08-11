@@ -22,6 +22,15 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
+// Grant service account IAM permission
+// SA was created outside of TF
+resource "google_project_iam_member" "sa-gcs-access" {
+  for_each = toset(var.project_iam_sa_gcs_access)
+  project  = module.project_factory.project_id
+  role     = each.value
+  member   = "serviceAccount:gcs-access@panda-dev-1a74.iam.gserviceaccount.com"
+}
+
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"
