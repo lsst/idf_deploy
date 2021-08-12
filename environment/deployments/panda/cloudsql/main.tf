@@ -26,7 +26,6 @@ module "private-postgres" {
   deletion_protection = true
   ipv4_enabled        = true
   insights_config     = var.insights_config
-}
 
   backup_configuration = {
     enabled                        = var.backups_enabled
