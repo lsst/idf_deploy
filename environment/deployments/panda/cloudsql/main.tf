@@ -1,5 +1,5 @@
 module "private-postgres" {
-  source = "../../../../modules/cloudsql/postgres-private"
+  source = "../../../../modules/cloudsql/postgres-private_50"
   authorized_networks = [
     {
       "name" : "sample-gcp-health-checkers-range",
@@ -24,7 +24,9 @@ module "private-postgres" {
   vpc_network         = var.network
   require_ssl         = var.require_ssl
   deletion_protection = true
-  ipv4_enabled=true
+  ipv4_enabled        = true
+  insights_config     = var.insights_config
+}
 
   backup_configuration = {
     enabled                        = var.backups_enabled
