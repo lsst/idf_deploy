@@ -13,6 +13,7 @@ database_flags = [
 ]
 backups_enabled = true
 
+// Database Insights
 insights_config = ({
     query_string_length     = 1024
     record_application_tags = false
