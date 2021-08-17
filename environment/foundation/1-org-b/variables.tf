@@ -226,6 +226,12 @@ variable "epo_display_name" {
   default     = "EPO"
 }
 
+variable "alert_production_display_name" {
+  description = "The display name of the parent folder."
+  type        = string
+  default     = "Alert Production"
+}
+
 variable "sub_folder_names" {
   description = "List out the sub folders to be created."
   type        = list(string)
