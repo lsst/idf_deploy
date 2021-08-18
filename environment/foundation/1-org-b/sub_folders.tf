@@ -42,3 +42,12 @@ module "sub_folders_epo" {
   parent = data.google_active_folder.epo_sub_folder.name
   names  = var.sub_folder_names
 }
+
+// Build Sub Folders for Alert Production
+module "sub_folders_alert_production" {
+  source  = "terraform-google-modules/folders/google"
+  version = "~> 2.0"
+
+  parent = data.google_active_folder.alert_production_sub_folder.name
+  names  = var.sub_folder_names
+}
