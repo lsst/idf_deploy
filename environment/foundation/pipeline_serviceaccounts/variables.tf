@@ -52,8 +52,15 @@ variable "rsp_int_names" {
   default     = []
 }
 
-// EPO INt Project
+// EPO INT Project
 variable "epo_int_names" {
+  type        = list(string)
+  description = "Names of the service accounts to create."
+  default     = []
+}
+
+// EPO PROD Project
+variable "epo_prod_names" {
   type        = list(string)
   description = "Names of the service accounts to create."
   default     = []
