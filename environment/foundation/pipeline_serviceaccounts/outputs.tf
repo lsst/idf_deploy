@@ -85,3 +85,25 @@ output "rsp_int_iam_email" {
   description = "The service account IAM-format email."
   value       = module.rsp_int_pipeline_accounts.iam_email
 }
+
+// EPO Int
+output "epo_int_email" {
+  description = "The service account email."
+  value       = module.epo_int_pipeline_accounts.email
+}
+
+output "epo_int_iam_email" {
+  description = "The service account IAM-format email."
+  value       = module.epo_int_pipeline_accounts.iam_email
+}
+
+// EPO Prod
+output "epo_prod_email" {
+  description = "The service account email."
+  value       = module.epo_prod_pipeline_accounts.email
+}
+
+output "epo_prod_iam_email" {
+  description = "The service account IAM-format email."
+  value       = module.epo_prod_pipeline_accounts.iam_email
+}
