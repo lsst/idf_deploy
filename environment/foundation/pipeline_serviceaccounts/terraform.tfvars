@@ -9,6 +9,7 @@ qserv_int_names = ["qserv-int-sa"]
 qserv_dev_names = ["qserv-dev-sa"]
 rsp_dev_names   = ["rsp-dev-sa"]
 rsp_int_names   = ["rsp-int-sa"]
+epo_int_names   = ["epo-int-sa"]
 
 # Billing Account ID
 billing_account_id = "01122E-72D62B-0B0581"
