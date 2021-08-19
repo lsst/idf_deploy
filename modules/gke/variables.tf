@@ -70,9 +70,21 @@ variable "logging_service" {
 }
 
 variable "maintenance_start_time" {
-  description = "Time window specified for daily maintenance operations in RFC3339 format"
+  description = "Time window start for maintenance operations in RFC3339 format"
   type        = string
   default     = "05:00"
+}
+
+variable "maintenance_end_time" {
+  description = "Time window end for maintenance operations in RFC3339 format"
+  type        = string
+  default     = "09:00"
+}
+
+variable "maintenance_recurrence" {
+  description = "RFC 5545 RRULE for when maintenance windows occur"
+  type        = string
+  default     = "FREQ=DAILY"
 }
 
 variable "enable_intranode_visibility" {
