@@ -90,6 +90,14 @@ variable "project_iam_permissions" {
   ]
 }
 
+# Service Account GCS IAM
+
+variable "project_iam_sa_gcs_access" {
+  description = "List of permissions granted to the group"
+  type        = list(string)
+  default     = []
+}
+
 # VPC
 
 variable "network_name" {

@@ -19,12 +19,12 @@ gcp_org_administrators_shared_service_iam_permissions = [
 
 processing_display_name      = "Processing"
 
-gcp_processing_administrators_iam_permissions = [        
+gcp_processing_administrators_iam_permissions = [
   "roles/resourcemanager.projectCreator",
   "roles/container.admin",
   "roles/editor"
 ]
-gcp_processing_gke_cluster_admins_iam_permissions = [    
+gcp_processing_gke_cluster_admins_iam_permissions = [
   "roles/container.admin",
   "roles/container.clusterAdmin",
   "roles/logging.admin",
@@ -153,3 +153,5 @@ gcp_epo_administrators_iam_permissions = [
   "roles/artifactregistry.admin",
   "roles/resourcemanager.folderViewer"
 ]
+
+alert_production_display_name = "Alert Production"
