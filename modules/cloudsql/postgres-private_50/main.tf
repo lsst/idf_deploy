@@ -5,7 +5,7 @@ data "google_compute_network" "network" {
 
 module "cloudsql-db" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version = "~> 4.0"
+  version = "~> 5.1"
 
   name                            = var.db_name
   random_instance_name            = var.random_instance_name
@@ -26,6 +26,7 @@ module "cloudsql-db" {
   pricing_plan                    = var.pricing_plan
   create_timeout                  = var.create_timeout
   update_timeout                  = var.update_timeout
+  insights_config                 = var.insights_config
 
   additional_databases = var.additional_databases
   additional_users     = var.additional_users
