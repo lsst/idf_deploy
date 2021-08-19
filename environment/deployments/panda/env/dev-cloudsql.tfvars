@@ -11,3 +11,11 @@ database_flags = [
   {name = "effective_cache_size", value = 3250000 },
   {name = "password_encryption", value = "scram-sha-256"}
 ]
+backups_enabled = true
+
+// Database Insights
+insights_config = ({
+    query_string_length     = 1024
+    record_application_tags = false
+    record_client_address   = true
+  })

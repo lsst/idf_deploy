@@ -1,0 +1,45 @@
+activation_policy = "ALWAYS"
+address           = ""
+assign_public_ip  = false
+authorized_networks = [
+  {
+    "name" : "sample-gcp-health-checkers-range",
+    "value" : "130.211.0.0/28"
+  }
+]
+availability_type = "REGIONAL"
+backup_configuration = {
+  enabled                        = false
+  start_time                     = null
+  location                       = null
+  point_in_time_recovery_enabled = false
+}
+database_flags                  = []
+database_version                = "POSTGRES_9_6"
+db_name                         = "example-postgresql-private"
+deletion_protection             = false
+description                     = "Service Account created by Terraform"
+disk_autoresize                 = true
+disk_size                       = 10
+disk_type                       = "PD_SSD"
+display_name                    = "Terraform-managed service account"
+ip_version                      = ""
+labels                          = {}
+maintenance_window_day          = 1
+maintenance_window_hour         = 23
+maintenance_window_update_track = "canary"
+module_depends_on               = ["module.private-service-access.peering_completed"]
+names                           = ["service-account"]
+prefix                          = "sql"
+prefix_length                   = 16
+pricing_plan                    = "PER_USE"
+project_id                      = "rubin-shared-services-71ec"
+project_roles                   = ["rubin-shared-services-71ec=>roles/cloudsql.client"]
+random_instance_name            = true
+region                          = "us-central1"
+tier                            = "db-f1-micro"
+user_labels                     = {}
+user_name                       = "default"
+user_password                   = ""
+vpc_network                     = "shared-vpc-prod"
+zone                            = "us-central1-a"
