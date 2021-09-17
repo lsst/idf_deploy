@@ -65,6 +65,9 @@ module "gke" {
   cluster_telemetry_type    = var.cluster_telemetry_type
   cluster_autoscaling       = var.cluster_autoscaling_1
   default_max_pods_per_node = var.max_pods_per_node
+  maintenance_start_time = var.maintenance_start_time
+  maintenance_end_time   = var.maintenance_end_time
+  maintenance_recurrence = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {
@@ -101,6 +104,9 @@ module "gke_2" {
   zones                  = var.zones
   cluster_autoscaling    = var.cluster_autoscaling_2
   default_max_pods_per_node = var.max_pods_per_node
+  maintenance_start_time = var.maintenance_start_time
+  maintenance_end_time   = var.maintenance_end_time
+  maintenance_recurrence = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {
@@ -137,6 +143,9 @@ module "gke_non_preemtible" {
   zones                  = var.zones
   cluster_autoscaling    = var.cluster_autoscaling_3
   default_max_pods_per_node = var.max_pods_per_node
+  maintenance_start_time = var.maintenance_start_time
+  maintenance_end_time   = var.maintenance_end_time
+  maintenance_recurrence = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {
@@ -171,6 +180,9 @@ module "gke_dev" {
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type
   zones                  = var.zones
+  maintenance_start_time = var.maintenance_start_time
+  maintenance_end_time   = var.maintenance_end_time
+  maintenance_recurrence = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {

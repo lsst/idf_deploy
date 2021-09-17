@@ -84,7 +84,7 @@ variable "maintenance_end_time" {
 variable "maintenance_recurrence" {
   description = "RFC 5545 RRULE for when maintenance windows occur"
   type        = string
-  default     = "FREQ=DAILY"
+  default     = "FREQ=WEEKLY;BYDAY=WE"
 }
 
 variable "enable_intranode_visibility" {
