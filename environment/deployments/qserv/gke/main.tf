@@ -62,6 +62,10 @@ module "gke" {
       tier = "czar"
     }
 
+    utility-pool = {
+      tier = "utility"
+    }
+
     worker-pool = {
       tier = "worker"
     }
