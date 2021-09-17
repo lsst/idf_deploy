@@ -52,13 +52,13 @@ variable "gce_pd_csi_driver" {
 variable "maintenance_start_time" {
   description = "Time window specified for daily maintenance operations in RFC3339 format"
   type        = string
-  default     = "05:00"
+  default     = "2020-01-01T05:00:00Z"
 }
 
 variable "maintenance_end_time" {
   description = "Time window specified for daily maintenance operations in RFC3339 format"
   type        = string
-  default     = "06:00"
+  default     = "2020-01-01T09:00:00Z"
 }
 
 variable "maintenance_recurrence" {
