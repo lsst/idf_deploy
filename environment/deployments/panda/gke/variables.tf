@@ -55,6 +55,18 @@ variable "maintenance_start_time" {
   default     = "05:00"
 }
 
+variable "maintenance_end_time" {
+  description = "Time window specified for daily maintenance operations in RFC3339 format"
+  type        = string
+  default     = "06:00"
+}
+
+variable "maintenance_recurrence" {
+  description = "RFC 5545 RRULE for when maintenance windows occur"
+  type        = string
+  default     = "FREQ=DAILY"
+}
+
 variable "release_channel" {
   type        = string
   description = "The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `UNSPECIFIED`."
