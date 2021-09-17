@@ -29,6 +29,13 @@ data "google_compute_subnetwork" "subnetwork_3" {
   project = local.project_id
 }
 
+data "google_compute_subnetwork" "subnetwork_4" {
+  name    = "subnet-us-central1-04"
+  region  = "us-central1"
+  project = local.project_id
+}
+
+
 # ----------------------------------------
 #   GKE
 # ----------------------------------------
@@ -39,6 +46,7 @@ locals {
   subnetwork   = data.google_compute_subnetwork.subnetwork.name
   subnetwork_2 = data.google_compute_subnetwork.subnetwork_2.name
   subnetwork_3 = data.google_compute_subnetwork.subnetwork_3.name
+  subnetwork_4 = data.google_compute_subnetwork.subnetwork_4.name
 }
 
 module "gke" {
@@ -112,6 +120,42 @@ module "gke_2" {
   }
 }
 
+module "gke_non_preemtible" {
+  source = "../../../../modules/gke"
+
+  # Cluster
+  name                   = "highmem-non-preempt"
+  project_id             = local.project_id
+  network                = var.network_name
+  subnetwork             = "subnet-us-central1-04"
+  master_ipv4_cidr_block = var.master_ipv4_cidr_block_4
+  release_channel        = var.release_channel
+  node_pools             = var.node_pools_non_preempt_0
+  network_policy         = var.network_policy
+  gce_pd_csi_driver      = var.gce_pd_csi_driver
+  cluster_telemetry_type = var.cluster_telemetry_type
+  zones                  = var.zones
+  cluster_autoscaling    = var.cluster_autoscaling_3
+  default_max_pods_per_node = var.max_pods_per_node
+
+  # Labels
+  cluster_resource_labels = {
+    environment      = var.environment
+    project          = local.project_id
+    application_name = var.application_name
+    subnetwork       = "subnet-us-central1-04"
+  }
+
+  # Node Pools
+  node_pools_labels = {
+    all = {
+      environment      = var.environment
+      project          = local.project_id
+      application_name = var.application_name
+    }
+  }
+}
+
 module "gke_dev" {
   source = "../../../../modules/gke"
 
@@ -145,4 +189,3 @@ module "gke_dev" {
     }
   }
 }
-
