@@ -10,7 +10,7 @@ module "private-postgres" {
       "value" : "35.239.140.105/32"
     },
     {
-      "name" : "panda-dev moderatemem-external-nat-ip",
+      "name" : "panda-dev merge-external-nat-ip",
       "value" : "34.70.87.107/32"
     },
     {
