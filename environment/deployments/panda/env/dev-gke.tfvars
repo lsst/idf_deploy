@@ -36,7 +36,7 @@ node_pools = [
 node_pools_2 = [
   { 
     name               = "panda-high-mem-0-pool"
-    machine_type       = "n2-custom-4-33792-ext"
+    machine_type       = "n2-custom-4-43008-ext"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
@@ -56,7 +56,7 @@ node_pools_2 = [
 node_pools_non_preempt_0 = [
   {
     name               = "panda-high-mem-0-pool"
-    machine_type       = "n2-custom-4-33792-ext"
+    machine_type       = "n2-custom-4-43008-ext"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
