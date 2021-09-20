@@ -76,7 +76,7 @@ node_pools_non_preempt_0 = [
 
 node_pools_merge_0 = [
   {
-    name               = "node_pools_merge_0"
+    name               = "node-pools-merge-0"
     machine_type       = "n2-standard-4"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0

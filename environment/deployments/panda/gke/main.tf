@@ -171,11 +171,11 @@ module "gke_non_preemtible" {
   }
 }
 
-module "gke_merge_non_preemtible" {
+module "gke_merge" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "merge-non-preempt"
+  name                   = "merge"
   project_id             = local.project_id
   network                = var.network_name
   subnetwork             = "subnet-us-central1-05"
