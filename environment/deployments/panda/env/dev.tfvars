@@ -45,7 +45,14 @@ subnets = [
     "subnet_name"           = "subnet-us-central1-04",
     "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
+  },
+  {
+    "subnet_ip"             = "10.148.0.0/23",
+    "subnet_name"           = "subnet-us-central1-05",
+    "subnet_region"         = "us-central1",
+    "subnet_private_access" = "true"
   }
+
 ]
 secondary_ranges = {
   "subnet-us-central1-01" : [
@@ -77,7 +84,7 @@ secondary_ranges = {
       range_name    = "kubernetes-services"
       ip_cidr_range = "10.144.16.0/20"
     },
-  ]
+  ],
   "subnet-us-central1-04" : [
     {
       range_name    = "kubernetes-pods"
@@ -86,6 +93,16 @@ secondary_ranges = {
     {
       range_name    = "kubernetes-services"
       ip_cidr_range = "10.146.16.0/20"
+    },
+  ],
+  "subnet-us-central1-05" : [
+    {
+      range_name    = "kubernetes-pods"
+      ip_cidr_range = "10.149.0.0/16"
+    },
+    {
+      range_name    = "kubernetes-services"
+      ip_cidr_range = "10.148.16.0/20"
     },
   ]
 }
