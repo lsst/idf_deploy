@@ -19,3 +19,4 @@ insights_config = ({
     record_application_tags = false
     record_client_address   = true
   })
+  
