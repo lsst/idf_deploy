@@ -11,7 +11,11 @@ module "private-postgres" {
     },
     {
       "name" : "panda-dev merge-external-nat-ip",
-      "value" : "34.70.87.107/32"
+      "value" : "35.184.18.218/32"
+    },
+      {
+      "name" : "panda-dev low-mem-external-nat-ip",
+      "value" : "35.223.159.53/32"
     },
     {
       "name" : "test-docker",
