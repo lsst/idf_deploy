@@ -60,10 +60,10 @@ secondary_ranges = {
       range_name    = "kubernetes-pods"
       ip_cidr_range = "10.139.0.0/16"
     },
-    {
-      range_name    = "kubernetes-services"
-      ip_cidr_range = "10.138.128.0/20"
-    },
+    # {
+    #   range_name    = "kubernetes-services"
+    #   ip_cidr_range = "10.138.128.0/20"
+    # },
   ],
   "subnet-us-central1-02" : [
     {
