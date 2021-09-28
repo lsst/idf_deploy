@@ -110,5 +110,7 @@ node_pools_dev = [
     disk_type          = "pd-standard"
     autoscaling        = true
     node_count         = 0
+    min_count = 1
+    max_count = 5
   }
  ]

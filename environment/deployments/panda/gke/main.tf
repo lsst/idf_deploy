@@ -71,9 +71,9 @@ module "gke" {
   cluster_telemetry_type    = var.cluster_telemetry_type
   cluster_autoscaling       = var.cluster_autoscaling_1
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time = var.maintenance_start_time
-  maintenance_end_time   = var.maintenance_end_time
-  maintenance_recurrence = var.maintenance_recurrence
+  maintenance_start_time    = var.maintenance_start_time
+  maintenance_end_time      = var.maintenance_end_time
+  maintenance_recurrence    = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {
@@ -81,6 +81,7 @@ module "gke" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = local.subnetwork
+    cluster_name     = "moderatemem"
   }
 
   # Node Pools
@@ -97,22 +98,22 @@ module "gke_2" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "highmem"
-  project_id             = local.project_id
-  network                = var.network_name
-  subnetwork             = local.subnetwork_2
-  master_ipv4_cidr_block = var.master_ipv4_cidr_block_2
-  release_channel        = var.release_channel
-  node_pools             = var.node_pools_2
-  network_policy         = var.network_policy
-  gce_pd_csi_driver      = var.gce_pd_csi_driver
-  cluster_telemetry_type = var.cluster_telemetry_type
-  zones                  = var.zones
-  cluster_autoscaling    = var.cluster_autoscaling_2
+  name                      = "highmem"
+  project_id                = local.project_id
+  network                   = var.network_name
+  subnetwork                = local.subnetwork_2
+  master_ipv4_cidr_block    = var.master_ipv4_cidr_block_2
+  release_channel           = var.release_channel
+  node_pools                = var.node_pools_2
+  network_policy            = var.network_policy
+  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  cluster_telemetry_type    = var.cluster_telemetry_type
+  zones                     = var.zones
+  cluster_autoscaling       = var.cluster_autoscaling_2
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time = var.maintenance_start_time
-  maintenance_end_time   = var.maintenance_end_time
-  maintenance_recurrence = var.maintenance_recurrence
+  maintenance_start_time    = var.maintenance_start_time
+  maintenance_end_time      = var.maintenance_end_time
+  maintenance_recurrence    = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {
@@ -120,6 +121,7 @@ module "gke_2" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = local.subnetwork_2
+    cluster_name     = "highmem"
   }
 
   # Node Pools
@@ -136,22 +138,22 @@ module "gke_non_preemtible" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "highmem-non-preempt"
-  project_id             = local.project_id
-  network                = var.network_name
-  subnetwork             = "subnet-us-central1-04"
-  master_ipv4_cidr_block = var.master_ipv4_cidr_block_4
-  release_channel        = var.release_channel
-  node_pools             = var.node_pools_non_preempt_0
-  network_policy         = var.network_policy
-  gce_pd_csi_driver      = var.gce_pd_csi_driver
-  cluster_telemetry_type = var.cluster_telemetry_type
-  zones                  = var.zones
-  cluster_autoscaling    = var.cluster_autoscaling_3
+  name                      = "highmem-non-preempt"
+  project_id                = local.project_id
+  network                   = var.network_name
+  subnetwork                = "subnet-us-central1-04"
+  master_ipv4_cidr_block    = var.master_ipv4_cidr_block_4
+  release_channel           = var.release_channel
+  node_pools                = var.node_pools_non_preempt_0
+  network_policy            = var.network_policy
+  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  cluster_telemetry_type    = var.cluster_telemetry_type
+  zones                     = var.zones
+  cluster_autoscaling       = var.cluster_autoscaling_3
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time = var.maintenance_start_time
-  maintenance_end_time   = var.maintenance_end_time
-  maintenance_recurrence = var.maintenance_recurrence
+  maintenance_start_time    = var.maintenance_start_time
+  maintenance_end_time      = var.maintenance_end_time
+  maintenance_recurrence    = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {
@@ -159,6 +161,7 @@ module "gke_non_preemtible" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = "subnet-us-central1-04"
+    cluster_name     = "highmem-non-preempt"
   }
 
   # Node Pools
@@ -175,22 +178,22 @@ module "gke_merge" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "merge"
-  project_id             = local.project_id
-  network                = var.network_name
-  subnetwork             = "subnet-us-central1-05"
-  master_ipv4_cidr_block = var.master_ipv4_cidr_block_5
-  release_channel        = var.release_channel
-  node_pools             = var.node_pools_merge_0
-  network_policy         = var.network_policy
-  gce_pd_csi_driver      = var.gce_pd_csi_driver
-  cluster_telemetry_type = var.cluster_telemetry_type
-  zones                  = var.zones
-  cluster_autoscaling    = var.cluster_autoscaling_4
+  name                      = "merge"
+  project_id                = local.project_id
+  network                   = var.network_name
+  subnetwork                = "subnet-us-central1-05"
+  master_ipv4_cidr_block    = var.master_ipv4_cidr_block_5
+  release_channel           = var.release_channel
+  node_pools                = var.node_pools_merge_0
+  network_policy            = var.network_policy
+  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  cluster_telemetry_type    = var.cluster_telemetry_type
+  zones                     = var.zones
+  cluster_autoscaling       = var.cluster_autoscaling_4
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time = var.maintenance_start_time
-  maintenance_end_time   = var.maintenance_end_time
-  maintenance_recurrence = var.maintenance_recurrence
+  maintenance_start_time    = var.maintenance_start_time
+  maintenance_end_time      = var.maintenance_end_time
+  maintenance_recurrence    = var.maintenance_recurrence
 
   # Labels
   cluster_resource_labels = {
@@ -198,6 +201,7 @@ module "gke_merge" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = "subnet-us-central1-05"
+    cluster_name     = "merge"
   }
 
   # Node Pools
@@ -235,6 +239,7 @@ module "gke_dev" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = "subnet-us-central1-03"
+    cluster_name     = "developmentcluster"
   }
 
   # Node Pools
