@@ -81,6 +81,7 @@ module "gke" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = local.subnetwork
+    cluster_name          = "moderatemem"
   }
 
   # Node Pools
@@ -120,6 +121,7 @@ module "gke_2" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = local.subnetwork_2
+    cluster_name          = "highmem"
   }
 
   # Node Pools
@@ -159,6 +161,7 @@ module "gke_non_preemtible" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = "subnet-us-central1-04"
+    cluster_name     = "highmem-non-preempt"
   }
 
   # Node Pools
@@ -198,6 +201,7 @@ module "gke_merge" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = "subnet-us-central1-05"
+    cluster_name          = "merge"
   }
 
   # Node Pools
@@ -235,6 +239,7 @@ module "gke_dev" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = "subnet-us-central1-03"
+    cluster_name          = "developmentcluster"
   }
 
   # Node Pools
