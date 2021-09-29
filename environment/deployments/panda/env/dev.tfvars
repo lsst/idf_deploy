@@ -23,7 +23,7 @@ project_iam_sa_gcs_access = [
 network_name = "panda-dev-vpc"
 subnets = [
   {
-    "subnet_ip"             = "10.138.0.0/23",
+    "subnet_ip"             = "10.138.0.0/18",
     "subnet_name"           = "subnet-us-central1-01",
     "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
@@ -60,10 +60,10 @@ secondary_ranges = {
       range_name    = "kubernetes-pods"
       ip_cidr_range = "10.139.0.0/16"
     },
-    # {
-    #   range_name    = "kubernetes-services"
-    #   ip_cidr_range = "10.138.128.0/20"
-    # },
+    {
+      range_name    = "kubernetes-services"
+      ip_cidr_range = "10.138.128.0/20"
+    },
   ],
   "subnet-us-central1-02" : [
     {
