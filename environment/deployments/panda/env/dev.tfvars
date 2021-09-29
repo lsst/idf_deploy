@@ -70,40 +70,40 @@ secondary_ranges = {
       range_name    = "kubernetes-pods"
       ip_cidr_range = "10.143.0.0/16"
     },
-    {
-      range_name    = "kubernetes-services"
-      ip_cidr_range = "10.142.16.0/20"
-    },
+    # {
+    #   range_name    = "kubernetes-services"
+    #   ip_cidr_range = "10.142.16.0/20"
+    # },
   ],
   "subnet-us-central1-03" : [
     {
       range_name    = "kubernetes-pods"
       ip_cidr_range = "10.145.0.0/16"
     },
-    {
-      range_name    = "kubernetes-services"
-      ip_cidr_range = "10.144.16.0/20"
-    },
+    # {
+    #   range_name    = "kubernetes-services"
+    #   ip_cidr_range = "10.144.16.0/20"
+    # },
   ],
   "subnet-us-central1-04" : [
     {
       range_name    = "kubernetes-pods"
       ip_cidr_range = "10.147.0.0/16"
     },
-    {
-      range_name    = "kubernetes-services"
-      ip_cidr_range = "10.146.16.0/20"
-    },
+    # {
+    #   range_name    = "kubernetes-services"
+    #   ip_cidr_range = "10.146.16.0/20"
+    # },
   ],
   "subnet-us-central1-05" : [
     {
       range_name    = "kubernetes-pods"
       ip_cidr_range = "10.149.0.0/16"
     },
-    {
-      range_name    = "kubernetes-services"
-      ip_cidr_range = "10.148.16.0/20"
-    },
+    # {
+    #   range_name    = "kubernetes-services"
+    #   ip_cidr_range = "10.148.16.0/20"
+    # },
   ]
 }
 
