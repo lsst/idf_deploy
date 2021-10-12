@@ -23,31 +23,31 @@ project_iam_sa_gcs_access = [
 network_name = "panda-dev-vpc"
 subnets = [
   {
-    "subnet_ip"             = "10.138.0.0/23",
+    "subnet_ip"             = "10.138.0.0/18",
     "subnet_name"           = "subnet-us-central1-01",
     "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
   },
   {
-    "subnet_ip"             = "10.142.0.0/23",
+    "subnet_ip"             = "10.142.0.0/18",
     "subnet_name"           = "subnet-us-central1-02",
     "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
   },
   {
-    "subnet_ip"             = "10.144.0.0/23",
+    "subnet_ip"             = "10.144.0.0/18",
     "subnet_name"           = "subnet-us-central1-03",
     "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
   },
   {
-    "subnet_ip"             = "10.146.0.0/23",
+    "subnet_ip"             = "10.146.0.0/18",
     "subnet_name"           = "subnet-us-central1-04",
     "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
   },
   {
-    "subnet_ip"             = "10.148.0.0/23",
+    "subnet_ip"             = "10.148.0.0/18",
     "subnet_name"           = "subnet-us-central1-05",
     "subnet_region"         = "us-central1",
     "subnet_private_access" = "true"
@@ -68,7 +68,7 @@ secondary_ranges = {
     },
     {
       range_name    = "kubernetes-services"
-      ip_cidr_range = "10.138.16.0/20"
+      ip_cidr_range = "10.138.128.0/20"
     },
   ],
   "subnet-us-central1-02" : [
@@ -78,7 +78,7 @@ secondary_ranges = {
     },
     {
       range_name    = "kubernetes-services"
-      ip_cidr_range = "10.142.16.0/20"
+      ip_cidr_range = "10.142.128.0/20"
     },
   ],
   "subnet-us-central1-03" : [
@@ -88,7 +88,7 @@ secondary_ranges = {
     },
     {
       range_name    = "kubernetes-services"
-      ip_cidr_range = "10.144.16.0/20"
+      ip_cidr_range = "10.144.128.0/20"
     },
   ],
   "subnet-us-central1-04" : [
@@ -98,7 +98,7 @@ secondary_ranges = {
     },
     {
       range_name    = "kubernetes-services"
-      ip_cidr_range = "10.146.16.0/20"
+      ip_cidr_range = "10.146.128.0/20"
     },
   ],
   "subnet-us-central1-05" : [
@@ -108,7 +108,7 @@ secondary_ranges = {
     },
     {
       range_name    = "kubernetes-services"
-      ip_cidr_range = "10.148.16.0/20"
+      ip_cidr_range = "10.148.128.0/20"
     },
   ],
   "subnet-us-central1-06" : [
