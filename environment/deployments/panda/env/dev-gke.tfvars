@@ -11,6 +11,7 @@ master_ipv4_cidr_block_2 = "172.23.0.0/28"
 master_ipv4_cidr_block_3 = "172.24.0.0/28"
 master_ipv4_cidr_block_4 = "172.25.0.0/28"
 master_ipv4_cidr_block_5 = "172.26.0.0/28"
+master_ipv4_cidr_block_6 = "172.27.0.0/28"
 release_channel = "RAPID"
 cluster_telemetry_type = "SYSTEM_ONLY"
 max_pods_per_node = "15"
@@ -114,3 +115,22 @@ node_pools_dev = [
     max_count = 5
   }
  ]
+
+node_pool_extra_mem_0 = [
+  {
+    name               = "panda-extra-mem-1-pool"
+    machine_type       = "n2-custom-2-240000-ext"
+    node_locations     = "us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = true
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "200"
+    disk_type          = "pd-standard"
+    autoscaling        = true
+    node_count         = 0
+  }
+ ]
+ 
