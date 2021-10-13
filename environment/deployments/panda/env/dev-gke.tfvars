@@ -119,7 +119,7 @@ node_pools_dev = [
 node_pool_extra_mem_0 = [
   {
     name               = "panda-extra-mem-1-pool"
-    machine_type       = "n2-custom-2-240000-ext"
+    machine_type       = "n2-custom-2-240640-ext"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
