@@ -133,4 +133,3 @@ node_pool_extra_mem_0 = [
     node_count         = 0
   }
  ]
- 
