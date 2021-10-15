@@ -284,6 +284,7 @@ module "gke_extra_large" {
     project          = local.project_id
     application_name = var.application_name
     subnetwork       = "subnet-us-central1-06"
+    cluster_name     = "extra-highmem"
   }
 
   # Node Pools
