@@ -70,8 +70,8 @@ node_pools_non_preempt_0 = [
     disk_type          = "pd-standard"
     autoscaling        = true
     node_count         = 1
-    min_count = 0
-    max_count = 10
+    min_count = 1
+    max_count = 400
   }
  ]
 
@@ -131,5 +131,6 @@ node_pool_extra_mem_0 = [
     disk_type          = "pd-standard"
     autoscaling        = true
     node_count         = 0
+    min_count          = 0
   }
  ]
