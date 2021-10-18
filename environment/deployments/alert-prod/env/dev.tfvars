@@ -28,7 +28,6 @@ secondary_ranges = {
   ]
 }
 
-
 # Google Group
 id           = "gcp-alert-prod-administrators@lsst.cloud"
 display_name = "GCP Alert Production Administrators"
