@@ -33,6 +33,6 @@ secondary_ranges = {
 id           = "gcp-alert-prod-administrators@lsst.cloud"
 display_name = "GCP Alert Production Administrators"
 description  = "GCP Alert Production Administrators"
-domain       = "lsst.cloud"
+customer_id  = "C01q23ze7"
 owners       = ["hchiang-admin@lsst.cloud"]
 members      = ["hchiang@lsst.cloud","swnelson@lsst.cloud"]

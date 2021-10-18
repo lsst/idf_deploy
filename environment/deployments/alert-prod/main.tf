@@ -39,7 +39,7 @@ module "alertprod_admin_group" {
   id           = var.id
   display_name = var.display_name
   description  = var.description
-  domain       = var.domain
+  customer_id  = var.customer_id
   owners       = var.owners
   managers     = var.managers
   members      = var.members
