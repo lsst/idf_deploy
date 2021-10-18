@@ -66,6 +66,13 @@ variable "epo_prod_names" {
   default     = []
 }
 
+// ALERT DEV Project
+variable "alert_dev_names" {
+  type        = list(string)
+  description = "Names of the service accounts to create."
+  default     = []
+}
+
 // Billing Account ID
 variable "billing_account_id" {
   description = "The billing account id"
