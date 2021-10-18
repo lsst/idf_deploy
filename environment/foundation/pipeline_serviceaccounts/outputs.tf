@@ -107,3 +107,14 @@ output "epo_prod_iam_email" {
   description = "The service account IAM-format email."
   value       = module.epo_prod_pipeline_accounts.iam_email
 }
+
+// ALERT DEV
+output "alert_dev_email" {
+  description = "The service account email."
+  value       = module.alert_dev_pipeline_accounts.email
+}
+
+output "alert_dev_iam_email" {
+  description = "The service account IAM-format email."
+  value       = module.alert_dev_pipeline_accounts.iam_email
+}

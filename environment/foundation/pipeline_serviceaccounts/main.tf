@@ -282,3 +282,29 @@ resource "google_billing_account_iam_member" "epo_prod" {
   role               = "roles/billing.admin"
   member             = "serviceAccount:${module.epo_prod_pipeline_accounts.email}"
 }
+
+#---------------------------------------------------------------
+# Alert Dev Project
+#---------------------------------------------------------------
+module "alert_dev_pipeline_accounts" {
+  source = "../../../modules/service_accounts/"
+
+  project_id   = "rubin-automation-prod"
+  prefix       = "pipeline"
+  names        = var.alert_dev_names
+  display_name = "Pipelines for Alert DEV Project"
+  description  = "Github action pipeline service account managed by Terraform"
+}
+// Storage access to read tfstate
+resource "google_storage_bucket_iam_member" "alert_dev" {
+  bucket = "lsst-terraform-state"
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${module.alert_dev_pipeline_accounts.email}"
+}
+
+// Billing Account to update budgets
+resource "google_billing_account_iam_member" "alert_dev" {
+  billing_account_id = var.billing_account_id
+  role               = "roles/billing.admin"
+  member             = "serviceAccount:${module.alert_dev_pipeline_accounts.email}"
+}
