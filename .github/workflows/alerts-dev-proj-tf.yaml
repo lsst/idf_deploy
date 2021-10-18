@@ -1,0 +1,65 @@
+# Deploys AlertsProduction Dev GCP Project with Terraform
+name: 'Alerts Dev GCP Project'
+
+on:
+  pull_request:
+    paths:
+      - 'environment/deployments/alert-prod/env/dev.tfvars'
+  push:
+    paths:
+      - 'environment/deployments/alert-prod/env/dev.tfvars'
+    branches:
+      - master
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./environment/deployments/alert-prod
+    
+    # Checkout the repository to the GitHub Actions runner
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # gcloud CLI setup
+    - name: GCP login
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '319.0.0'
+        service_account_key: ${{ secrets.PIPELINE_ALERT_DEV }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        export_default_credentials: true
+
+    # Installs terraform
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.13.5
+
+    # Checks for proper formatting in terraform code
+    - name: Terraform Fmt
+      run: terraform fmt
+
+    # Initialize a new or existing terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=alert-prod/dev
+
+    # Checks that all terraform configuration files adhere to a canonical format
+    - name: Terraform Validate
+      run: terraform validate
+
+    # Generates an execution plan for terraform
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -var-file=env/dev.tfvars -no-color
+
+    # On push to main, build or change infrastructure according to terraform configuration files
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: terraform apply -var-file=env/dev.tfvars -auto-approve
