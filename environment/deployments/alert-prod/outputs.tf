@@ -42,3 +42,14 @@ output "subnets_self_links" {
   description = "The self-links of subnets being created"
   value       = module.project_factory.subnets_self_links
 }
+
+// CLOUD NAT
+output "router" {
+  value       = module.nat.router
+  description = "The created router"
+}
+
+output "router_region" {
+  value       = module.nat.router_region
+  description = "The region of the created router"
+}
