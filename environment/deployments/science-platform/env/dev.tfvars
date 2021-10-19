@@ -56,9 +56,24 @@ custom_rules = {
       }
     ]
     extra_attributes = {}
+  },
+  allow-ingress-from-iap = {
+    description          = "Allow ingress from IAP CIDR ranges."
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["35.235.240.0/20"]
+    sources              = []
+    targets              = ["gke-science-platform-dev"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["22"]
+      }
+    ]
+    extra_attributes = {}
   }
 }
-
 
 # NAT
 nats = [{ name = "cloud-nat" }]
@@ -74,5 +89,6 @@ activate_apis = [
   "billingbudgets.googleapis.com",
   "artifactregistry.googleapis.com",
   "servicenetworking.googleapis.com",
-  "sqladmin.googleapis.com"
+  "sqladmin.googleapis.com",
+  "iap.googleapis.com"
 ]
