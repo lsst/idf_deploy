@@ -1,6 +1,8 @@
 # Project
 environment                 = "dev"
 application_name            = "alert-prod"
+network_name                = "alert-dev-vpc"
+zones                       = ["us-central1-b"]
 
 # GKE
 release_channel        = "RAPID"
