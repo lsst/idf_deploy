@@ -25,17 +25,7 @@ node_pools = [
     max_count          = 10
     image_type         = "cos_containerd"
     enable_secure_boot = true
-    disk_size_gb       = "200"
-    disk_type          = "pd-ssd"
+    disk_size_gb       = "100"
+    disk_type          = "pd-standard"
   },
 ]
-
-node_pools_labels = {
-  core-pool = {
-    infrastructure = "ok"
-    jupyterlab = "ok"
-  },
-  dask-pool = {
-    dask = "ok"
-  }
-}
