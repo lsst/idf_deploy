@@ -67,3 +67,12 @@ module "firewall_cert_manager" {
   network      = module.project_factory.network_name
   custom_rules = var.custom_rules
 }
+/*
+module "firewall_allow_iap" {
+  source = "../../../modules/firewall"
+
+  project_id   = module.project_factory.project_id
+  network      = module.project_factory.network_name
+  custom_rules = var.allow_ingress_iap
+}
+*/
