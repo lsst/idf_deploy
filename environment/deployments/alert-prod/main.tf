@@ -44,3 +44,13 @@ module "alertprod_admin_group" {
   managers     = var.managers
   members      = var.members
 }
+
+// Create a Cloud NAT
+module "nat" {
+  source  = "../../../modules/nat"
+  name    = var.router_name
+  project = module.project_factory.project_id
+  network = module.project_factory.network_name
+  region  = var.default_region
+  nats    = var.nats
+}

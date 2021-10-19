@@ -35,3 +35,6 @@ description  = "GCP Alert Production Administrators"
 customer_id  = "C01q23ze7"
 owners       = ["hchiang-admin@lsst.cloud"]
 members      = ["hchiang@lsst.cloud","swnelson@lsst.cloud"]
+
+# NAT
+nats = [{ name = "cloud-nat" }]
