@@ -76,7 +76,7 @@ module "firewall" {
   project_id = local.project_id
 
   custom_rules = {
-    gke_admission_webooks = {
+    gke-admission-webhooks = {
       description          = "Deployed with Terraform"
       direction            = "INGRESS"
       action               = "allow"
