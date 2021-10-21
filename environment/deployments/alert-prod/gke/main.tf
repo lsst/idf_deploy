@@ -80,7 +80,7 @@ module "firewall" {
       description          = "Deployed with Terraform"
       direction            = "INGRESS"
       action               = "allow"
-      ranges               = [local.master_ipv4_cidr_block]
+      ranges               = [var.master_ipv4_cidr_block]
       targets              = [module.gke.name]
       use_service_accounts = false
       rules = [
