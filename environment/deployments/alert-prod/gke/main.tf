@@ -81,6 +81,7 @@ module "firewall" {
       direction            = "INGRESS"
       action               = "allow"
       ranges               = [var.master_ipv4_cidr_block]
+      sources              = []
       targets              = [module.gke.name]
       use_service_accounts = false
       rules = [
