@@ -72,6 +72,7 @@ custom_rules = {
 }
 
 # NAT
+
 num_static_ips = 1
 #nats = [{ name = "cloud-nat" }]
 
