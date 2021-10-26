@@ -44,8 +44,8 @@ module "filestore" {
 resource "google_compute_address" "static" {
   count = var.num_static_ips
   project = module.project_factory.project_id
-  name = "${var.application_name}-${var.environment}-nat-${var.num_static_ips}"
-  description = "Reserved static IP addresses managed by Terraform."
+  name = "${var.application_name}-${var.environment}-nat-${count.index}"
+  description = "Reserved static IP ${count.index} addresses managed by Terraform."
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
   region = var.default_region
