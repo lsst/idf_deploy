@@ -42,13 +42,13 @@ module "filestore" {
 
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
-  count = var.num_static_ips
-  project = module.project_factory.project_id
-  name = "${var.application_name}-${var.environment}-nat-${count.index}"
-  description = "Reserved static IP ${count.index} addresses managed by Terraform."
+  count        = var.num_static_ips
+  project      = module.project_factory.project_id
+  name         = "${var.application_name}-${var.environment}-nat-${count.index}"
+  description  = "Reserved static IP ${count.index} addresses managed by Terraform."
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
-  region = var.default_region
+  region       = var.default_region
 }
 
 module "nat" {
@@ -58,8 +58,8 @@ module "nat" {
   network = module.project_factory.network_name
   region  = var.default_region
   #nats    = var.nats
-  nats    = [{
-    name = "cloud-nat",
+  nats = [{
+    name    = "cloud-nat",
     nat_ips = google_compute_address.static.*.address
   }]
 }

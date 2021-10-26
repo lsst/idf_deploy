@@ -195,8 +195,8 @@ variable "custom_rules" {
 
 variable "num_static_ips" {
   description = "The total number of static IPs to reserve."
-  type = number
-  default = 1
+  type        = number
+  default     = 1
 }
 
 variable "nats" {
