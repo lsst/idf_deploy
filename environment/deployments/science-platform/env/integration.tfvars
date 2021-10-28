@@ -72,7 +72,9 @@ custom_rules = {
 }
 
 # NAT
-nats = [{ name = "cloud-nat" }]
+
+num_static_ips = 1
+#nats = [{ name = "cloud-nat" }]
 
 # Enable Service Usage API in addition to our standard APIs
 activate_apis = [
