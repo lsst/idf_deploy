@@ -7,7 +7,7 @@ module "private-postgres" {
     },
     {
       "name" : "science-platform-int external-nat-ip",
-      "value" : "35.239.140.105/32"
+      "value" : "34.135.212.179/32"
     },
     {
       "name" : "panda-dev merge-external-nat-ip",
@@ -20,6 +20,10 @@ module "private-postgres" {
     {
       "name" : "test-docker",
       "value" : "35.223.19.106/32"
+    },
+    {
+      "name" : "panda-dev nat-external-address-1",
+      "value" : "34.72.13.10/32"
     }
   ]
   database_version    = var.database_version
