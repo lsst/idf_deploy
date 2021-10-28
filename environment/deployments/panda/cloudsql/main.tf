@@ -7,7 +7,7 @@ module "private-postgres" {
     },
     {
       "name" : "science-platform-int external-nat-ip",
-      "value" : "35.239.140.105/32" # place holder, update after PR rsp-int-nat-static
+      "value" : "34.135.212.179/32"
     },
     {
       "name" : "panda-dev merge-external-nat-ip",
