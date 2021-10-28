@@ -75,3 +75,9 @@ output "filestore_fileshares" {
   value       = module.filestore.file_shares
 }
 
+// Reserved Static IP
+
+output "static_ip" {
+  description = "Reserved static IP"
+  value       = google_compute_address.static.*.address
+}
