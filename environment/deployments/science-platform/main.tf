@@ -60,7 +60,7 @@ module "nat" {
   #nats    = var.nats
   nats = [{
     name    = "cloud-nat",
-    nat_ips = google_compute_address.static.*.address
+    nat_ips = google_compute_address.static.*.name
   }]
 }
 
