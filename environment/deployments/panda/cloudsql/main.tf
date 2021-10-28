@@ -20,6 +20,10 @@ module "private-postgres" {
     {
       "name" : "test-docker",
       "value" : "35.223.19.106/32"
+    },
+    {
+      "name" : "panda-dev nat-external-address-1",
+      "value" : "34.72.13.10/32"
     }
   ]
   database_version    = var.database_version
