@@ -61,6 +61,7 @@ locals {
 }
 
 module "gke" {
+  # This cluster has a different release channel than others
   source = "../../../../modules/gke"
 
   # Cluster
@@ -69,7 +70,7 @@ module "gke" {
   network                   = var.network_name
   subnetwork                = local.subnetwork
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block
-  release_channel           = var.release_channel
+  release_channel           = var.release_channel_moderatemem
   node_pools                = var.node_pools
   network_policy            = var.network_policy
   gce_pd_csi_driver         = var.gce_pd_csi_driver
@@ -140,6 +141,7 @@ module "gke_2" {
 }
 
 module "gke_non_preemtible" {
+  # This cluster has a different release channel than others
   source = "../../../../modules/gke"
 
   # Cluster
@@ -148,7 +150,7 @@ module "gke_non_preemtible" {
   network                   = var.network_name
   subnetwork                = "subnet-us-central1-04"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_4
-  release_channel           = var.release_channel
+  release_channel           = var.release_channel_highmem_non_preempt
   node_pools                = var.node_pools_non_preempt_0
   network_policy            = var.network_policy
   gce_pd_csi_driver         = var.gce_pd_csi_driver
