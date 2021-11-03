@@ -13,6 +13,10 @@ master_ipv4_cidr_block_4 = "172.25.0.0/28"
 master_ipv4_cidr_block_5 = "172.26.0.0/28"
 master_ipv4_cidr_block_6 = "172.27.0.0/28"
 release_channel = "RAPID"
+# RAPID does not provide logging for GCP Support and
+# they must be broken out of the RAPID release channel
+release_channel_moderatemem = "REGULAR"
+release_channel_highmem_non_preempt = "REGULAR"
 cluster_telemetry_type = "SYSTEM_ONLY"
 max_pods_per_node = "15"
 node_pools = [
