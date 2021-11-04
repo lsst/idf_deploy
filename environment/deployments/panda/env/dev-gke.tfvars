@@ -99,7 +99,6 @@ node_pools_merge_0 = [
   }
  ]
 
-
 node_pools_dev = [
   { 
     name               = "panda-low-mem-1-pool"
