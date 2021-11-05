@@ -81,6 +81,16 @@ variable "release_channel" {
   default     = "STABLE"
 }
 
+variable "release_channel_moderatemem" {
+  type        = string
+  description = "The release channel of this cluster."
+}
+
+variable "release_channel_highmem_non_preempt" {
+  type        = string
+  description = "The release channel of this cluster."
+}
+
 variable "network_policy" {
   description = "Enable network policy addon"
   type        = bool
