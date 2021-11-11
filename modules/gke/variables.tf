@@ -178,6 +178,12 @@ variable "authenticator_security_group" {
   default     = "lsst.cloud"
 }
 
+variable "identity_namespace" {
+  description = "Workload Identity namespace. (Default value of `enabled` automatically sets project based namespace `[project_id].svc.id.goog`)"
+  type        = string
+  default     = "enabled"
+}
+
 # ----------------------------------------
 #  NODE POOL VALUES
 # ----------------------------------------
