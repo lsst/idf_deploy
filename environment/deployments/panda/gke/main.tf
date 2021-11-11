@@ -161,6 +161,7 @@ module "gke_non_preemtible" {
   maintenance_start_time    = var.maintenance_start_time
   maintenance_end_time      = var.maintenance_end_time
   maintenance_recurrence    = var.maintenance_recurrence
+  identity_namespace        = var.identity_namespace_highmem_non_preempt
 
   # Labels
   cluster_resource_labels = {

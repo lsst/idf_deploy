@@ -108,6 +108,12 @@ variable "cluster_telemetry_type" {
   default     = "SYSTEM_ONLY"
 }
 
+variable "identity_namespace_highmem_non_preempt" {
+  description = "Workload Identity namespace. (Default value of `enabled` automatically sets project based namespace `[project_id].svc.id.goog`)"
+  type        = string
+  default     = "enabled"
+}
+
 variable "node_pools" {
   type        = list(map(string))
   description = "List of maps containing node pools"
