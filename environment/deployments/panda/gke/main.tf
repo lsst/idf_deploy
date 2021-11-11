@@ -160,7 +160,10 @@ module "gke_non_preemtible" {
   default_max_pods_per_node = var.max_pods_per_node
   maintenance_start_time    = var.maintenance_start_time
   maintenance_end_time      = var.maintenance_end_time
-  maintenance_recurrence    = var.maintenance_recurrence
+  maintenance_recurrence    = var.maintenance_recurrence_highmem_non_preempt
+  identity_namespace        = var.identity_namespace_highmem_non_preempt
+  node_metadata             = var.node_metadata_highmem_non_preempt
+  dns_cache                 = var.dns_cache_highmem_non_preempt
 
   # Labels
   cluster_resource_labels = {

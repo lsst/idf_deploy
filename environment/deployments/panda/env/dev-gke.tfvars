@@ -13,6 +13,9 @@ master_ipv4_cidr_block_4 = "172.25.0.0/28"
 master_ipv4_cidr_block_5 = "172.26.0.0/28"
 master_ipv4_cidr_block_6 = "172.27.0.0/28"
 release_channel = "RAPID"
+identity_namespace_highmem_non_preempt = false # do not deploy workload identity for cluster
+node_metadata_highmem_non_preempt      = "UNSPECIFIED"
+dns_cache_highmem_non_preempt          = true
 # RAPID does not provide logging for GCP Support and
 # they must be broken out of the RAPID release channel
 release_channel_moderatemem = "REGULAR"
@@ -71,7 +74,7 @@ node_pools_non_preempt_0 = [
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "200"
-    disk_type          = "pd-standard"
+    disk_type          = "pd-ssd"
     autoscaling        = true
     node_count         = 1
     min_count = 1
