@@ -160,6 +160,12 @@ variable "enable_shielded_nodes" {
   default     = true
 }
 
+variable "dns_cache" {
+  type        = bool
+  description = "(Beta) The status of the NodeLocal DNSCache addon."
+  default     = false
+}
+
 variable "gce_pd_csi_driver" {
   description = "(Beta) Whether this cluster should enable the Google Compute Engine Persistent Disk Container Storage Interface (CSI) Driver."
   type        = bool
@@ -182,6 +188,12 @@ variable "identity_namespace" {
   description = "Workload Identity namespace. (Default value of `enabled` automatically sets project based namespace `[project_id].svc.id.goog`)"
   type        = string
   default     = "enabled"
+}
+
+variable "node_metadata" {
+  description = "Specifies how node metadata is exposed to the workload running on the node"
+  default     = "GKE_METADATA_SERVER"
+  type        = string
 }
 
 # ----------------------------------------

@@ -37,8 +37,10 @@ module "gke" {
   enable_intranode_visibility        = var.enable_intranode_visibility
   identity_namespace                 = var.identity_namespace
   authenticator_security_group       = "gke-security-groups@${var.authenticator_security_group}"
+  node_metadata                      = var.node_metadata
   node_pools                         = var.node_pools
   release_channel                    = var.release_channel
+  dns_cache                          = var.dns_cache
   gce_pd_csi_driver                  = var.gce_pd_csi_driver
   cluster_telemetry_type             = var.cluster_telemetry_type
   default_max_pods_per_node          = var.default_max_pods_per_node
