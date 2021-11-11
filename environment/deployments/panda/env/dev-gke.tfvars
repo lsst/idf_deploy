@@ -5,6 +5,7 @@ application_name        = "panda"
 # VPC
 network_name            = "panda-dev-vpc"
 
+
 # GKE
 master_ipv4_cidr_block = "172.22.0.0/28"
 master_ipv4_cidr_block_2 = "172.23.0.0/28"
