@@ -75,6 +75,13 @@ variable "maintenance_recurrence" {
   default     = "FREQ=DAILY"
 }
 
+# Set maintenence for highmem-non-preempt cluster
+variable "maintenance_recurrence_highmem_non_preempt" {
+  description = "RFC 5545 RRULE for when maintenance windows occur"
+  type        = string
+  default     = "FREQ=WEEKLY;BYDAY=SU"
+}
+
 variable "release_channel" {
   type        = string
   description = "The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `UNSPECIFIED`."
