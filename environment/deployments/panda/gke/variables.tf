@@ -18,7 +18,6 @@ variable "network_name" {
   default     = "custom-vpc"
 }
 
-
 # GKE
 
 variable "master_ipv4_cidr_block" {
@@ -75,27 +74,10 @@ variable "maintenance_recurrence" {
   default     = "FREQ=DAILY"
 }
 
-# Set maintenence for highmem-non-preempt cluster
-variable "maintenance_recurrence_highmem_non_preempt" {
-  description = "RFC 5545 RRULE for when maintenance windows occur"
-  type        = string
-  default     = "FREQ=WEEKLY;BYDAY=SU"
-}
-
 variable "release_channel" {
   type        = string
   description = "The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `UNSPECIFIED`."
   default     = "STABLE"
-}
-
-variable "release_channel_moderatemem" {
-  type        = string
-  description = "The release channel of this cluster."
-}
-
-variable "release_channel_highmem_non_preempt" {
-  type        = string
-  description = "The release channel of this cluster."
 }
 
 variable "network_policy" {
@@ -115,11 +97,47 @@ variable "cluster_telemetry_type" {
   default     = "SYSTEM_ONLY"
 }
 
+# ---------------------------------------------------------------------------
+# CLUSTER EXCEPTIONS TO DEFAULT VALUES
+# Some cluster may need exceptions to the default values. Those excpetions
+# are placed here.
+# ---------------------------------------------------------------------------
+
+# Highmem-nonpreempt
 variable "identity_namespace_highmem_non_preempt" {
   description = "Workload Identity namespace. (Default value of `enabled` automatically sets project based namespace `[project_id].svc.id.goog`)"
   type        = string
-  default     = "enabled"
 }
+
+variable "node_metadata_highmem_non_preempt" {
+  description = "Specifies how node metadata is exposed to the workload running on the node"
+  type        = string
+}
+
+variable "release_channel_highmem_non_preempt" {
+  type        = string
+  description = "The release channel of this cluster."
+}
+
+variable "maintenance_recurrence_highmem_non_preempt" {
+  # Set maintenence for highmem-non-preempt cluster
+  description = "RFC 5545 RRULE for when maintenance windows occur"
+  type        = string
+  default     = "FREQ=WEEKLY;BYDAY=SU"
+}
+
+variable "dns_cache_highmem_non_preempt" {
+  type        = bool
+  description = "(Beta) The status of the NodeLocal DNSCache addon."
+}
+
+# Moderatemem
+variable "release_channel_moderatemem" {
+  type        = string
+  description = "The release channel of this cluster."
+}
+
+# NODE POOLS
 
 variable "node_pools" {
   type        = list(map(string))
