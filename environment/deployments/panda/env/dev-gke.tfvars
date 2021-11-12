@@ -39,6 +39,7 @@ node_pools = [
     node_count         = 0
     min_count = 0
     max_count = 1000
+    service_account = "tf-gke-moderatemem-bwbc@panda-dev-1a74.iam.gserviceaccount.com"
   }
 ]
 
@@ -79,6 +80,7 @@ node_pools_non_preempt_0 = [
     node_count         = 1
     min_count = 1
     max_count = 400
+    service_account = "tf-gke-moderatemem-bwbc@panda-dev-1a74.iam.gserviceaccount.com"
   }
  ]
 
