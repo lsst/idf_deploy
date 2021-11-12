@@ -123,7 +123,7 @@ variable "maintenance_recurrence_highmem_non_preempt" {
   # Set maintenence for highmem-non-preempt cluster
   description = "RFC 5545 RRULE for when maintenance windows occur"
   type        = string
-  default     = "FREQ=WEEKLY;BYDAY=SU"
+  default     = "FREQ=WEEKLY;BYDAY=SA,SU"
 }
 
 variable "dns_cache_highmem_non_preempt" {

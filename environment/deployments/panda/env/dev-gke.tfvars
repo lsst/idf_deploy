@@ -13,7 +13,7 @@ master_ipv4_cidr_block_4 = "172.25.0.0/28"
 master_ipv4_cidr_block_5 = "172.26.0.0/28"
 master_ipv4_cidr_block_6 = "172.27.0.0/28"
 release_channel = "RAPID"
-identity_namespace_highmem_non_preempt = false # do not deploy workload identity for cluster
+identity_namespace_highmem_non_preempt = "" # do not deploy workload identity for cluster
 node_metadata_highmem_non_preempt      = "UNSPECIFIED"
 dns_cache_highmem_non_preempt          = true
 # RAPID does not provide logging for GCP Support and
