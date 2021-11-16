@@ -80,6 +80,9 @@ module "gke" {
   maintenance_start_time    = var.maintenance_start_time
   maintenance_end_time      = var.maintenance_end_time
   maintenance_recurrence    = var.maintenance_recurrence
+  identity_namespace        = var.identity_namespace_moderatemem
+  node_metadata             = var.node_metadata_moderatemem
+  dns_cache                 = var.dns_cache_moderatemem
 
   # Labels
   cluster_resource_labels = {
