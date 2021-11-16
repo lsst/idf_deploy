@@ -158,8 +158,8 @@ module "gke_non_preemtible" {
   zones                     = var.zones
   cluster_autoscaling       = var.cluster_autoscaling_3
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = var.maintenance_start_time
-  maintenance_end_time      = var.maintenance_end_time
+  maintenance_start_time    = "2020-04-24T00:00:00Z"
+  maintenance_end_time      = "2020-04-24T06:00:00Z"
   maintenance_recurrence    = var.maintenance_recurrence_highmem_non_preempt
   identity_namespace        = var.identity_namespace_highmem_non_preempt
   node_metadata             = var.node_metadata_highmem_non_preempt
