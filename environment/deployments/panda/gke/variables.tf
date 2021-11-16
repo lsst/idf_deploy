@@ -148,6 +148,13 @@ variable "dns_cache_moderatemem" {
   description = "(Beta) The status of the NodeLocal DNSCache addon."
 }
 
+variable "maintenance_recurrence_moderatemem" {
+  # Set maintenence for highmem-non-preempt cluster
+  description = "RFC 5545 RRULE for when maintenance windows occur"
+  type        = string
+  default     = "FREQ=WEEKLY;BYDAY=SA,SU"
+}
+
 variable "release_channel_moderatemem" {
   type        = string
   description = "The release channel of this cluster."
