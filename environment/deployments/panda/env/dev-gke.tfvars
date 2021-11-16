@@ -12,16 +12,22 @@ master_ipv4_cidr_block_3 = "172.24.0.0/28"
 master_ipv4_cidr_block_4 = "172.25.0.0/28"
 master_ipv4_cidr_block_5 = "172.26.0.0/28"
 master_ipv4_cidr_block_6 = "172.27.0.0/28"
-release_channel = "RAPID"
-identity_namespace_highmem_non_preempt = "" # do not deploy workload identity for cluster
+release_channel          = "RAPID"
+cluster_telemetry_type   = "SYSTEM_ONLY"
+max_pods_per_node        = "15"
+
+# ---- EXCEPTIONS TO DEFAULT VALUES ----- #
+identity_namespace_highmem_non_preempt = null # do not deploy workload identity for cluster
+identity_namespace_moderatemem         = null
 node_metadata_highmem_non_preempt      = "UNSPECIFIED"
+node_metadata_moderatemem              = "UNSPECIFIED"
 dns_cache_highmem_non_preempt          = true
-# RAPID does not provide logging for GCP Support and
-# they must be broken out of the RAPID release channel
-release_channel_moderatemem = "REGULAR"
+dns_cache_moderatemem                  = true
+# RAPID does not provide logging for GCP Support
 release_channel_highmem_non_preempt = "REGULAR"
-cluster_telemetry_type = "SYSTEM_ONLY"
-max_pods_per_node = "15"
+release_channel_moderatemem         = "REGULAR"
+
+# ---- NODE POOLS ---- #
 node_pools = [
   {
     name               = "panda-low-mem-1-pool"
