@@ -77,8 +77,8 @@ module "gke" {
   cluster_telemetry_type    = var.cluster_telemetry_type
   cluster_autoscaling       = var.cluster_autoscaling_1
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = var.maintenance_start_time
-  maintenance_end_time      = var.maintenance_end_time
+  maintenance_start_time    = "2020-04-24T00:00:00Z"
+  maintenance_end_time      = "2020-04-24T06:00:00Z"
   maintenance_recurrence    = var.maintenance_recurrence_moderatemem
   identity_namespace        = var.identity_namespace_moderatemem
   node_metadata             = var.node_metadata_moderatemem
