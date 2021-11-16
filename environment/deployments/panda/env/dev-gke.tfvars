@@ -23,12 +23,9 @@ node_metadata_highmem_non_preempt      = "UNSPECIFIED"
 node_metadata_moderatemem              = "UNSPECIFIED"
 dns_cache_highmem_non_preempt          = true
 dns_cache_moderatemem                  = true
-# RAPID does not provide logging for GCP Support and
-# they must be broken out of the RAPID release channel
+# RAPID does not provide logging for GCP Support
 release_channel_highmem_non_preempt = "REGULAR"
 release_channel_moderatemem         = "REGULAR"
-
-
 
 # ---- NODE POOLS ---- #
 node_pools = [
