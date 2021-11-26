@@ -7,7 +7,7 @@ on:
       - 'environment/foundation/2-networks/network.tfvars'
   push:
     branches:
-      - master
+      - main
     paths:
       - 'environment/foundation/2-networks/network.tfvars'
 
@@ -60,5 +60,5 @@ jobs:
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -var-file=network.tfvars -refresh=false -auto-approve
