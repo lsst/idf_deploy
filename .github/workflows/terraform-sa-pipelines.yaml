@@ -7,7 +7,7 @@ on:
       - 'environment/foundation/pipeline_serviceaccounts/terraform.tfvars'
   push:
     branches:
-      - master
+      - main
     paths:
       - 'environment/foundation/pipeline_serviceaccounts/terraform.tfvars'
 
@@ -61,5 +61,5 @@ jobs:
 
     # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -var-file=terraform.tfvars -auto-approve
