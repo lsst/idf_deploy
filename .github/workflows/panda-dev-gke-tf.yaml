@@ -7,7 +7,7 @@ on:
       - 'environment/deployments/panda/env/dev-gke.tfvars'
   push:
     branches:
-      - master
+      - main
     paths:
       - 'environment/deployments/panda/env/dev-gke.tfvars'
 
@@ -61,5 +61,5 @@ jobs:
 
     # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -var-file=../env/dev-gke.tfvars -refresh=false -auto-approve
