@@ -76,7 +76,7 @@ module "gke" {
   gce_pd_csi_driver         = var.gce_pd_csi_driver
   cluster_telemetry_type    = var.cluster_telemetry_type
   cluster_autoscaling       = var.cluster_autoscaling_1
-  default_max_pods_per_node = var.max_pods_per_node
+  default_max_pods_per_node = 3
   maintenance_start_time    = "2020-04-24T00:00:00Z"
   maintenance_end_time      = "2020-04-24T06:00:00Z"
   maintenance_recurrence    = var.maintenance_recurrence_moderatemem
