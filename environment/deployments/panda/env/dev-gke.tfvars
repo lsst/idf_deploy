@@ -40,7 +40,43 @@ node_pools = [
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "200"
-    disk_type          = "pd-standard"
+    disk_type          = "pd-ssd"
+    autoscaling        = true
+    node_count         = 0
+    min_count = 0
+    max_count = 1000
+    service_account = "tf-gke-moderatemem-bwbc@panda-dev-1a74.iam.gserviceaccount.com"
+  },
+    {
+    name               = "panda-low-mem-2-pool"
+    machine_type       = "n2-standard-4"
+    node_locations     = "us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = true
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "200"
+    disk_type          = "pd-ssd"
+    autoscaling        = true
+    node_count         = 0
+    min_count = 0
+    max_count = 1000
+    service_account = "tf-gke-moderatemem-bwbc@panda-dev-1a74.iam.gserviceaccount.com"
+  },
+    {
+    name               = "panda-low-mem-3-pool"
+    machine_type       = "n2-standard-4"
+    node_locations     = "us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = true
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "200"
+    disk_type          = "pd-ssd"
     autoscaling        = true
     node_count         = 0
     min_count = 0
