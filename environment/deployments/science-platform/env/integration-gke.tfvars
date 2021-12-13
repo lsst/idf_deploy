@@ -77,6 +77,18 @@ node_pools_labels = {
   }
 }
 
+node_pools_taints = {
+  core-pool = [],
+  dask-pool = []
+  kafka-pool = [
+    {
+      effect = "NO_SCHEDULE"
+      key = "kafka",
+      value = "ok"
+    }
+  ]
+}
+
 # TF State declared during pipeline
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/int/gke"
