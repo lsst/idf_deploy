@@ -82,7 +82,7 @@ node_pools_taints = {
   dask-pool = []
   kafka-pool = [
     {
-      effect = "NoSchedule"
+      effect = "NO_SCHEDULE"
       key = "kafka",
       value = "ok"
     }
