@@ -46,4 +46,5 @@ module "gke" {
   default_max_pods_per_node          = var.default_max_pods_per_node
 
   node_pools_labels = var.node_pools_labels
+  node_pools_taints = var.node_pools_taints
 }
