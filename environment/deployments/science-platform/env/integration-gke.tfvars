@@ -80,13 +80,22 @@ node_pools_labels = {
 node_pools_taints = {
   core-pool = [],
   dask-pool = []
-  kafka-pool = [
-    {
-      effect = "NO_SCHEDULE"
-      key = "kafka",
-      value = "ok"
-    }
-  ]
+  # Unfortunately, the kafka-pool node pool was created before taints were set.
+  # It turns out that you can't modify a node pool to add taints; it must be
+  # destroyed and recreated.
+  #
+  # But there are currently pods running on the kafka-pool nodes, including
+  # critical core ones, so it's too dangerous to destroy the nodes. We'll have
+  # to just leave it untainted.
+  #
+  # kafka-pool = [
+  #   {
+  #    effect = "NO_SCHEDULE"
+  #    key = "kafka",
+  #    value = "ok"
+  #  }
+  #]
+  kafka-pool = []
 }
 
 # TF State declared during pipeline
