@@ -53,6 +53,7 @@ module "nat" {
   address_name      = var.address_name
   address_type      = var.address_type
   nat_name          = "${var.application_name}-${var.environment}-cloud-nat"
+  min_ports_per_vm  = var.min_ports_per_vm
   log_config_enable = var.log_config_enable
   log_config_filter = var.log_config_filter
   address_labels = {
