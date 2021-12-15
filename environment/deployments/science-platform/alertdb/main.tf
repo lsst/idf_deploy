@@ -78,7 +78,6 @@ resource "google_service_account_iam_binding" "writer_workload_identity_binding"
 module "bucket_reader_account" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~> 3.0"
-  source = "../../../../modules/service_accounts/"
 
   project_id   = var.project_id
   prefix       = "alertdb"
