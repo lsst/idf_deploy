@@ -17,7 +17,7 @@ variable "purge_old_alerts" {
 
 variable "maximum_alert_age" {
   description = "Maximum age, in days, to persist alerts in the bucket backend. Only used if var.purge_old_alerts is true."
-  type        = int
+  type        = number
   default     = 28
 }
 
