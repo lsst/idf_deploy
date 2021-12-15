@@ -40,7 +40,8 @@ module "alert_schema_bucket" {
 }
 
 module "bucket_writer_account" {
-  source = "../../../../modules/service_accounts/"
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~> 3.0"
 
   project_id   = var.project_id
   prefix       = "alertdb"
@@ -66,7 +67,7 @@ resource "google_storage_bucket_iam_member" "alert_schema_readwrite" {
 # Grant the writer k8s serviceaccount the right to assume the
 # bucket_writer_account identity.
 resource "google_service_account_iam_binding" "writer_workload_identity_binding" {
-  service_account_id = module.bucket_reader_account.name
+  service_account_id = module.bucket_writer_account.service_accounts_map["writer"].name
   role               = "roles/iam.workloadIdentityUser"
   members = [
     "serviceAccount:${var.project_id}.svc.id.goog[${var.writer_k8s_namespace}/${var.writer_k8s_serviceaccount_name}]"
@@ -75,6 +76,8 @@ resource "google_service_account_iam_binding" "writer_workload_identity_binding"
 
 // Grant access to the Workload Identity system so this can be used in GKE
 module "bucket_reader_account" {
+  source        = "terraform-google-modules/service-accounts/google"
+  version       = "~> 3.0"
   source = "../../../../modules/service_accounts/"
 
   project_id   = var.project_id
@@ -101,7 +104,7 @@ resource "google_storage_bucket_iam_member" "alert_schema_read_buckets" {
 # Grant the k8s service account the right to assume the bucket_reader_account
 # identity.
 resource "google_service_account_iam_binding" "reader_workload_identity_binding" {
-  service_account_id = module.bucket_reader_account.name
+  service_account_id = module.bucket_reader_account.service_accounts_map["reader"].name
   role               = "roles/iam.workloadIdentityUser"
   members = [
     "serviceAccount:${var.project_id}.svc.id.goog[${var.reader_k8s_namespace}/${var.reader_k8s_serviceaccount_name}]"
