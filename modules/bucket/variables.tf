@@ -119,7 +119,7 @@ variable "viewers" {
 
 variable "lifecycle_rules" {
   description = "List of lifecycle rules to configure. Format is the same as described in provider documentation https://www.terraform.io/docs/providers/google/r/storage_bucket.html#lifecycle_rule except condition.matches_storage_class should be a comma delimited string."
-  default = {}
+  default = []
   type = set(object({
     # Object with keys:
     # - type - The type of the action of this Lifecycle Rule. Supported values:
