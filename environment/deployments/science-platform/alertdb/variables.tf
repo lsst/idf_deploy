@@ -3,6 +3,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "environment" {
+  description = "The environment the single project belongs to"
+  type        = string
+}
+
 variable "labels" {
   description = "Labels to be attached to the buckets"
   type        = map(any)

@@ -12,7 +12,7 @@ module "alert_packet_bucket" {
   project_id    = var.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  prefix_name   = "alertdb"
+  prefix_name   = "rubin-alertdb-${var.environment}"
   suffix_name   = ["packets"]
   labels        = var.labels
 
@@ -34,7 +34,7 @@ module "alert_schema_bucket" {
   project_id    = var.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  prefix_name   = "alertdb"
+  prefix_name   = "rubin-alertdb-${var.environment}"
   suffix_name   = ["schemas"]
   labels        = var.labels
 }
