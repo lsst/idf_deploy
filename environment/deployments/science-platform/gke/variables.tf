@@ -90,3 +90,12 @@ variable "node_pools_labels" {
     }
   }
 }
+
+variable "node_pools_taints" {
+  type        = map(list(object({ key = string, value = string, effect = string })))
+  description = "Map of lists containing node taints by node-pool name"
+
+  default = {
+    all = []
+  }
+}

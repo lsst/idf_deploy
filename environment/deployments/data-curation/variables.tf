@@ -199,6 +199,12 @@ variable "log_config_filter" {
   default     = "ERRORS_ONLY"
 }
 
+variable "min_ports_per_vm" {
+  description = "Minimum number of ports allocated to a VM from this NAT."
+  type        = string
+  default     = ""
+}
+
 // Data Curation Prod
 variable "data_curation_prod_names" {
   type        = list(string)

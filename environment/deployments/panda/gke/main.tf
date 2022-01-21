@@ -61,6 +61,7 @@ locals {
 }
 
 module "gke" {
+  # This cluster has a different release channel than others
   source = "../../../../modules/gke"
 
   # Cluster
@@ -69,16 +70,19 @@ module "gke" {
   network                   = var.network_name
   subnetwork                = local.subnetwork
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block
-  release_channel           = var.release_channel
+  release_channel           = var.release_channel_moderatemem
   node_pools                = var.node_pools
   network_policy            = var.network_policy
   gce_pd_csi_driver         = var.gce_pd_csi_driver
   cluster_telemetry_type    = var.cluster_telemetry_type
   cluster_autoscaling       = var.cluster_autoscaling_1
-  default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = var.maintenance_start_time
-  maintenance_end_time      = var.maintenance_end_time
-  maintenance_recurrence    = var.maintenance_recurrence
+  default_max_pods_per_node = 15
+  maintenance_start_time    = "2020-04-24T00:00:00Z"
+  maintenance_end_time      = "2020-04-24T06:00:00Z"
+  maintenance_recurrence    = var.maintenance_recurrence_moderatemem
+  identity_namespace        = var.identity_namespace_moderatemem
+  node_metadata             = var.node_metadata_moderatemem
+  dns_cache                 = var.dns_cache_moderatemem
 
   # Labels
   cluster_resource_labels = {
@@ -140,6 +144,7 @@ module "gke_2" {
 }
 
 module "gke_non_preemtible" {
+  # This cluster has a different release channel than others
   source = "../../../../modules/gke"
 
   # Cluster
@@ -148,7 +153,7 @@ module "gke_non_preemtible" {
   network                   = var.network_name
   subnetwork                = "subnet-us-central1-04"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_4
-  release_channel           = var.release_channel
+  release_channel           = var.release_channel_highmem_non_preempt
   node_pools                = var.node_pools_non_preempt_0
   network_policy            = var.network_policy
   gce_pd_csi_driver         = var.gce_pd_csi_driver
@@ -156,9 +161,12 @@ module "gke_non_preemtible" {
   zones                     = var.zones
   cluster_autoscaling       = var.cluster_autoscaling_3
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = var.maintenance_start_time
-  maintenance_end_time      = var.maintenance_end_time
-  maintenance_recurrence    = var.maintenance_recurrence
+  maintenance_start_time    = "2020-04-24T00:00:00Z"
+  maintenance_end_time      = "2020-04-24T06:00:00Z"
+  maintenance_recurrence    = var.maintenance_recurrence_highmem_non_preempt
+  identity_namespace        = var.identity_namespace_highmem_non_preempt
+  node_metadata             = var.node_metadata_highmem_non_preempt
+  dns_cache                 = var.dns_cache_highmem_non_preempt
 
   # Labels
   cluster_resource_labels = {

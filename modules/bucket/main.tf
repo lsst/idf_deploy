@@ -17,6 +17,7 @@ module "gcs_bucket" {
   folders              = var.folders
   force_destroy        = var.force_destroy
   labels               = var.labels
+  lifecycle_rules      = var.lifecycle_rules
   location             = var.location
   set_creator_roles    = var.set_creator_roles
   set_viewer_roles     = var.set_viewer_roles

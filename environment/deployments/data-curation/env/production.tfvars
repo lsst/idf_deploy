@@ -56,6 +56,7 @@ custom_rules = {
 # NAT
 address_count = 1
 nat_name      = "cloud-nat"
+min_ports_per_vm = 4096
 
 project_iam_permissions = ["roles/storage.admin", "roles/storagetransfer.admin"]
 

@@ -160,6 +160,12 @@ variable "enable_shielded_nodes" {
   default     = true
 }
 
+variable "dns_cache" {
+  type        = bool
+  description = "(Beta) The status of the NodeLocal DNSCache addon."
+  default     = false
+}
+
 variable "gce_pd_csi_driver" {
   description = "(Beta) Whether this cluster should enable the Google Compute Engine Persistent Disk Container Storage Interface (CSI) Driver."
   type        = bool
@@ -176,6 +182,18 @@ variable "authenticator_security_group" {
   type        = string
   description = "The name of the RBAC security group for use with Google security groups in Kubernetes RBAC. Group name must be in format gke-security-groups@yourdomain.com"
   default     = "lsst.cloud"
+}
+
+variable "identity_namespace" {
+  description = "Workload Identity namespace. (Default value of `enabled` automatically sets project based namespace `[project_id].svc.id.goog`)"
+  type        = string
+  default     = "enabled"
+}
+
+variable "node_metadata" {
+  description = "Specifies how node metadata is exposed to the workload running on the node"
+  default     = "GKE_METADATA_SERVER"
+  type        = string
 }
 
 # ----------------------------------------
@@ -216,23 +234,29 @@ variable "node_pools_labels" {
   }
 }
 
+variable "node_pools_taints" {
+  type        = map(list(object({ key = string, value = string, effect = string })))
+  description = "Map of lists containing node taints by node-pool name"
 
-variable "cluster_autoscaling" {
-   type = object({
-     enabled = bool
-     autoscaling_profile = string
-     min_cpu_cores = number
-     max_cpu_cores = number
-     min_memory_gb = number
-     max_memory_gb = number
-   })
-  default = {
-   enabled             = false
-   autoscaling_profile = "BALANCED"
-   min_cpu_cores       = 0
-   max_cpu_cores       = 0
-   min_memory_gb       = 0
-   max_memory_gb       = 0
-   }
+  default = {}
 }
 
+
+variable "cluster_autoscaling" {
+  type = object({
+    enabled             = bool
+    autoscaling_profile = string
+    min_cpu_cores       = number
+    max_cpu_cores       = number
+    min_memory_gb       = number
+    max_memory_gb       = number
+  })
+  default = {
+    enabled             = false
+    autoscaling_profile = "BALANCED"
+    min_cpu_cores       = 0
+    max_cpu_cores       = 0
+    min_memory_gb       = 0
+    max_memory_gb       = 0
+  }
+}

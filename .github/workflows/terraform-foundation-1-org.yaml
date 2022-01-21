@@ -9,7 +9,7 @@ on:
     paths:
       - 'environment/foundation/1-org/1-org.tfvars'
     branches:
-      - master
+      - main
 
 jobs:
   terraform:
@@ -60,5 +60,5 @@ jobs:
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -var-file=1-org.tfvars -refresh=false -auto-approve

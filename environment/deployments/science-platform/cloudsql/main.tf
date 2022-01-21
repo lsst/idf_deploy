@@ -25,6 +25,13 @@ resource "random_password" "gafaelfawr" {
   special = false
 }
 
+resource "random_password" "vo-cutouts" {
+  length  = 24
+  number  = true
+  upper   = true
+  special = false
+}
+
 data "google_compute_network" "network" {
   name    = var.network
   project = var.project_id
@@ -60,6 +67,11 @@ module "db_science_platform" {
       name      = "gafaelfawr"
       charset   = "UTF8"
       collation = "en_US.UTF8"
+    },
+    {
+      name      = "vo-cutouts"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
     }
   ]
 
@@ -67,6 +79,10 @@ module "db_science_platform" {
     {
       name     = "gafaelfawr"
       password = random_password.gafaelfawr.result
+    },
+    {
+      name     = "vo-cutouts"
+      password = random_password.vo-cutouts.result
     }
   ]
 
@@ -89,7 +105,7 @@ module "service_accounts" {
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
-  names         = ["gafaelfawr"]
+  names         = ["gafaelfawr", "vo-cutouts"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
@@ -100,5 +116,14 @@ resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
   members = [
     "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]",
     "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-tokens]",
+  ]
+}
+
+resource "google_service_account_iam_binding" "vo-cutouts-iam-binding" {
+  service_account_id = module.service_accounts.service_accounts_map["vo-cutouts"].name
+  role               = "roles/iam.workloadIdentityUser"
+
+  members = [
+    "serviceAccount:${var.project_id}.svc.id.goog[vo-cutouts/vo-cutouts]",
   ]
 }

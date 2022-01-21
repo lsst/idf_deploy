@@ -62,4 +62,6 @@ module "gke" {
       application_name = var.application_name
     }
   }
+
+  node_pools_taints = var.node_pools_taints
 }

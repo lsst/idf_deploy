@@ -44,6 +44,23 @@ node_pools = [
     initial_node_count = 0
     min_count          = 0
     max_count          = 100
+  },
+  {
+    name = "kafka-pool"
+    machine_type = "n2-standard-32"
+    node_locations     = "us-central1-b"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = false
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "500"
+    disk_type          = "pd-standard"
+    autoscaling        = true
+    initial_node_count = 1
+    min_count          = 1
+    max_count          = 10
   }
 ]
 
@@ -54,7 +71,22 @@ node_pools_labels = {
   },
   dask-pool = {
     dask = "ok"
+  },
+  kafka-pool = {
+    kafka = "ok"
   }
+}
+
+node_pools_taints = {
+  core-pool = [],
+  dask-pool = []
+  kafka-pool = [
+    {
+      effect = "NO_SCHEDULE"
+      key = "kafka",
+      value = "ok"
+    }
+  ]
 }
 
 # TF State declared during pipeline
