@@ -86,7 +86,8 @@ variable "project_iam_permissions" {
     "roles/iam.serviceAccountUser",
     "roles/iam.serviceAccountCreator",
     "roles/iam.serviceAccountKeyAdmin",
-    "roles/iap.tunnelResourceAccessor"
+    "roles/iap.tunnelResourceAccessor",
+    "roles/artifactregistry.admin"
   ]
 }
 
