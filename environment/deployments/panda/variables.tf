@@ -181,67 +181,74 @@ variable "custom_rules2" {
   }))
 }
 
+# 2-1-2022 by Aaron Strong
+# The module nat block has been commented out because we're using new tech preview features
+# that are not available to the API. This block is failing our build pipeline.
+
 # NAT
 
-variable "router_name" {
-  description = "The name to give to the router"
-  type        = string
-  default     = "nat-router"
-}
+# 2-1-2022 by Aaron Strong
+# The module nat block has been commented out because we're using new tech preview features
 
-variable "address_count" {
-  description = "The number of reserved IP addresses needed"
-  type        = number
-  default     = 1
-}
+# variable "router_name" {
+#   description = "The name to give to the router"
+#   type        = string
+#   default     = "nat-router"
+# }
 
-variable "address_name" {
-  description = "The name to give to the reserved IP address."
-  type        = string
-  default     = "nat-external-address"
-}
+# variable "address_count" {
+#   description = "The number of reserved IP addresses needed"
+#   type        = number
+#   default     = 1
+# }
 
-variable "address_type" {
-  description = "The type of address to attach to the NAT. Options are `EXTERNAL` or `INTERNAL`"
-  type        = string
-  default     = "EXTERNAL"
-}
+# variable "address_name" {
+#   description = "The name to give to the reserved IP address."
+#   type        = string
+#   default     = "nat-external-address"
+# }
 
-variable "address_labels" {
-  description = "Labels to add to the reserved IP address"
-  type        = map(string)
-  default     = {}
-}
+# variable "address_type" {
+#   description = "The type of address to attach to the NAT. Options are `EXTERNAL` or `INTERNAL`"
+#   type        = string
+#   default     = "EXTERNAL"
+# }
 
-variable "nat_name" {
-  description = "Name of the NAT service. Name must be 1-63 characters."
-  type        = string
-  default     = "cloud-nat"
-}
+# variable "address_labels" {
+#   description = "Labels to add to the reserved IP address"
+#   type        = map(string)
+#   default     = {}
+# }
 
-variable "nat_ip_allocate_option" {
-  description = "How external IPs should be allocated for this NAT. Valid values are `AUTO_ONLY` or `MANUAL_ONLY`"
-  type        = string
-  default     = "AUTO_ONLY"
-}
+# variable "nat_name" {
+#   description = "Name of the NAT service. Name must be 1-63 characters."
+#   type        = string
+#   default     = "cloud-nat"
+# }
 
-variable "min_ports_per_vm" {
-  description = "Minimum number of ports allocated to a VM from this NAT."
-  type        = string
-  default     = ""
-}
+# variable "nat_ip_allocate_option" {
+#   description = "How external IPs should be allocated for this NAT. Valid values are `AUTO_ONLY` or `MANUAL_ONLY`"
+#   type        = string
+#   default     = "AUTO_ONLY"
+# }
 
-variable "log_config_enable" {
-  description = ""
-  type        = bool
-  default     = false
-}
+# variable "min_ports_per_vm" {
+#   description = "Minimum number of ports allocated to a VM from this NAT."
+#   type        = string
+#   default     = ""
+# }
 
-variable "log_config_filter" {
-  description = "Specified the desired filtering of logs on this NAT. Possible values are `ERRORS_ONLY`, `TRANSLATIOSN_ONLY`, `ALL`"
-  type        = string
-  default     = "ERRORS_ONLY"
-}
+# variable "log_config_enable" {
+#   description = ""
+#   type        = bool
+#   default     = false
+# }
+
+# variable "log_config_filter" {
+#   description = "Specified the desired filtering of logs on this NAT. Possible values are `ERRORS_ONLY`, `TRANSLATIOSN_ONLY`, `ALL`"
+#   type        = string
+#   default     = "ERRORS_ONLY"
+# }
 
 # IAP
 variable "members" {

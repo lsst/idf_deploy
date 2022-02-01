@@ -55,15 +55,21 @@ output "address_name" {
   value       = module.nat.address_name
 }
 
-output "nat_name" {
-  description = "The name of the NAT"
-  value       = module.nat.nat_name
-}
+# 2-1-2022 by Aaron Strong
+# The module nat block has been commented out because we're using new tech preview features
+# that are not available to the API. This block is failing our build pipeline.
 
-output "nat_id" {
-  description = "The self ID of the NAT"
-  value       = module.nat.nat_id
-}
+# NAT
+
+# output "nat_name" {
+#   description = "The name of the NAT"
+#   value       = module.nat.nat_name
+# }
+
+# output "nat_id" {
+#   description = "The self ID of the NAT"
+#   value       = module.nat.nat_id
+# }
 
 // Instance
 output "instance_name" {

@@ -175,11 +175,15 @@ custom_rules2 = {
   }
 }
 
+# 2-1-2022 by Aaron Strong
+# The module nat block has been commented out because we're using new tech preview features
+# that are not available to the API. This block is failing our build pipeline.
+
 # NAT
-address_count          = 0 # Do not need an address if using `AUTO_ONLY`
-nat_name               = "cloud-nat"
-nat_ip_allocate_option = "AUTO_ONLY"
-min_ports_per_vm       = 4096
+# address_count          = 0 # Do not need an address if using `AUTO_ONLY`
+# nat_name               = "cloud-nat"
+# nat_ip_allocate_option = "AUTO_ONLY"
+# min_ports_per_vm       = 4096
 
 # IAP
 members = ["group:gcp-panda-administrators@lsst.cloud"]
