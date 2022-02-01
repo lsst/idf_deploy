@@ -59,26 +59,30 @@ module "firewall_2" {
   custom_rules = var.custom_rules2
 }
 
-module "nat" {
-  source = "../../../modules/cloud_nat"
+# 2-1-2022 by Aaron Strong
+# The module nat block has been commented out because we're using new tech preview features
+# that are not available to the API. This block is failing our build pipeline.
 
-  project_id             = module.project_factory.project_id
-  region                 = var.default_region
-  network                = module.project_factory.network_name
-  router_name            = var.router_name
-  address_count          = var.address_count
-  address_name           = var.address_name
-  address_type           = var.address_type
-  nat_ip_allocate_option = var.nat_ip_allocate_option
-  min_ports_per_vm       = var.min_ports_per_vm
-  nat_name               = "${var.application_name}-${var.environment}-cloud-nat"
-  log_config_enable      = var.log_config_enable
-  log_config_filter      = var.log_config_filter
-  address_labels = {
-    application_name = var.application_name
-    environment      = var.environment
-  }
-}
+# module "nat" {
+#   source = "../../../modules/cloud_nat"
+
+#   project_id             = module.project_factory.project_id
+#   region                 = var.default_region
+#   network                = module.project_factory.network_name
+#   router_name            = var.router_name
+#   address_count          = var.address_count
+#   address_name           = var.address_name
+#   address_type           = var.address_type
+#   nat_ip_allocate_option = var.nat_ip_allocate_option
+#   min_ports_per_vm       = var.min_ports_per_vm
+#   nat_name               = "${var.application_name}-${var.environment}-cloud-nat"
+#   log_config_enable      = var.log_config_enable
+#   log_config_filter      = var.log_config_filter
+#   address_labels = {
+#     application_name = var.application_name
+#     environment      = var.environment
+#   }
+# }
 
 data "google_compute_network" "my-network" {
   name    = "panda-dev-vpc"
