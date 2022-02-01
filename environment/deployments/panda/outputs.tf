@@ -44,22 +44,24 @@ output "subnets_self_links" {
 }
 
 
-// Reserved IP
-output "reserved_ip_address" {
-  description = "The static external IP address represented by the resource"
-  value       = module.nat.address
-}
 
-output "address_name" {
-  description = "The name of the static ip address"
-  value       = module.nat.address_name
-}
 
 # 2-1-2022 by Aaron Strong
 # The module nat block has been commented out because we're using new tech preview features
 # that are not available to the API. This block is failing our build pipeline.
 
 # NAT
+
+// Reserved IP
+# output "reserved_ip_address" {
+#   description = "The static external IP address represented by the resource"
+#   value       = module.nat.address
+# }
+
+# output "address_name" {
+#   description = "The name of the static ip address"
+#   value       = module.nat.address_name
+# }
 
 # output "nat_name" {
 #   description = "The name of the NAT"
