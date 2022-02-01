@@ -183,7 +183,7 @@ custom_rules2 = {
 # address_count          = 0 # Do not need an address if using `AUTO_ONLY`
 # nat_name               = "cloud-nat"
 # nat_ip_allocate_option = "AUTO_ONLY"
-# min_ports_per_vm       = 4096
+# min_ports_per_vm       = 4096 
 
 # IAP
 members = ["group:gcp-panda-administrators@lsst.cloud"]
