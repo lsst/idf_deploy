@@ -86,3 +86,15 @@ variable "backups_enabled" {
   description = "True if backup configuration is enabled"
   default     = false
 }
+
+variable "butler_service_account" {
+  description = "Service account used for Butler GCS access"
+  type        = string
+  default     = "butler-gcs-butler-gcs-data-sa@data-curation-prod-fbdb.iam.gserviceaccount.com"
+}
+
+variable "maximum_cutouts_age" {
+  description = "Age of objects in days before deletion from the temporary cutouts bucket"
+  type        = number
+  default     = 30
+}
