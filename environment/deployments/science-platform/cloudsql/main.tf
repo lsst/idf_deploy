@@ -98,6 +98,32 @@ module "db_science_platform" {
   ]
 }
 
+module "cutouts_bucket" {
+  source        = "../../../../modules/bucket"
+  project_id    = var.project_id
+  storage_class = "STANDARD"
+  location      = "us-central1"
+  prefix_name   = "rubin-cutouts-${var.environment}"
+  suffix_name   = ["output"]
+
+  # This bucket is used for temporary output from cutout jobs and all
+  # objects should be automatically deleted after some period of time.
+  lifecycle_rules = [
+    {
+      action = {
+        type = "Delete"
+      },
+      condition = {
+        age = var.maximum_cutouts_age
+      }
+    }
+  ]
+}
+
+locals {
+  cutout_service_account = module.service_accounts.service_accounts_map["vo-cutouts"].email
+}
+
 module "service_accounts" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = "~> 3.0"
@@ -107,6 +133,22 @@ module "service_accounts" {
   description   = "Terraform-managed service account for PostgreSQL access"
   names         = ["gafaelfawr", "vo-cutouts"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
+}
+
+resource "google_storage_bucket_iam_binding" "cutouts-bucket-ro-iam-binding" {
+  bucket  = module.cutouts_bucket.name
+  role    = "roles/storage.objectViewer"
+  members = [
+    "serviceAccount:${local.cutout_service_account}"
+  ]
+}
+
+resource "google_storage_bucket_iam_binding" "cutouts-bucket-rw-iam-binding" {
+  bucket  = module.cutouts_bucket.name
+  role    = "roles/storage.objectCreator"
+  members = [
+    "serviceAccount:${var.butler_service_account}"
+  ]
 }
 
 resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
