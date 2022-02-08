@@ -17,7 +17,9 @@ activate_apis = [
 
 project_iam_sa_gcs_access = [
   "roles/logging.logWriter",
-  "roles/storage.objectViewer"
+  "roles/storage.objectViewer",
+  "roles/artifactregistry.writer",
+  "roles/storage.legacyBucketWriter"
 ]
 
 # VPC
