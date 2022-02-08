@@ -169,3 +169,16 @@ resource "google_service_account_iam_binding" "vo-cutouts-iam-binding" {
     "serviceAccount:${var.project_id}.svc.id.goog[vo-cutouts/vo-cutouts]",
   ]
 }
+
+# The vo-cutouts service account must be granted the ability to generate
+# tokens for itself so that it can generate signed GCS URLs starting from
+# the GKE service account token without requiring an exported secret key
+# for the underlying Google service account.
+resource "google_service_account_iam_binding" "vo-cutouts-iam-gcs-binding" {
+  service_account_id = module.service_accounts.service_accounts_map["vo-cutouts"].name
+  role               = "roles/iam.serviceAccountTokenCreator"
+
+  members = [
+    "serviceAccount:${local.cutout_service_account}"
+  ]
+}
