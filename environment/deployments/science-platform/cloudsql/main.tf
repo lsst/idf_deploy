@@ -139,7 +139,8 @@ resource "google_storage_bucket_iam_binding" "cutouts-bucket-ro-iam-binding" {
   bucket  = module.cutouts_bucket.name
   role    = "roles/storage.objectViewer"
   members = [
-    "serviceAccount:${local.cutout_service_account}"
+    "serviceAccount:${local.cutout_service_account}",
+    "serviceAccount:${var.butler_service_account}"
   ]
 }
 
