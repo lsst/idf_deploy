@@ -1,4 +1,4 @@
-module "private-postgres-2" {
+module "panda-idds" {
   source = "../../../../modules/cloudsql/postgres-private_50"
   authorized_networks = [
     {

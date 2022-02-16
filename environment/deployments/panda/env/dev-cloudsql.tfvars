@@ -12,7 +12,7 @@ database_flags = [
   {name = "password_encryption", value = "scram-sha-256"}
 ]
 backups_enabled = true
-db_name_2      = "panda-dev-postgres-sql-2"
+db_name_2      = "panda-idds-dev"
 
 
 // DATABASE INSIGHTS
