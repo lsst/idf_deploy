@@ -14,7 +14,7 @@ module "panda-idds" {
   db_name             = var.db_name_2
   tier                = var.tier
   database_flags      = var.database_flags
-  names               = ["service-account"]
+  names               = ["panda-idds-service-account"]
   project_roles       = ["${var.project_id}=>roles/cloudsql.client"]
   project_id          = var.project_id
   vpc_network         = var.network
