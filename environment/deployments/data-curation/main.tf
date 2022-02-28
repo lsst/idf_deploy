@@ -91,19 +91,21 @@ module "storage_bucket_2" {
   project_id  = module.project_factory.project_id
   storage_class = "REGIONAL"
   location   = "us-central1"
-  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6"]
+  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations"]
   prefix_name = "butler"
   versioning = {
     dp01-dev  = true
     dp01-int  = true
     dp01      = false
     dp01-desc-dr6 = true
+    repo-locations = true
   }
   force_destroy = {
     dp01-dev  = true
     dp01-int  = true
     dp01      = true
     dp01-desc-dr6 = true
+    repo-locations = true
   }
   labels = {
     environment = var.environment
