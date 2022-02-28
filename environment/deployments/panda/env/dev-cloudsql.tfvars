@@ -22,4 +22,3 @@ insights_config = ({
     record_client_address   = true
   })
 
-  #
