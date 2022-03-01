@@ -168,3 +168,10 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_panda_dev" {
   role   = each.value
   member = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
+// RW storage access to repo-locations Butler bucket 
+resource "google_storage_bucket_iam_member" "data_curation_prod_rw_repo_locations" {
+  for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
+  bucket = "butler-us-central1-repo-locations"
+  role   = each.value
+  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
