@@ -27,24 +27,6 @@ node_pools = [
     enable_secure_boot = true
     disk_size_gb       = "200"
     disk_type          = "pd-ssd"
-  },
-  {
-    name               = "dask-pool"
-    machine_type       = "n2-standard-8"
-    node_locations     = "us-central1-b"
-    node_count         = 0
-    local_ssd_count    = 0
-    auto_repair        = true
-    auto_upgrade       = true
-    preemptible        = false
-    image_type         = "cos_containerd"
-    enable_secure_boot = true
-    autoscaling        = true
-    initial_node_count = 0
-    min_count          = 0
-    max_count          = 100
-    disk_size_gb       = "200"
-    disk_type          = "pd-ssd"
   }
 ]
 
