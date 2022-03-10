@@ -52,9 +52,6 @@ node_pools_labels = {
     infrastructure = "ok",
     jupyterlab = "ok"
   },
-  dask-pool = {
-    dask = "ok"
-  },
   kafka-pool = {
     kafka = "ok"
   }
