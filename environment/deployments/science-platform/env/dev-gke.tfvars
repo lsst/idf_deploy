@@ -34,8 +34,6 @@ node_pools_labels = {
   core-pool = {
     infrastructure = "ok"
     jupyterlab = "ok"
-  },
-  dask-pool = {
     dask = "ok"
   }
 }
