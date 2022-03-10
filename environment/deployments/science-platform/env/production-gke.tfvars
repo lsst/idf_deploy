@@ -43,7 +43,7 @@ node_pools = [
     autoscaling        = true
     initial_node_count = 0
     min_count          = 0
-    max_count          = 100
+    max_count          = 0
   }
 ]
 
