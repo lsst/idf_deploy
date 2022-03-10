@@ -50,8 +50,7 @@ node_pools = [
 node_pools_labels = {
   core-pool = {
     infrastructure = "ok",
-    jupyterlab = "ok",
-    dask = "ok"
+    jupyterlab = "ok"
   },
   kafka-pool = {
     kafka = "ok"
