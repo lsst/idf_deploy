@@ -312,7 +312,7 @@ module "gke_extra_large" {
 }
 
 
-module "gke_extra_large" {
+module "gke_extra_large_non_preempt" {
   source = "../../../../modules/gke"
 
   # Cluster
