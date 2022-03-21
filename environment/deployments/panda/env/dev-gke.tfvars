@@ -184,3 +184,22 @@ node_pool_extra_mem_0 = [
     min_count          = 0
   }
  ]
+
+node_pool_extra_mem_non_preempt_0 = [
+  {
+    name               = "panda-extra-mem-non-preempt-pool"
+    machine_type       = "n2-custom-2-240640-ext"
+    node_locations     = "us-central1-c"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = false
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "200"
+    disk_type          = "pd-standard"
+    autoscaling        = true
+    node_count         = 0
+    min_count          = 0
+  }
+ ]
