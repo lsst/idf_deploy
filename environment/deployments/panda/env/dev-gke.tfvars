@@ -182,6 +182,7 @@ node_pool_extra_mem_0 = [
     autoscaling        = true
     node_count         = 0
     min_count          = 0
+    max_count          = 200
   }
  ]
 
@@ -201,5 +202,6 @@ node_pool_extra_mem_non_preempt_0 = [
     autoscaling        = true
     node_count         = 0
     min_count          = 0
+    max_count          = 200
   }
  ]
