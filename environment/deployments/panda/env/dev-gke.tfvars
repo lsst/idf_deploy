@@ -16,7 +16,7 @@ release_channel          = "RAPID"
 cluster_telemetry_type   = "SYSTEM_ONLY"
 max_pods_per_node        = "15"
 
-# ---- EXCEPTIONS TO DEFAULT VALUES ----- #
+# ---- EXCEPTIONS TO DEFAULT VALUES ----- # 
 identity_namespace_highmem_non_preempt = null # do not deploy workload identity for cluster
 identity_namespace_moderatemem         = null
 node_metadata_highmem_non_preempt      = "UNSPECIFIED"
