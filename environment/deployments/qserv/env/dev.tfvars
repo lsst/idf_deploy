@@ -28,8 +28,6 @@ secondary_ranges = {
   ]
 }
 
-# Filestore
-fileshare_capacity = 2000
 
 # Firewalls
 custom_rules = {
