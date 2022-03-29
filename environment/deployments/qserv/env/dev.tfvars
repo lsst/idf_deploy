@@ -28,8 +28,6 @@ secondary_ranges = {
   ]
 }
 
-# Filestore
-fileshare_capacity = 2000
 
 # Firewalls
 custom_rules = {
@@ -82,7 +80,7 @@ custom_rules_2 = {
 
 custom_rules_3 = {
   operator-connectivity = {
-    description          = "Deployed with Terraform. Operator Connectivity"
+    description          = "Deployed with Terraform. QServ Operator Connectivity"
     direction            = "INGRESS"
     action               = "allow"
     ranges               = ["172.20.0.0/28"]

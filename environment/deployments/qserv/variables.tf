@@ -128,51 +128,6 @@ variable "secondary_ranges" {
   }
 }
 
-# FileStore
-
-variable "name" {
-  description = "The resource name of the instance."
-  type        = string
-  default     = "fshare-instance"
-}
-
-variable "zone" {
-  description = "The name of the Filestore zone of the instance"
-  type        = string
-  default     = "us-central1-b"
-}
-
-variable "fileshare_name" {
-  description = "The name of the fileshare (16 characters or less)"
-  type        = string
-  default     = "share1"
-}
-
-variable "fileshare_capacity" {
-  description = "File share capacity in GiB. This must be at least 1024 GiB for the standard tier, or 2560 GiB for the premium tier."
-  type        = number
-  default     = 2000
-}
-
-variable "tier" {
-  description = "The service tier of the instance. Possible values are TIER_UNSPECIFIED, STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, and HIGH_SCALE_SSD."
-  type        = string
-  default     = "STANDARD"
-}
-
-variable "modes" {
-  description = "IP versions for which the instance has IP addresses assigned. Each value may be one of ADDRESS_MODE_UNSPECIFIED, MODE_IPV4, and MODE_IPV6."
-  type        = list(string)
-  default     = ["MODE_IPV4"]
-}
-
-variable "labels" {
-  description = "Labels"
-  default = {
-    name             = "cluster"
-    application_name = "app_name"
-  }
-}
 
 # FIREWALL
 
@@ -196,6 +151,25 @@ variable "custom_rules" {
 }
 
 variable "custom_rules_2" {
+  description = "List of custom rule definitions (refer to variables file for syntax)."
+  default     = {}
+  type = map(object({
+    description          = string
+    direction            = string
+    action               = string # (allow|deny)
+    ranges               = list(string)
+    sources              = list(string)
+    targets              = list(string)
+    use_service_accounts = bool
+    rules = list(object({
+      protocol = string
+      ports    = list(string)
+    }))
+    extra_attributes = map(string)
+  }))
+}
+
+variable "custom_rules_3" {
   description = "List of custom rule definitions (refer to variables file for syntax)."
   default     = {}
   type = map(object({

@@ -22,25 +22,6 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
-module "filestore" {
-  source             = "../../../modules/filestore"
-  fileshare_capacity = var.fileshare_capacity
-  fileshare_name     = var.fileshare_name
-  modes              = var.modes
-  name               = "${var.name}-${var.environment}"
-  network            = module.project_factory.network_name
-  project            = module.project_factory.project_id
-  tier               = var.tier
-  zone               = var.zone
-  labels = {
-    project          = module.project_factory.project_id
-    environment      = var.environment
-    application_name = var.application_name
-  }
-
-  depends_on = [module.project_factory]
-}
-
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"
@@ -67,6 +48,14 @@ module "firewall_2" {
   project_id   = module.project_factory.project_id
   network      = module.project_factory.network_name
   custom_rules = var.custom_rules_2
+}
+
+module "firewall_3" {
+  source = "../../../modules/firewall"
+
+  project_id   = module.project_factory.project_id
+  network      = module.project_factory.network_name
+  custom_rules = var.custom_rules_3
 }
 
 module "nat" {
