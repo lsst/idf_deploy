@@ -7,3 +7,4 @@ network_name            = "butler-dev-vpc"
 remote_application_name = "panda"
 remote_environment      = "dev"
 remote_network_name     = "panda-dev-vpc"
+
