@@ -174,7 +174,8 @@ variable "gcp_org_administrators_shared_service_iam_permissions" {
   description = "List of permissions granted to the group."
   type        = list(string)
   default = [
-    "roles/storage.admin"
+    "roles/storage.admin",
+    "roles/domains.admin"
   ]
 }
 
