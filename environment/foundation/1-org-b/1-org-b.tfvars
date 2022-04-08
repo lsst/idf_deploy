@@ -12,7 +12,8 @@ sub_folder_names = [
 shared_services_display_name = "Shared Services"
 
 gcp_org_administrators_shared_service_iam_permissions = [
-  "roles/storage.admin"
+  "roles/storage.admin",
+  "roles/domains.admin"
 ]
 
 // Processing
