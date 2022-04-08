@@ -142,6 +142,13 @@ gcp_square_gke_developer_iam_permissions = [
   "roles/storage.objectViewer"
 ]
 
+// Shared Services
+
+gcp_org_administrators_shared_service_iam_permissions = [
+    "roles/storage.admin",
+    "roles/domains.admin"
+]
+
 // EPO
 
 epo_display_name      = "EPO"
