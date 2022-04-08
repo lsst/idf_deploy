@@ -5,9 +5,11 @@ on:
   pull_request:
     paths:
       - 'environment/foundation/1-org-b/1-org-b.tfvars'
+      - 'environemnt/foundation/1-org-b/variables.tf'
   push:
     paths:
       - 'environment/foundation/1-org-b/1-org-b.tfvars'
+      - 'environemnt/foundation/1-org-b/variables.tf'
     branches:
       - main
 
