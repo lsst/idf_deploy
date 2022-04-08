@@ -128,7 +128,7 @@ variable "gcp_square_gke_developer_iam_permissions" {
   ]
 }
 
-// PROJECT ADMINISTRATORS
+// GCP PROJECT ADMINISTRATORS
 
 variable "gcp_qserv_administrators_iam_permissions" {
   description = "List of permissions granted to the group."
