@@ -81,3 +81,14 @@ output "static_ip" {
   description = "Reserved static IP"
   value       = google_compute_address.static.*.address
 }
+
+// Service Accounts
+output "email" {
+  description = "The service account email."
+  value       = module.gar_sa.email
+}
+
+output "iam_email" {
+  description = "The service account IAM-format email."
+  value       = module.gar_sa.iam_email
+}

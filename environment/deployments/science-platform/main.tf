@@ -25,15 +25,13 @@ module "gar_sa" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"
   project_id = module.project_factory.project_id
-  names      = ["cache-machine-wi"]
+  names      = ["cachemachine-wi"]
 }
 
-module "gar_workload_identity" {
-  source     = "terraform-google-modules/kubernetes-engine/google//modules/workload-identity"
-  name       = "cachemachine-wi"
-  namespace  = "cachemachine"
-  project_id = module.project_factory.project_id
-  roles      = [""]
+resource "google_service_account_iam_member" "gar_sa_wi" {
+  service_account_id = module.gar_sa.email
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
 }
 
 module "filestore" {
