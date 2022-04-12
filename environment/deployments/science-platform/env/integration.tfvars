@@ -12,7 +12,7 @@ subnets = [
     "subnet_ip" : "10.130.0.0/23",
     "subnet_name" : "subnet-us-central1-01",
     "subnet_region" : "us-central1",
-    "subnet_private_access" = "true"    
+    "subnet_private_access" = "true"
   }
 ]
 secondary_ranges = {
@@ -79,16 +79,19 @@ num_static_ips = 1
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
 # our standard APIs.
 activate_apis = [
-    "compute.googleapis.com",
-    "container.googleapis.com",
-    "containerfilesystem.googleapis.com",
-    "stackdriver.googleapis.com",
-    "file.googleapis.com",
-    "storage.googleapis.com",
-    "artifactregistry.googleapis.com",
-    "billingbudgets.googleapis.com",
-    "servicenetworking.googleapis.com",
-    "serviceusage.googleapis.com",
-    "sqladmin.googleapis.com",
-    "iap.googleapis.com"
+  "compute.googleapis.com",
+  "container.googleapis.com",
+  "containerfilesystem.googleapis.com",
+  "stackdriver.googleapis.com",
+  "file.googleapis.com",
+  "storage.googleapis.com",
+  "artifactregistry.googleapis.com",
+  "billingbudgets.googleapis.com",
+  "servicenetworking.googleapis.com",
+  "serviceusage.googleapis.com",
+  "sqladmin.googleapis.com",
+  "iap.googleapis.com"
 ]
+
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
