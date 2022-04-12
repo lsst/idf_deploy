@@ -1,5 +1,5 @@
 locals {
-  cachinemachine_sa_name = "cachemachine-wi"
+  cachemachine_sa_name = "cachemachine-wi"
 
 }
 
