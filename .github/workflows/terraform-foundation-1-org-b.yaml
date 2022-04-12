@@ -5,11 +5,9 @@ on:
   pull_request:
     paths:
       - 'environment/foundation/1-org-b/1-org-b.tfvars'
-      - 'environemnt/foundation/1-org-b/variables.tf'
   push:
     paths:
       - 'environment/foundation/1-org-b/1-org-b.tfvars'
-      - 'environemnt/foundation/1-org-b/variables.tf'
     branches:
       - main
 
@@ -27,13 +25,13 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # gcloud CLI setup
     - name: GCP login
       uses: google-github-actions/setup-gcloud@v0
       with:
-        version: '319.0.0'
+        version: '379.0.0'
         service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
