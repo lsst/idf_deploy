@@ -75,7 +75,7 @@ custom_rules = {
   }
 }
 
-# NAT
+# NAT auto
 nats = [{ name = "cloud-nat" }]
 
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,

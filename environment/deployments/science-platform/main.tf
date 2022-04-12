@@ -21,6 +21,13 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
+module "gar_sa" {
+  source     = "terraform-google-modules/service-accounts/google"
+  version    = "~> 2.0"
+  project_id = module.project_factory.project_id
+  names      = ["cache-machine-gar-wi"]
+}
+
 module "filestore" {
   source             = "../../../modules/filestore"
   fileshare_capacity = var.fileshare_capacity
