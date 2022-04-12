@@ -30,11 +30,11 @@ module "gar_sa" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"
   project_id = module.project_factory.project_id
-  names      = [locals.cachinemachine_sa_name]
+  names      = [local.cachinemachine_sa_name]
 }
 
 resource "google_service_account_iam_member" "gar_sa_wi" {
-  service_account_id = locals.cachemachine_sa_name
+  service_account_id = local.cachemachine_sa_name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
 }
