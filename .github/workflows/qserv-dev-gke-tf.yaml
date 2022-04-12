@@ -25,13 +25,13 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # gcloud CLI setup
     - name: GCP login
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v0
       with:
-        version: '319.0.0'
+        version: '379.0.0'
         service_account_key: ${{ secrets.PIPELINE_QSERV_DEV_GKE }}
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
