@@ -21,11 +21,15 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
-module "gar_sa" {
-  source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
-  project_id = module.project_factory.project_id
-  names      = ["cache-machine-wi"]
+resource "google_service_account" "gar_sa" {
+  account_id   = "cachemachine-wi"
+  display_name = "Created by Terraform"
+}
+
+resource "google_service_account_iam_member" "gar_sa_wi" {
+  service_account_id = google_service_account.gar_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
 }
 
 module "filestore" {
