@@ -30,7 +30,7 @@ module "gar_sa" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"
   project_id = module.project_factory.project_id
-  names      = [local.cachinemachine_sa_name]
+  names      = [local.cachemachine_sa_name]
 }
 
 resource "google_service_account_iam_member" "gar_sa_wi" {
