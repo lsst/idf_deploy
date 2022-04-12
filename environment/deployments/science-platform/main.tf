@@ -24,10 +24,11 @@ module "iam_admin" {
 resource "google_service_account" "gar_sa" {
   account_id   = "cachemachine-wi"
   display_name = "Created by Terraform"
+  project      = module.project_factory.project_id
 }
 
 resource "google_service_account_iam_member" "gar_sa_wi" {
-  service_account_id = google_service_account.gar_sa.name
+  service_account_id = google_service_account.gar_sa[0].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
 }
