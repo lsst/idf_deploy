@@ -28,6 +28,14 @@ module "gar_sa" {
   names      = ["cache-machine-wi"]
 }
 
+module "gar_workload_identity" {
+  source     = "terraform-google-modules/kubernetes-engine/google//modules/workload-identity"
+  name       = "cachemachine-wi"
+  namespace  = "cachemachine"
+  project_id = module.project_factory.project_id
+  roles      = [""]
+}
+
 module "filestore" {
   source             = "../../../modules/filestore"
   fileshare_capacity = var.fileshare_capacity
