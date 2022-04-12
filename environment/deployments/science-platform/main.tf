@@ -29,7 +29,7 @@ module "gar_sa" {
 }
 
 resource "google_service_account_iam_member" "gar_sa_wi" {
-  service_account_id = module.gar_sa.email
+  service_account_id = module.gar_sa.iam_email
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
 }
