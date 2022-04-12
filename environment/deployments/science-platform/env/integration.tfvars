@@ -75,13 +75,17 @@ custom_rules = {
 
 num_static_ips = 1
 
-# Enable Service Usage API in addition to our standard APIs
+# Enable Google Artifact Registry, Service Networking, Container Filesystem,
+# and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
+# our standard APIs.
 activate_apis = [
     "compute.googleapis.com",
     "container.googleapis.com",
+    "containerfilesystem.googleapis.com",
     "stackdriver.googleapis.com",
     "file.googleapis.com",
     "storage.googleapis.com",
+    "artifactregistry.googleapis.com",
     "billingbudgets.googleapis.com",
     "servicenetworking.googleapis.com",
     "serviceusage.googleapis.com",
