@@ -157,6 +157,7 @@ module "rsp_dev_pipeline_accounts" {
   project_roles = [
     "science-platform-dev-7696=>roles/editor",
     "science-platform-dev-7696=>roles/resourcemanager.projectIamAdmin",
+    "science-platform-dev-7696=>roles/iam.serviceAccountAdmin"
   ]
 }
 // Storage access to read tfstate
@@ -215,6 +216,7 @@ module "rsp_int_pipeline_accounts" {
   project_roles = [
     "science-platform-int-dc5d=>roles/editor",
     "science-platform-int-dc5d=>roles/resourcemanager.projectIamAdmin",
+    "science-platform-int-dc5d=>roles/iam.serviceAccountAdmin"
   ]
 }
 // Storage access to read tfstate
