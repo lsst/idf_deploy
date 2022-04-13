@@ -268,7 +268,7 @@ module "epo_prod_pipeline_accounts" {
   project_id   = "rubin-automation-prod"
   prefix       = "pipeline"
   names        = var.epo_prod_names
-  display_name = "Pipelines for EPO INT Project"
+  display_name = "Pipelines for EPO PROD Project"
   description  = "Github action pipeline service account managed by Terraform"
 }
 // Storage access to read tfstate
