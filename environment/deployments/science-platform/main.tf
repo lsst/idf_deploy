@@ -24,6 +24,7 @@ module "iam_admin" {
 resource "google_service_account" "gar_sa" {
   account_id   = "cachemachine-wi"
   display_name = "Created by Terraform"
+  project      = module.project_factory.project_id
 }
 
 resource "google_service_account_iam_member" "gar_sa_wi" {
