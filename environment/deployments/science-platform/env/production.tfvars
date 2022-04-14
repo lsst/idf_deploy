@@ -1,16 +1,16 @@
 # Project
-environment             = "stable"
-application_name        = "science-platform"
-folder_id               = "719717645081"
+environment      = "stable"
+application_name = "science-platform"
+folder_id        = "719717645081"
 
 # VPC
-network_name            = "science-platform-stable-vpc"
+network_name = "science-platform-stable-vpc"
 subnets = [
   {
     "subnet_ip" : "10.132.0.0/23",
     "subnet_name" : "subnet-us-central1-01",
     "subnet_region" : "us-central1",
-    "subnet_private_access": "true"
+    "subnet_private_access" : "true"
   }
 ]
 secondary_ranges = {
@@ -72,3 +72,6 @@ activate_apis = [
   "servicenetworking.googleapis.com",
   "sqladmin.googleapis.com"
 ]
+
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
