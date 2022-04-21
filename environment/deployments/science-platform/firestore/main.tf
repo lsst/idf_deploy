@@ -1,5 +1,5 @@
 module "project_factory" {
-  source                      = "../../../modules/project_vpc"
+  source                      = "../../../../modules/project_vpc"
   org_id                      = var.org_id
   folder_id                   = var.folder_id
   billing_account             = var.billing_account
@@ -15,7 +15,7 @@ module "project_factory" {
 }
 
 module "iam_admin" {
-  source                  = "../../../modules/iam"
+  source                  = "../../../../modules/iam"
   project                 = module.project_factory.project_id
   project_iam_permissions = var.project_iam_permissions
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
