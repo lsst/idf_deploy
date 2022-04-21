@@ -9,7 +9,6 @@ module "project_factory" {
   activate_apis               = var.activate_apis
   budget_amount               = var.budget_amount
   budget_alert_spent_percents = var.budget_alert_spent_percents
-  vpc_type                    = null
 }
 
 module "iam_admin" {
