@@ -118,7 +118,7 @@ module "gke_2" {
   network                   = var.network_name
   subnetwork                = local.subnetwork_2
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_2
-  release_channel           = var.release_channel
+  release_channel           = "REGULAR"
   node_pools                = var.node_pools_2
   network_policy            = var.network_policy
   gce_pd_csi_driver         = var.gce_pd_csi_driver
@@ -129,6 +129,8 @@ module "gke_2" {
   maintenance_start_time    = var.maintenance_start_time
   maintenance_end_time      = var.maintenance_end_time
   maintenance_recurrence    = var.maintenance_recurrence
+  node_metadata             = "UNSPECIFIED"
+  dns_cache                 = true
 
   # Labels
   cluster_resource_labels = {
