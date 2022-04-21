@@ -3,15 +3,12 @@ module "project_factory" {
   org_id                      = var.org_id
   folder_id                   = var.folder_id
   billing_account             = var.billing_account
-  project_prefix              = "${var.application_name}-${var.environment}"
+  project_prefix              = "${var.application_name}-firebase-${var.environment}"
   application_name            = var.application_name
   environment                 = var.environment
   activate_apis               = var.activate_apis
   budget_amount               = var.budget_amount
   budget_alert_spent_percents = var.budget_alert_spent_percents
-  subnets                     = var.subnets
-  secondary_ranges            = var.secondary_ranges
-  routing_mode                = var.routing_mode
 }
 
 module "iam_admin" {
