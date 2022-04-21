@@ -138,7 +138,7 @@ node_pools_non_preempt_0 = [
     autoscaling        = true
     node_count         = 1
     min_count          = 1
-    max_count          = 400
+    max_count          = 800
     service_account    = "tf-gke-moderatemem-bwbc@panda-dev-1a74.iam.gserviceaccount.com"
   }
 ]
