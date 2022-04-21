@@ -3,7 +3,7 @@ module "project_factory" {
   org_id                      = var.org_id
   folder_id                   = var.folder_id
   billing_account             = var.billing_account
-  project_prefix              = "rsp-firebase-${var.environment}"
+  project_prefix              = "rsp-firestore-${var.environment}"
   application_name            = var.application_name
   environment                 = var.environment
   activate_apis               = var.activate_apis
