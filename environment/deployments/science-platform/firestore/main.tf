@@ -26,6 +26,6 @@ resource "google_app_engine_application" "app" {
 
 resource "google_service_account_iam_member" "gafaelfawr-iam-binding" {
   service_account_id = "projects/${var.gafaelfawr_project_id}/serviceAccounts/${var.gafaelfawr_sa}"
-  role               = "roles/iam.datastore.user"
+  role               = "roles/datastore.user"
   member             = "serviceAccount:${var.gafaelfawr_sa}"
 }
