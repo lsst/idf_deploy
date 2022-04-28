@@ -16,7 +16,7 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 6
+# Serial: 8
 
 gafaelfawr_project_id = "science-platform-dev-7696"
 gafaelfawr_sa         = "gafaelfawr@science-platform-dev-7696.iam.gserviceaccount.com"
