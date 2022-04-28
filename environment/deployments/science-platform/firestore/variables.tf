@@ -81,3 +81,8 @@ variable "project_iam_permissions" {
     "roles/appengine.appAdmin"
   ]
 }
+
+variable "gafaelfawr_sa" {
+  description = "Service Account used for workload identity to access filestore"
+  type        = string
+}
