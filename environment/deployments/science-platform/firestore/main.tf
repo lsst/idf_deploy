@@ -23,3 +23,9 @@ resource "google_app_engine_application" "app" {
   location_id   = "us-central"
   database_type = "CLOUD_FIRESTORE"
 }
+
+resource "google_service_account_iam_member" "gafaelfawr-iam-binding" {
+  service_account_id = "projects/${var.gafaelfawr_project_id}/serviceAccounts/${var.gafaelfawr_sa}"
+  role               = "roles/iam.datastore.user"
+  member             = "serviceAccount:${var.gafaelfawr_sa}"
+}

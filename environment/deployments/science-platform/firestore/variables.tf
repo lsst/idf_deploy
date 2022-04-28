@@ -81,3 +81,13 @@ variable "project_iam_permissions" {
     "roles/appengine.appAdmin"
   ]
 }
+
+variable "gafaelfawr_project_id" {
+  description = "Project ID for rsp dev project"
+  type        = string
+}
+
+variable "gafaelfawr_sa" {
+  description = "Service Account used for workload identity to access filestore"
+  type        = string
+}
