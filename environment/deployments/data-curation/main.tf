@@ -91,7 +91,7 @@ module "storage_bucket_2" {
   project_id  = module.project_factory.project_id
   storage_class = "REGIONAL"
   location   = "us-central1"
-  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations"]
+  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations", "dp02-user"]
   prefix_name = "butler"
   versioning = {
     dp01-dev  = true
@@ -99,6 +99,7 @@ module "storage_bucket_2" {
     dp01      = false
     dp01-desc-dr6 = true
     repo-locations = true
+    dp02-user = false
   }
   force_destroy = {
     dp01-dev  = true
@@ -106,6 +107,7 @@ module "storage_bucket_2" {
     dp01      = true
     dp01-desc-dr6 = true
     repo-locations = true
+    dp02-user = true
   }
   labels = {
     environment = var.environment
@@ -172,6 +174,13 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_panda_dev" {
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_repo_locations" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket = "butler-us-central1-repo-locations"
+  role   = each.value
+  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
+// RW storage access to DP 0.2 bucket for Butler
+resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp02_user" {
+  for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
+  bucket = "butler-us-central1-dp02-user"
   role   = each.value
   member = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
