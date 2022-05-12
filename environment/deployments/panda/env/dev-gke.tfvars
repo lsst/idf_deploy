@@ -100,7 +100,7 @@ node_pools_2 = [
     disk_type          = "pd-ssd"
     autoscaling        = true
     node_count         = 0
-    min_count          = 0
+    min_count          = 1
     max_count          = 1000
   },
   {
