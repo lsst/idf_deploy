@@ -19,7 +19,7 @@ module "iam_admin" {
   source                  = "../../../modules/iam"
   project                 = module.project_factory.project_id
   project_iam_permissions = var.project_iam_permissions
-  member                  = "gcp-${var.application_name}-administrators@lsst.cloud"  
+  member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
 module "service_account_cluster" {
@@ -65,18 +65,18 @@ module "nat" {
 
 // Storage Bucket
 module "storage_bucket" {
-  source      = "../../../modules/bucket"
-  project_id  = module.project_factory.project_id
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
-  location   = "us-central1"
-  suffix_name = ["desc-dc2-dr6", "desc-dc2-run22i"]
-  prefix_name = "curation"
+  location      = "us-central1"
+  suffix_name   = ["desc-dc2-dr6", "desc-dc2-run22i"]
+  prefix_name   = "curation"
   versioning = {
-    desc-dc2-dr6  = false
+    desc-dc2-dr6    = false
     desc-dc2-run22i = true
   }
   force_destroy = {
-    desc-dc2-dr6  = true
+    desc-dc2-dr6    = true
     desc-dc2-run22i = true
   }
   labels = {
@@ -87,31 +87,51 @@ module "storage_bucket" {
 
 // Storage Bucket
 module "storage_bucket_2" {
-  source      = "../../../modules/bucket"
-  project_id  = module.project_factory.project_id
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
-  location   = "us-central1"
-  suffix_name = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations", "dp02-user"]
-  prefix_name = "butler"
+  location      = "us-central1"
+  suffix_name   = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations", "dp02-user"]
+  prefix_name   = "butler"
   versioning = {
-    dp01-dev  = true
-    dp01-int  = true
-    dp01      = false
-    dp01-desc-dr6 = true
+    dp01-dev       = true
+    dp01-int       = true
+    dp01           = false
+    dp01-desc-dr6  = true
     repo-locations = true
-    dp02-user = false
+    dp02-user      = false
   }
   force_destroy = {
-    dp01-dev  = true
-    dp01-int  = true
-    dp01      = true
-    dp01-desc-dr6 = true
+    dp01-dev       = true
+    dp01-int       = true
+    dp01           = true
+    dp01-desc-dr6  = true
     repo-locations = true
-    dp02-user = true
+    dp02-user      = true
   }
   labels = {
     environment = var.environment
     application = var.application_name
+  }
+}
+
+// HIPS Storage Bucket
+module "storage_bucket_3" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = ["dev"]
+  prefix_name   = "hips"
+  versioning = {
+    hips-dev = false
+  }
+  force_destroy = {
+    hips-dev = false
+  }
+  labels = {
+    environment = var.environment
+    application = "hips"
   }
 }
 
@@ -133,9 +153,9 @@ module "data_curation_prod_accounts" {
 // RW storage access to DP 0.1 bucket for Butler
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
-  bucket = "butler-us-central1-dp01"
-  role   = each.value
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  bucket   = "butler-us-central1-dp01"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RO storage access to DESC DC2 Run22i bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dc2_run22i" {
@@ -152,35 +172,35 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dr6" {
 // RW storage access to the -dev Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_dev" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
-  bucket = "butler-us-central1-dp01-dev"
-  role   = each.value
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  bucket   = "butler-us-central1-dp01-dev"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RW storage access to the -int Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_int" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
-  bucket = "butler-us-central1-dp01-int"
-  role   = each.value
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  bucket   = "butler-us-central1-dp01-int"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RW storage access to panda-dev's Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_panda_dev" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
-  bucket = "butler-us-central1-panda-dev"
-  role   = each.value
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  bucket   = "butler-us-central1-panda-dev"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RW storage access to repo-locations Butler bucket 
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_repo_locations" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
-  bucket = "butler-us-central1-repo-locations"
-  role   = each.value
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  bucket   = "butler-us-central1-repo-locations"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RW storage access to DP 0.2 bucket for Butler
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp02_user" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
-  bucket = "butler-us-central1-dp02-user"
-  role   = each.value
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  bucket   = "butler-us-central1-dp02-user"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
