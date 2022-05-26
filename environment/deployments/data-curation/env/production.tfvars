@@ -54,8 +54,8 @@ custom_rules = {
 }
 
 # NAT
-address_count = 1
-nat_name      = "cloud-nat"
+address_count    = 1
+nat_name         = "cloud-nat"
 min_ports_per_vm = 4096
 
 project_iam_permissions = ["roles/storage.admin", "roles/storagetransfer.admin"]
@@ -63,5 +63,5 @@ project_iam_permissions = ["roles/storage.admin", "roles/storagetransfer.admin"]
 # Butler GCS Access Service Account
 data_curation_prod_names = ["butler-gcs-data-sa"]
 
-# Comment to force update
-
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
