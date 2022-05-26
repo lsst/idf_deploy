@@ -122,7 +122,7 @@ module "storage_bucket_3" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["dev"]
-  prefix_name   = "hips"
+  prefix_name   = "hips-vista"
   versioning = {
     hips-dev = false
   }
