@@ -134,6 +134,14 @@ module "storage_bucket_3" {
     application = "hips"
   }
 }
+// RO storage access to HiPS VISTA bucket
+resource "google_storage_bucket_iam_binding" "hips-vista-bucket-ro-iam-binding" {
+  bucket  = module.storage_bucket_3.name
+  role    = "roles/storage.objectViewer"
+  members = [
+    "serviceAccount:${var.hips_service_account}"
+  ]
+}
 
 #---------------------------------------------------------------
 // Data Curation Prod
