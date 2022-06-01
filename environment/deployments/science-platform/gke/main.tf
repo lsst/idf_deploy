@@ -65,22 +65,3 @@ module "gke" {
 
   node_pools_taints = var.node_pools_taints
 }
-
-module "service_accounts" {
-  source        = "terraform-google-modules/service-accounts/google"
-  version       = "~> 3.0"
-
-  project_id    = local.project_id
-  display_name  = "HiPS web service"
-  description   = "Terraform-managed service account for GCS access"
-  names         = ["crawlspace-hips"]
-}
-
-resource "google_service_account_iam_binding" "hips-iam-binding" {
-  service_account_id = module.service_accounts.service_accounts_map["crawlspace-hips"].name
-  role               = "roles/iam.workloadIdentityUser"
-
-  members = [
-    "serviceAccount:${local.project_id}.svc.id.goog[hips/hips]",
-  ]
-}
