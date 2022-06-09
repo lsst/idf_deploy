@@ -211,3 +211,10 @@ variable "data_curation_prod_names" {
   description = "Names of the service accounts to create."
   default     = []
 }
+
+// HiPS
+variable "hips_service_account" {
+  type        = string
+  description = "Service account used for HiPS Butler access"
+  default     = "crawlspace-hips@science-platform-dev-7696.iam.gserviceaccount.com"
+}

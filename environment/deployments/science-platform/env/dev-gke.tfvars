@@ -36,3 +36,6 @@ node_pools_labels = {
     jupyterlab = "ok"
   }
 }
+
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 2
