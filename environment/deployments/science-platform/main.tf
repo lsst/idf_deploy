@@ -33,6 +33,19 @@ resource "google_service_account_iam_member" "gar_sa_wi" {
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
 }
 
+resource "google_service_account" "hips_sa" {
+  account_id   = "crawlspace-hips"
+  display_name = "HiPS web service"
+  description  = "Terraform-managed service account for GCS access"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "hips_sa_wi" {
+  service_account_id = google_service_account.hips_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[hips/hips]"
+}
+
 module "filestore" {
   source             = "../../../modules/filestore"
   fileshare_capacity = var.fileshare_capacity
