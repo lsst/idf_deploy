@@ -42,6 +42,18 @@ module "service_account_cluster" {
   ]
 }
 
+module "service_account_panda" {
+  source     = "terraform-google-modules/service-accounts/google"
+  version    = "~> 2.0"
+  project_id = module.project_factory.project_id
+  prefix     = var.environment
+  names      = ["panda-harvester"]
+  project_roles = [
+    "${module.project_factory.project_id}=>roles/container.developer",
+  ]
+}
+
+
 module "firewall_1" {
   source = "../../../modules/firewall"
 
@@ -139,12 +151,12 @@ module "external_vm" {
 
 // Storage Bucket
 module "storage_bucket" {
-  source        = "../../../modules/bucket"
-  project_id    = module.project_factory.project_id
-  storage_class = "REGIONAL"
-  location      = "us-central1"
-  suffix_name   = ["logging", "containers"]
-  prefix_name   = "drp"
+  source             = "../../../modules/bucket"
+  project_id         = module.project_factory.project_id
+  storage_class      = "REGIONAL"
+  location           = "us-central1"
+  suffix_name        = ["logging", "containers"]
+  prefix_name        = "drp"
   bucket_policy_only = var.bucket_policy_only
   versioning = {
     logging    = true
