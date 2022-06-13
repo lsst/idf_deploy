@@ -115,7 +115,7 @@ module "storage_bucket_2" {
   }
 }
 
-// HIPS Storage Bucket
+// HiPS Storage Bucket (VISTA testing)
 module "storage_bucket_3" {
   source        = "../../../modules/bucket"
   project_id    = module.project_factory.project_id
@@ -138,9 +138,33 @@ module "storage_bucket_3" {
 resource "google_storage_bucket_iam_binding" "hips-vista-bucket-ro-iam-binding" {
   bucket  = module.storage_bucket_3.name
   role    = "roles/storage.objectViewer"
-  members = [
-    "serviceAccount:${var.hips_service_account}"
-  ]
+  members = var.hips_service_accounts
+}
+
+// HiPS Storage Bucket (DP0.2)
+module "storage_bucket_4" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = ["dp02-hips"]
+  prefix_name   = "static"
+  versioning = {
+    dp02-hips = false
+  }
+  force_destroy = {
+    dp02-hips = false
+  }
+  labels = {
+    environment = var.environment
+    application = "hips"
+  }
+}
+// RO storage access to HiPS VISTA bucket
+resource "google_storage_bucket_iam_binding" "dp02-hips-bucket-ro-iam-binding" {
+  bucket  = module.storage_bucket_4.name
+  role    = "roles/storage.objectViewer"
+  members = var.hips_service_accounts
 }
 
 #---------------------------------------------------------------
@@ -209,6 +233,13 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_repo_location
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp02_user" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp02-user"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
+// RW storage access to DP 0.2 HiPS bucket for Butler (temporary)
+resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp02_hips" {
+  for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
+  bucket   = "static-us-central1-dp02-hips"
   role     = each.value
   member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
