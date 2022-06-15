@@ -79,6 +79,31 @@ custom_rules_2 = {
   }
 }
 
+custom_rules_3 = {
+  operator-connectivity = {
+    description          = "Deployed with Terraform. QServ Operator Connectivity"
+    direction            = "INGRESS"
+    action               = "allow"
+    ranges               = ["172.23.0.0/28"]
+    sources              = []
+    targets              = ["gke-qserv-prod"]
+    use_service_accounts = false
+    rules = [
+      {
+        protocol = "tcp"
+        ports    = ["9443"]
+      }
+    ]
+
+    extra_attributes = {
+      disabled           = false
+      flow_logs          = false
+      flow_logs_metadata = ""
+    }
+  }
+}
+
+
 # NAT
 address_count = 1
 nat_name      = "cloud-nat"
