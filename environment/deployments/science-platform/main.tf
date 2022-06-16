@@ -21,6 +21,19 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
+resource "google_service_account" "datalinker_sa" {
+  account_id   = "datalinker"
+  display_name = "datalinker web service"
+  description  = "Terraform-managed service account for GCS access"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "datalinker_sa_wi" {
+  service_account_id = google_service_account.datalinker_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[datalinker/datalinker]"
+}
+
 resource "google_service_account" "gar_sa" {
   account_id   = "cachemachine-wi"
   display_name = "Created by Terraform"
