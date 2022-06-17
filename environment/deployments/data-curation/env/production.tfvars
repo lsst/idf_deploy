@@ -63,5 +63,12 @@ project_iam_permissions = ["roles/storage.admin", "roles/storagetransfer.admin"]
 # Butler GCS Access Service Account
 data_curation_prod_names = ["butler-gcs-data-sa"]
 
+# HiPS bucket access service accounts.
+hips_service_accounts = [
+  "serviceAccount:crawlspace-hips@science-platform-dev-7696.iam.gserviceaccount.com",
+  "serviceAccount:crawlspace-hips@science-platform-int-dc5d.iam.gserviceaccount.com",
+  "serviceAccount:crawlspace-hips@science-platform-stable-6994.iam.gserviceaccount.com"
+]
+
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 4
