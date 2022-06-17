@@ -216,8 +216,5 @@ variable "data_curation_prod_names" {
 variable "hips_service_accounts" {
   type        = list(string)
   description = "Service accounts used for HiPS Butler access"
-  default     = [
-    "serviceAccount:crawlspace-hips@science-platform-dev-7696.iam.gserviceaccount.com",
-    "serviceAccount:crawlspace-hips@science-platform-int-dc5d.iam.gserviceaccount.com"
-  ]
+  default     = []
 }
