@@ -2,7 +2,7 @@
 environment      = "dev"
 application_name = "panda"
 
-# VPC
+# VPC 
 network_name = "panda-dev-vpc"
 
 # GKE
