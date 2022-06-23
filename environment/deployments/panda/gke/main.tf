@@ -76,19 +76,20 @@ module "gke" {
   network                   = var.network_name
   subnetwork                = local.subnetwork
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block
-  release_channel           = var.release_channel_moderatemem
+  release_channel           = "REGULAR"
   node_pools                = var.node_pools
   network_policy            = var.network_policy
-  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
   cluster_autoscaling       = var.cluster_autoscaling_1
   default_max_pods_per_node = 15
-  maintenance_start_time    = "2020-04-24T00:00:00Z"
-  maintenance_end_time      = "2020-04-24T06:00:00Z"
-  maintenance_recurrence    = var.maintenance_recurrence_moderatemem
-  identity_namespace        = var.identity_namespace_moderatemem
-  node_metadata             = var.node_metadata_moderatemem
-  dns_cache                 = var.dns_cache_moderatemem
+  maintenance_start_time    = var.maintenance_start_time_weekly
+  maintenance_end_time      = var.maintenance_end_time_weekly
+  maintenance_recurrence    = var.maintenance_recurrence_weekly
+  identity_namespace        = null
+  node_metadata             = "UNSPECIFIED"
+  dns_cache                 = true
+  http_load_balancing       = false
 
   # Labels
   cluster_resource_labels = {
@@ -251,15 +252,19 @@ module "gke_dev" {
   network                = var.network_name
   subnetwork             = "subnet-us-central1-03"
   master_ipv4_cidr_block = var.master_ipv4_cidr_block_3
-  release_channel        = var.release_channel
+  release_channel        = "REGULAR"
   node_pools             = var.node_pools_dev
   network_policy         = var.network_policy
-  gce_pd_csi_driver      = var.gce_pd_csi_driver
+  gce_pd_csi_driver      = false
   cluster_telemetry_type = var.cluster_telemetry_type
   zones                  = var.zones
-  maintenance_start_time = var.maintenance_start_time
-  maintenance_end_time   = var.maintenance_end_time
-  maintenance_recurrence = var.maintenance_recurrence
+  maintenance_start_time = var.maintenance_start_time_weekly
+  maintenance_end_time   = var.maintenance_end_time_weekly
+  maintenance_recurrence = var.maintenance_recurrence_weekly
+  identity_namespace     = null
+  node_metadata          = "UNSPECIFIED"
+  dns_cache              = true
+  http_load_balancing    = false
 
   # Labels
   cluster_resource_labels = {
