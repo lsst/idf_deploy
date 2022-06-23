@@ -16,17 +16,6 @@ release_channel          = "RAPID"
 cluster_telemetry_type   = "SYSTEM_ONLY"
 max_pods_per_node        = "15"
 
-# ---- EXCEPTIONS TO DEFAULT VALUES ----- # 
-identity_namespace_highmem_non_preempt = null # do not deploy workload identity for cluster
-identity_namespace_moderatemem         = null # do not deploy workload identity for cluster
-node_metadata_highmem_non_preempt      = "UNSPECIFIED"
-node_metadata_moderatemem              = "UNSPECIFIED"
-dns_cache_highmem_non_preempt          = true
-dns_cache_moderatemem                  = true
-# RAPID does not provide logging for GCP Support
-release_channel_highmem_non_preempt = "REGULAR"
-release_channel_moderatemem         = "REGULAR"
-
 # ---- NODE POOLS ---- #
 node_pools = [
   {
@@ -224,4 +213,4 @@ node_pool_extra_mem_non_preempt_0 = [
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 1
+# Serial: 2
