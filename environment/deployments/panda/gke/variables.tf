@@ -66,16 +66,35 @@ variable "maintenance_start_time" {
   default     = "2020-01-01T05:00:00Z"
 }
 
+variable "maintenance_start_time_weekly" {
+  description = "Time window specified for daily maintenance operations in RFC3339 format"
+  type        = string
+  default     = "2020-04-24T00:00:00Z"
+}
+
 variable "maintenance_end_time" {
   description = "Time window specified for daily maintenance operations in RFC3339 format"
   type        = string
   default     = "2020-01-01T09:00:00Z"
 }
 
+variable "maintenance_end_time_weekly" {
+  description = "Time window specified for daily maintenance operations in RFC3339 format"
+  type        = string
+  default     = "2020-04-24T06:00:00Z"
+}
+
 variable "maintenance_recurrence" {
   description = "RFC 5545 RRULE for when maintenance windows occur"
   type        = string
   default     = "FREQ=DAILY"
+}
+
+variable "maintenance_recurrence_weekly" {
+  # Set maintenence for highmem-non-preempt cluster
+  description = "RFC 5545 RRULE for when maintenance windows occur"
+  type        = string
+  default     = "FREQ=WEEKLY;BYDAY=SA,SU"
 }
 
 variable "release_channel" {
