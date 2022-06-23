@@ -222,3 +222,6 @@ node_pool_extra_mem_non_preempt_0 = [
     max_count          = 200
   }
 ]
+
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
