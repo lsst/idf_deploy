@@ -121,16 +121,18 @@ module "gke_2" {
   release_channel           = "REGULAR"
   node_pools                = var.node_pools_2
   network_policy            = var.network_policy
-  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
   zones                     = var.zones
   cluster_autoscaling       = var.cluster_autoscaling_2
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = var.maintenance_start_time
-  maintenance_end_time      = var.maintenance_end_time
-  maintenance_recurrence    = var.maintenance_recurrence
+  maintenance_start_time    = var.maintenance_start_time_weekly
+  maintenance_end_time      = var.maintenance_end_time_weekly
+  maintenance_recurrence    = var.maintenance_recurrence_weekly
+  identity_namespace        = null
   node_metadata             = "UNSPECIFIED"
   dns_cache                 = true
+  http_load_balancing       = false
 
   # Labels
   cluster_resource_labels = {
@@ -161,20 +163,21 @@ module "gke_non_preemtible" {
   network                   = var.network_name
   subnetwork                = "subnet-us-central1-04"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_4
-  release_channel           = var.release_channel_highmem_non_preempt
+  release_channel           = "REGULAR"
   node_pools                = var.node_pools_non_preempt_0
   network_policy            = var.network_policy
-  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
   zones                     = var.zones
   cluster_autoscaling       = var.cluster_autoscaling_3
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = "2020-04-24T00:00:00Z"
-  maintenance_end_time      = "2020-04-24T06:00:00Z"
-  maintenance_recurrence    = var.maintenance_recurrence_highmem_non_preempt
-  identity_namespace        = var.identity_namespace_highmem_non_preempt
-  node_metadata             = var.node_metadata_highmem_non_preempt
-  dns_cache                 = var.dns_cache_highmem_non_preempt
+  maintenance_start_time    = var.maintenance_start_time_weekly
+  maintenance_end_time      = var.maintenance_end_time_weekly
+  maintenance_recurrence    = var.maintenance_recurrence_weekly
+  identity_namespace        = null
+  node_metadata             = "UNSPECIFIED"
+  dns_cache                 = true
+  http_load_balancing       = false
 
   # Labels
   cluster_resource_labels = {
@@ -204,17 +207,21 @@ module "gke_merge" {
   network                   = var.network_name
   subnetwork                = "subnet-us-central1-05"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_5
-  release_channel           = var.release_channel
+  release_channel           = "REGULAR"
   node_pools                = var.node_pools_merge_0
   network_policy            = var.network_policy
-  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
   zones                     = var.zones
   cluster_autoscaling       = var.cluster_autoscaling_4
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = var.maintenance_start_time
-  maintenance_end_time      = var.maintenance_end_time
-  maintenance_recurrence    = var.maintenance_recurrence
+  maintenance_start_time    = var.maintenance_start_time_weekly
+  maintenance_end_time      = var.maintenance_end_time_weekly
+  maintenance_recurrence    = var.maintenance_recurrence_weekly
+  identity_namespace        = null
+  node_metadata             = "UNSPECIFIED"
+  dns_cache                 = true
+  http_load_balancing       = false
 
   # Labels
   cluster_resource_labels = {
@@ -327,17 +334,21 @@ module "gke_extra_large_non_preempt" {
   network                   = var.network_name
   subnetwork                = "subnet-us-central1-07"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_7
-  release_channel           = var.release_channel
+  release_channel           = "REGULAR"
   node_pools                = var.node_pool_extra_mem_non_preempt_0
   network_policy            = var.network_policy
-  gce_pd_csi_driver         = var.gce_pd_csi_driver
+  gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
   zones                     = var.zones
   cluster_autoscaling       = var.cluster_autoscaling_7
   default_max_pods_per_node = var.max_pods_per_node
-  maintenance_start_time    = var.maintenance_start_time
-  maintenance_end_time      = var.maintenance_end_time
-  maintenance_recurrence    = var.maintenance_recurrence
+  maintenance_start_time    = var.maintenance_start_time_weekly
+  maintenance_end_time      = var.maintenance_end_time_weekly
+  maintenance_recurrence    = var.maintenance_recurrence_weekly
+  identity_namespace        = null
+  node_metadata             = "UNSPECIFIED"
+  dns_cache                 = true
+  http_load_balancing       = false
 
   # Labels
   cluster_resource_labels = {
