@@ -18,8 +18,7 @@ max_pods_per_node        = "15"
 
 # ---- EXCEPTIONS TO DEFAULT VALUES ----- # 
 identity_namespace_highmem_non_preempt = null # do not deploy workload identity for cluster
-identity_namespace_moderatemem         = null
-node_metadata_highmem_non_preempt      = "UNSPECIFIED"
+identity_namespace_moderatemem         = null # do not deploy workload identity for cluster
 node_metadata_moderatemem              = "UNSPECIFIED"
 dns_cache_highmem_non_preempt          = true
 dns_cache_moderatemem                  = true
