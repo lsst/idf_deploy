@@ -296,6 +296,7 @@ module "gke_extra_large" {
   identity_namespace        = null
   node_metadata             = "UNSPECIFIED"
   dns_cache                 = true
+  http_load_balancing       = false
 
   # Labels
   cluster_resource_labels = {
