@@ -122,37 +122,37 @@ variable "cluster_telemetry_type" {
 
 # NODE POOLS
 
-variable "node_pools" {
+variable "node_pools_moderatemem" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]
 }
 
-variable "node_pools_2" {
+variable "node_pools_highmem" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]
 }
 
-variable "node_pools_non_preempt_0" {
+variable "node_pools_highmem_non_preempt" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]
 }
 
-variable "node_pools_merge_0" {
+variable "node_pools_merge" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]
 }
 
-variable "node_pool_extra_mem_0" {
+variable "node_pool_extra_mem" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]
 }
 
-variable "node_pool_extra_mem_non_preempt_0" {
+variable "node_pool_extra_mem_non_preempt" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]

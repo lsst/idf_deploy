@@ -17,7 +17,7 @@ cluster_telemetry_type   = "SYSTEM_ONLY"
 max_pods_per_node        = "15"
 
 # ---- NODE POOLS ---- #
-node_pools = [
+node_pools_moderatemem = [
   {
     name               = "panda-low-mem-1-pool"
     machine_type       = "n2-standard-4"
@@ -74,7 +74,7 @@ node_pools = [
   }
 ]
 
-node_pools_2 = [
+node_pools_highmem = [
   {
     name               = "panda-high-mem-0-pool"
     machine_type       = "n2-custom-4-43008-ext"
@@ -91,6 +91,7 @@ node_pools_2 = [
     node_count         = 0
     min_count          = 1
     max_count          = 1000
+    service_account    = "tf-gke-highmem-951b@panda-dev-1a74.iam.gserviceaccount.com"
   },
   {
     name               = "panda-high-mem-1-pool"
@@ -108,10 +109,11 @@ node_pools_2 = [
     node_count         = 0
     min_count          = 0
     max_count          = 1000
+    service_account    = "tf-gke-highmem-951b@panda-dev-1a74.iam.gserviceaccount.com"
   }
 ]
 
-node_pools_non_preempt_0 = [
+node_pools_highmem_non_preempt = [
   {
     name               = "panda-high-mem-0-pool"
     machine_type       = "n2-custom-4-43008-ext"
@@ -132,7 +134,7 @@ node_pools_non_preempt_0 = [
   }
 ]
 
-node_pools_merge_0 = [
+node_pools_merge = [
   {
     name               = "node-pools-merge-0"
     machine_type       = "n2-standard-4"
@@ -149,6 +151,7 @@ node_pools_merge_0 = [
     node_count         = 1
     min_count          = 0
     max_count          = 10
+    service_account    = "tf-gke-merge-8dpe@panda-dev-1a74.iam.gserviceaccount.com"
   }
 ]
 
@@ -169,10 +172,11 @@ node_pools_dev = [
     node_count         = 0
     min_count          = 1
     max_count          = 5
+    service_account    = "tf-gke-developmentclus-4i60@panda-dev-1a74.iam.gserviceaccount.com"
   }
 ]
 
-node_pool_extra_mem_0 = [
+node_pool_extra_highmem = [
   {
     name               = "panda-extra-mem-1-pool"
     machine_type       = "n2-custom-2-240640-ext"
@@ -189,10 +193,11 @@ node_pool_extra_mem_0 = [
     node_count         = 0
     min_count          = 0
     max_count          = 200
+    service_account    = "tf-gke-extra-highmem-9uov@panda-dev-1a74.iam.gserviceaccount.com"
   }
 ]
 
-node_pool_extra_mem_non_preempt_0 = [
+node_pool_extra_mem_non_preempt = [
   {
     name               = "panda-extra-mem-non-preempt-pool"
     machine_type       = "n2-custom-2-240640-ext"
@@ -209,8 +214,9 @@ node_pool_extra_mem_non_preempt_0 = [
     node_count         = 0
     min_count          = 0
     max_count          = 200
+    service_account    = "tf-gke-extra-highmem-n-e2yj@panda-dev-1a74.iam.gserviceaccount.com"
   }
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 2
+# Serial: 3
