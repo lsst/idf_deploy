@@ -146,13 +146,13 @@ variable "node_pools_merge" {
   default     = [{}]
 }
 
-variable "node_pool_extra_mem" {
+variable "node_pools_extra_highmem" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]
 }
 
-variable "node_pool_extra_mem_non_preempt" {
+variable "node_pools_extra_highmem_non_preempt" {
   type        = list(map(string))
   description = "List of maps containing node pools"
   default     = [{}]

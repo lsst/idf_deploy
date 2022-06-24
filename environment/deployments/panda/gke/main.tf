@@ -301,7 +301,7 @@ module "gke_extra_large" {
   subnetwork                = "subnet-us-central1-06"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_6
   release_channel           = "REGULAR"
-  node_pools                = var.node_pool_extra_mem
+  node_pools                = var.node_pools_extra_highmem
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
@@ -346,7 +346,7 @@ module "gke_extra_large_non_preempt" {
   subnetwork                = "subnet-us-central1-07"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_7
   release_channel           = "REGULAR"
-  node_pools                = var.node_pool_extra_mem_non_preempt
+  node_pools                = var.node_pools_extra_highmem_non_preempt
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type

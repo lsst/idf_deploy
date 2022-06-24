@@ -176,7 +176,7 @@ node_pools_dev = [
   }
 ]
 
-node_pool_extra_highmem = [
+node_pools_extra_highmem = [
   {
     name               = "panda-extra-mem-1-pool"
     machine_type       = "n2-custom-2-240640-ext"
@@ -197,7 +197,7 @@ node_pool_extra_highmem = [
   }
 ]
 
-node_pool_extra_mem_non_preempt = [
+node_pools_extra_highmem_non_preempt = [
   {
     name               = "panda-extra-mem-non-preempt-pool"
     machine_type       = "n2-custom-2-240640-ext"
@@ -219,4 +219,4 @@ node_pool_extra_mem_non_preempt = [
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 3
+# Serial: 4
