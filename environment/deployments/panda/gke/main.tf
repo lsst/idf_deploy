@@ -66,6 +66,7 @@ locals {
   subnetwork_4 = data.google_compute_subnetwork.subnetwork_4.name
 }
 
+#moderatemem
 module "gke" {
   # This cluster has a different release channel than others
   source = "../../../../modules/gke"
@@ -77,7 +78,7 @@ module "gke" {
   subnetwork                = local.subnetwork
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block
   release_channel           = "REGULAR"
-  node_pools                = var.node_pools
+  node_pools                = var.node_pools_moderatemem
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
@@ -110,6 +111,7 @@ module "gke" {
   }
 }
 
+# highmem
 module "gke_2" {
   source = "../../../../modules/gke"
 
@@ -120,7 +122,7 @@ module "gke_2" {
   subnetwork                = local.subnetwork_2
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_2
   release_channel           = "REGULAR"
-  node_pools                = var.node_pools_2
+  node_pools                = var.node_pools_highmem
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
@@ -154,6 +156,7 @@ module "gke_2" {
   }
 }
 
+# highmem non preempt
 module "gke_non_preemtible" {
   # This cluster has a different release channel than others
   source = "../../../../modules/gke"
@@ -165,7 +168,7 @@ module "gke_non_preemtible" {
   subnetwork                = "subnet-us-central1-04"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_4
   release_channel           = "REGULAR"
-  node_pools                = var.node_pools_non_preempt_0
+  node_pools                = var.node_pools_highmem_non_preempt
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
@@ -199,6 +202,7 @@ module "gke_non_preemtible" {
   }
 }
 
+#merge
 module "gke_merge" {
   source = "../../../../modules/gke"
 
@@ -209,7 +213,7 @@ module "gke_merge" {
   subnetwork                = "subnet-us-central1-05"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_5
   release_channel           = "REGULAR"
-  node_pools                = var.node_pools_merge_0
+  node_pools                = var.node_pools_merge
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
@@ -243,6 +247,7 @@ module "gke_merge" {
   }
 }
 
+#development
 module "gke_dev" {
   source = "../../../../modules/gke"
 
@@ -285,6 +290,7 @@ module "gke_dev" {
   }
 }
 
+#extra highmem
 module "gke_extra_large" {
   source = "../../../../modules/gke"
 
@@ -295,7 +301,7 @@ module "gke_extra_large" {
   subnetwork                = "subnet-us-central1-06"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_6
   release_channel           = "REGULAR"
-  node_pools                = var.node_pool_extra_mem_0
+  node_pools                = var.node_pools_extra_highmem
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
@@ -329,7 +335,7 @@ module "gke_extra_large" {
   }
 }
 
-
+#extra highmem nonpreempt
 module "gke_extra_large_non_preempt" {
   source = "../../../../modules/gke"
 
@@ -340,7 +346,7 @@ module "gke_extra_large_non_preempt" {
   subnetwork                = "subnet-us-central1-07"
   master_ipv4_cidr_block    = var.master_ipv4_cidr_block_7
   release_channel           = "REGULAR"
-  node_pools                = var.node_pool_extra_mem_non_preempt_0
+  node_pools                = var.node_pools_extra_highmem_non_preempt
   network_policy            = var.network_policy
   gce_pd_csi_driver         = false
   cluster_telemetry_type    = var.cluster_telemetry_type
