@@ -15,7 +15,14 @@ module "private-postgres" {
   project_id          = var.project_id
   vpc_network         = var.network
   require_ssl         = var.butler_require_ssl
-  deletion_protection = false
+  deletion_protection = true
+
+  backup_configuration = {
+    enabled                        = var.backups_enabled
+    start_time                     = "09:00"
+    location                       = "us-central1"
+    point_in_time_recovery_enabled = true
+  }
 }
 
 resource "random_password" "gafaelfawr" {
@@ -141,8 +148,8 @@ locals {
 }
 
 module "service_accounts" {
-  source        = "terraform-google-modules/service-accounts/google"
-  version       = "~> 3.0"
+  source  = "terraform-google-modules/service-accounts/google"
+  version = "~> 3.0"
 
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
@@ -152,8 +159,8 @@ module "service_accounts" {
 }
 
 resource "google_storage_bucket_iam_binding" "cutouts-bucket-ro-iam-binding" {
-  bucket  = module.cutouts_bucket.name
-  role    = "roles/storage.objectViewer"
+  bucket = module.cutouts_bucket.name
+  role   = "roles/storage.objectViewer"
   members = [
     "serviceAccount:${local.cutout_service_account}",
     "serviceAccount:${var.butler_service_account}"
@@ -161,8 +168,8 @@ resource "google_storage_bucket_iam_binding" "cutouts-bucket-ro-iam-binding" {
 }
 
 resource "google_storage_bucket_iam_binding" "cutouts-bucket-rw-iam-binding" {
-  bucket  = module.cutouts_bucket.name
-  role    = "roles/storage.objectCreator"
+  bucket = module.cutouts_bucket.name
+  role   = "roles/storage.objectCreator"
   members = [
     "serviceAccount:${var.butler_service_account}"
   ]
