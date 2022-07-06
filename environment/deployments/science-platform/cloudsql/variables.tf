@@ -51,6 +51,12 @@ variable "butler_require_ssl" {
   default     = true
 }
 
+variable "butler_ipv4_enabled" {
+  type        = bool
+  description = "True if enabling public IP on database"
+  default     = false
+}
+
 variable "database_tier" {
   description = "The tier for general database"
   type        = string
