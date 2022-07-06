@@ -14,6 +14,7 @@ module "private-postgres" {
   project_roles       = ["${var.project_id}=>roles/cloudsql.client"]
   project_id          = var.project_id
   vpc_network         = var.network
+  ipv4_enabled        = var.butler_ipv4_enabled
   require_ssl         = var.butler_require_ssl
   deletion_protection = true
 
