@@ -11,6 +11,7 @@ butler_database_flags = [
   { name = "password_encryption", value = "scram-sha-256" }
 ]
 butler_database_version = "POSTGRES_13"
+butler_ipv4_enabled     = true
 
 # General database
 db_maintenance_window_day  = 2
@@ -18,4 +19,4 @@ db_maintenance_window_hour = 22
 backups_enabled            = true
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 4
+# Serial: 5
