@@ -19,7 +19,7 @@ module "iam_admin" {
 }
 
 resource "google_project_iam_member" "gafaelfawr-iam-binding" {
-  project = var.gafaelfawr_project_id
+  project = module.project_factory.project_id
   role    = "roles/datastore.user"
   member  = "serviceAccount:${var.gafaelfawr_sa}"
 }
