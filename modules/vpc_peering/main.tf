@@ -5,7 +5,7 @@ locals {
 
 resource "google_compute_network_peering" "local_network_peering" {
   provider             = google-beta
-  name                 = "${var.prefix}-${local.local_network_name}-${local.peer_network_name}"
+  name                 = var.peer_name == "" ? "${var.prefix}-${local.local_network_name}-${local.peer_network_name}" : var.peer_name
   network              = var.local_network
   peer_network         = var.peer_network
   export_custom_routes = var.export_local_custom_routes
@@ -16,7 +16,7 @@ resource "google_compute_network_peering" "local_network_peering" {
 
 resource "google_compute_network_peering" "peer_network_peering" {
   provider             = google-beta
-  name                 = "${var.prefix}-${local.peer_network_name}-${local.local_network_name}"
+  name                 = var.peer_name == "" ? "${var.prefix}-${local.peer_network_name}-${local.local_network_name}" : var.peer_name
   network              = var.peer_network
   peer_network         = var.local_network
   export_custom_routes = var.export_peer_custom_routes
