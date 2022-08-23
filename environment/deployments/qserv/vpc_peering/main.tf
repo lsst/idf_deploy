@@ -60,26 +60,26 @@ module "peering-2" {
 }
 
 
-module "peering-3" {
-  # qserv-int <-> rsp-dev
-  source = "../../../../modules/vpc_peering"
+# module "peering-3" {
+#   # qserv-int <-> rsp-dev
+#   source = "../../../../modules/vpc_peering"
 
-  local_network = data.google_compute_network.local_network.self_link
-  peer_network  = data.google_compute_network.remote2_peer_project.self_link
-  peer_name     = "vpc-peer-qserv-int-to-rsp-dev"
+#   local_network = data.google_compute_network.local_network.self_link
+#   peer_network  = data.google_compute_network.remote2_peer_project.self_link
+#   peer_name     = "vpc-peer-qserv-int-to-rsp-dev"
 
-  export_local_custom_routes = true
-}
+#   export_local_custom_routes = true
+# }
 
-module "peering-4" {
-  # rsp-dev <-> qserv-int
-  source = "../../../../modules/vpc_peering"
+# module "peering-4" {
+#   # rsp-dev <-> qserv-int
+#   source = "../../../../modules/vpc_peering"
 
-  local_network = data.google_compute_network.remote2_peer_project.self_link
-  peer_network  = data.google_compute_network.local_network.self_link
-  peer_name     = "vpc-peer-rsp-dev-to-qserv-int"
+#   local_network = data.google_compute_network.remote2_peer_project.self_link
+#   peer_network  = data.google_compute_network.local_network.self_link
+#   peer_name     = "vpc-peer-rsp-dev-to-qserv-int"
 
-  export_local_custom_routes = true
+#   export_local_custom_routes = true
 
-  module_depends_on = [module.peering-3.complete]
-}
+#   module_depends_on = [module.peering-3.complete]
+# }
