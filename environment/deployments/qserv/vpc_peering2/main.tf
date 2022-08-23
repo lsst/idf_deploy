@@ -38,16 +38,3 @@ module "peering-1" {
 
   export_local_custom_routes = true
 }
-
-# module "peering-2" {
-#   # rsp-dev <-> qserv-int
-#   source = "../../../../modules/vpc_peering"
-
-#   local_network = data.google_compute_network.remote_peer_project.self_link
-#   peer_network  = data.google_compute_network.local_network.self_link
-#   peer_name     = "vpc-peer-rsp-dev-to-qserv-int"
-
-#   export_local_custom_routes = true
-
-#   module_depends_on = [module.peering-1.complete]
-# }
