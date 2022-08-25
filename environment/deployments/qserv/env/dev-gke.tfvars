@@ -28,7 +28,7 @@ node_pools = [
   },
   {
     name               = "worker-pool"
-    machine_type       = "n2-standard-16"
+    machine_type       = "n2-highmem-16"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true
