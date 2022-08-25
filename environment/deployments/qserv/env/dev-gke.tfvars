@@ -6,7 +6,7 @@ application_name        = "qserv"
 network_name            = "qserv-dev-vpc"
 
 
-# GKE
+# GKE 
 master_ipv4_cidr_block = "172.20.0.0/28"
 release_channel = "RAPID"
 cluster_telemetry_type = "SYSTEM_ONLY"
