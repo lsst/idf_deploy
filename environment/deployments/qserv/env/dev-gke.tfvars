@@ -6,7 +6,7 @@ application_name        = "qserv"
 network_name            = "qserv-dev-vpc"
 
 
-# GKE
+# GKE  
 master_ipv4_cidr_block = "172.20.0.0/28"
 release_channel = "RAPID"
 cluster_telemetry_type = "SYSTEM_ONLY"
@@ -28,7 +28,7 @@ node_pools = [
   },
   {
     name               = "worker-pool"
-    machine_type       = "n2-standard-16"
+    machine_type       = "n2-standard-32"
     node_locations     = "us-central1-c"
     local_ssd_count    = 0
     auto_repair        = true

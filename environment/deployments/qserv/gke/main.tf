@@ -41,6 +41,10 @@ module "gke" {
   network_policy         = var.network_policy
   gce_pd_csi_driver      = var.gce_pd_csi_driver
   cluster_telemetry_type = var.cluster_telemetry_type
+  maintenance_start_time = var.maintenance_start_time
+  maintenance_end_time   = var.maintenance_end_time
+  maintenance_recurrence = var.maintenance_recurrence
+
 
   # Labels
   cluster_resource_labels = {
