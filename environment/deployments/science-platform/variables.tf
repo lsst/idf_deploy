@@ -40,7 +40,7 @@ variable "environment" {
   type        = string
 }
 
-variable "enable_sqlproxy_butler_int " {
+variable "enable_sqlproxy_butler_int" {
   description = "Toggle this to enable sqlproxy SA creation for butler int"
   type        = bool
   default     = false
