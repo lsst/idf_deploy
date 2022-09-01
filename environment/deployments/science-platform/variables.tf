@@ -40,12 +40,6 @@ variable "environment" {
   type        = string
 }
 
-variable "enable_sqlproxy_butler_int" {
-  description = "Toggle this to enable sqlproxy SA creation for butler int"
-  type        = bool
-  default     = false
-}
-
 variable "default_service_account" {
   description = "Project default service account setting: can be one of delete, deprivilege, disable, or keep."
   default     = "keep"

@@ -28,8 +28,6 @@ secondary_ranges = {
   ]
 }
 
-enable_sqlproxy_butler_int = true
-
 # GKE
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
