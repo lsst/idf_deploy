@@ -62,7 +62,7 @@ resource "google_service_account_iam_member" "hips_sa_wi" {
 
 resource "google_service_account" "sqlproxy_butler_int_sa" {
   count        = var.enable_sqlproxy_butler_int ? 1 : 0
-  account_id   = "sqlproxy_butler_int"
+  account_id   = "sqlproxy-butler-int"
   display_name = "Created by Terraform"
   project      = module.project_factory.project_id
 }
