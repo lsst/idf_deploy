@@ -40,6 +40,7 @@ resource "google_service_account" "gar_sa" {
   project      = module.project_factory.project_id
 }
 
+
 resource "google_service_account_iam_member" "gar_sa_wi" {
   service_account_id = google_service_account.gar_sa.name
   role               = "roles/iam.workloadIdentityUser"
@@ -57,6 +58,20 @@ resource "google_service_account_iam_member" "hips_sa_wi" {
   service_account_id = google_service_account.hips_sa.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[hips/hips]"
+}
+
+resource "google_service_account" "sqlproxy_butler_int_sa" {
+  count        = var.enable_sqlproxy_butler_int ? 1 : 0
+  account_id   = "sqlproxy_butler_int"
+  display_name = "Created by Terraform"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "sqlproxy_butler_int_sa" {
+  count              = var.enable_sqlproxy_butler_int ? 1 : 0
+  service_account_id = google_service_account.sqlproxy_butler_int_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-butler-int/sqlproxy-butler-int]"
 }
 
 module "filestore" {

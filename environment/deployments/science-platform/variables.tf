@@ -40,6 +40,12 @@ variable "environment" {
   type        = string
 }
 
+variable "enable_sqlproxy_butler_int " {
+  description = "Toggle this to enable sqlproxy SA creation for butler int"
+  type        = bool
+  default     = false
+}
+
 variable "skip_gcloud_download" {
   description = "Whether to skip downloading gcloud (assumes gcloud is already available outside the module)"
   default     = true
