@@ -1,7 +1,7 @@
 module "project" {
   source = "terraform-google-modules/project-factory/google"
 
-  version                 = "~> 11.0"
+  version                 = "~> 10.0"
   random_project_id       = var.random_project_id
   activate_apis           = var.activate_apis
   name                    = var.project_prefix
