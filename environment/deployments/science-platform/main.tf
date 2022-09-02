@@ -67,12 +67,12 @@ resource "google_service_account" "sqlproxy_butler_int_sa" {
   project      = module.project_factory.project_id
 }
 
-#resource "google_service_account_iam_member" "sqlproxy_butler_int_sa" {
-#  count              = var.environment == "dev" ? 1 : 0
-#  service_account_id = google_service_account.sqlproxy_butler_int_sa.name
-#  role               = "roles/iam.workloadIdentityUser"
-#  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-butler-int/sqlproxy-butler-int]"
-#}
+resource "google_service_account_iam_member" "sqlproxy_butler_int_sa" {
+  count              = var.environment == "dev" ? 1 : 0
+  service_account_id = google_service_account.sqlproxy_butler_int_sa[count.index].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-butler-int/sqlproxy-butler-int]"
+}
 
 module "filestore" {
   source             = "../../../modules/filestore"
