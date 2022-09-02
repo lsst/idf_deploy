@@ -40,11 +40,6 @@ variable "environment" {
   type        = string
 }
 
-variable "skip_gcloud_download" {
-  description = "Whether to skip downloading gcloud (assumes gcloud is already available outside the module)"
-  default     = true
-}
-
 variable "default_service_account" {
   description = "Project default service account setting: can be one of delete, deprivilege, disable, or keep."
   default     = "keep"

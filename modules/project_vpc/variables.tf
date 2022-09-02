@@ -20,7 +20,7 @@ variable "project_prefix" {
 
 variable "random_project_id" {
   description = "Append a random 4 digit number to the end of the project"
-  default = "true"
+  default     = "true"
 }
 
 # variable "cost_centre" {
@@ -42,11 +42,6 @@ variable "activate_apis" {
 variable "environment" {
   description = "The environment the single project belongs to"
   type        = string
-}
-
-variable "skip_gcloud_download" {
-  description = "Whether to skip downloading gcloud (assumes gcloud is already available outside the module)"
-  default     = true
 }
 
 variable "default_service_account" {
@@ -102,7 +97,7 @@ variable "subnets" {
   }, ]
 }
 
-variable secondary_ranges {
+variable "secondary_ranges" {
   description = "Secondary ranges that will be used in some of the subnets"
   default = {
     subnet-01 = [
