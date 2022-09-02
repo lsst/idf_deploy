@@ -69,7 +69,7 @@ resource "google_service_account" "sqlproxy_butler_int_sa" {
 
 resource "google_service_account_iam_member" "sqlproxy_butler_int_sa" {
   count              = var.environment == "dev" ? 1 : 0
-  service_account_id = google_service_account.sqlproxy_butler_int_sa.name
+  service_account_id = google_service_account.sqlproxy_butler_int_sa[count_index].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-butler-int/sqlproxy-butler-int]"
 }
