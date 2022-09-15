@@ -62,7 +62,7 @@ resource "google_service_account_iam_member" "hips_sa_wi" {
 
 resource "google_service_account" "sqlproxy_butler_int_sa" {
   count        = var.environment == "dev" ? 1 : 0
-  account_id   = "sqlproxy-butler-int"
+  account_id   = "sqlproxy-cross-project"
   display_name = "Created by Terraform"
   project      = module.project_factory.project_id
 }
@@ -71,7 +71,7 @@ resource "google_service_account_iam_member" "sqlproxy_butler_int_sa" {
   count              = var.environment == "dev" ? 1 : 0
   service_account_id = google_service_account.sqlproxy_butler_int_sa[count.index].name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-butler-int/sqlproxy-butler-int]"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-cross-project/sqlproxy-cross-project]"
 }
 
 module "filestore" {
