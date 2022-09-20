@@ -61,17 +61,18 @@ module "firewall_3" {
 module "nat" {
   source = "../../../modules/cloud_nat"
 
-  project_id        = module.project_factory.project_id
-  region            = var.default_region
-  network           = module.project_factory.network_name
-  router_name       = var.router_name
-  address_count     = var.address_count
-  address_name      = var.address_name
-  address_type      = var.address_type
-  nat_name          = "${var.application_name}-${var.environment}-cloud-nat"
-  log_config_enable = var.log_config_enable
-  log_config_filter = var.log_config_filter
-  min_ports_per_vm  = var.min_ports_per_vm
+  project_id                          = module.project_factory.project_id
+  region                              = var.default_region
+  network                             = module.project_factory.network_name
+  router_name                         = var.router_name
+  address_count                       = var.address_count
+  address_name                        = var.address_name
+  address_type                        = var.address_type
+  nat_name                            = "${var.application_name}-${var.environment}-cloud-nat"
+  log_config_enable                   = var.log_config_enable
+  log_config_filter                   = var.log_config_filter
+  min_ports_per_vm                    = var.min_ports_per_vm
+  enable_endpoint_independent_mapping = var.enable_endpoint_independent_mapping
   address_labels = {
     application_name = var.application_name
     environment      = var.environment
