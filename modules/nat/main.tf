@@ -1,6 +1,6 @@
 module "cloud_router" {
   source  = "terraform-google-modules/cloud-router/google"
-  version = "~> 0.4"
+  version = "~> 0.3"
 
   name    = var.name
   project = var.project
