@@ -104,5 +104,9 @@ custom_rules_3 = {
 
 
 # NAT
-address_count = 1
-nat_name      = "cloud-nat"
+address_count                       = 3
+nat_name                            = "cloud-nat"
+enable_endpoint_independent_mapping = false
+
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 3

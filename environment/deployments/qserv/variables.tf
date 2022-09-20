@@ -243,3 +243,9 @@ variable "min_ports_per_vm" {
   type        = string
   default     = "64"
 }
+
+variable "enable_endpoint_independent_mapping" {
+  description = "Enables or disables endpoint independent mapping"
+  type        = bool
+  default     = false
+}

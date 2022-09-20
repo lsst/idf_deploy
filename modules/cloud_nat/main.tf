@@ -23,14 +23,15 @@ resource "google_compute_address" "external_addresses" {
 
 // Create Cloud NAT
 resource "google_compute_router_nat" "default_nat" {
-  name                               = var.nat_name
-  project                            = var.project_id
-  router                             = google_compute_router.default_router.name
-  region                             = var.region
-  nat_ip_allocate_option             = var.nat_ip_allocate_option
-  nat_ips                            = google_compute_address.external_addresses.*.self_link
-  source_subnetwork_ip_ranges_to_nat = var.source_subnetwork_ip_ranges_to_nat
-  min_ports_per_vm                   = var.min_ports_per_vm
+  name                                = var.nat_name
+  project                             = var.project_id
+  router                              = google_compute_router.default_router.name
+  region                              = var.region
+  nat_ip_allocate_option              = var.nat_ip_allocate_option
+  nat_ips                             = google_compute_address.external_addresses.*.self_link
+  source_subnetwork_ip_ranges_to_nat  = var.source_subnetwork_ip_ranges_to_nat
+  min_ports_per_vm                    = var.min_ports_per_vm
+  enable_endpoint_independent_mapping = var.enable_endpoint_independent_mapping
 
   log_config {
     filter = var.log_config_filter
