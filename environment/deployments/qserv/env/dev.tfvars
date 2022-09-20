@@ -108,3 +108,5 @@ address_count                       = 3
 nat_name                            = "cloud-nat"
 enable_endpoint_independent_mapping = false
 
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
