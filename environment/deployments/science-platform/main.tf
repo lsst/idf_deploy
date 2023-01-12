@@ -40,11 +40,22 @@ resource "google_service_account" "gar_sa" {
   project      = module.project_factory.project_id
 }
 
-
 resource "google_service_account_iam_member" "gar_sa_wi" {
   service_account_id = google_service_account.gar_sa.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
+}
+
+resource "google_service_account" "dns_validator_sa" {
+  account_id   = "dns-validator-wi"
+  display_name = "Created by Terraform"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "dns_validator_sa_wi" {
+  service_account_id = google_service_account.dns_validator_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[linters/linters]"
 }
 
 resource "google_service_account" "hips_sa" {
