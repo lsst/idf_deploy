@@ -61,7 +61,7 @@ resource "google_service_account_iam_member" "dns_validator_sa_wi" {
 resource "google_service_account_iam_member" "dns_validator_sa_dns" {
   service_account_id = google_service_account.dns_validator_sa.name
   role               = "roles/compute.viewer"
-  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[linters/linters]"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog"
 }
 
 resource "google_service_account" "hips_sa" {
