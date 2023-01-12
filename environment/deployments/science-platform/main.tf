@@ -58,9 +58,9 @@ resource "google_service_account_iam_member" "dns_validator_sa_wi" {
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[linters/linters]"
 }
 
-resource "google_service_account_iam_member" "dns_validator_sa_wi" {
+resource "google_service_account_iam_member" "dns_validator_sa_dns" {
   service_account_id = google_service_account.dns_validator_sa.name
-  role               = "roles/compute.addresses.list"
+  role               = "roles/compute.viewer"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[linters/linters]"
 }
 
