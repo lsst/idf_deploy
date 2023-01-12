@@ -58,6 +58,12 @@ resource "google_service_account_iam_member" "dns_validator_sa_wi" {
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[linters/linters]"
 }
 
+resource "google_service_account_iam_member" "dns_validator_sa_wi" {
+  service_account_id = google_service_account.dns_validator_sa.name
+  role               = "roles/compute.addresses.list"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[linters/linters]"
+}
+
 resource "google_service_account" "hips_sa" {
   account_id   = "crawlspace-hips"
   display_name = "HiPS web service"
