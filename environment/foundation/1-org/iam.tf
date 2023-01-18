@@ -60,3 +60,8 @@ resource "google_organization_iam_member" "org_cloudsql_admins" {
   role     = each.value
   member   = "group:${module.constants.values.groups.cloudsql_admins}"
 }
+  
+ resource "google_organization_iam_member" "dns_validator_sa" {
+   org_id   = module.constants.values.org_id
+   role     = "roles/compute.viewer"
+   member   = "serviceAccount:dns-validator-wi@science-platform-int-dc5d.iam.gserviceaccount.com"
