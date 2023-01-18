@@ -13,7 +13,6 @@ module "org_monitoring" {
   folder_id               = var.seed_folder_name
   activate_apis           = var.activate_apis_monitoring_project
   auto_create_network     = var.auto_create_network
-  skip_gcloud_download    = var.skip_gcloud_download
   default_service_account = var.default_service_account
   domain                  = module.constants.values.domain
   labels = {
@@ -41,7 +40,6 @@ module "org_data_access" {
   folder_id               = var.seed_folder_name
   activate_apis           = var.activate_apis_data_access_project
   auto_create_network     = var.auto_create_network
-  skip_gcloud_download    = var.skip_gcloud_download
   default_service_account = var.default_service_account
   domain                  = module.constants.values.domain
   labels = {
@@ -70,7 +68,6 @@ module "org_audit_logs" {
   folder_id               = var.seed_folder_name
   activate_apis           = var.activate_apis_audit_log_project
   auto_create_network     = var.auto_create_network
-  skip_gcloud_download    = var.skip_gcloud_download
   default_service_account = var.default_service_account
   domain                  = module.constants.values.domain
   labels = {
@@ -99,7 +96,6 @@ module "org_billing_logs" {
   folder_id               = var.seed_folder_name
   activate_apis           = var.activate_apis_billing_project
   auto_create_network     = var.auto_create_network
-  skip_gcloud_download    = var.skip_gcloud_download
   default_service_account = var.default_service_account
   domain                  = module.constants.values.domain
   labels = {
@@ -128,7 +124,6 @@ module "org_shared_services" {
   folder_id               = var.seed_folder_name
   activate_apis           = var.activate_apis_shared_services_project
   auto_create_network     = var.auto_create_network
-  skip_gcloud_download    = var.skip_gcloud_download
   default_service_account = var.default_service_account
   domain                  = module.constants.values.domain
 
