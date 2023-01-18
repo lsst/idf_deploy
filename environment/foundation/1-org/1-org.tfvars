@@ -115,7 +115,6 @@ random_project_id             = true
 auto_create_network           = false
 default_service_account       = "depriviledge"
 label_environment             = "prod"
-skip_gcloud_download          = true
 
 // Billing Project Variables
 
