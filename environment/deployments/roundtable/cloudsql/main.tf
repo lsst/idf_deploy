@@ -11,7 +11,7 @@ data "google_compute_network" "network" {
 }
 
 module "db_roundtable" {
-  source = "../../../../modules/cloudsql/postgres-sql"
+  source = "../../../../modules/cloudsql/postgres-private_50"
 
   authorized_networks             = []
   database_version                = var.database_version
@@ -22,11 +22,14 @@ module "db_roundtable" {
   maintenance_window_day          = var.db_maintenance_window_day
   maintenance_window_hour         = var.db_maintenance_window_hour
   maintenance_window_update_track = var.db_maintenance_window_update_track
+  project_roles                   = ["${var.project_id}=>roles/cloudsql.client"]
+  names                           = ["service-account"]
   project_id                      = var.project_id
   random_instance_name            = true
   ipv4_enabled                    = false
-  private_network                 = data.google_compute_network.network.self_link
+  vpc_network                     = data.google_compute_network.network.name
   tier                            = var.database_tier
+  insights_config                 = var.insights_config
 
   backup_configuration = {
     enabled                        = var.backups_enabled
