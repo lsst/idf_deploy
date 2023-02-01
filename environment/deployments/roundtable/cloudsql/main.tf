@@ -11,7 +11,7 @@ data "google_compute_network" "network" {
 }
 
 module "db_roundtable" {
-  source = "../../../../modules/cloudsql/postgres-sql"
+  source = "../../../../modules/cloudsql/postgres-private_50"
 
   authorized_networks             = []
   database_version                = var.database_version
@@ -27,6 +27,7 @@ module "db_roundtable" {
   ipv4_enabled                    = false
   private_network                 = data.google_compute_network.network.self_link
   tier                            = var.database_tier
+  insights_config                 = var.insights_config
 
   backup_configuration = {
     enabled                        = var.backups_enabled
