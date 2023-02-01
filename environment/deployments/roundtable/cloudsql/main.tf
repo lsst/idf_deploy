@@ -25,7 +25,7 @@ module "db_roundtable" {
   project_id                      = var.project_id
   random_instance_name            = true
   ipv4_enabled                    = false
-  private_network                 = data.google_compute_network.network.self_link
+  vpc_network                     = data.google_compute_network.network.self_link
   tier                            = var.database_tier
   insights_config                 = var.insights_config
 
