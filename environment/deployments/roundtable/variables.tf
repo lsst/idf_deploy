@@ -144,6 +144,31 @@ variable "custom_rules" {
   }))
 }
 
+# NAT
+
+variable "num_static_ips" {
+  description = "The total number of static IPs to reserve."
+  type        = number
+  default     = 1
+}
+
+variable "nats" {
+  description = "NATs to deploy on this router."
+  type        = any
+  default     = []
+  /*
+  default = [{
+      name = "example-nat"
+  }]
+  */
+}
+
+variable "router_name" {
+  type        = string
+  description = "Name of the router"
+  default     = "cloud-router"
+}
+
 # STATIC IP RESERVATION
 
 variable "static_ip_name" {
