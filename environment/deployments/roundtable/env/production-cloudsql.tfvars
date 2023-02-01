@@ -1,7 +1,7 @@
 # Project
 environment      = "prod"
 application_name = "roundtable"
-project_id       = "" # FIXME
+project_id       = "roundtable-prod-f6fd"
 
 # General database
 db_maintenance_window_day  = 4
