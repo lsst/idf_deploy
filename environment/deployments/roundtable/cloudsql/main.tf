@@ -10,7 +10,7 @@ data "google_compute_network" "network" {
   project = var.project_id
 }
 
-module "db_science_platform" {
+module "db_roundtable" {
   source = "../../../../modules/cloudsql/postgres-sql"
 
   authorized_networks             = []
