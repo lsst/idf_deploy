@@ -10,4 +10,4 @@ db_maintenance_window_update_track = "canary"
 backups_enabled                    = true
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 1
+# Serial: 2
