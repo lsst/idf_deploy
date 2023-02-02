@@ -40,6 +40,13 @@ module "firewall_cert_manager" {
   custom_rules = var.custom_rules
 }
 
+// Reserve a public IP for ingress
+resource "google_compute_address" "external_ip_address" {
+  name    = "public-ip"
+  region  = var.default_region
+  project = module.project_factory.project_id
+}
+
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
   count        = var.num_static_ips
