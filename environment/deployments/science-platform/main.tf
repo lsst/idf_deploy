@@ -46,6 +46,18 @@ resource "google_service_account_iam_member" "gar_sa_wi" {
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[cachemachine/cachemachine]"
 }
 
+resource "google_service_account" "nublado_gar_sa" {
+  account_id   = "nublado-controller"
+  display_name = "Terraform-managed service account for GAR access"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "nublado_gar_sa_wi" {
+  service_account_id = google_service_account.nublado_gar_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[nublado/nublado-controller]"
+}
+
 resource "google_service_account" "dns_validator_sa" {
   account_id   = "dns-validator-wi"
   display_name = "Created by Terraform"
