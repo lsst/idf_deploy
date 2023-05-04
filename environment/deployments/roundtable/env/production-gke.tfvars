@@ -68,12 +68,6 @@ node_pools_labels = {
   core-pool = {
     infrastructure = "ok",
   }
-  kafka-pool = {
-    kafka = "ok",
-  },
-  kafka-pool = {
-    zookeeper = "ok",
-  }
 }
 
 node_pools_taints = {
