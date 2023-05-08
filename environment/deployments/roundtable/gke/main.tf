@@ -60,7 +60,9 @@ module "gke" {
       environment      = var.environment
       project          = local.project_id
       application_name = var.application_name
-    }
+    },
+    kafka-pool = var.node_pools_labels.kafka-pool,
+    zookeeper-pool = var.node_pools_labels.zookeeper-pool,
   }
 
   node_pools_taints = var.node_pools_taints
