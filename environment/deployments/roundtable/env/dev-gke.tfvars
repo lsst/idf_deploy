@@ -65,8 +65,12 @@ node_pools = [
 ]
 
 node_pools_labels = {
-  core-pool = {
-    infrastructure = "ok",
+  core-pool = {},
+  kafka-pool = {
+    "roundtable.lsst.cloud/pool" = "kafka"
+  },
+  zookeeper-pool = {
+    "roundtable.lsst.cloud/pool" = "zookeeper"
   }
 }
 
@@ -88,4 +92,4 @@ node_pools_taints = {
 }
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 2
+# Serial: 3
