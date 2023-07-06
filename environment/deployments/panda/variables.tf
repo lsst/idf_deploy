@@ -103,7 +103,7 @@ variable "cross_project_service_accounts" {
   description = "Service account granted database access"
   type        = list(string)
   default     = [
-    "sqlproxy-butler-int@science-platform-dev-7696.iam.gserviceaccount.com"
+    "serviceAccount:sqlproxy-butler-int@science-platform-dev-7696.iam.gserviceaccount.com"
   ]
 }
 
