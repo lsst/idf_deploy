@@ -29,7 +29,7 @@ data "google_compute_network" "remote_peer_project" {
 #   VPC PEERING
 # ----------------------------------------
 module "peering-1" {
-  # qserv-prod <-> rsp-dev
+  # qserv <-> rsp
   source = "../../../../modules/vpc_peering"
 
   local_network = data.google_compute_network.local_network.self_link
