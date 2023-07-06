@@ -99,6 +99,14 @@ variable "project_iam_sa_gcs_access" {
   default     = []
 }
 
+variable "cross_project_service_accounts" {
+  description = "Service account granted database access"
+  type        = list(string)
+  default     = [
+    "sqlproxy-butler-int@science-platform-dev-7696.iam.gserviceaccount.com"
+  ]
+}
+
 # VPC
 
 variable "network_name" {

@@ -31,6 +31,13 @@ resource "google_project_iam_member" "sa-gcs-access" {
   member   = "serviceAccount:gcs-access@panda-dev-1a74.iam.gserviceaccount.com"
 }
 
+// Grant access to the service account used in data-dev.lsst.cloud to
+// access the Butler repository database.
+resource "google_project_iam_binding" "data-dev-iam-binding" {
+  role    = "roles/cloudsql.client"
+  members = var.cross_project_service_accounts
+}
+
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"
