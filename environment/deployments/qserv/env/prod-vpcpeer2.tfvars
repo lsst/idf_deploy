@@ -1,6 +1,6 @@
-application_name        = "qserv"
-environment             = "int"
-network_name            = "qserv-int-vpc"
+application_name = "qserv"
+environment      = "prod"
+network_name     = "qserv-prod-vpc"
 
 remote_application_name = "science-platform"
 remote_environment      = "dev"
