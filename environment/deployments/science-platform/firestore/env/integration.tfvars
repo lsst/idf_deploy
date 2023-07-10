@@ -1,6 +1,6 @@
 # Project
 environment                 = "int"
-application_name            = "science-platform"
+application_name            = "science-platform-firestore"
 folder_id                   = "19762437767"
 budget_amount               = 1000
 budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
