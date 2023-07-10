@@ -15,7 +15,7 @@ module "iam_admin" {
   source                  = "../../../../modules/iam"
   project                 = module.project_factory.project_id
   project_iam_permissions = var.project_iam_permissions
-  member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
+  member                  = "gcp-science-platform-administrators@lsst.cloud"
 }
 
 resource "google_project_iam_member" "gafaelfawr-iam-binding" {
