@@ -73,5 +73,5 @@ activate_apis = [
   "sqladmin.googleapis.com"
 ]
 
-# Increase this number to force Terraform to update the dev environment.
-# Serial: 2
+# Increase this number to force Terraform to update the production environment.
+# Serial: 3
