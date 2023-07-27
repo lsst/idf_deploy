@@ -34,8 +34,7 @@ module "peering-1" {
 
   local_network = data.google_compute_network.local_network.self_link
   peer_network  = data.google_compute_network.remote_peer_project.self_link
-  #peer_name     = "vpc-peer-qserv-int-to-rsp-dev"
-  peer_name = "vpc-peer-qserv-${var.environment}-to-rsp-${var.remote_environment}"
+  peer_name     = "vpc-peer-qserv-${var.environment}-to-rsp-${var.remote_environment}"
 
   export_local_custom_routes = true
 }
