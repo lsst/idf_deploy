@@ -33,6 +33,13 @@ resource "random_password" "gafaelfawr" {
   special = false
 }
 
+resource "random_password" "nublado" {
+  length  = 24
+  number  = true
+  upper   = true
+  special = false
+}
+
 resource "random_password" "times-square" {
   length  = 24
   number  = true
@@ -84,6 +91,11 @@ module "db_science_platform" {
       collation = "en_US.UTF8"
     },
     {
+      name      = "nublado"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    },
+    {
       name      = "times-square"
       charset   = "UTF8"
       collation = "en_US.UTF8"
@@ -99,6 +111,10 @@ module "db_science_platform" {
     {
       name     = "gafaelfawr"
       password = random_password.gafaelfawr.result
+    },
+    {
+      name     = "nublado"
+      password = random_password.nublado.result
     },
     {
       name     = "times-square"
@@ -155,7 +171,7 @@ module "service_accounts" {
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
-  names         = ["gafaelfawr", "times-square", "vo-cutouts"]
+  names         = ["gafaelfawr", "nublado", "times-square", "vo-cutouts"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
@@ -183,6 +199,15 @@ resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
   members = [
     "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]",
     "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-tokens]",
+  ]
+}
+
+resource "google_service_account_iam_binding" "nublado-iam-binding" {
+  service_account_id = module.service_accounts.service_accounts_map["nublado"].name
+  role               = "roles/iam.workloadIdentityUser"
+
+  members = [
+    "serviceAccount:${var.project_id}.svc.id.goog[nublado/cloud-sql-proxy]",
   ]
 }
 
