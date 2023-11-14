@@ -167,6 +167,38 @@ resource "google_storage_bucket_iam_binding" "dp02-hips-bucket-ro-iam-binding" {
   members = var.hips_service_accounts
 }
 
+// Git LFS Storage Bucket
+module "storage_bucket_5" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = ["git-lfs"]
+  prefix_name   = "rubin"
+  versioning = {
+    git-lfs = false
+  }
+  force_destroy = {
+    git-lfs = false
+  }
+  labels = {
+    environment = var.environment
+    application = "giftless"
+  }
+}
+// RO storage access to Git-LFS bucket
+resource "google_storage_bucket_iam_binding" "git-lfs-bucket-ro-iam-binding" {
+  bucket  = module.storage_bucket_5.name
+  role    = "roles/storage.objectViewer"
+  members = var.git_lfs_ro_service_accounts
+}
+// RW storage access to Git-LFS bucket
+resource "google_storage_bucket_iam_binding" "git-lfs-bucket-rw-iam-binding" {
+  bucket  = module.storage_bucket_5.name
+  role    = "roles/storage.objectAdmin"
+  members = var.git_lfs_rw_service_accounts
+}
+
 #---------------------------------------------------------------
 // Data Curation Prod
 #---------------------------------------------------------------
