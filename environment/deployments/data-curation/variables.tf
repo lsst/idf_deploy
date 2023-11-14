@@ -218,3 +218,31 @@ variable "hips_service_accounts" {
   description = "Service accounts used for HiPS Butler access"
   default     = []
 }
+
+// Git LFS RO
+variable "git_lfs_ro_service_accounts" {
+  type        = list(string)
+  description = "Service accounts used for Git-LFS Giftless access (RO)"
+  default     = []
+}
+
+// Git LFS RW
+variable "git_lfs_rw_service_accounts" {
+  type        = list(string)
+  description = "Service accounts used for Git-LFS Giftless access (RW)"
+  default     = []
+}
+
+// Git LFS RO
+variable "git_lfs_ro_dev_service_accounts" {
+  type        = list(string)
+  description = "Service accounts used for Git-LFS Giftless Dev access (RO)"
+  default     = []
+}
+
+// Git LFS RW
+variable "git_lfs_rw_dev_service_accounts" {
+  type        = list(string)
+  description = "Service accounts used for Git-LFS Giftless Dev access (RW)"
+  default     = []
+}

@@ -21,6 +21,32 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
+resource "google_service_account" "git_lfs_rw_sa" {
+  account_id   = "git-lfs-rw"
+  display_name = "Git LFS (RW)"
+  description  = "Terraform-managed service account for Git LFS RW access"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "git_lfs_rw_sa_wi" {
+  service_account_id = google_service_account.git_lfs_rw_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-rw]"
+}
+
+resource "google_service_account" "git_lfs_ro_sa" {
+  account_id   = "git-lfs-ro"
+  display_name = "Git LFS (RO)"
+  description  = "Terraform-managed service account for Git LFS RO access"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "git_lfs_ro_sa_wi" {
+  service_account_id = google_service_account.git_lfs_ro_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
+}
+
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"

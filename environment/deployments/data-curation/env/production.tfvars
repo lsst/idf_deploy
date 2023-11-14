@@ -70,5 +70,25 @@ hips_service_accounts = [
   "serviceAccount:crawlspace-hips@science-platform-stable-6994.iam.gserviceaccount.com"
 ]
 
-# Increase this number to force Terraform to update the dev environment.
-# Serial: 4
+# Git LFS bucket access service accounts (RW).
+git_lfs_rw_service_accounts = [
+  "serviceAccount:git-lfs-rw@roundtable-prod-f6fd.iam.gserviceaccount.com"
+]
+
+# Git LFS bucket access service accounts (RW).
+git_lfs_ro_service_accounts = [
+  "serviceAccount:git-lfs-ro@roundtable-prod-f6fd.iam.gserviceaccount.com"
+]
+
+# Git LFS bucket access service accounts (Dev, RW).
+git_lfs_rw_dev_service_accounts = [
+  "serviceAccount:git-lfs-rw@roundtable-dev-abe2.iam.gserviceaccount.com"
+]
+
+# Git LFS bucket access service accounts (Dev, RW).
+git_lfs_ro_dev_service_accounts = [
+  "serviceAccount:git-lfs-ro@roundtable-dev-abe2.iam.gserviceaccount.com"
+]
+
+# Increase this number to force Terraform to update the production environment.
+# Serial: 5
