@@ -225,7 +225,7 @@ resource "google_storage_bucket_iam_binding" "git-lfs-bucket-dev-ro-iam-binding"
   members = var.git_lfs_ro_dev_service_accounts
 }
 // RW storage access to Git-LFS Dev bucket
-resource "google_storage_bucket_iam_binding" "git-lfs-bucket-rw-iam-binding" {
+resource "google_storage_bucket_iam_binding" "git-lfs-bucket-dev-rw-iam-binding" {
   bucket  = module.storage_bucket_6.name
   role    = "roles/storage.objectAdmin"
   members = var.git_lfs_rw_dev_service_accounts
