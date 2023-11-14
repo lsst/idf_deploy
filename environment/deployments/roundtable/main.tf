@@ -31,7 +31,7 @@ resource "google_service_account" "git_lfs_rw_sa" {
 resource "google_service_account_iam_member" "git_lfs_rw_sa_wi" {
   service_account_id = google_service_account.git_lfs_rw_sa.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[git-lfs/rw]"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-rw]"
 }
 
 resource "google_service_account" "git_lfs_ro_sa" {
@@ -44,7 +44,7 @@ resource "google_service_account" "git_lfs_ro_sa" {
 resource "google_service_account_iam_member" "git_lfs_ro_sa_wi" {
   service_account_id = google_service_account.git_lfs_ro_sa.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[git-lfs/ro]"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
 }
 
 module "service_account_cluster" {
