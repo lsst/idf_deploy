@@ -34,10 +34,10 @@ resource "google_service_account_iam_member" "git_lfs_rw_sa_wi" {
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-rw]"
 }
 
-# The git-lfs-rw service account must be granted the ability to generate
-# tokens for itself so that it can generate signed GCS URLs starting from
-# the GKE service account token without requiring an exported secret key
-# for the underlying Google service account.
+# The git-lfs service accounts must be granted the ability to generate
+# tokens for themselves so that they can generate signed GCS URLs
+# starting from the GKE service account token without requiring an
+# exported secret key for the underlying Google service account.
 resource "google_service_account_iam_binding" "git-lfs-rw-gcs-binding" {
   service_account_id = google_service_account.git_lfs_rw_sa.name
   role               = "roles/iam.serviceAccountTokenCreator"
@@ -58,6 +58,15 @@ resource "google_service_account_iam_member" "git_lfs_ro_sa_wi" {
   service_account_id = google_service_account.git_lfs_ro_sa.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
+}
+
+resource "google_service_account_iam_binding" "git-lfs-ro-gcs-binding" {
+  service_account_id = google_service_account.git_lfs_ro_sa.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+
+  members = [
+    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
+  ]
 }
 
 module "service_account_cluster" {
