@@ -10,3 +10,6 @@
 
 # .json files
 *.json
+
+# Mac desktop info
+.DS_Store
