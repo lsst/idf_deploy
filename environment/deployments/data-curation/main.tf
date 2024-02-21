@@ -231,58 +231,6 @@ resource "google_storage_bucket_iam_binding" "git-lfs-bucket-dev-rw-iam-binding"
   members = var.git_lfs_rw_dev_service_accounts
 }
 
-// Vault Server Storage Bucket
-module "storage_bucket_7" {
-  source        = "../../../modules/bucket"
-  project_id    = module.project_factory.project_id
-  storage_class = "REGIONAL"
-  location      = "us-central1"
-  suffix_name   = ["vault-server"]
-  prefix_name   = "rubin"
-  versioning = {
-    vault-server = false
-  }
-  force_destroy = {
-    vault-server = false
-  }
-  labels = {
-    environment = var.environment
-    application = "vault"
-  }
-}
-// RW storage access to Vault Server bucket
-resource "google_storage_bucket_iam_binding" "vault-server-iam-binding" {
-  bucket  = module.storage_bucket_7.name
-  role    = "roles/storage.objectUser"
-  members = var.vault_server_service_accounts
-}
-
-// Vault Server Storage Bucket (Dev)
-module "storage_bucket_8" {
-  source        = "../../../modules/bucket"
-  project_id    = module.project_factory.project_id
-  storage_class = "REGIONAL"
-  location      = "us-central1"
-  suffix_name   = ["vault-server-dev"]
-  prefix_name   = "rubin"
-  versioning = {
-    vault-server-dev = false
-  }
-  force_destroy = {
-    vault-server-dev = false
-  }
-  labels = {
-    environment = var.environment
-    application = "vault"
-  }
-}
-// RW storage access to Vault Server Dev bucket
-resource "google_storage_bucket_iam_binding" "vault-server-dev-iam-binding" {
-  bucket  = module.storage_bucket_8.name
-  role    = "roles/storage.objectUser"
-  members = var.vault_server_dev_service_accounts
-}
-
 #---------------------------------------------------------------
 // Data Curation Prod
 #---------------------------------------------------------------

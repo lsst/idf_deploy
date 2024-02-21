@@ -246,17 +246,3 @@ variable "git_lfs_rw_dev_service_accounts" {
   description = "Service accounts used for Git-LFS Giftless Dev access (RW)"
   default     = []
 }
-
-// Vault Server
-variable "vault_server_service_accounts" {
-  type        = list(string)
-  description = "Service accounts used for Vault-Server access"
-  default     = []
-}
-
-// Vault Server
-variable "vault_server_dev_service_accounts" {
-  type        = list(string)
-  description = "Service accounts used for Vault-Server Dev access"
-  default     = []
-}
