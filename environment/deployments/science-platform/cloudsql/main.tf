@@ -198,7 +198,7 @@ resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
 
   members = [
     "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]",
-    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-tokens]",
+    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-schema-update]",
   ]
 }
 
