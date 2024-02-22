@@ -69,5 +69,10 @@ activate_apis = [
   "sqladmin.googleapis.com"
 ]
 
+# Vault service service account
+vault_server_dev_service_accounts = [
+  "serviceAccount:vault-server@roundtable-dev-abe2.iam.gserviceaccount.com"
+]
+
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 6

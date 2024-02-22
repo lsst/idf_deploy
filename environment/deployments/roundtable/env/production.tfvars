@@ -67,6 +67,11 @@ activate_apis = [
   "sqladmin.googleapis.com"
 ]
 
+# Vault service service account
+vault_server_service_accounts = [
+  "serviceAccount:vault-server@roundtable-prod-f6fd.iam.gserviceaccount.com"
+]
+
 # Increase this number to force Terraform to update the prod environment.
 # Serial: 6
 

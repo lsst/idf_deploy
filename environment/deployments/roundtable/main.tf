@@ -42,7 +42,7 @@ module "storage_bucket" {
   }
 }
 // RW storage access to Vault Server bucket
-resource "google_storage_bucket_iam_binding" "vault-server-iam-binding" {
+resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
   bucket  = module.storage_bucket.name
   role    = "roles/storage.objectUser"
   members = var.vault_server_service_accounts
@@ -68,7 +68,7 @@ module "storage_bucket_2" {
   }
 }
 // RW storage access to Vault Server Dev bucket
-resource "google_storage_bucket_iam_binding" "vault-server-dev-iam-binding" {
+resource "google_storage_bucket_iam_binding" "vault-server-dev-storage-binding" {
   bucket  = module.storage_bucket_2.name
   role    = "roles/storage.objectUser"
   members = var.vault_server_dev_service_accounts
