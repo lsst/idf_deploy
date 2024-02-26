@@ -75,6 +75,7 @@ vault_server_service_accounts = [
 ]
 
 vault_server_bucket_suffix = "vault-server-dev"
+vault_server_backup_bucket_suffix = "vault-server-dev-backup"
 
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 6

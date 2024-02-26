@@ -54,6 +54,30 @@ module "storage_bucket" {
     application = "vault"
   }
 }
+
+// Vault Server Storage Bucket (Backup)
+// Note that we don't need all the SA/WI access to this: the only thing it's
+// going to be used for is a copy target.  We may need a different SA to
+// run the backups.
+module "storage_bucket_b" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = [ var.vault_server_backup_bucket_suffix ]
+  prefix_name   = "rubin"
+  versioning = {
+    vault-server = false
+  }
+  force_destroy = {
+    vault-server = false
+  }
+  labels = {
+    environment = var.environment
+    application = "vault"
+  }
+}
+
 // RW storage access to Vault Server bucket
 resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
   bucket  = module.storage_bucket.name

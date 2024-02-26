@@ -193,3 +193,8 @@ variable "vault_server_bucket_suffix" {
   type        = string
   description = "Suffix for bucket used for Vault server storage"
 }
+
+variable "vault_server_backup_bucket_suffix" {
+  type        = string
+  description = "Suffix for bucket used for Vault server storage backup"
+}
