@@ -73,7 +73,6 @@ vault_server_service_accounts = [
 ]
 
 vault_server_bucket_suffix = "vault-server"
-vault_server_backup_bucket_suffix = "vault-server-backup"
 
 # Increase this number to force Terraform to update the prod environment.
 # Serial: 6

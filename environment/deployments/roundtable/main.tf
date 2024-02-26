@@ -44,10 +44,20 @@ module "storage_bucket" {
   suffix_name   = [ var.vault_server_bucket_suffix ]
   prefix_name   = "rubin"
   versioning = {
-    vault-server = false
+    (var.vault_server_bucket_suffix) = true
   }
+  lifecycle_rules = [
+    {
+      action = {
+	type = "Delete"
+      }
+      condition = {
+        num_newer_versions = 3
+      }
+    }
+  ]
   force_destroy = {
-    vault-server = false
+    (var.vault_server_bucket_suffix) = false
   }
   labels = {
     environment = var.environment
@@ -64,13 +74,23 @@ module "storage_bucket_b" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = [ var.vault_server_backup_bucket_suffix ]
+  suffix_name   = [ "${var.vault_server_bucket_suffix}-backup" ]
   prefix_name   = "rubin"
   versioning = {
-    vault-server = false
+    "${var.vault_server_bucket_suffix}-backup" = true
   }
+  lifecycle_rules = [
+    {
+      action = {
+	type = "Delete"
+      }
+      condition = {
+	num_newer_versions = "20"
+      }
+    }
+  ]
   force_destroy = {
-    vault-server = false
+    "${var.vault_server_bucket_suffix}-backup" = false
   }
   labels = {
     environment = var.environment
