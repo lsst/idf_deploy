@@ -21,6 +21,32 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
+// Vault server key management
+// prod
+module "kms" {
+  source         = "../../../modules/kms"
+  project_id     = module.project_factory.project_id
+  location       = "us-central1"  
+  keyring        = "vault-server"
+  keys           = [ "vault-seal" ]
+  set_owners_for = [ "vault-seal" ]
+  decrypters     = var.vault_server_service_accounts
+  encrypters     = var.vault_server_service_accounts
+  owners         = var.vault_server_service_accounts
+}
+// dev
+module "kms_2" {
+  source         = "../../../modules/kms"
+  project_id     = module.project_factory.project_id
+  location       = "us-central1"  
+  keyring        = "vault-server-dev"
+  keys           = [ "vault-seal" ]
+  set_owners_for = [ "vault-seal" ]
+  decrypters     = var.vault_server_dev_service_accounts
+  encrypters     = var.vault_server_dev_service_accounts
+  owners         = var.vault_server_dev_service_accounts
+}
+
 
 // Vault Server Storage Bucket
 module "storage_bucket" {

@@ -25,6 +25,7 @@ variable "activate_apis" {
   description = "The api to activate for the GCP project"
   type        = list(string)
   default = [
+    "cloudkms.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
     "stackdriver.googleapis.com",
