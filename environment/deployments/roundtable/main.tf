@@ -98,6 +98,42 @@ module "storage_bucket_b" {
   }
 }
 
+// Resources for backups
+
+// Admin storage access to Vault Server backup bucket
+resource "google_storage_bucket_iam_binding" "vault-server-storage-backup-binding" {
+  bucket  = module.storage_bucket_b.name
+  role    = "roles/storage.admin"
+  members = var.vault_server_service_accounts
+}
+
+resource "google_storage_transfer_job" "vault-server-storage-backup" {
+  description  = "Nightly backup of Vault Server storage"
+  project      = module.project_factory.project_id
+  transfer_spec {
+    gcs_data_source {
+      bucket_name = module.storage_bucket.name
+    }
+    gcs_data_sink {
+      bucket_name = module.storage_bucket_b.name
+    }
+  }
+  schedule {
+    schedule_start_date {
+      year  = 2024
+      month = 1
+      day = 1
+    }
+    start_time_of_day { // UTC: 2 AM Pacific Standard Time
+      hours = 10
+      minutes = 0
+      seconds = 0
+      nanos = 0
+    }
+  }
+  depends_on = [ google_storage_bucket_iam_binding.vault-server-storage-backup-binding ]
+}
+
 // RW storage access to Vault Server bucket
 resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
   bucket  = module.storage_bucket.name
