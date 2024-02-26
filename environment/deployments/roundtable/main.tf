@@ -21,6 +21,161 @@ module "iam_admin" {
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
+// Vault server key management
+// prod
+module "kms" {
+  source         = "../../../modules/kms"
+  project_id     = module.project_factory.project_id
+  location       = "us-central1"  
+  keyring        = "vault-server"
+  keys           = [ "vault-seal" ]
+  set_owners_for = [ "vault-seal" ]
+  decrypters     = var.vault_server_service_accounts
+  encrypters     = var.vault_server_service_accounts
+  owners         = var.vault_server_service_accounts
+}
+
+// Vault Server Storage Bucket
+module "storage_bucket" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = [ var.vault_server_bucket_suffix ]
+  prefix_name   = "rubin"
+  versioning = {
+    (var.vault_server_bucket_suffix) = true
+  }
+  lifecycle_rules = [
+    {
+      action = {
+	type = "Delete"
+      }
+      condition = {
+        num_newer_versions = 3
+      }
+    }
+  ]
+  force_destroy = {
+    (var.vault_server_bucket_suffix) = false
+  }
+  labels = {
+    environment = var.environment
+    application = "vault"
+  }
+}
+
+// Vault Server Storage Bucket (Backup)
+module "storage_bucket_b" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = [ "${var.vault_server_bucket_suffix}-backup" ]
+  prefix_name   = "rubin"
+  versioning = {
+    "${var.vault_server_bucket_suffix}-backup" = true
+  }
+  lifecycle_rules = [
+    {
+      action = {
+	type = "Delete"
+      }
+      condition = {
+	num_newer_versions = "20"
+      }
+    }
+  ]
+  force_destroy = {
+    "${var.vault_server_bucket_suffix}-backup" = false
+  }
+  labels = {
+    environment = var.environment
+    application = "vault"
+  }
+}
+
+// Service account and bindings for Vault Server
+
+// Service account for Vault Server
+resource "google_service_account" "vault_server_sa" {
+  account_id   = "vault-server"
+  display_name = "Vault Server"
+  description  = "Terraform-managed service account for Vault server"
+  project      = module.project_factory.project_id
+}
+
+// Use Workload Identity to have the service run as the appropriate service
+// account (bound to a Kubernetes service account)
+resource "google_service_account_iam_binding" "vault-server-sa-wi" {
+  service_account_id = google_service_account.vault_server_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  members = [
+    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[vault/vault]"
+  ]
+}
+
+// The Vault service account must be granted the roles Cloud KMS Viewer and
+// Cloud KMS CryptoKey Encrypter/Decrypter
+resource "google_service_account_iam_binding" "vault-server-viewer-binding" {
+  service_account_id = google_service_account.vault_server_sa.name
+  role               = "roles/cloudkms.viewer"
+  members = [
+    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  ]
+}
+
+resource "google_service_account_iam_binding" "vault-server-cryptokey-binding" {
+  service_account_id = google_service_account.vault_server_sa.name
+  role               = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  members = [
+    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  ]
+}
+
+// RW storage access to Vault Server bucket
+resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
+  bucket  = module.storage_bucket.name
+  role    = "roles/storage.objectUser"
+  members = var.vault_server_service_accounts
+}
+
+// Admin storage access to Vault Server backup bucket
+resource "google_storage_bucket_iam_binding" "vault-server-storage-backup-binding" {
+  bucket  = module.storage_bucket_b.name
+  role    = "roles/storage.admin"
+  members = var.vault_server_service_accounts
+}
+
+// Resources for Vault Server storage backups
+
+resource "google_storage_transfer_job" "vault-server-storage-backup" {
+  description  = "Nightly backup of Vault Server storage"
+  project      = module.project_factory.project_id
+  transfer_spec {
+    gcs_data_source {
+      bucket_name = module.storage_bucket.name
+    }
+    gcs_data_sink {
+      bucket_name = module.storage_bucket_b.name
+    }
+  }
+  schedule {
+    schedule_start_date {
+      year  = 2024
+      month = 1
+      day = 1
+    }
+    start_time_of_day { // UTC: 2 AM Pacific Standard Time
+      hours = 10
+      minutes = 0
+      seconds = 0
+      nanos = 0
+    }
+  }
+  depends_on = [ google_storage_bucket_iam_binding.vault-server-storage-backup-binding ]
+}
+
 # Service account for Git LFS read/write
 resource "google_service_account" "git_lfs_rw_sa" {
   account_id   = "git-lfs-rw"
@@ -76,6 +231,7 @@ resource "google_service_account_iam_binding" "git-lfs-ro-gcs-binding" {
     "serviceAccount:git-lfs-ro@${module.project_factory.project_id}.iam.gserviceaccount.com"
   ]
 }
+
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"

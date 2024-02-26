@@ -25,6 +25,7 @@ variable "activate_apis" {
   description = "The api to activate for the GCP project"
   type        = list(string)
   default = [
+    "cloudkms.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
     "stackdriver.googleapis.com",
@@ -175,4 +176,20 @@ variable "static_ip_name" {
   description = "Name to give to the static ip"
   type        = string
   default     = "load-balancer"
+}
+
+# SERVICE ACCOUNTS
+
+// Vault Server
+variable "vault_server_service_accounts" {
+  type        = list(string)
+  description = "Service accounts used for Vault-Server access"
+  default     = []
+}
+
+# Buckets
+
+variable "vault_server_bucket_suffix" {
+  type        = string
+  description = "Suffix for bucket used for Vault server storage"
 }
