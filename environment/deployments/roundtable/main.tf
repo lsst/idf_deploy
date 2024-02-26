@@ -66,9 +66,6 @@ module "storage_bucket" {
 }
 
 // Vault Server Storage Bucket (Backup)
-// Note that we don't need all the SA/WI access to this: the only thing it's
-// going to be used for is a copy target.  We may need a different SA to
-// run the backups.
 module "storage_bucket_b" {
   source        = "../../../modules/bucket"
   project_id    = module.project_factory.project_id
@@ -98,7 +95,50 @@ module "storage_bucket_b" {
   }
 }
 
-// Resources for backups
+// Service account and bindings for Vault Server
+
+// Service account for Vault Server
+resource "google_service_account" "vault_server_sa" {
+  account_id   = "vault-server"
+  display_name = "Vault Server"
+  description  = "Terraform-managed service account for Vault server"
+  project      = module.project_factory.project_id
+}
+
+// Use Workload Identity to have the service run as the appropriate service
+// account (bound to a Kubernetes service account)
+resource "google_service_account_iam_binding" "vault-server-sa-wi" {
+  service_account_id = google_service_account.vault_server_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  members = [
+    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[vault/vault]"
+  ]
+}
+
+// The Vault service account must be granted the roles Cloud KMS Viewer and
+// Cloud KMS CryptoKey Encrypter/Decrypter
+resource "google_service_account_iam_binding" "vault-server-viewer-binding" {
+  service_account_id = google_service_account.vault_server_sa.name
+  role               = "roles/cloudkms.viewer"
+  members = [
+    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  ]
+}
+
+resource "google_service_account_iam_binding" "vault-server-cryptokey-binding" {
+  service_account_id = google_service_account.vault_server_sa.name
+  role               = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  members = [
+    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  ]
+}
+
+// RW storage access to Vault Server bucket
+resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
+  bucket  = module.storage_bucket.name
+  role    = "roles/storage.objectUser"
+  members = var.vault_server_service_accounts
+}
 
 // Admin storage access to Vault Server backup bucket
 resource "google_storage_bucket_iam_binding" "vault-server-storage-backup-binding" {
@@ -106,6 +146,8 @@ resource "google_storage_bucket_iam_binding" "vault-server-storage-backup-bindin
   role    = "roles/storage.admin"
   members = var.vault_server_service_accounts
 }
+
+// Resources for Vault Server storage backups
 
 resource "google_storage_transfer_job" "vault-server-storage-backup" {
   description  = "Nightly backup of Vault Server storage"
@@ -132,13 +174,6 @@ resource "google_storage_transfer_job" "vault-server-storage-backup" {
     }
   }
   depends_on = [ google_storage_bucket_iam_binding.vault-server-storage-backup-binding ]
-}
-
-// RW storage access to Vault Server bucket
-resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
-  bucket  = module.storage_bucket.name
-  role    = "roles/storage.objectUser"
-  members = var.vault_server_service_accounts
 }
 
 # Service account for Git LFS read/write
@@ -197,41 +232,6 @@ resource "google_service_account_iam_binding" "git-lfs-ro-gcs-binding" {
   ]
 }
 
-# Service account for Vault Server
-resource "google_service_account" "vault_server_sa" {
-  account_id   = "vault-server"
-  display_name = "Vault Server"
-  description  = "Terraform-managed service account for Vault server"
-  project      = module.project_factory.project_id
-}
-
-# Use Workload Identity to have the service run as the appropriate service
-# account (bound to a Kubernetes service account)
-resource "google_service_account_iam_binding" "vault-server-sa-wi" {
-  service_account_id = google_service_account.vault_server_sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  members = [
-    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[vault/vault]"
-  ]
-}
-
-# The Vault service account must be granted the roles Cloud KMS Viewer and
-# Cloud KMS CryptoKey Encrypter/Decrypter
-resource "google_service_account_iam_binding" "vault-server-viewer-binding" {
-  service_account_id = google_service_account.vault_server_sa.name
-  role               = "roles/cloudkms.viewer"
-  members = [
-    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
-  ]
-}
-
-resource "google_service_account_iam_binding" "vault-server-cryptokey-binding" {
-  service_account_id = google_service_account.vault_server_sa.name
-  role               = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-  members = [
-    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
-  ]
-}
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
