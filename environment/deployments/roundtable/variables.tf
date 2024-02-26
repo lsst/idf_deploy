@@ -187,9 +187,9 @@ variable "vault_server_service_accounts" {
   default     = []
 }
 
-// Vault Server
-variable "vault_server_dev_service_accounts" {
-  type        = list(string)
-  description = "Service accounts used for Vault-Server Dev access"
-  default     = []
+# Buckets
+
+variable "vault_server_bucket_suffix" {
+  type        = string
+  description = "Suffix for bucket used for Vault server storage"
 }

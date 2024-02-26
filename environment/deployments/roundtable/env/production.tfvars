@@ -72,6 +72,8 @@ vault_server_service_accounts = [
   "serviceAccount:vault-server@roundtable-prod-f6fd.iam.gserviceaccount.com"
 ]
 
+vault_server_bucket_suffix = "vault-server"
+
 # Increase this number to force Terraform to update the prod environment.
 # Serial: 6
 

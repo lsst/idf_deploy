@@ -34,19 +34,6 @@ module "kms" {
   encrypters     = var.vault_server_service_accounts
   owners         = var.vault_server_service_accounts
 }
-// dev
-module "kms_2" {
-  source         = "../../../modules/kms"
-  project_id     = module.project_factory.project_id
-  location       = "us-central1"  
-  keyring        = "vault-server-dev"
-  keys           = [ "vault-seal" ]
-  set_owners_for = [ "vault-seal" ]
-  decrypters     = var.vault_server_dev_service_accounts
-  encrypters     = var.vault_server_dev_service_accounts
-  owners         = var.vault_server_dev_service_accounts
-}
-
 
 // Vault Server Storage Bucket
 module "storage_bucket" {
@@ -54,7 +41,7 @@ module "storage_bucket" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = ["vault-server"]
+  suffix_name   = [ var.vault_server_bucket_suffix ]
   prefix_name   = "rubin"
   versioning = {
     vault-server = false
@@ -73,33 +60,6 @@ resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
   role    = "roles/storage.objectUser"
   members = var.vault_server_service_accounts
 }
-
-// Vault Server Storage Bucket (Dev)
-module "storage_bucket_2" {
-  source        = "../../../modules/bucket"
-  project_id    = module.project_factory.project_id
-  storage_class = "REGIONAL"
-  location      = "us-central1"
-  suffix_name   = ["vault-server-dev"]
-  prefix_name   = "rubin"
-  versioning = {
-    vault-server-dev = false
-  }
-  force_destroy = {
-    vault-server-dev = false
-  }
-  labels = {
-    environment = var.environment
-    application = "vault"
-  }
-}
-// RW storage access to Vault Server Dev bucket
-resource "google_storage_bucket_iam_binding" "vault-server-dev-storage-binding" {
-  bucket  = module.storage_bucket_2.name
-  role    = "roles/storage.objectUser"
-  members = var.vault_server_dev_service_accounts
-}
-
 
 # Service account for Git LFS read/write
 resource "google_service_account" "git_lfs_rw_sa" {
