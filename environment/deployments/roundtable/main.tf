@@ -30,9 +30,9 @@ module "kms" {
   keyring        = "vault-server"
   keys           = ["vault-seal"]
   set_owners_for = ["vault-seal"]
-  decrypters     = var.vault_server_service_accounts
-  encrypters     = var.vault_server_service_accounts
-  owners         = var.vault_server_service_accounts
+  decrypters     = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
+  encrypters     = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
+  owners         = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
 }
 
 // Vault Server Storage Bucket
@@ -131,14 +131,14 @@ resource "google_project_iam_member" "vault_server_cryptokey_sa" {
 resource "google_storage_bucket_iam_binding" "vault_server_storage_binding" {
   bucket  = module.storage_bucket.name
   role    = "roles/storage.objectUser"
-  members = var.vault_server_service_accounts
+  members = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
 }
 
 // Admin storage access to Vault Server backup bucket
 resource "google_storage_bucket_iam_binding" "vault_server_storage_backup_binding" {
   bucket  = module.storage_bucket_b.name
   role    = "roles/storage.admin"
-  members = var.vault_server_service_accounts
+  members = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
 }
 
 // Resources for Vault Server storage backups
