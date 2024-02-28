@@ -197,7 +197,7 @@ resource "google_storage_transfer_job" "vault_server_storage_backup" {
       nanos   = 0
     }
   }
-  depends_on = [google_storage_bucket_iam_member.vault_server_storage_backup_sa]
+  depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa,google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa,google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r,google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r]
 }
 
 # Service account for Git LFS read/write
