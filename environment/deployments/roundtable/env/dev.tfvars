@@ -69,12 +69,7 @@ activate_apis = [
   "sqladmin.googleapis.com"
 ]
 
-# Vault service service account
-vault_server_service_accounts = [
-  "serviceAccount:vault-server@roundtable-dev-abe2.iam.gserviceaccount.com"
-]
-
 vault_server_bucket_suffix = "vault-server-dev"
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 6
+# Serial: 7

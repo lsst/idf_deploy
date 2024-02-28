@@ -178,15 +178,6 @@ variable "static_ip_name" {
   default     = "load-balancer"
 }
 
-# SERVICE ACCOUNTS
-
-// Vault Server
-variable "vault_server_service_accounts" {
-  type        = list(string)
-  description = "Service accounts used for Vault-Server access"
-  default     = []
-}
-
 # Buckets
 
 variable "vault_server_bucket_suffix" {

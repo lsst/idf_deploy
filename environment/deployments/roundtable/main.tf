@@ -26,13 +26,13 @@ module "iam_admin" {
 module "kms" {
   source         = "../../../modules/kms"
   project_id     = module.project_factory.project_id
-  location       = "us-central1"  
+  location       = "us-central1"
   keyring        = "vault-server"
-  keys           = [ "vault-seal" ]
-  set_owners_for = [ "vault-seal" ]
-  decrypters     = var.vault_server_service_accounts
-  encrypters     = var.vault_server_service_accounts
-  owners         = var.vault_server_service_accounts
+  keys           = ["vault-seal"]
+  set_owners_for = ["vault-seal"]
+  decrypters     = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
+  encrypters     = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
+  owners         = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
 }
 
 // Vault Server Storage Bucket
@@ -41,7 +41,7 @@ module "storage_bucket" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = [ var.vault_server_bucket_suffix ]
+  suffix_name   = [var.vault_server_bucket_suffix]
   prefix_name   = "rubin"
   versioning = {
     (var.vault_server_bucket_suffix) = true
@@ -49,7 +49,7 @@ module "storage_bucket" {
   lifecycle_rules = [
     {
       action = {
-	type = "Delete"
+        type = "Delete"
       }
       condition = {
         num_newer_versions = 3
@@ -71,7 +71,7 @@ module "storage_bucket_b" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = [ "${var.vault_server_bucket_suffix}-backup" ]
+  suffix_name   = ["${var.vault_server_bucket_suffix}-backup"]
   prefix_name   = "rubin"
   versioning = {
     "${var.vault_server_bucket_suffix}-backup" = true
@@ -79,10 +79,10 @@ module "storage_bucket_b" {
   lifecycle_rules = [
     {
       action = {
-	type = "Delete"
+        type = "Delete"
       }
       condition = {
-	num_newer_versions = "20"
+        num_newer_versions = "20"
       }
     }
   ]
@@ -95,7 +95,7 @@ module "storage_bucket_b" {
   }
 }
 
-// Service account and bindings for Vault Server
+// Service account and roles for Vault Server
 
 // Service account for Vault Server
 resource "google_service_account" "vault_server_sa" {
@@ -107,51 +107,45 @@ resource "google_service_account" "vault_server_sa" {
 
 // Use Workload Identity to have the service run as the appropriate service
 // account (bound to a Kubernetes service account)
-resource "google_service_account_iam_binding" "vault-server-sa-wi" {
-  service_account_id = google_service_account.vault_server_sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  members = [
-    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[vault/vault]"
-  ]
+resource "google_project_iam_member" "vault_server_sa_wi" {
+  project = module.project_factory.project_id
+  role    = "roles/iam.workloadIdentityUser"
+  member  = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[vault/vault]"
 }
 
 // The Vault service account must be granted the roles Cloud KMS Viewer and
 // Cloud KMS CryptoKey Encrypter/Decrypter
-resource "google_service_account_iam_binding" "vault-server-viewer-binding" {
-  service_account_id = google_service_account.vault_server_sa.name
-  role               = "roles/cloudkms.viewer"
-  members = [
-    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
-  ]
+resource "google_project_iam_member" "vault_server_viewer_sa" {
+  project = module.project_factory.project_id
+  role    = "roles/cloudkms.viewer"
+  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
-resource "google_service_account_iam_binding" "vault-server-cryptokey-binding" {
-  service_account_id = google_service_account.vault_server_sa.name
-  role               = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-  members = [
-    "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
-  ]
+resource "google_project_iam_member" "vault_server_cryptokey_sa" {
+  project = module.project_factory.project_id
+  role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // RW storage access to Vault Server bucket
-resource "google_storage_bucket_iam_binding" "vault-server-storage-binding" {
+resource "google_storage_bucket_iam_member" "vault_server_storage_sa" {
   bucket  = module.storage_bucket.name
   role    = "roles/storage.objectUser"
-  members = var.vault_server_service_accounts
+  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Admin storage access to Vault Server backup bucket
-resource "google_storage_bucket_iam_binding" "vault-server-storage-backup-binding" {
+resource "google_storage_bucket_iam_member" "vault_server_storage_backup_sa" {
   bucket  = module.storage_bucket_b.name
   role    = "roles/storage.admin"
-  members = var.vault_server_service_accounts
+  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Resources for Vault Server storage backups
 
-resource "google_storage_transfer_job" "vault-server-storage-backup" {
-  description  = "Nightly backup of Vault Server storage"
-  project      = module.project_factory.project_id
+resource "google_storage_transfer_job" "vault_server_storage_backup" {
+  description = "Nightly backup of Vault Server storage"
+  project     = module.project_factory.project_id
   transfer_spec {
     gcs_data_source {
       bucket_name = module.storage_bucket.name
@@ -164,16 +158,16 @@ resource "google_storage_transfer_job" "vault-server-storage-backup" {
     schedule_start_date {
       year  = 2024
       month = 1
-      day = 1
+      day   = 1
     }
     start_time_of_day { // UTC: 2 AM Pacific Standard Time
-      hours = 10
+      hours   = 10
       minutes = 0
       seconds = 0
-      nanos = 0
+      nanos   = 0
     }
   }
-  depends_on = [ google_storage_bucket_iam_binding.vault-server-storage-backup-binding ]
+  depends_on = [google_storage_bucket_iam_member.vault_server_storage_backup_sa]
 }
 
 # Service account for Git LFS read/write
@@ -184,26 +178,24 @@ resource "google_service_account" "git_lfs_rw_sa" {
   project      = module.project_factory.project_id
 }
 
+
+
 # Use Workload Identity to have the service run as the appropriate service
 # account (bound to a Kubernetes service account)
-resource "google_service_account_iam_binding" "git-lfs-rw-sa-wi" {
-  service_account_id = google_service_account.git_lfs_rw_sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  members = [
-    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-rw]"
-  ]
+resource "google_project_iam_member" "git_lfs_rw_sa_wi" {
+  project = module.project_factory.project_id
+  role    = "roles/iam.workloadIdentityUser"
+  member  = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-rw]"
 }
 
 # The git-lfs service accounts must be granted the ability to generate
 # tokens for themselves so that they can generate signed GCS URLs
 # starting from the GKE service account token without requiring an
 # exported secret key for the underlying Google service account.
-resource "google_service_account_iam_binding" "git-lfs-rw-gcs-binding" {
-  service_account_id = google_service_account.git_lfs_rw_sa.name
-  role               = "roles/iam.serviceAccountTokenCreator"
-  members = [
-    "serviceAccount:git-lfs-rw@${module.project_factory.project_id}.iam.gserviceaccount.com"
-  ]
+resource "google_project_iam_member" "git_lfs_rw_gcs_sa" {
+  project = module.project_factory.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "serviceAccount:git-lfs-rw@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 # Service account for Git LFS read-only
@@ -215,21 +207,17 @@ resource "google_service_account" "git_lfs_ro_sa" {
 }
 
 # See above, but for read-only account
-resource "google_service_account_iam_binding" "git-lfs-ro-sa-wi" {
-  service_account_id = google_service_account.git_lfs_ro_sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  members = [
-    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
-  ]
+resource "google_project_iam_member" "git_lfs_ro_sa_wi" {
+  project = module.project_factory.project_id
+  role    = "roles/iam.workloadIdentityUser"
+  member  = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
 }
 
 # See above, but for read-only account
-resource "google_service_account_iam_binding" "git-lfs-ro-gcs-binding" {
-  service_account_id = google_service_account.git_lfs_ro_sa.name
-  role               = "roles/iam.serviceAccountTokenCreator"
-  members = [
-    "serviceAccount:git-lfs-ro@${module.project_factory.project_id}.iam.gserviceaccount.com"
-  ]
+resource "google_project_iam_member" "git_lfs_ro_gcs" {
+  project = module.project_factory.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "serviceAccount:git-lfs-ro@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 
@@ -276,7 +264,7 @@ module "nat" {
   project = module.project_factory.project_id
   network = module.project_factory.network_name
   region  = var.default_region
-  #nats    = var.nats
+  #nats   = var.nats
   nats = [{
     name    = "cloud-nat",
     nat_ips = google_compute_address.static.*.name
