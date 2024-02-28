@@ -144,7 +144,7 @@ resource "google_storage_bucket_iam_member" "vault_server_storage_backup_sa" {
 // Hidden SA for data transfer job
 
 data "google_storage_transfer_project_service_account" "vault_backup_transfer_sa" {
-  project = var.project"
+  project = var.project
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_source_sa" {
