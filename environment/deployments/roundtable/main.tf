@@ -141,6 +141,36 @@ resource "google_storage_bucket_iam_member" "vault_server_storage_backup_sa" {
   member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
+// Hidden SA for data transfer job
+
+data "google_storage_transfer_project_service_account" "vault_backup_transfer_sa" {
+  project = module.project_factory.project_id
+}
+
+resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_source_sa" {
+  bucket  = module.storage_bucket.name
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+}
+
+resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_source_sa_r" {
+  bucket  = module.storage_bucket.name
+  role    = "roles/storage.legacyBucketReader"
+  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+}
+
+resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_sa" {
+  bucket  = module.storage_bucket_b.name
+  role    = "roles/storage.legacyBucketWriter"
+  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+}
+
+resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_sa_r" {
+  bucket  = module.storage_bucket_b.name
+  role    = "roles/storage.legacyBucketReader"
+  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+}
+
 // Resources for Vault Server storage backups
 
 resource "google_storage_transfer_job" "vault_server_storage_backup" {
