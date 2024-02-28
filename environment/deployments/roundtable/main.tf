@@ -95,7 +95,7 @@ module "storage_bucket_b" {
   }
 }
 
-// Service account and bindings for Vault Server
+// Service account and roles for Vault Server
 
 // Service account for Vault Server
 resource "google_service_account" "vault_server_sa" {
@@ -128,17 +128,17 @@ resource "google_project_iam_member" "vault_server_cryptokey_sa" {
 }
 
 // RW storage access to Vault Server bucket
-resource "google_storage_bucket_iam_binding" "vault_server_storage_binding" {
+resource "google_storage_bucket_iam_member" "vault_server_storage_sa" {
   bucket  = module.storage_bucket.name
   role    = "roles/storage.objectUser"
-  members = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
+  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Admin storage access to Vault Server backup bucket
-resource "google_storage_bucket_iam_binding" "vault_server_storage_backup_binding" {
+resource "google_storage_bucket_iam_member" "vault_server_storage_backup_sa" {
   bucket  = module.storage_bucket_b.name
   role    = "roles/storage.admin"
-  members = ["serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"]
+  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Resources for Vault Server storage backups
@@ -167,7 +167,7 @@ resource "google_storage_transfer_job" "vault_server_storage_backup" {
       nanos   = 0
     }
   }
-  depends_on = [google_storage_bucket_iam_binding.vault_server_storage_backup_binding]
+  depends_on = [google_storage_bucket_iam_member.vault_server_storage_backup_sa]
 }
 
 # Service account for Git LFS read/write
