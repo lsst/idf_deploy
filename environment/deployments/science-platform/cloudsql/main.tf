@@ -192,52 +192,42 @@ resource "google_storage_bucket_iam_binding" "cutouts-bucket-rw-iam-binding" {
   ]
 }
 
-resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
+resource "google_service_account_iam_member" "gafaelfawr_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
   role               = "roles/iam.workloadIdentityUser"
-
-  members = [
-    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]",
-    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-schema-update]",
-  ]
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]"
 }
 
-resource "google_service_account_iam_binding" "nublado-iam-binding" {
+resource "google_service_account_iam_member" "gafaelfawr_schema_update_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-schema-update]"
+}
+
+resource "google_service_account_iam_member" "nublado_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["nublado"].name
   role               = "roles/iam.workloadIdentityUser"
-
-  members = [
-    "serviceAccount:${var.project_id}.svc.id.goog[nublado/cloud-sql-proxy]",
-  ]
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[nublado/cloud-sql-proxy]"
 }
 
-resource "google_service_account_iam_binding" "times-square-iam-binding" {
+resource "google_service_account_iam_member" "times_square_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["times-square"].name
   role               = "roles/iam.workloadIdentityUser"
-
-  members = [
-    "serviceAccount:${var.project_id}.svc.id.goog[times-square/times-square]",
-  ]
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[times-square/times-square]"
 }
 
-resource "google_service_account_iam_binding" "vo-cutouts-iam-binding" {
+resource "google_service_account_iam_member" "vo_cutouts_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["vo-cutouts"].name
   role               = "roles/iam.workloadIdentityUser"
-
-  members = [
-    "serviceAccount:${var.project_id}.svc.id.goog[vo-cutouts/vo-cutouts]",
-  ]
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[vo-cutouts/vo-cutouts]"
 }
 
 # The vo-cutouts service account must be granted the ability to generate
 # tokens for itself so that it can generate signed GCS URLs starting from
 # the GKE service account token without requiring an exported secret key
 # for the underlying Google service account.
-resource "google_service_account_iam_binding" "vo-cutouts-iam-gcs-binding" {
+resource "google_service_account_iam_member" "vo_cutouts_sa_token" {
   service_account_id = module.service_accounts.service_accounts_map["vo-cutouts"].name
   role               = "roles/iam.serviceAccountTokenCreator"
-
-  members = [
-    "serviceAccount:${local.cutout_service_account}"
-  ]
+  member             = "serviceAccount:${local.cutout_service_account}"
 }

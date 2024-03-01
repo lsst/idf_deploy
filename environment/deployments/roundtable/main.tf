@@ -107,20 +107,21 @@ resource "google_service_account" "vault_server_sa" {
 
 // Use Workload Identity to have the service run as the appropriate service
 // account (bound to a Kubernetes service account)
-resource "google_project_iam_member" "vault_server_sa_wi" {
-  project = module.project_factory.project_id
-  role    = "roles/iam.workloadIdentityUser"
-  member  = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[vault/vault]"
+resource "google_service_account_iam_member" "vault_server_sa_wi" {
+  service_account_id = google_service_account.vault_server_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[vault/vault]"
 }
 
-// The Vault service account must be granted the roles Cloud KMS Viewer and
-// Cloud KMS CryptoKey Encrypter/Decrypter
+// The Vault service account must be granted the roles Cloud KMS Viewer
+// and Cloud KMS CryptoKey Encrypter/Decrypter. Note that this grants
+// access to every KMS key in the project, which is not ideal and should
+// be restricted to only the Vault keys.
 resource "google_project_iam_member" "vault_server_viewer_sa" {
   project = module.project_factory.project_id
   role    = "roles/cloudkms.viewer"
   member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
-
 resource "google_project_iam_member" "vault_server_cryptokey_sa" {
   project = module.project_factory.project_id
   role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
@@ -208,24 +209,22 @@ resource "google_service_account" "git_lfs_rw_sa" {
   project      = module.project_factory.project_id
 }
 
-
-
 # Use Workload Identity to have the service run as the appropriate service
 # account (bound to a Kubernetes service account)
-resource "google_project_iam_member" "git_lfs_rw_sa_wi" {
-  project = module.project_factory.project_id
-  role    = "roles/iam.workloadIdentityUser"
-  member  = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-rw]"
+resource "google_service_account_iam_member" "git_lfs_rw_sa_wi" {
+  service_account_id = google_service_account.git_lfs_rw_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-rw]"
 }
 
 # The git-lfs service accounts must be granted the ability to generate
-# tokens for themselves so that they can generate signed GCS URLs
-# starting from the GKE service account token without requiring an
-# exported secret key for the underlying Google service account.
-resource "google_project_iam_member" "git_lfs_rw_gcs_sa" {
-  project = module.project_factory.project_id
-  role    = "roles/iam.serviceAccountTokenCreator"
-  member  = "serviceAccount:git-lfs-rw@${module.project_factory.project_id}.iam.gserviceaccount.com"
+# tokens for themselves so that they can generate signed GCS URLs starting
+# from the GKE service account token without requiring an exported secret
+# key for the underlying Google service account.
+resource "google_service_account_iam_member" "git_lfs_rw_gcs_sa" {
+  service_account_id = google_service_account.git_lfs_rw_sa.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:git-lfs-rw@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 # Service account for Git LFS read-only
@@ -237,17 +236,17 @@ resource "google_service_account" "git_lfs_ro_sa" {
 }
 
 # See above, but for read-only account
-resource "google_project_iam_member" "git_lfs_ro_sa_wi" {
-  project = module.project_factory.project_id
-  role    = "roles/iam.workloadIdentityUser"
-  member  = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
+resource "google_service_account_iam_member" "git_lfs_ro_sa_wi" {
+  service_account_id = google_service_account.git_lfs_ro_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[giftless/git-lfs-ro]"
 }
 
 # See above, but for read-only account
-resource "google_project_iam_member" "git_lfs_ro_gcs" {
-  project = module.project_factory.project_id
-  role    = "roles/iam.serviceAccountTokenCreator"
-  member  = "serviceAccount:git-lfs-ro@${module.project_factory.project_id}.iam.gserviceaccount.com"
+resource "google_service_account_iam_member" "git_lfs_ro_gcs" {
+  service_account_id = google_service_account.git_lfs_ro_sa.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:git-lfs-ro@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 
