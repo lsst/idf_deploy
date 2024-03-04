@@ -76,12 +76,14 @@ module "service_accounts" {
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
-resource "google_service_account_iam_binding" "gafaelfawr-iam-binding" {
+resource "google_service_account_iam_member" "gafaelfawr_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
   role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]"
+}
 
-  members = [
-    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]",
-    "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-schema-update]",
-  ]
+resource "google_service_account_iam_member" "gafaelfawr_schema_update_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-schema-update]"
 }
