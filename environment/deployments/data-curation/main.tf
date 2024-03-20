@@ -185,6 +185,17 @@ module "storage_bucket_5" {
     environment = var.environment
     application = "giftless"
   }
+  lifecycle_rules = [
+    {
+      action = {
+        type = "Delete"
+      }
+      condition = {
+        matches_prefix = "mobu/git-lfs-test/"
+        age = 1
+      }
+    }
+  ]
 }
 // RO storage access to Git-LFS bucket
 resource "google_storage_bucket_iam_binding" "git-lfs-bucket-ro-iam-binding" {
@@ -217,6 +228,17 @@ module "storage_bucket_6" {
     environment = var.environment
     application = "giftless"
   }
+  lifecycle_rules = [
+    {
+      action = {
+        type = "Delete"
+      }
+      condition = {
+        matches_prefix = "mobu/git-lfs-test/"
+        age = 1
+      }
+    }
+  ]
 }
 // RO storage access to Git-LFS Dev bucket
 resource "google_storage_bucket_iam_binding" "git-lfs-bucket-dev-ro-iam-binding" {
@@ -286,7 +308,7 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_panda_dev" {
   role     = each.value
   member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
-// RW storage access to repo-locations Butler bucket 
+// RW storage access to repo-locations Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_repo_locations" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-repo-locations"
