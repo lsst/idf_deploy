@@ -1,10 +1,14 @@
 // Folder Variables
 parent_folder                = ""
 
+// If you add any new categories, you *must* append them to the end of the
+// list; otherwise existing folders will be renamed, which is certainly not
+// what you want!
 sub_folder_names = [
   "Dev",
   "Integration",
-  "Production"
+  "Production",
+  "Demo"
 ]
 
 // Shared Services
