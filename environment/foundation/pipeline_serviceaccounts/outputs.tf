@@ -42,6 +42,28 @@ output "qserv_int_iam_email" {
   value       = module.qserv_int_pipeline_accounts.iam_email
 }
 
+// Science Platform Demo GKE
+output "rsp_demo_gke_email" {
+  description = "The service account email."
+  value       = module.rsp_demo_gke_pipeline_accounts.email
+}
+
+output "rsp_demo_gke_iam_email" {
+  description = "The service account IAM-format email."
+  value       = module.rsp_demo_gke_pipeline_accounts.iam_email
+}
+
+// Science Platform Demo Project
+output "rsp_demo_email" {
+  description = "The service account email."
+  value       = module.rsp_demo_pipeline_accounts.email
+}
+
+output "rsp_demo_iam_email" {
+  description = "The service account IAM-format email."
+  value       = module.rsp_demo_pipeline_accounts.iam_email
+}
+
 // Science Platform Dev GKE
 output "rsp_dev_gke_email" {
   description = "The service account email."

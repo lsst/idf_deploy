@@ -34,6 +34,10 @@ This terraform module will create a new service account for each pipeline. Havin
 | qserv\_int\_gke\_email | The service account email. |
 | qserv\_int\_gke\_iam\_email | The service account IAM-format email. |
 | qserv\_int\_iam\_email | The service account IAM-format email. |
+| rsp\_demo\_email | The service account email. |
+| rsp\_demo\_gke\_email | The service account email. |
+| rsp\_demo\_gke\_iam\_email | The service account IAM-format email. |
+| rsp\_demo\_iam\_email | The service account IAM-format email. |
 | rsp\_dev\_email | The service account email. |
 | rsp\_dev\_gke\_email | The service account email. |
 | rsp\_dev\_gke\_iam\_email | The service account IAM-format email. |
