@@ -26,18 +26,34 @@ variable "qserv_int_names" {
   default     = []
 }
 
+// Science Platform Demo GKE
+variable "rsp_demo_gke_names" {
+  type        = list(string)
+  description = "Names of the service accounts to create."
+  default     = []
+}
+
+// Science Platform Demo Project
+variable "rsp_demo_names" {
+  type        = list(string)
+  description = "Names of the service accounts to create."
+  default     = []
+}
+
 // Science Platform Dev GKE
 variable "rsp_dev_gke_names" {
   type        = list(string)
   description = "Names of the service accounts to create."
   default     = []
 }
+
 // Science Platform Dev Project
 variable "rsp_dev_names" {
   type        = list(string)
   description = "Names of the service accounts to create."
   default     = []
 }
+
 // Science Platform Int GKE
 variable "rsp_int_gke_names" {
   type        = list(string)
