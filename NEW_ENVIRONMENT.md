@@ -56,5 +56,55 @@ admin credentials.
 Once again, test this PR by making sure the `Terraform plan` output
 looks OK, and then merge the PR.
 
-## Set up environment tfvars
+## Set up initial environment tfvars
+
+Decide which [environment](./environment/deployments) you need to
+modify.  In my case it's the [Science
+Platform](./environment/deployments/science-platform).  You will
+effectively be performing the same set of operations you did with the
+GitHub Actions: copy an existing environment and change it to fit.
+
+You must start with the base environment and the GKE tfvars files, as
+these are the only ones that do not require a project ID.  That project
+(and its associated ID) will be created during this PR's application.
+
+This and the following instructions will only be correct for adding a
+new Science Platform deployment.  Other types of environment
+(e.g. qserv) will be analogous, but specifics will differ.
+
+### Editing the base file
+
+I'm creating a `demo` environment from `dev`, so:
+
+* the first step is to copy
+  [the dev base file](./environment/deployments/science-platform/dev.tfvars) to 
+  [the demo base
+  file](./environment/deployments/science-platform/dev.tfvars)
+* Second, reset the serial number to `1` at the bottom.  Not, strictly
+  speaking, needed, but it would be sloppy not to.
+* Next, change the string `dev` to `demo` everywhere inside it.
+* Fourth, replace the folder ID at the top with the ID from the folder
+  that was created when you applied the first PR.
+* Finally, pick new subnets that are not yet in use.  You're going to
+  need two.  They start at `10.128.0.0/23`, and the next unused
+  one is (at the time of writing) `10.136.0.0/23`.  The first one
+  becomes the `subnet_ip` key for the first subnet.  The
+  `secondary_ranges` subnet should increase the second octet by one (so,
+  for instance, if you picked `10.136.0.0/23` the `kubernetes-pods`
+  should get `10.137.0.0/23`.  The `kubernetes-services` range should
+  use the *first* subnet range, but the third octet should be `16` and
+  the width should be `20`: in this example, `10.136.16.0/20`.
+
+Do the same for the GKE file (in this case, I would start with [the dev
+GKE file](./environment/deployments/science-platform/dev-gke.tfvars),
+and copy it to [the demo GKE
+file](./environment/deployments/science-platform/demo-gke.tfvars).  This
+one is simper: all you need to do is replace the environment name and
+reset the serial, assuming your base and target environment have similar
+sets of resource requirements.
+
+Again, create a PR, examine the Terraform output, and when happy, merge
+the PR.
+
+
 
