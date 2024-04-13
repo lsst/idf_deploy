@@ -64,9 +64,9 @@ Platform](./environment/deployments/science-platform).  You will
 effectively be performing the same set of operations you did with the
 GitHub Actions: copy an existing environment and change it to fit.
 
-You must start with the base environment and the GKE tfvars files, as
-these are the only ones that do not require a project ID.  That project
-(and its associated ID) will be created during this PR's application.
+You must start with the base environment file, as this will create the
+project that will give you a project ID you will need for all the rest
+of the environment files.
 
 This and the following instructions will only be correct for adding a
 new Science Platform deployment.  Other types of environment
@@ -94,6 +94,8 @@ I'm creating a `demo` environment from `dev`, so:
   should get `10.137.0.0/23`.  The `kubernetes-services` range should
   use the *first* subnet range, but the third octet should be `16` and
   the width should be `20`: in this example, `10.136.16.0/20`.
+
+## Additional tfvars files
 
 Do the same for the GKE file (in this case, I would start with [the dev
 GKE file](./environment/deployments/science-platform/dev-gke.tfvars),
