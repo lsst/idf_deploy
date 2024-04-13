@@ -86,17 +86,18 @@ I'm creating a `demo` environment from `dev`, so:
 * Fourth, replace the folder ID at the top with the ID from the folder
   that was created when you applied the first PR.
 * Finally, pick new subnets that are not yet in use.  You're going to
-  need two.  They start at `10.128.0.0/23`, and the next unused
-  one is (at the time of writing) `10.168.0.0/23`.  It is necessary to
-  search all the environments, not just the type you're creating, to
-  determine what is first unused (that is, all the projects, qserv,
-  roundtable, whatever, each have their own subnets).  The first one
-  becomes the `subnet_ip` key for the first subnet.  The
-  `secondary_ranges` subnet should increase the second octet by one (so,
-  for instance, if you picked `10.168.0.0/23` the `kubernetes-pods`
-  should get `10.169.0.0/23`.  The `kubernetes-services` range should
-  use the *first* subnet range, but the third octet should be `16` and
-  the width should be `20`: in this example, `10.168.16.0/20`.
+  need two.  They start at `10.128.0.0/23`, and the next unused one is
+  (at the time of writing) `10.168.0.0/23`.  It is necessary to search
+  all the environments, not just the type you're creating, to determine
+  what is first unused (that is, all the projects, qserv, roundtable,
+  whatever, each have their own subnets).  The first one becomes the
+  `subnet_ip` key for the first subnet.  The `secondary_ranges` subnet
+  should increase the second octet by one and use the entire 16 bits of
+  possible address space (so, for instance, if you picked
+  `10.168.0.0/23` for `subnet_ip`, the `kubernetes-pods` should get
+  `10.169.0.0/16`.  The `kubernetes-services` range should use the
+  *first* subnet range, but the third octet should be `16` and the width
+  should be `20`: in this example, `10.168.16.0/20`.
 
 ## Additional tfvars files
 
