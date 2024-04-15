@@ -2,6 +2,8 @@
 
 This code repo is intended to deploy a solid Google Cloud Platform foundation based off of [Google's Cloud security foundation guide](https://services.google.com/fh/files/misc/google-cloud-security-foundations-guide.pdf). This guide provides our opinionated security foundations blueprint and captures a step-by-step view of how to configure and deploy your Google Cloud estate. This document can provide a good reference and starting point because we highlight key topics to consider. In each topic, we provide background and discussion of why we made each of our choices.
 
+If what is desired is a new environment parallel to the existing ones at the IDF, please consult [the New Environment documentation](./NEW_ENVIRONMENT.md).
+
 ## Repo Structure
 
 ### [.github workflows](./.github/workflows)
