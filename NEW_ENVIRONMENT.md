@@ -151,15 +151,24 @@ Go back to the [Workflows](.github/workflows) and update the `proj` and
 
 Merge this PR.
 
-## Additional tfvars files
+## Add additional resources
 
-Do the same for the GKE file (in this case, I would start with [the dev
-GKE file](./environment/deployments/science-platform/dev-gke.tfvars),
+Do the same for the additional resources you plan to deploy.  For a
+minimal Science Platform, start with [the dev GKE
+file](./environment/deployments/science-platform/dev-gke.tfvars),
 and copy it to [the demo GKE
 file](./environment/deployments/science-platform/demo-gke.tfvars).  This
 one is simper: all you need to do is replace the environment name and
 reset the serial, assuming your base and target environment have similar
 sets of resource requirements.
+
+Repeat the process with [cloudSQL
+resources](./environment/deployments/science-platform/demo-gke.tfvars),
+where you will also need to update `project_id`.
+
+If you want other resources (or you are adding something besides a
+science platform instance, which has different requirements), edit those
+files in an analogous manner.
 
 Again, create a PR, examine the Terraform output, and when happy, merge
 the PR.
