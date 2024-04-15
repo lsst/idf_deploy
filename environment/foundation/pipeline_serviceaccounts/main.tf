@@ -128,11 +128,11 @@ module "rsp_demo_gke_pipeline_accounts" {
   description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
-    "science-platform-demo-1234=>roles/browser",
-    "science-platform-demo-1234=>roles/compute.admin",
-    "science-platform-demo-1234=>roles/container.admin",
-    "science-platform-demo-1234=>roles/container.clusterAdmin",
-    "science-platform-demo-1234=>roles/iam.serviceAccountUser",
+    "science-platform-demo-9e05=>roles/browser",
+    "science-platform-demo-9e05=>roles/compute.admin",
+    "science-platform-demo-9e05=>roles/container.admin",
+    "science-platform-demo-9e05=>roles/container.clusterAdmin",
+    "science-platform-demo-9e05=>roles/iam.serviceAccountUser",
   ]
 }
 // Storage access to read tfstate
@@ -155,9 +155,9 @@ module "rsp_demo_pipeline_accounts" {
   description  = "Github action pipeline service account managed by Terraform"
 
   project_roles = [
-    "science-platform-demo-1234=>roles/editor",
-    "science-platform-demo-1234=>roles/resourcemanager.projectIamAdmin",
-    "science-platform-demo-1234=>roles/iam.serviceAccountAdmin"
+    "science-platform-demo-9e05=>roles/editor",
+    "science-platform-demo-9e05=>roles/resourcemanager.projectIamAdmin",
+    "science-platform-demo-9e05=>roles/iam.serviceAccountAdmin"
   ]
 }
 // Storage access to read tfstate

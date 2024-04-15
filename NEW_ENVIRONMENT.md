@@ -99,6 +99,14 @@ I'm creating a `demo` environment from `dev`, so:
   *first* subnet range, but the third octet should be `16` and the width
   should be `20`: in this example, `10.168.16.0/20`.
 
+Applying this PR will fail with 400 errors about Identity Pools.  This
+is happening because we do not yet have a cluster for which Workload
+Identity would make sense.  That indicates that we should move the
+Workload Identity resource creation into the GKE provisioning tfvars
+steps.
+
+
+
 ## Additional tfvars files
 
 Do the same for the GKE file (in this case, I would start with [the dev
