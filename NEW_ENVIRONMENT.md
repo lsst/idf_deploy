@@ -100,12 +100,36 @@ I'm creating a `demo` environment from `dev`, so:
   should be `20`: in this example, `10.168.16.0/20`.
 
 Applying this PR will fail with 400 errors about Identity Pools.  This
-is happening because we do not yet have a cluster for which Workload
+is happening because you do not yet have a cluster for which Workload
 Identity would make sense.  That indicates that we should move the
 Workload Identity resource creation into the GKE provisioning tfvars
 steps.
 
+However, the project itself will be created.  You will need that project
+ID for subsequent steps.
 
+## Service Account creation
+
+The next stage will take place in [the Foundation
+configuration](./environment/foundation).  The [Pipeline Serviceaccounts
+main.tf](./environment/foundation/pipeline_serviceaccounts/main.tf) will
+need GKE and project accounts added, and like everything else here,
+basically this boils down to "replace 'dev' with 'demo'", but now
+that there is a project ID (e.g. `science-platform-demo-9e05`), you can
+plug that in to the `project_roles` definitions.
+
+Additionally,
+[outputs.tf](./environment/foundation/pipeline_serviceaccounts/main.tf),
+[variables.tf](./environment/foundation/pipeline_serviceaccounts/), and
+[terraform.tfvars](./environment/foundation/pipeline_serviceaccounts/terraform.tfvars)
+will require the addition of variables describing your new environment.
+You should also update
+[readme.md](./environment/foundation/pipeline_serviceaccounts/) with the
+new service accounts and email addresses you are creating.  All of this
+is just "copy an existing definition and replace the environment name".
+
+Check this PR; when "Terraform plan" gives what look like the right
+results, merge it.
 
 ## Additional tfvars files
 
