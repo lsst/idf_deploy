@@ -131,6 +131,26 @@ is just "copy an existing definition and replace the environment name".
 Check this PR; when "Terraform plan" gives what look like the right
 results, merge it.
 
+## Key transplantation
+
+At this point a project administrator will need to temporarily enable
+the ability to extract service account keys.  The two service accounts
+just created should have their keys extracted and put into Github
+secrets, as something like `PIPELINE_RSP_DEMO_PROJECT` and
+`PIPELINE_RSP_DEMO_GKE`.
+
+This is not the pattern we ultimately want.  A future set of
+improvements to [idf_deploy](.) will replace this with [keyless
+authentication](https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions).
+
+## Descope GitHub Action accounts
+
+Go back to the [Workflows](.github/workflows) and update the `proj` and
+`gke` workflows to use the new keys just created, rather than
+`GOOGLE_CREDENTIALS`.
+
+Merge this PR.
+
 ## Additional tfvars files
 
 Do the same for the GKE file (in this case, I would start with [the dev
