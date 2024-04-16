@@ -32,7 +32,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0
       with:
         version: '379.0.0'
-        service_account_key: ${{ secrets.PIPELINE_RSP_DEMO_PROJECT }}
+        service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
