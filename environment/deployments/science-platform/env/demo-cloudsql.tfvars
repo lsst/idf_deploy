@@ -20,4 +20,3 @@ backups_enabled                    = true
 
 # Increase this number to force Terraform to update the demo environment.
 # Serial: 2
-
