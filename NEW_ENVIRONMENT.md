@@ -158,7 +158,9 @@ sets of resource requirements.
 Repeat the process with [cloudSQL
 resources](./environment/deployments/science-platform/demo-gke.tfvars),
 where you will also need to update `project_id`.  I did not need a
-butler database yet, so I commented out that section as well.
+butler database yet, so I commented out that section as well.  The org
+policy will have to be manually removed and re-added if a butler
+registry is needed: the process is remove, make change, reenable.
 
 If you want other resources (or you are adding something besides a
 science platform instance, which has different requirements), edit those
