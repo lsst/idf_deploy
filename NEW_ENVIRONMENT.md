@@ -172,20 +172,13 @@ the PR.
 ## Descope GitHub Action accounts
 
 Go back to the [Workflows](.github/workflows) and update the `proj` and
-`gke` workflows to use the new keys just created, rather than
+`gke` workflows to use the new keys created above, rather than
 `GOOGLE_CREDENTIALS`.
 
 Merge this PR.  (If you do this earlier, the resource creation will not
 happen as it should, because the SAs don't have correct permissions.)
 
-## Issues
+## Initialize the filestore
 
-Looks like the reduced-scope tokens lack some permissions.  The base env
-is having permission errors creating a cluster-scoped SA, and cloudsql
-fails with "Identity Pool does not exist" which I believe to come from
-the failures in the base, because we saw them earlier...but that was
-when we didn't have a cluster.
+From GitHub Actions, run the `RSP_FILESTORE_DIR` action.
 
-That's because the service account needs the Service Account Admin
-permissions.  For the moment, modify it manually, and it goes on the
-backlog of stuff we need to fix.
