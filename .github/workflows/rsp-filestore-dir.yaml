@@ -55,11 +55,11 @@ jobs:
           ./yq w -i overlays/dev/nfs.ip.patch.yaml [].value $FILESTORE_IP
 
       # Get the GKE credentials so we can deploy to the cluster
-      - name: GKE Credential Setup
-        run: |-
-          gcloud container clusters get-credentials "${{ github.event.inputs.gkeCluster }}" --zone "${GKE_REGION}"
-        env:
-          GKE_REGION: us-central1
+      - id: 'get-credentials'
+        uses: 'google-github-actions/get-gke-credentials@v2'
+        with:
+          cluster_name: "${{ github.event.inputs.gkeCluster }}"
+          location: "${GKE_REGION}"
 
       # Validate the kubernetes manifest from kustomize
       - name: Validate Kubernetes Manifests
