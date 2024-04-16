@@ -59,7 +59,7 @@ jobs:
         uses: 'google-github-actions/get-gke-credentials@v2'
         with:
           cluster_name: "${{ github.event.inputs.gkeCluster }}"
-          location: "${GKE_REGION}"
+          location: "us-central1"
 
       # Validate the kubernetes manifest from kustomize
       - name: Validate Kubernetes Manifests
