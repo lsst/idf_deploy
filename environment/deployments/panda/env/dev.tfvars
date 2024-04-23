@@ -236,5 +236,4 @@ bucket_policy_only = {
 }
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 5
-
+# Serial: 6

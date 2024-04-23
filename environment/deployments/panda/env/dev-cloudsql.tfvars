@@ -21,3 +21,5 @@ insights_config = ({
     record_application_tags = false
     record_client_address   = true
   })
+# Increase this number to force Terraform to update the dev environment.
+# Serial: 1
