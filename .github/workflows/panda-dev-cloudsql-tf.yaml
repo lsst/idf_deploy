@@ -29,7 +29,7 @@ jobs:
 
     # gcloud setup
     - name: GCP login
-      uses: google-github-actions/setup-gcloud@mv0
+      uses: google-github-actions/setup-gcloud@v0
       with:
         version: '379.0.0'
         service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
