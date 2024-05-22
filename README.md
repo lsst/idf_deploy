@@ -22,20 +22,20 @@ The runbook directory is used for documentation.
 
 ## Where to Begin
 
-To start, you will need to go into the [foundation](./environment/foundation) directory. This directoy is the building block to deploying a solid and secure GCP foundation. The foundation directory has it's own [readme](./environment/foundation/readme.md) with steps.
+To start, you will need to go into the [foundation](./environment/foundation) directory. This directoy is the building block to deploying a solid and secure GCP foundation. The foundation directory has its own [readme](./environment/foundation/readme.md) with steps.
 
 ## Where to Continue
 
 After all the steps have been completed from the [foundation](./environment/foundation) directory, next is day-to-day operations. Most of the time, deployments are decentralized meaning a project is created and handed over to a PI or researcher to be used for their initiatives. Terraform may never be used again to manage the project, but is used for consistency and repeatability.
 
-To build new projects with new infrastructure, these should be built under the [modules](./modules) directory. To seperate out different inputs or to have different environments these will go under the [deployments](./environment/deployments) directory. Additional folders under deployments can be used if desired.
+To build new projects with new infrastructure, these should be built under the [modules](./modules) directory. To separate out different inputs or to have different environments these will go under the [deployments](./environment/deployments) directory. Additional folders under deployments can be used if desired.
 
 ---
 ## Runbook
 
 ### [Foundation Terraform](./runbook/update-foundations.md)
 
-The GCP Organization, Organization Policies, Organization Level IAM, projects, monitoring, and logging are in the Foundation Terraform code and GitHub Actions.Input below for creating folders, modifying IAM roles,and modifiying Projects created by Terraform.  Also below is how to manually create GCP projects in the scratch folder.
+The GCP Organization, Organization Policies, Organization Level IAM, projects, monitoring, and logging are in the Foundation Terraform code and GitHub Actions. Input below for creating folders, modifying IAM roles and modifiying Projects created by Terraform.  Also below is how to manually create GCP projects in the scratch folder.
 
 ## Folders
 * [Folder Changes](./runbook/update-foundations.md#example-of-folder-update)
