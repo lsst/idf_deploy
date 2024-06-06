@@ -115,64 +115,6 @@ resource "google_billing_account_iam_member" "qserv_int" {
   member             = "serviceAccount:${module.qserv_int_pipeline_accounts.email}"
 }
 
-#---------------------------------------------------------------
-// Science Platform Demo GKE
-#---------------------------------------------------------------
-module "rsp_demo_gke_pipeline_accounts" {
-  source = "../../../modules/service_accounts/"
-
-  project_id   = "rubin-automation-prod"
-  prefix       = "pipeline"
-  names        = var.rsp_demo_gke_names
-  display_name = "Pipelines for Science Platform Demo GKE"
-  description  = "Github action pipeline service account managed by Terraform"
-
-  project_roles = [
-    "science-platform-demo-9e05=>roles/browser",
-    "science-platform-demo-9e05=>roles/compute.admin",
-    "science-platform-demo-9e05=>roles/container.admin",
-    "science-platform-demo-9e05=>roles/container.clusterAdmin",
-    "science-platform-demo-9e05=>roles/iam.serviceAccountUser",
-  ]
-}
-// Storage access to read tfstate
-resource "google_storage_bucket_iam_member" "rsp_demo_gke" {
-  bucket = "lsst-terraform-state"
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${module.rsp_demo_gke_pipeline_accounts.email}"
-}
-
-#---------------------------------------------------------------
-// Science Platform Demo Project
-#---------------------------------------------------------------
-module "rsp_demo_pipeline_accounts" {
-  source = "../../../modules/service_accounts/"
-
-  project_id   = "rubin-automation-prod"
-  prefix       = "pipeline"
-  names        = var.rsp_demo_names
-  display_name = "Pipelines for Science Platform Demo Project"
-  description  = "Github action pipeline service account managed by Terraform"
-
-  project_roles = [
-    "science-platform-demo-9e05=>roles/editor",
-    "science-platform-demo-9e05=>roles/resourcemanager.projectIamAdmin",
-    "science-platform-demo-9e05=>roles/iam.serviceAccountAdmin"
-  ]
-}
-// Storage access to read tfstate
-resource "google_storage_bucket_iam_member" "rsp_demo" {
-  bucket = "lsst-terraform-state"
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${module.rsp_demo_pipeline_accounts.email}"
-}
-
-// Billing Account to update budgets
-resource "google_billing_account_iam_member" "rsp_demo" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.rsp_demo_pipeline_accounts.email}"
-}
 
 #---------------------------------------------------------------
 // Science Platform Dev GKE
