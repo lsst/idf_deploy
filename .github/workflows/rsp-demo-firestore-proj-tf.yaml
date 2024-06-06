@@ -2,14 +2,15 @@
 name: 'RSP DEMO FIRESTORE GCP Project'
 
 on:
-  pull_request:
-    paths:
-      - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
-  push:
-    paths:
-      - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
-    branches:
-      - main
+  workflow_dispatch
+  # pull_request:
+  #   paths:
+  #     - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
+  # push:
+  #   paths:
+  #     - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
+  #   branches:
+  #     - main
 
 jobs:
   terraform:
