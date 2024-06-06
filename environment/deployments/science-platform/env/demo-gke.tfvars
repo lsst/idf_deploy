@@ -20,9 +20,9 @@ node_pools = [
     auto_upgrade       = true
     preemptible        = false
     autoscaling        = true
-    initial_node_count = 1
-    min_count          = 1
-    max_count          = 100
+    initial_node_count = 0
+    min_count          = 0
+    max_count          = 0
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "200"
@@ -38,4 +38,4 @@ node_pools_labels = {
 }
 
 # Increase this number to force Terraform to update the demo environment.
-# Serial: 2
+# Serial: 3
