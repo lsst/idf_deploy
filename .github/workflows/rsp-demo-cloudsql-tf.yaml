@@ -2,14 +2,15 @@
 name: 'RSP DEMO CLOUD SQL'
 
 on:
-  pull_request:
-    paths:
-      - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
-  push:
-    branches:
-      - main
-    paths:
-      - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
+  workflow_dispatch
+  # pull_request:
+  #   paths:
+  #     - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
 
 jobs:
   terraform:
