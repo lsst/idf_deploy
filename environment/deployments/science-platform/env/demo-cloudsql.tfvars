@@ -1,3 +1,6 @@
+# THIS IS NOT CURRENTLY USED: the various demo GitHub actions will have to
+# be reenabled in order to resurrect it.
+
 # Project
 environment      = "demo"
 application_name = "science-platform"
