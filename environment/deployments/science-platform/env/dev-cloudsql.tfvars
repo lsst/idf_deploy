@@ -1,4 +1,4 @@
-v# Project
+# Project
 environment      = "dev"
 application_name = "science-platform"
 project_id       = "science-platform-dev-7696"
