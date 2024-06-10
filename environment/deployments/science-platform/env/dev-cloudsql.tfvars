@@ -1,4 +1,4 @@
-# Project
+v# Project
 environment      = "dev"
 application_name = "science-platform"
 project_id       = "science-platform-dev-7696"
@@ -19,4 +19,4 @@ db_maintenance_window_update_track = "canary"
 backups_enabled                    = true
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 13
+# Serial: 14
