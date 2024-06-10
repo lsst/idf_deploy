@@ -61,6 +61,13 @@ resource "random_password" "ssotap" {
   special = false
 }
 
+resource "random_password" "obstap" {
+  length  = 24
+  number  = true
+  upper   = true
+  special = false
+}
+
 data "google_compute_network" "network" {
   name    = var.network
   project = var.project_id
@@ -116,6 +123,11 @@ module "db_science_platform" {
       name      = "ssotap"
       charset   = "UTF8"
       collation = "en_US.UTF8"
+    },
+    {
+      name      = "obstap"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
     }
   ]
 
@@ -139,6 +151,10 @@ module "db_science_platform" {
     {
       name     = "ssotap"
       password = random_password.ssotap.result
+    },
+    {
+      name     = "obstap"
+      password = random_password.obstap.result
     }
   ]
 
@@ -187,7 +203,7 @@ module "service_accounts" {
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
-  names         = ["gafaelfawr", "nublado", "times-square", "vo-cutouts", "ssotap"]
+  names         = ["gafaelfawr", "nublado", "times-square", "vo-cutouts", "ssotap", "obstap"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
@@ -241,6 +257,12 @@ resource "google_service_account_iam_member" "ssotap_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["ssotap"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[ssotap/ssotap]"
+}
+
+resource "google_service_account_iam_member" "obstap_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["obstap"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[obstap/obstap]"
 }
 
 # The vo-cutouts service account must be granted the ability to generate
