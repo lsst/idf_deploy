@@ -84,7 +84,7 @@ module "db_science_platform" {
   enable_default_user             = false
   maintenance_window_day          = var.db_maintenance_window_day
   maintenance_window_hour         = var.db_maintenance_window_hour
-  maintenance_window_update_trmodule.service_accounts.ack = var.db_maintenance_window_update_track
+  maintenance_window_update_track = var.db_maintenance_window_update_track
   project_id                      = var.project_id
   random_instance_name            = true
   ipv4_enabled                    = false
