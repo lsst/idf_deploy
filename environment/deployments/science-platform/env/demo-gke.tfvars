@@ -25,7 +25,7 @@ node_pools = [
     max_count          = 100
     image_type         = "cos_containerd"
     enable_secure_boot = true
-    disk_size_gb       = "200"
+    disk_size_gb       = "300"
     disk_type          = "pd-ssd"
   }
 ]
@@ -38,4 +38,4 @@ node_pools_labels = {
 }
 
 # Increase this number to force Terraform to update the demo environment.
-# Serial: 2
+# Serial: 3
