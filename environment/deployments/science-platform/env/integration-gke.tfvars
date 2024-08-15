@@ -21,7 +21,7 @@ node_pools = [
     preemptible        = false
     image_type         = "cos_containerd"
     enable_secure_boot = true
-    disk_size_gb       = "200"
+    disk_size_gb       = "300"
     disk_type          = "pd-ssd"
     autoscaling        = true
     initial_node_count = 3
@@ -73,5 +73,5 @@ node_pools_taints = {
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/int/gke"
 
-# Increase this number to force Terraform to update the dev environment.
-# Serial: 3
+# Increase this number to force Terraform to update the int environment.
+# Serial: 4
