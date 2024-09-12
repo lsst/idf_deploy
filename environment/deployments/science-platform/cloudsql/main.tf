@@ -1,3 +1,4 @@
+# Butler Registry Original.  Conditionally enabled with enable_butler_registry variable.  Remove after migration to Butler Registry DP02
 module "private-postgres" {
   source = "../../../../modules/cloudsql/postgres-private"
   authorized_networks = [
@@ -6,23 +7,59 @@ module "private-postgres" {
       "value" : "130.211.0.0/28"
     }
   ]
-  database_version    = var.butler_database_version
-  db_name             = var.butler_db_name
-  tier                = var.butler_tier
-  database_flags      = var.butler_database_flags
-  names               = ["service-account"]
-  project_roles       = ["${var.project_id}=>roles/cloudsql.client"]
-  project_id          = var.project_id
-  vpc_network         = var.network
-  ipv4_enabled        = var.butler_ipv4_enabled
-  require_ssl         = var.butler_require_ssl
-  deletion_protection = true
+  database_version                = var.butler_registry_database_version
+  db_name                         = var.butler_registry_db_name
+  tier                            = var.butler_registry_tier
+  database_flags                  = var.butler_registry_database_flags
+  maintenance_window_day          = var.butler_registry_db_maintenance_window_day
+  maintenance_window_hour         = var.butler_registry_db_maintenance_window_hour
+  maintenance_window_update_track = var.butler_registry_db_maintenance_window_update_track
+  names                           = ["service-account"]
+  project_roles                   = ["${var.project_id}=>roles/cloudsql.client"]
+  project_id                      = var.project_id
+  vpc_network                     = var.network
+  ipv4_enabled                    = var.butler_registry_ipv4_enabled
+  require_ssl                     = var.butler_registry_require_ssl
+  deletion_protection             = true
 
   backup_configuration = {
-    enabled                        = var.backups_enabled
-    start_time                     = "09:00"
+    enabled                        = var.butler_registry_backups_enabled
+    start_time                     = var.butler_registry_backups_start_time
     location                       = "us-central1"
-    point_in_time_recovery_enabled = true
+    point_in_time_recovery_enabled = var.butler_registry_backups_point_in_time_recovery_enabled
+  }
+}
+
+# Butler Registry DP02
+module "db_butler_registry_dp02" {
+  source = "../../../../modules/cloudsql/postgres-private"
+  authorized_networks = [
+    {
+      "name" : "sample-gcp-health-checkers-range",
+      "value" : "130.211.0.0/28"
+    }
+  ]
+  database_version                = var.butler_registry_dp02_database_version
+  db_name                         = var.butler_registry_dp02_db_name
+  tier                            = var.butler_registry_dp02_tier
+  database_flags                  = var.butler_registry_dp02_database_flags
+  disk_size                       = var.butler_registry_dp02_disk_size
+  maintenance_window_day          = var.butler_registry_dp02_db_maintenance_window_day
+  maintenance_window_hour         = var.butler_registry_dp02_db_maintenance_window_hour
+  maintenance_window_update_track = var.butler_registry_dp02_db_maintenance_window_update_track
+  names                           = ["service-account"]
+  project_roles                   = ["${var.project_id}=>roles/cloudsql.client"]
+  project_id                      = var.project_id
+  vpc_network                     = var.network
+  ipv4_enabled                    = var.butler_registry_dp02_ipv4_enabled
+  require_ssl                     = var.butler_registry_dp02_require_ssl
+  deletion_protection             = true
+
+  backup_configuration = {
+    enabled                        = var.butler_registry_dp02_backups_enabled
+    start_time                     = var.butler_registry_dp02_backups_start_time
+    location                       = "us-central1"
+    point_in_time_recovery_enabled = var.butler_registry_dp02_backups_point_in_time_recovery_enabled
   }
 }
 
@@ -73,27 +110,28 @@ data "google_compute_network" "network" {
   project = var.project_id
 }
 
+# Science Platform Database
 module "db_science_platform" {
   source = "../../../../modules/cloudsql/postgres-sql"
 
   authorized_networks             = []
-  database_version                = var.database_version
+  database_version                = var.science_platform_database_version
   db_name                         = "${var.application_name}-${var.environment}"
   deletion_protection             = true
   enable_default_db               = false
   enable_default_user             = false
-  maintenance_window_day          = var.db_maintenance_window_day
-  maintenance_window_hour         = var.db_maintenance_window_hour
-  maintenance_window_update_track = var.db_maintenance_window_update_track
+  maintenance_window_day          = var.science_platform_db_maintenance_window_day
+  maintenance_window_hour         = var.science_platform_db_maintenance_window_hour
+  maintenance_window_update_track = var.science_platform_db_maintenance_window_update_track
   project_id                      = var.project_id
   random_instance_name            = true
   ipv4_enabled                    = false
   private_network                 = data.google_compute_network.network.self_link
-  tier                            = var.database_tier
+  tier                            = var.science_platform_database_tier
 
   backup_configuration = {
-    enabled                        = var.backups_enabled
-    start_time                     = "09:00"
+    enabled                        = var.science_platform_backups_enabled
+    start_time                     = var.science_platform_backups_start_time
     location                       = "us-central1"
     point_in_time_recovery_enabled = false
   }
