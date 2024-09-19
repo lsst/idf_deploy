@@ -156,6 +156,12 @@ variable "butler_registry_dp02_disk_type" {
   default     = "PD_SSD"
 }
 
+variable "butler_registry_dp02_edition" {
+  description = "The edition of the Cloud SQL instance, can be ENTERPRISE or ENTERPRISE_PLUS."
+  type        = string
+}
+
+
 variable "butler_registry_dp02_require_ssl" {
   description = "True if the instance should require SSL/TLS for users connecting over IP. Note: SSL/TLS is needed to provide security when you connect to Cloud SQL using IP addresses. If you are connecting to your instance only by using the Cloud SQL Proxy or the Java Socket Library, you do not need to configure your instance to use SSL/TLS."
   type        = bool
@@ -166,6 +172,11 @@ variable "butler_registry_dp02_ipv4_enabled" {
   type        = bool
   description = "True if enabling public IP on database"
   default     = false
+}
+
+variable "butler_registry_dp02_ssl_mode" {
+  description = "Specify how SSL connection should be enforced in DB connections.  Options are ALLOW_UNENCRYPTED_AND_ENCRYPTED, ENCRYPTED_ONLY, and TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
+  type        = string
 }
 
 variable "butler_registry_dp02_database_tier" {

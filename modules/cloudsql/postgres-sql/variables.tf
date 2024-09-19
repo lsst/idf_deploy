@@ -23,6 +23,12 @@ variable "disk_size" {
   default     = 10
 }
 
+variable "edition" {
+  description = "The edition of the Cloud SQL instance, can be ENTERPRISE or ENTERPRISE_PLUS."
+  type        = string
+  default     = "ENTERPRISE"
+}
+
 variable "database_version" {
   description = "value"
   type        = string
@@ -175,8 +181,9 @@ variable "additional_databases" {
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
-    password = string
+    name            = string
+    password        = string
+    random_password = bool
   }))
   default = []
 }
@@ -191,4 +198,10 @@ variable "private_network" {
   description = "The VPC network from which the Cloud SQL instance is accessible for private IP. For example, projects/myProject/global/networks/default. Specifying a network enables private IP. Either `ipv4_enabled` must be enabled or a `private_network` must be configured. This setting can be updated, but it cannot be removed after it is set."
   type        = string
   default     = null
+}
+
+variable "ssl_mode" {
+  description = "Specify how SSL connection should be enforced in DB connections.  Options are ALLOW_UNENCRYPTED_AND_ENCRYPTED, ENCRYPTED_ONLY, and TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
+  type        = string
+  default     = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
 }

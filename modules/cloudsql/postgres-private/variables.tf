@@ -181,8 +181,9 @@ variable "additional_databases" {
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
-    password = string
+    name            = string
+    password        = string
+    random_password = bool
   }))
   default = []
 }

@@ -5,7 +5,7 @@ data "google_compute_network" "network" {
 
 module "cloudsql-db" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version = "~> 4.0"
+  version = ">= 19.0.0"
 
   name                            = var.db_name
   random_instance_name            = var.random_instance_name
@@ -57,7 +57,7 @@ module "private-service-access" {
 
 module "service_accounts" {
   source        = "terraform-google-modules/service-accounts/google"
-  version       = "~> 3.0"
+  version       = ">= 4.0"
   project_id    = var.project_id
   display_name  = var.display_name
   description   = var.description
