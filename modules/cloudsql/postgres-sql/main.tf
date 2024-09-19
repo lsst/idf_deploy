@@ -1,6 +1,6 @@
 module "cloudsql-db" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version = "~> 4.0"
+  version = ">= 19.0.0"
 
   name                            = var.db_name
   random_instance_name            = var.random_instance_name
@@ -11,6 +11,7 @@ module "cloudsql-db" {
   tier                            = var.tier
   disk_size                       = var.disk_size
   disk_type                       = var.disk_type
+  edition                         = var.edition
   backup_configuration            = var.backup_configuration
   disk_autoresize                 = var.disk_autoresize
   enable_default_db               = var.enable_default_db
@@ -34,7 +35,7 @@ module "cloudsql-db" {
   ip_configuration = {
     ipv4_enabled        = var.ipv4_enabled
     private_network     = var.private_network
-    require_ssl         = true
+    ssl_mode            = var.ssl_mode
     authorized_networks = var.authorized_networks
   }
 }
