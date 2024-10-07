@@ -130,6 +130,7 @@ module "db_science_platform" {
   ipv4_enabled                    = false
   private_network                 = data.google_compute_network.network.self_link
   tier                            = var.science_platform_database_tier
+  ssl_mode                        = var.science_platform_ssl_mode
 
   backup_configuration = {
     enabled                        = var.science_platform_backups_enabled
@@ -221,7 +222,7 @@ module "cutouts_bucket" {
   project_id    = var.project_id
   storage_class = "STANDARD"
   location      = "us-central1"
-  prefix_name   = "rubin-cutouts-${var.environment}"
+  prefix_name   = "rubin-cutouts-${var.environment}-us-central1"
   suffix_name   = ["output"]
 
   # This bucket is used for temporary output from cutout jobs and all

@@ -264,3 +264,9 @@ variable "science_platform_backups_start_time" {
   description = "Start time for backups"
   default     = "09:00"
 }
+
+variable "science_platform_ssl_mode" {
+  description = "Specify how SSL connection should be enforced in DB connections.  Options are ALLOW_UNENCRYPTED_AND_ENCRYPTED, ENCRYPTED_ONLY, and TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
+  type        = string
+  default     = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
+}
