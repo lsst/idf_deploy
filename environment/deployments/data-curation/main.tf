@@ -255,15 +255,17 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0" {
 }
 // RO storage access to DESC DC2 Run22i bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dc2_run22i" {
-  bucket = "curation-us-central1-desc-dc2-run22i"
-  role   = "roles/storage.objectViewer"
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
+  bucket   = "curation-us-central1-desc-dc2-run22i"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RO storage access to DESC DR6 bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dr6" {
-  bucket = "butler-us-central1-dp01-desc-dr6"
-  role   = "roles/storage.objectViewer"
-  member = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
+  bucket   = "butler-us-central1-dp01-desc-dr6"
+  role     = each.value
+  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
 // RW storage access to the -dev Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_dev" {
