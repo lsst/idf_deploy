@@ -32,7 +32,7 @@ module "private-postgres" {
 
 # Butler Registry DP02
 module "db_butler_registry_dp02" {
-  source = "../../../../modules/cloudsql/postgres-private"
+  source = "../../../../modules/cloudsql/postgres-sql"
   authorized_networks = [
     {
       "name" : "sample-gcp-health-checkers-range",
@@ -44,15 +44,17 @@ module "db_butler_registry_dp02" {
   tier                            = var.butler_registry_dp02_tier
   database_flags                  = var.butler_registry_dp02_database_flags
   disk_size                       = var.butler_registry_dp02_disk_size
+  enable_default_db               = false
+  enable_default_user             = false
+  edition                         = var.butler_registry_dp02_edition
   maintenance_window_day          = var.butler_registry_dp02_db_maintenance_window_day
   maintenance_window_hour         = var.butler_registry_dp02_db_maintenance_window_hour
   maintenance_window_update_track = var.butler_registry_dp02_db_maintenance_window_update_track
-  names                           = ["service-account"]
-  project_roles                   = ["${var.project_id}=>roles/cloudsql.client"]
+  random_instance_name            = false
   project_id                      = var.project_id
-  vpc_network                     = var.network
+  private_network                 = data.google_compute_network.network.self_link
   ipv4_enabled                    = var.butler_registry_dp02_ipv4_enabled
-  require_ssl                     = var.butler_registry_dp02_require_ssl
+  ssl_mode                        = var.butler_registry_dp02_ssl_mode
   deletion_protection             = true
 
   backup_configuration = {
@@ -65,42 +67,42 @@ module "db_butler_registry_dp02" {
 
 resource "random_password" "gafaelfawr" {
   length  = 24
-  number  = true
+  numeric = true
   upper   = true
   special = false
 }
 
 resource "random_password" "nublado" {
   length  = 24
-  number  = true
+  numeric = true
   upper   = true
   special = false
 }
 
 resource "random_password" "times-square" {
   length  = 24
-  number  = true
+  numeric = true
   upper   = true
   special = false
 }
 
 resource "random_password" "vo-cutouts" {
   length  = 24
-  number  = true
+  numeric = true
   upper   = true
   special = false
 }
 
 resource "random_password" "ssotap" {
   length  = 24
-  number  = true
+  numeric = true
   upper   = true
   special = false
 }
 
 resource "random_password" "tap" {
   length  = 24
-  number  = true
+  numeric = true
   upper   = true
   special = false
 }
@@ -171,28 +173,34 @@ module "db_science_platform" {
 
   additional_users = [
     {
-      name     = "gafaelfawr"
-      password = random_password.gafaelfawr.result
+      name            = "gafaelfawr"
+      password        = random_password.gafaelfawr.result
+      random_password = false
     },
     {
-      name     = "nublado"
-      password = random_password.nublado.result
+      name            = "nublado"
+      password        = random_password.nublado.result
+      random_password = false
     },
     {
-      name     = "times-square"
-      password = random_password.times-square.result
+      name            = "times-square"
+      password        = random_password.times-square.result
+      random_password = false
     },
     {
-      name     = "vo-cutouts"
-      password = random_password.vo-cutouts.result
+      name            = "vo-cutouts"
+      password        = random_password.vo-cutouts.result
+      random_password = false
     },
     {
-      name     = "ssotap"
-      password = random_password.ssotap.result
+      name            = "ssotap"
+      password        = random_password.ssotap.result
+      random_password = false
     },
     {
-      name     = "tap"
-      password = random_password.tap.result
+      name            = "tap"
+      password        = random_password.tap.result
+      random_password = false
     }
   ]
 
@@ -213,7 +221,7 @@ module "cutouts_bucket" {
   project_id    = var.project_id
   storage_class = "STANDARD"
   location      = "us-central1"
-  prefix_name   = "rubin-cutouts-${var.environment}"
+  prefix_name   = "rubin-cutouts-${var.environment}-us-central1"
   suffix_name   = ["output"]
 
   # This bucket is used for temporary output from cutout jobs and all
@@ -236,7 +244,7 @@ locals {
 
 module "service_accounts" {
   source  = "terraform-google-modules/service-accounts/google"
-  version = "~> 3.0"
+  version = ">= 4.0"
 
   project_id    = var.project_id
   display_name  = "PostgreSQL client"

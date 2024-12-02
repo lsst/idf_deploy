@@ -1,6 +1,6 @@
 module "gcs_bucket" {
   source  = "terraform-google-modules/cloud-storage/google"
-  version = "~> 1.7.0"
+  version = ">= 6.1.0"
 
   project_id           = var.project_id
   names                = var.suffix_name

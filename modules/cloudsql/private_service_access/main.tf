@@ -1,6 +1,6 @@
 module "private-service-access" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/private_service_access"
-  version = "~> 4.4.0"
+  version = ">= 19.0.0"
 
   project_id    = var.project_id
   vpc_network   = var.vpc_network
