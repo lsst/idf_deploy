@@ -221,7 +221,7 @@ module "cutouts_bucket" {
   project_id    = var.project_id
   storage_class = "STANDARD"
   location      = "us-central1"
-  prefix_name   = "rubin-cutouts-${var.environment}"
+  prefix_name   = "rubin-cutouts-${var.environment}-us-central1"
   suffix_name   = ["output"]
 
   # This bucket is used for temporary output from cutout jobs and all
