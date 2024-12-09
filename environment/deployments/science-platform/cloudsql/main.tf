@@ -93,6 +93,13 @@ resource "random_password" "vo-cutouts" {
   special = false
 }
 
+resource "random_password" "wobbly" {
+  length  = 24
+  numeric = true
+  upper   = true
+  special = false
+}
+
 resource "random_password" "ssotap" {
   length  = 24
   numeric = true
@@ -160,6 +167,11 @@ module "db_science_platform" {
       collation = "en_US.UTF8"
     },
     {
+      name      = "wobbly"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    },
+    {
       name      = "ssotap"
       charset   = "UTF8"
       collation = "en_US.UTF8"
@@ -201,7 +213,12 @@ module "db_science_platform" {
       name            = "tap"
       password        = random_password.tap.result
       random_password = false
-    }
+    },
+    {
+      name            = "wobbly"
+      password        = random_password.wobbly.result
+      random_password = false
+    },
   ]
 
   database_flags = [
@@ -249,7 +266,15 @@ module "service_accounts" {
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
-  names         = ["gafaelfawr", "nublado", "times-square", "vo-cutouts", "ssotap", "tap-service"]
+  names         = [
+    "gafaelfawr",
+    "nublado",
+    "ssotap",
+    "tap-service",
+    "times-square",
+    "vo-cutouts",
+    "wobbly",
+  ]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
@@ -297,6 +322,12 @@ resource "google_service_account_iam_member" "vo_cutouts_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["vo-cutouts"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[vo-cutouts/vo-cutouts]"
+}
+
+resource "google_service_account_iam_member" "wobbly_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["wobbly"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[wobbly/wobbly]"
 }
 
 resource "google_service_account_iam_member" "ssotap_sa_wi" {
