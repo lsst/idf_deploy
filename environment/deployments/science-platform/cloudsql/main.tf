@@ -32,6 +32,7 @@ module "private-postgres" {
 
 # Butler Registry DP02
 module "db_butler_registry_dp02" {
+  count  = var.butler_registry_dp02_enable ? 1 : 0
   source = "../../../../modules/cloudsql/postgres-sql"
   authorized_networks = [
     {
@@ -263,10 +264,10 @@ module "service_accounts" {
   source  = "terraform-google-modules/service-accounts/google"
   version = ">= 4.0"
 
-  project_id    = var.project_id
-  display_name  = "PostgreSQL client"
-  description   = "Terraform-managed service account for PostgreSQL access"
-  names         = [
+  project_id   = var.project_id
+  display_name = "PostgreSQL client"
+  description  = "Terraform-managed service account for PostgreSQL access"
+  names = [
     "gafaelfawr",
     "nublado",
     "ssotap",
