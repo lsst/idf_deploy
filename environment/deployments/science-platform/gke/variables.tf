@@ -58,6 +58,25 @@ variable "maintenance_recurrence" {
   default     = "FREQ=DAILY"
 }
 
+variable "cluster_autoscaling" {
+  type = object({
+    enabled             = bool
+    autoscaling_profile = string
+    min_cpu_cores       = number
+    max_cpu_cores       = number
+    min_memory_gb       = number
+    max_memory_gb       = number
+  })
+  default = {
+    enabled             = false
+    autoscaling_profile = "BALANCED"
+    min_cpu_cores       = 0
+    max_cpu_cores       = 0
+    min_memory_gb       = 0
+    max_memory_gb       = 0
+  }
+}
+
 variable "network_policy" {
   description = "Enable network policy addon"
   type        = bool
