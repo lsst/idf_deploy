@@ -120,8 +120,15 @@ variable "butler_registry_backups_point_in_time_recovery_enabled" {
 
 // Butler Registry DP02 Database variables
 
+variable "butler_registry_dp02_enable" {
+  type        = bool
+  description = "Conditionally enable Butler Registry DPO02"
+  default     = true
+}
+
 variable "butler_registry_dp02_db_name" {
   description = "The name of the SQL Database instance"
+  default     = "butler-registry-dp02"
 }
 
 variable "butler_registry_dp02_database_version" {
@@ -148,6 +155,7 @@ variable "butler_registry_dp02_database_flags" {
 variable "butler_registry_dp02_disk_size" {
   description = "The disk size for the instance in GB.  This value is ignored after initial provisioning with a terraform lifecycle policy in Google module.  This is needed because of auto storage increase is enabled."
   type        = number
+  default     = 100
 }
 
 variable "butler_registry_dp02_disk_type" {
@@ -159,6 +167,7 @@ variable "butler_registry_dp02_disk_type" {
 variable "butler_registry_dp02_edition" {
   description = "The edition of the Cloud SQL instance, can be ENTERPRISE or ENTERPRISE_PLUS."
   type        = string
+  default     = "ENTERPRISE"
 }
 
 
@@ -177,6 +186,7 @@ variable "butler_registry_dp02_ipv4_enabled" {
 variable "butler_registry_dp02_ssl_mode" {
   description = "Specify how SSL connection should be enforced in DB connections.  Options are ALLOW_UNENCRYPTED_AND_ENCRYPTED, ENCRYPTED_ONLY, and TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
   type        = string
+  default     = "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
 }
 
 variable "butler_registry_dp02_database_tier" {
