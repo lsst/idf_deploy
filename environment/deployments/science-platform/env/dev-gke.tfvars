@@ -55,16 +55,6 @@ node_pools = [
   }
 ]
 
-node_pools_labels = {
-  core-pool = {
-    infrastructure = "ok"
-  }
-  lab-pool = {
-    jupyterlab = "ok"
-    "nublado.lsst.io/permitted" = "true"
-  }
-}
-
 node_pools_taints = {
   "lab-pool" = [
     {
