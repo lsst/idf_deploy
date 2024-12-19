@@ -18,7 +18,7 @@ butler_registry_database_flags = [
 butler_registry_dp02_enable = false
 
 butler_database_version = "POSTGRES_13"
-butler_registry_ipv4_enabled                           = true
+butler_registry_ipv4_enabled                           = false
 butler_registry_db_maintenance_window_update_track     = "canary"
 butler_registry_backups_enabled                        = true
 butler_registry_backups_point_in_time_recovery_enabled = true
