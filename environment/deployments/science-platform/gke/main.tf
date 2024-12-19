@@ -45,6 +45,7 @@ module "gke" {
   maintenance_start_time = var.maintenance_start_time
   maintenance_end_time   = var.maintenance_end_time
   maintenance_recurrence = var.maintenance_recurrence
+  cluster_autoscaling    = var.cluster_autoscaling
 
   # Labels
   cluster_resource_labels = {
@@ -64,4 +65,5 @@ module "gke" {
   }
 
   node_pools_taints = var.node_pools_taints
+
 }
