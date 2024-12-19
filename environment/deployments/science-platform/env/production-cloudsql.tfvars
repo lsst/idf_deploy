@@ -13,8 +13,15 @@ butler_registry_database_flags = [
   { name = "password_encryption", value = "scram-sha-256" },
   { name = "max_connections", value = 400 }
 ]
+
 # Butler Registry DP02
 butler_registry_dp02_enable = false
+
+butler_database_version = "POSTGRES_13"
+butler_registry_ipv4_enabled                           = true
+butler_registry_db_maintenance_window_update_track     = "canary"
+butler_registry_backups_enabled                        = true
+butler_registry_backups_point_in_time_recovery_enabled = true
 
 # Science Platform Database
 science_platform_db_maintenance_window_day  = 4
@@ -22,4 +29,4 @@ science_platform_db_maintenance_window_hour = 22
 science_platform_backups_enabled            = true
 
 # Increase this number to force Terraform to update the prod environment.
-# Serial: 5
+# Serial: 6
