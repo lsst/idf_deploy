@@ -27,14 +27,40 @@ node_pools = [
     initial_node_count = 5
     min_count          = 5
     max_count          = 100
+  },
+  {
+    name               = "user-lab-pool"
+    machine_type       = "n2-standard-32"
+    node_locations     = "us-central1-b"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = false
+    autoscaling        = true
+    initial_node_count = 1
+    min_count          = 1
+    max_count          = 100
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "300"
+    disk_type          = "pd-ssd"
   }
 ]
 
 node_pools_labels = {
   core-pool = {
     infrastructure = "ok",
-    jupyterlab = "ok"
   }
+}
+
+node_pools_taints = {
+  "user-lab-pool" = [
+    {
+      key = "nublado.lsst.io/permitted"
+      value = "true"
+      effect = "NO_EXECUTE"
+    }
+  ]
 }
 
 # TF State declared during pipeline
@@ -42,4 +68,4 @@ node_pools_labels = {
 # prefix = "qserv/stable/gke"
 
 # Increase this number to force Terraform to update the prod environment.
-# Serial: 2
+# Serial: 3
