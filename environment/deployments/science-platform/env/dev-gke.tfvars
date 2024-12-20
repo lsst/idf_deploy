@@ -56,14 +56,14 @@ node_pools = [
 ]
 
 node_pools_taints = {
-  "lab-pool" = [
+  "user-lab-pool" = [
     {
       key = "nublado.lsst.io/permitted"
       value = "true"
-      effect = "NoExecute"
+      effect = "NO_EXECUTE"
     }
   ]
 }
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 4
+# Serial: 5
