@@ -47,7 +47,7 @@ node_pools = [
   },
   {
     name               = "user-lab-pool"
-    machine_type       = "n2-standard-8"
+    machine_type       = "n2-standard-32"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
@@ -98,4 +98,4 @@ node_pools_taints = {
 # prefix = "qserv/int/gke"
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 5
+# Serial: 6
