@@ -249,6 +249,23 @@ resource "google_service_account_iam_member" "git_lfs_ro_gcs" {
   member             = "serviceAccount:git-lfs-ro@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
+# The reaper service account must be granted the ability to generate
+# tokens for itself so that they it can generate signed GCS URLs starting
+# from the GKE service account token without requiring an exported secret
+# key for the underlying Google service account.
+resource "google_service_account_iam_member" "reaper_gcs_sa" {
+  service_account_id = google_service_account.reaper_sa.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:reaper@${module.project_factory.project_id}.iam.gserviceaccount.com"
+}
+
+# Service account for reaper
+resource "google_service_account" "reaper_sa" {
+  account_id   = "reaper"
+  display_name = "Reaper"
+  description  = "Terraform-managed service account for Reaper artifact registry access"
+  project      = module.project_factory.project_id
+}
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
