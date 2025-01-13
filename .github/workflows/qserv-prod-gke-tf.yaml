@@ -40,7 +40,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.12.29
+        terraform_version: 1.9.5
 
     # Checks for proper terraform code formatting
     - name: Terraform Fmt
