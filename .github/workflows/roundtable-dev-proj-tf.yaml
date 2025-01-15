@@ -27,14 +27,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # gcloud CLI setup
+    # gcp auth
     - name: GCP login
-      uses: google-github-actions/setup-gcloud@v0
+      uses: google-github-actions/auth@v2
       with:
-        version: '379.0.0'
-        service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        export_default_credentials: true
+        credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+    # gcloud setup     
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v2'
 
     # Installs terraform
     - name: Setup Terraform

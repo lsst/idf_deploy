@@ -42,7 +42,7 @@ module "storage_bucket" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = [var.vault_server_bucket_suffix]
-  prefix_name   = "rubin"
+  prefix_name   = "rubin-us-central1"
   versioning = {
     (var.vault_server_bucket_suffix) = true
   }
@@ -72,7 +72,7 @@ module "storage_bucket_b" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["${var.vault_server_bucket_suffix}-backup"]
-  prefix_name   = "rubin"
+  prefix_name   = "rubin-us-central1"
   versioning = {
     "${var.vault_server_bucket_suffix}-backup" = true
   }
@@ -269,7 +269,7 @@ resource "google_service_account" "reaper_sa" {
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
+  version    = "~> 4.4.3"
   project_id = module.project_factory.project_id
   prefix     = var.environment
   names      = ["cluster"]
