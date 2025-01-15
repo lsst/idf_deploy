@@ -66,6 +66,13 @@ module "db_butler_registry_dp02" {
   }
 }
 
+moved {
+  # The 'count' parameter to this module was added after it was already
+  # deployed to dev.
+  from = module.db_butler_registry_dp02
+  to = module.db_butler_registry_dp02[0]
+}
+
 resource "random_password" "gafaelfawr" {
   length  = 24
   numeric = true
