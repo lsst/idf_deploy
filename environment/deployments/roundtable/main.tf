@@ -42,7 +42,7 @@ module "storage_bucket" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = [var.vault_server_bucket_suffix]
-  prefix_name   = "rubin"
+  prefix_name   = "rubin-us-central1"
   versioning = {
     (var.vault_server_bucket_suffix) = true
   }
@@ -72,7 +72,7 @@ module "storage_bucket_b" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["${var.vault_server_bucket_suffix}-backup"]
-  prefix_name   = "rubin"
+  prefix_name   = "rubin-us-central1"
   versioning = {
     "${var.vault_server_bucket_suffix}-backup" = true
   }
@@ -249,10 +249,27 @@ resource "google_service_account_iam_member" "git_lfs_ro_gcs" {
   member             = "serviceAccount:git-lfs-ro@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
+# The reaper service account must be granted the ability to generate
+# tokens for itself so that they it can generate signed GCS URLs starting
+# from the GKE service account token without requiring an exported secret
+# key for the underlying Google service account.
+resource "google_service_account_iam_member" "reaper_gcs_sa" {
+  service_account_id = google_service_account.reaper_sa.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:reaper@${module.project_factory.project_id}.iam.gserviceaccount.com"
+}
+
+# Service account for reaper
+resource "google_service_account" "reaper_sa" {
+  account_id   = "reaper"
+  display_name = "Reaper"
+  description  = "Terraform-managed service account for Reaper artifact registry access"
+  project      = module.project_factory.project_id
+}
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
+  version    = "~> 4.4.3"
   project_id = module.project_factory.project_id
   prefix     = var.environment
   names      = ["cluster"]
