@@ -74,7 +74,7 @@ moved {
 }
 
 resource "google_dns_managed_zone" "sql_private_zone" {
-  name        = "sql-private-zone"
+  name        = "sql-private-zone-${var.environment}"
   dns_name    = "rsp-sql-${var.environment}.internal."
   description = "DNS Zone containing domain names used to access internal databases."
 
