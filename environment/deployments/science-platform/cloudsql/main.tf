@@ -66,6 +66,38 @@ module "db_butler_registry_dp02" {
   }
 }
 
+moved {
+  # The 'count' parameter to this module was added after it was already
+  # deployed to dev.
+  from = module.db_butler_registry_dp02
+  to = module.db_butler_registry_dp02[0]
+}
+
+resource "google_dns_managed_zone" "sql_private_zone" {
+  name        = "sql-private-zone"
+  dns_name    = "rsp-sql-${var.environment}.internal."
+  description = "DNS Zone containing domain names used to access internal databases."
+
+  visibility = "private"
+
+  private_visibility_config {
+    networks {
+      network_url = data.google_compute_network.network.id
+    }
+  }
+}
+
+resource "google_dns_record_set" "dp02" {
+  count  = var.butler_registry_dp02_enable ? 1 : 0
+
+  managed_zone = google_dns_managed_zone.sql_private_zone.name
+  name         = "dp02.${google_dns_managed_zone.sql_private_zone.dns_name}"
+  type         = "A"
+  rrdatas      = [module.db_butler_registry_dp02[0].private_ip_address]
+  ttl          = 1800
+}
+
+
 resource "random_password" "gafaelfawr" {
   length  = 24
   numeric = true

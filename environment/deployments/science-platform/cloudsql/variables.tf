@@ -149,13 +149,16 @@ variable "butler_registry_dp02_database_flags" {
     name  = string
     value = string
   }))
-  default = []
+  default = [
+    { name = "max_connections", value = "400" },
+    { name = "password_encryption", value = "scram-sha-256" }
+  ]
 }
 
 variable "butler_registry_dp02_disk_size" {
   description = "The disk size for the instance in GB.  This value is ignored after initial provisioning with a terraform lifecycle policy in Google module.  This is needed because of auto storage increase is enabled."
   type        = number
-  default     = 100
+  default     = 700
 }
 
 variable "butler_registry_dp02_disk_type" {
@@ -174,7 +177,7 @@ variable "butler_registry_dp02_edition" {
 variable "butler_registry_dp02_require_ssl" {
   description = "True if the instance should require SSL/TLS for users connecting over IP. Note: SSL/TLS is needed to provide security when you connect to Cloud SQL using IP addresses. If you are connecting to your instance only by using the Cloud SQL Proxy or the Java Socket Library, you do not need to configure your instance to use SSL/TLS."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "butler_registry_dp02_ipv4_enabled" {
