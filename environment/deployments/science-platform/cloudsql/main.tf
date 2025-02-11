@@ -73,6 +73,48 @@ moved {
   to = module.db_butler_registry_dp02[0]
 }
 
+# Butler Registry for Data Preview 1
+module "db_butler_registry_dp1" {
+  count  = var.butler_registry_dp1_enabled ? 1 : 0
+  source = "../../../../modules/cloudsql/postgres-sql"
+  authorized_networks = [
+    {
+      "name" : "sample-gcp-health-checkers-range",
+      "value" : "130.211.0.0/28"
+    }
+  ]
+  database_version                = "POSTGRES_16"
+  db_name                         = "butler-registry-dp1-${var.environment}"
+  tier                            = var.butler_registry_dp1_tier
+  database_flags                  = [
+      { name = "max_connections", value = "400" },
+      { name = "password_encryption", value = "scram-sha-256" }
+  ]
+  disk_size                       = 20
+  enable_default_db               = false
+  enable_default_user             = false
+  edition                         = "ENTERPRISE"
+  maintenance_window_day          = 4
+  maintenance_window_hour         = 23
+  maintenance_window_update_track = "stable"
+  random_instance_name            = false
+  project_id                      = var.project_id
+  private_network                 = data.google_compute_network.network.self_link
+  ipv4_enabled                    = false
+  ssl_mode                        = "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
+  deletion_protection             = true
+
+  backup_configuration = {
+    enabled                        = var.butler_registry_dp1_backups_enabled
+    start_time                     = "09:00"
+    location                       = "us-central1"
+    point_in_time_recovery_enabled = false
+    backup_retention_settings = {
+      retained_backups = 2
+    }
+  }
+}
+
 resource "google_dns_managed_zone" "sql_private_zone" {
   name        = "sql-private-zone-${var.environment}"
   dns_name    = "rsp-sql-${var.environment}.internal."
@@ -94,6 +136,16 @@ resource "google_dns_record_set" "dp02" {
   name         = "dp02.${google_dns_managed_zone.sql_private_zone.dns_name}"
   type         = "A"
   rrdatas      = [module.db_butler_registry_dp02[0].private_ip_address]
+  ttl          = 1800
+}
+
+resource "google_dns_record_set" "dp1" {
+  count  = var.butler_registry_dp1_enabled ? 1 : 0
+
+  managed_zone = google_dns_managed_zone.sql_private_zone.name
+  name         = "dp1.${google_dns_managed_zone.sql_private_zone.dns_name}"
+  type         = "A"
+  rrdatas      = [module.db_butler_registry_dp1[0].private_ip_address]
   ttl          = 1800
 }
 

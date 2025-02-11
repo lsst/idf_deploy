@@ -234,6 +234,24 @@ variable "butler_registry_dp02_backups_point_in_time_recovery_enabled" {
   default     = true
 }
 
+variable "butler_registry_dp1_enabled" {
+  type        = bool
+  description = "Conditionally enable Butler Registry DPO02"
+  default     = false
+}
+
+variable "butler_registry_dp1_tier" {
+  description = "The tier for the master instance."
+  type        = string
+  default     = "db-custom-2-7680"
+}
+
+variable "butler_registry_dp1_backups_enabled" {
+  type        = bool
+  description = "True if backup configuration is enabled"
+  default     = false
+}
+
 // Science Platform Database variables
 
 variable "science_platform_database_version" {
