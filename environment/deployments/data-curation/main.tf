@@ -91,8 +91,8 @@ module "storage_bucket_2" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations", "dp02-user"]
   prefix_name   = "butler-us-central1"
+  suffix_name   = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations", "dp02-user", "dp1"]
   versioning = {
     dp01-dev       = true
     dp01-int       = true
@@ -100,6 +100,7 @@ module "storage_bucket_2" {
     dp01-desc-dr6  = true
     repo-locations = true
     dp02-user      = false
+    dp1            = false
   }
   force_destroy = {
     dp01-dev       = true
@@ -108,6 +109,7 @@ module "storage_bucket_2" {
     dp01-desc-dr6  = true
     repo-locations = true
     dp02-user      = true
+    dp1            = true
   }
   labels = {
     environment = var.environment
@@ -308,4 +310,27 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp02_hips" {
   bucket   = "static-us-central1-dp02-hips"
   role     = each.value
   member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+}
+
+
+# Service account used by Butler server (running inside science platform
+# Phalanx) to access Google Cloud Storage buckets.
+module "butler_server_account" {
+  source = "../../../modules/service_accounts/"
+
+  project_id   = module.project_factory.project_id
+  prefix       = "butler-server"
+  names        = ["gcs"]
+  display_name = "Butler Server service account for Data Curation Prod"
+  description  = "Butler Server GCS access service account managed by Terraform"
+
+  project_roles = [
+  ]
+}
+
+resource "google_storage_bucket_iam_member" "data_curation_prod_ro_dp1" {
+  for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
+  bucket   = "butler-us-central1-dp1"
+  role     = each.value
+  member   = "serviceAccount:${module.butler_server_account.email}"
 }
