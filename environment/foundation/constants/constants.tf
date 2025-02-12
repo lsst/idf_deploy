@@ -2,7 +2,7 @@ locals {
   constants = {
     // Domain Information
     org_id          = "288991023210"
-    billing_account = "01122E-72D62B-0B0581"
+    billing_account = "017AD6-5564CB-B8A78F"
     domain          = "lsst.cloud"
 
     // The project label used to identify `owner` on Cloud Control Plane projects
