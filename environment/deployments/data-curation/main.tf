@@ -70,7 +70,7 @@ module "storage_bucket" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["desc-dc2-dr6", "desc-dc2-run22i"]
-  prefix_name   = "curation"
+  prefix_name   = "curation-us-central1"
   versioning = {
     desc-dc2-dr6    = false
     desc-dc2-run22i = true
@@ -92,7 +92,7 @@ module "storage_bucket_2" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations", "dp02-user"]
-  prefix_name   = "butler"
+  prefix_name   = "butler-us-central1"
   versioning = {
     dp01-dev       = true
     dp01-int       = true
@@ -122,7 +122,7 @@ module "storage_bucket_3" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["dev"]
-  prefix_name   = "hips-vista"
+  prefix_name   = "hips-vista-us-central1"
   versioning = {
     hips-dev = false
   }
@@ -148,7 +148,7 @@ module "storage_bucket_4" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["dp02-hips"]
-  prefix_name   = "static"
+  prefix_name   = "static-us-central1"
   versioning = {
     dp02-hips = false
   }
@@ -174,7 +174,7 @@ module "storage_bucket_5" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["git-lfs"]
-  prefix_name   = "rubin"
+  prefix_name   = "rubin-us-central1"
   versioning = {
     git-lfs = false
   }
@@ -206,7 +206,7 @@ module "storage_bucket_6" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   suffix_name   = ["git-lfs-dev"]
-  prefix_name   = "rubin"
+  prefix_name   = "rubin-us-central1"
   versioning = {
     git-lfs-dev = false
   }
