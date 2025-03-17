@@ -1,9 +1,17 @@
 resource "random_password" "gafaelfawr" {
   length  = 24
-  number  = true
+  numeric  = true
   upper   = true
   special = false
 }
+
+resource "random_password" "ook" {
+  length  = 24
+  numeric  = true
+  upper   = true
+  special = false
+}
+
 
 data "google_compute_network" "network" {
   name    = var.network
@@ -55,11 +63,13 @@ module "db_roundtable" {
     {
       name     = "gafaelfawr"
       password = random_password.gafaelfawr.result
+      random_password = false
     },
     {
       name     = "ook"
       password = random_password.ook.result
-    }
+      random_password = false
+    },
   ]
 
   database_flags = [
