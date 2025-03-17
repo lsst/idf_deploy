@@ -43,6 +43,11 @@ module "db_roundtable" {
       name      = "gafaelfawr"
       charset   = "UTF8"
       collation = "en_US.UTF8"
+    },
+    {
+      name      = "ook"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
     }
   ]
 
@@ -50,6 +55,10 @@ module "db_roundtable" {
     {
       name     = "gafaelfawr"
       password = random_password.gafaelfawr.result
+    },
+    {
+      name     = "ook"
+      password = random_password.ook.result
     }
   ]
 
@@ -72,7 +81,7 @@ module "service_accounts" {
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
-  names         = ["gafaelfawr"]
+  names         = ["gafaelfawr", "ook"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
@@ -86,4 +95,10 @@ resource "google_service_account_iam_member" "gafaelfawr_schema_update_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-schema-update]"
+}
+
+resource "google_service_account_iam_member" "ook_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["ook"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[ook/ook]"
 }
