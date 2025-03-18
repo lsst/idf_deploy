@@ -9,4 +9,4 @@ db_maintenance_window_hour = 22
 backups_enabled            = true
 
 # Increase this number to force Terraform to update the prod environment.
-# Serial: 5
+# Serial: 6
