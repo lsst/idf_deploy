@@ -183,6 +183,7 @@ variable "additional_users" {
   type = list(object({
     name     = string
     password = string
+    random_password = bool
   }))
   default = []
 }
