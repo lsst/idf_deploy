@@ -167,7 +167,7 @@ module "nat" {
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
+  version    = "~> 4.4.3"
   project_id = module.project_factory.project_id
   prefix     = var.environment
   names      = ["cluster"]
