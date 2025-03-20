@@ -6,7 +6,7 @@ terraform {
   backend "gcs" {
   }
   required_providers {
-    google      = "~> 3.51.0"
-    google-beta = "~> 3.51.0"
+    google      = "~> 6.26.0"
+    google-beta = "~> 6.26.0"
   }
 }
