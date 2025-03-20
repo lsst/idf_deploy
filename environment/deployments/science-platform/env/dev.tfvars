@@ -79,8 +79,8 @@ custom_rules = {
 nats = [{ name = "cloud-nat" }]
 
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
-# and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
-# our standard APIs.
+# Cloud SQL Admin (required for the Cloud SQL Auth Proxy), and Netapp Cloud
+# Volumes in addition to our standard APIs.
 activate_apis = [
   "compute.googleapis.com",
   "container.googleapis.com",
@@ -92,8 +92,9 @@ activate_apis = [
   "artifactregistry.googleapis.com",
   "servicenetworking.googleapis.com",
   "sqladmin.googleapis.com",
-  "iap.googleapis.com"
+  "iap.googleapis.com",
+  "netapp.googleapis.com"
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 24
+# Serial: 25
