@@ -69,7 +69,7 @@ module "storage_bucket" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = ["desc-dc2-dr6", "desc-dc2-run22i"]
+  suffix_name   = ["desc-dc2-dr6"]
   prefix_name   = "curation-us-central1"
   versioning = {
     desc-dc2-dr6    = false
@@ -92,7 +92,7 @@ module "storage_bucket_2" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   prefix_name   = "butler-us-central1"
-  suffix_name   = ["dp01-dev", "dp01-int", "dp01", "panda-dev", "dp01-desc-dr6", "repo-locations", "dp02-user", "dp1"]
+  suffix_name   = ["dp01-dev", "dp01-int", "dp01", "repo-locations", "dp02-user", "dp1"]
   versioning = {
     dp01-dev       = true
     dp01-int       = true
@@ -106,6 +106,7 @@ module "storage_bucket_2" {
     dp01-dev       = true
     dp01-int       = true
     dp01           = true
+    panda-dev      = true
     dp01-desc-dr6  = true
     repo-locations = true
     dp02-user      = true
@@ -255,20 +256,6 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0" {
   role     = each.value
   member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
-// RO storage access to DESC DC2 Run22i bucket
-resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dc2_run22i" {
-  for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
-  bucket   = "curation-us-central1-desc-dc2-run22i"
-  role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
-}
-// RO storage access to DESC DR6 bucket
-resource "google_storage_bucket_iam_member" "data_curation_prod_ro_desc_dr6" {
-  for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
-  bucket   = "butler-us-central1-dp01-desc-dr6"
-  role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
-}
 // RW storage access to the -dev Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_dev" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
@@ -280,13 +267,6 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_dev" {
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_int" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp01-int"
-  role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
-}
-// RW storage access to panda-dev's Butler bucket
-resource "google_storage_bucket_iam_member" "data_curation_prod_rw_panda_dev" {
-  for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
-  bucket   = "butler-us-central1-panda-dev"
   role     = each.value
   member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
 }
