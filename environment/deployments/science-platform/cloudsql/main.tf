@@ -1,6 +1,7 @@
 # Butler Registry Original.  Conditionally enabled with enable_butler_registry variable.  Remove after migration to Butler Registry DP02
 module "private-postgres" {
   source = "../../../../modules/cloudsql/postgres-private"
+  count  = var.enable_legacy_butler_registry ? 1 : 0
   authorized_networks = [
     {
       "name" : "sample-gcp-health-checkers-range",
@@ -28,6 +29,13 @@ module "private-postgres" {
     location                       = "us-central1"
     point_in_time_recovery_enabled = var.butler_registry_backups_point_in_time_recovery_enabled
   }
+}
+
+moved {
+  # The 'count' parameter to this module was added after it was already
+  # deployed to dev.
+  from = module.private-postgres
+  to = module.private-postgres[0]
 }
 
 # Butler Registry DP02
