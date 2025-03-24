@@ -234,6 +234,12 @@ variable "butler_registry_dp02_backups_point_in_time_recovery_enabled" {
   default     = true
 }
 
+variable "enable_legacy_butler_registry" {
+  type        = bool
+  description = "Enable Butler registry DB that was previously used for DP0.2"
+  default     = true
+}
+
 variable "butler_registry_dp1_enabled" {
   type        = bool
   description = "Conditionally enable Butler Registry DPO02"
