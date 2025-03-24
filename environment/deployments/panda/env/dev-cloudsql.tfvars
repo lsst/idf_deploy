@@ -1,6 +1,5 @@
 project_id     = "panda-dev-1a74"
 network        = "panda-dev-vpc"
-db_name        = "butler-registry-dev"
 tier           = "db-custom-8-53248"
 require_ssl    = false
 database_flags = [

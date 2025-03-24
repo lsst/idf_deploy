@@ -9,11 +9,6 @@ variable "network" {
   default     = "custom-vpc"
 }
 
-variable "db_name" {
-  description = "The name of the SQL Database instance"
-  default     = "example-postgresql-public"
-}
-
 variable "db_name_2" {
   description = "The name of the SQL Database instance"
   default     = "example-postgresql-public-2"
