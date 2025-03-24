@@ -1,0 +1,13 @@
+description        = "A description of the instance."
+capacity_gib       = 3500
+pool_name          = "test-pool"
+share_name         = "share1"
+labels = {
+  "application_name": "app_name",
+  "name": "cluster"
+}
+name          = "test-volume"
+network       = "default"
+project       = ""
+service_level = "PREMIUM"
+location      = "us-central1-b"

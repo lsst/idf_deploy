@@ -77,7 +77,7 @@ variable "project_iam_permissions" {
     "roles/logging.admin",
     "roles/file.editor",
     "roles/compute.networkAdmin",
-    "roles/compute.securityAdmin"
+    "roles/compute.securityAdmin",
   ]
 }
 

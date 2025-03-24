@@ -53,6 +53,28 @@ resource "google_project_iam_member" "filestore_tool_sa_file" {
   project            = module.project_factory.project_id
 }
 
+# Analogous to Filestore, but Netapp Cloud Volumes
+
+resource "google_service_account" "netapp_admin_sa" {
+  account_id   = "netapp-admin"
+  display_name = "Netapp Cloud Volume admin service account"
+  description  = "Terraform-managed service account for Netapp Cloud Volume access"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "netapp_admin_sa_wi" {
+  service_account_id = google_service_account.netapp_admin_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[netapp-backup/netapp-backup]"
+}
+
+resource "google_project_iam_member" "netapp_admin_sa_file" {
+  role               = "roles/netapp.admin"
+  member             = "serviceAccount:${google_service_account.netapp_admin_sa.email}"
+  project            = module.project_factory.project_id
+}
+
+
 resource "google_service_account" "gar_sa" {
   account_id   = "cachemachine-wi"
   display_name = "Created by Terraform"
@@ -132,6 +154,33 @@ module "filestore" {
   project            = module.project_factory.project_id
   tier               = var.tier
   zone               = var.zone
+  labels = {
+    project          = module.project_factory.project_id
+    environment      = var.environment
+    application_name = var.application_name
+  }
+
+  depends_on = [module.project_factory]
+}
+
+module "netapp-volumes" {
+  source             = "../../../modules/netapp_volumes"
+  network            = module.project_factory.network_name
+  project            = module.project_factory.project_id
+  location           = var.location
+  service_level      = var.service_level
+  description        = var.description
+  capacity_gib       = var.capacity_gib
+  pool_name          = "pool-${var.name}-${var.environment}"
+  share_name         = "${var.name}-${var.environment}-share"
+  name               = "${var.name}-${var.environment}"
+  protocols          = var.protocols
+  deletion_policy    = var.deletion_policy
+  unix_permissions   = var.unix_permissions
+  snapshot_directory = var.snapshot_directory
+  snapshot_policy    = var.snapshot_policy
+  export_policy      = var.export_policy
+  restricted_actions = var.restricted_actions
   labels = {
     project          = module.project_factory.project_id
     environment      = var.environment
