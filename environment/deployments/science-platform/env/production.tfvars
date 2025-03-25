@@ -57,6 +57,9 @@ custom_rules = {
 # NAT
 nats = [{ name = "cloud-nat" }]
 
+# NetApp Cloud Volumes
+netapp_definitions = []
+
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
 # our standard APIs.

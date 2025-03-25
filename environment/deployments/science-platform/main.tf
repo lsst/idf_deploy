@@ -163,32 +163,6 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
-module "netapp-volumes" {
-  source             = "../../../modules/netapp_volumes"
-  network            = module.project_factory.network_name
-  project            = module.project_factory.project_id
-  location           = var.location
-  service_level      = var.service_level
-  description        = var.description
-  capacity_gib       = var.capacity_gib
-  pool_name          = "pool-${var.name}-${var.environment}"
-  share_name         = "${var.name}-${var.environment}-share"
-  name               = "${var.name}-${var.environment}"
-  protocols          = var.protocols
-  deletion_policy    = var.deletion_policy
-  unix_permissions   = var.unix_permissions
-  snapshot_directory = var.snapshot_directory
-  snapshot_policy    = var.snapshot_policy
-  export_policy      = var.export_policy
-  restricted_actions = var.restricted_actions
-  labels = {
-    project          = module.project_factory.project_id
-    environment      = var.environment
-    application_name = var.application_name
-  }
-
-  depends_on = [module.project_factory]
-}
 
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
@@ -213,6 +187,18 @@ module "nat" {
     nat_ips = google_compute_address.static.*.name
   }]
 }
+
+module "netapp-volumes" {
+  source             = "../../../modules/netapp_volumes"
+  network            = module.project_factory.network_name
+  project            = module.project_factory.project_id
+  location           = var.location
+  labels             = var.labels
+  definitions        = var.netapp_definitions
+
+  depends_on = [module.project_factory]
+}
+
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"

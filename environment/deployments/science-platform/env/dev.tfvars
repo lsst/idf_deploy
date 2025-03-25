@@ -78,6 +78,116 @@ custom_rules = {
 # NAT
 nats = [{ name = "cloud-nat" }]
 
+# NetApp Cloud Volumes
+#
+# Each item in netapp_definitions is what we need to create
+# a storage pool/volume pair.
+#
+netapp_definitions = [
+  { name = "home"
+    service_level = "PREMIUM"
+    capacity_gib = 2000
+    protocols = [ "NFSV3", "NFSV4" ]
+    deletion_policy = "DEFAULT"
+    unix_permissions = 0770
+    restricted_actions = []
+    snapshot_directory = true
+    snapshot_policy = {
+      enabled = true
+      hourly_schedule = {
+        snapshots_to_keep = 24
+	minute = 3
+      }
+      daily_schedule = {
+        snapshots_to_keep = 7
+	minute = 5
+	hour = 2
+      }
+      weekly_schedule = {
+        snapshots_to_keep = 5
+      }
+    }
+    backup_policy = {
+      enabled = true,
+      daily_backup_limit = 7
+      weekly_backup_limit = 5
+      monthly_backup_limit = 12
+    }
+    export_policy = {
+      rules = [ {
+	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
+	has_root_access = true
+	access_type = "READ_WRITE",
+	nfsv3 = true
+	nfsv4 = true
+      } ]
+    }
+    default_user_quota_mib = 5000
+  },
+  { name = "project"
+    service_level = "PREMIUM"
+    capacity_gib = 2000
+    protocols = [ "NFSV3", "NFSV4" ]
+    deletion_policy = "DEFAULT"
+    unix_permissions = 1777,
+    restricted_actions = []
+    snapshot_directory = true
+    snapshot_policy = {
+      enabled = true
+      hourly_schedule = {
+        snapshots_to_keep = 24
+	minute = 3
+      }
+      daily_schedule = {
+        snapshots_to_keep = 7
+	minute = 5
+	hour = 2
+      }
+      weekly_schedule = {
+        snapshots_to_keep = 5
+      }
+    }
+    backup_policy = {
+      enabled = true,
+      daily_backup_limit = 7
+      weekly_backup_limit = 5
+      monthly_backup_limit = 12
+    }
+    export_policy = {
+      rules = [ {
+	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
+	has_root_access = true
+	access_type = "READ_WRITE",
+	nfsv3 = true
+	nfsv4 = true
+      } ]
+    }
+    default_user_quota_mib = 5000
+  },
+  { name = "scratch"
+    service_level = "PREMIUM"
+    capacity_gib = 2000
+    protocols = [ "NFSV3", "NFSV4" ]
+    deletion_policy = "DEFAULT"
+    unix_permissions = 1777
+    restricted_actions = []
+    # No snapshots or backups.
+    snapshot_directory = false
+    export_policy = {
+      rules = [ {
+	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
+	has_root_access = true
+	access_type = "READ_WRITE",
+	nfsv3 = true
+	nfsv4 = true
+      } ]
+    }
+    default_user_quota_mib = 5000
+  }
+]
+  
+
+
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
 # Cloud SQL Admin (required for the Cloud SQL Auth Proxy), and Netapp Cloud
 # Volumes in addition to our standard APIs.
