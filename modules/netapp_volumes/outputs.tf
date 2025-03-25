@@ -18,7 +18,7 @@ output "id" {
   value       = netapp_storage_pool.instance.id
 }
 
-output "ip_addresses" {
-  description = "A list of IPv4 or IPv6 addresses"
-  value       = netapp_storage_pool.instance.networks
+output "mount_point" {
+  description = "How to mount this volume"
+  value       = netapp_volume.instance.mount_options.export_full
 }

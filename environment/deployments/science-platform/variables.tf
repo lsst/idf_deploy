@@ -31,7 +31,8 @@ variable "activate_apis" {
     "file.googleapis.com",
     "storage.googleapis.com",
     "billingbudgets.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "servicenetworking.googleapis.com",
+    "netapp.googleapis.com"
   ]
 }
 
@@ -78,6 +79,7 @@ variable "project_iam_permissions" {
     "roles/file.editor",
     "roles/compute.networkAdmin",
     "roles/compute.securityAdmin",
+    "roles/netapp.admin"
   ]
 }
 
