@@ -38,6 +38,20 @@ moved {
   to = module.private-postgres[0]
 }
 
+# Sets up a connection from the VPC to Google services, to allow the use of a
+# private IP.
+module "private-service-access" {
+  source = "../../../../modules/cloudsql/private_service_access"
+
+  project_id    = var.project_id
+  vpc_network   = var.network
+}
+
+moved {
+  from = module.private-postgres[0].module.private-service-access
+  to = module.private-service-access
+}
+
 # Butler Registry DP02
 module "db_butler_registry_dp02" {
   count  = var.butler_registry_dp02_enable ? 1 : 0
