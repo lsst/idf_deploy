@@ -92,4 +92,3 @@ resource "google_netapp_volume_quota_rule" "default_user_quota" {
   volume_name          = each.name
   description          = "Default user quota for ${each.name}"
 }
-
