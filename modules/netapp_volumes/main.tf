@@ -22,16 +22,18 @@
 
 resource "google_netapp_storage_pool" "instance" {
   # Each volume gets its own pool, at least for now.
-  for_each      = var.definitions
+  for_each      = tomap({
+                    for voldef in var.definitions: "${voldef.name}" => voldef
+                  })
   project       = var.project
   location      = var.location
-  name          = "pool-${each.name}"
+  name          = "pool-${each.value.name}"
   network       = var.network
   labels        = var.labels
   
-  service_level = each.service_level
-  description   = each.description
-  capacity_gib  = each.capacity_gib
+  service_level = each.value.service_level
+  description   = each.value.description
+  capacity_gib  = each.value.capacity_gib
 }
 
 resource "google_netapp_backup_vault" "instance" {
@@ -39,57 +41,70 @@ resource "google_netapp_backup_vault" "instance" {
   name = "backupVault"
   location = var.location
   project = var.project
-  labels = var.label
+  labels = var.labels
 }
 
 resource "google_netapp_volume" "instance" {
-  for_each           = var.definitions
+  for_each           = tomap({
+                          for voldef in var.definitions: "${voldef.name}" => voldef
+                       })
   location           = var.location
   labels             = var.labels
   project            = var.project
   
-  capacity           = each.capacity_gib
-  name               = each.name
-  share_name         = "${each.name}-share"
-  storage_pool       = "pool-${each.name}"  // Maybe need the path?
-  protocols          = each.protocols
-  deletion_policy    = each.deletion_policy
-  unix_permissions   = each.unix_permissions
-  description        = each.description
-  snapshot_directory = each.snapshot_directory
-  snapshot_policy    = each.snapshot_policy
-  restricted_actions = each.restricted_actions
-  export_policy      = each.export_policy
-  backup_config      = { backup_policies = "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${name}"
-                         backup_vault = "projects/${var.project}/locations/${var.location}/backupVaults/backupVault"
-                       }
-  large_capacity     = ((each.capacity_gib >= 15360) &&  ((each.service_level == "PREMIUM") || (each.service_level == "EXTREME"))) ? true : false
+  capacity_gib       = each.value.capacity_gib
+  name               = each.value.name
+  share_name         = "${each.value.name}-share"
+  storage_pool       = "pool-${each.value.name}"  // Maybe need the path?
+  protocols          = each.value.protocols
+  deletion_policy    = each.value.deletion_policy
+  unix_permissions   = each.value.unix_permissions
+  snapshot_directory = each.value.snapshot_directory
+  large_capacity     = ((each.value.capacity_gib >= 15360) &&  ((each.value.service_level == "PREMIUM") || (each.value.service_level == "EXTREME"))) ? true : false
   security_style     = "UNIX"
   kerberos_enabled   = false
+  
+  # An argument named "snapshot_policy" is not expected here. Did you mean to
+  # define a block of type "snapshot_policy"?
+  # I don't know, did I?
+  #
+  # Comment these out for now...
+  # snapshot_policy    { each.value.snapshot_policy }
+  restricted_actions = each.value.restricted_actions
+  # export_policy      = each.value.export_policy  # Can't punt this one though
+  # backup_config      = { backup_policies = "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${name}"
+  #                       backup_vault = "projects/${var.project}/locations/${var.location}/backupVaults/backupVault"
+  #                     }
 }
 
 resource "google_netapp_backup_policy" "instance" {
   depends_on           = [google_netapp_volume.instance]  // needs each?
   location             = var.location
-  for_each             = var.definitions
+  for_each             = tomap({
+                           for voldef in var.definitions: "${voldef.name}" => voldef
+                         })
+
   labels               = var.labels
   project              = var.project
 
-  name                 = "backup_${each.name}"
-  enabled              = each.backup_policy.enabled
-  daily_backup_limit   = each.backup_policy.daily_backup_limit
-  weekly_backup_limit  = each.backup_policy.weekly_backup_limit
-  monthly_backup_limit = each.backup_policy.monthly_backup_limit
+  name                 = "backup_${each.value.name}"
+  enabled              = each.value.backup_policy.enabled
+  daily_backup_limit   = each.value.backup_policy.daily_backup_limit
+  weekly_backup_limit  = each.value.backup_policy.weekly_backup_limit
+  monthly_backup_limit = each.value.backup_policy.monthly_backup_limit
 }
 
 resource "google_netapp_volume_quota_rule" "default_user_quota" {
   // default user quota rule
-  for_each             = var.definitions
+  for_each             = tomap({
+                           for voldef in var.definitions: "${voldef.name}" => voldef
+                         })
+
+  name                 = "${each.value.name}-default-quota"
   depends_on           = [ google_netapp_volume.instance ]  // needs each?
   type                 = "DEFAULT_USER_QUOTA"
   labels               = var.labels
-  disk_limit_mib       = each.default_user_quota_mib
-  volume_name          = each.name
-  description          = "Default user quota for ${each.name}"
+  disk_limit_mib       = each.value.default_user_quota_mib
+  volume_name          = each.value.name
+  description          = "Default user quota for ${each.value.name}"
 }
-

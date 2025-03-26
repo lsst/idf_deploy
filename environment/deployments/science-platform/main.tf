@@ -193,7 +193,11 @@ module "netapp-volumes" {
   network            = module.project_factory.network_name
   project            = module.project_factory.project_id
   location           = var.location
-  labels             = var.labels
+  labels = {
+    project          = module.project_factory.project_id
+    environment      = var.environment
+    application_name = var.application_name
+  }
   definitions        = var.netapp_definitions
 
   depends_on = [module.project_factory]
