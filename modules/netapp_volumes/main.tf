@@ -52,7 +52,7 @@ resource "google_netapp_volume" "instance" {
   labels             = var.labels
   project            = var.project
   
-  capacity           = each.value.capacity_gib
+  capacity_gib       = each.value.capacity_gib
   name               = each.value.name
   share_name         = "${each.value.name}-share"
   storage_pool       = "pool-${each.value.name}"  // Maybe need the path?
@@ -61,10 +61,15 @@ resource "google_netapp_volume" "instance" {
   unix_permissions   = each.value.unix_permissions
   description        = each.value.description
   snapshot_directory = each.value.snapshot_directory
-  snapshot_policy    = each.value.snapshot_policy
+  # An argument named "snapshot_policy" is not expected here. Did you mean to
+  # define a block of type "snapshot_policy"?
+  # I don't know, did I?
+  #
+  # Comment these out for now...
+  # snapshot_policy    = each.value.snapshot_policy
   restricted_actions = each.value.restricted_actions
-  export_policy      = each.value.export_policy
-  backup_config      = { backup_policies = "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${name}"
+  # export_policy      = each.value.export_policy  # Can't punt this one though
+  # backup_config      = { backup_policies = "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${name}"
                          backup_vault = "projects/${var.project}/locations/${var.location}/backupVaults/backupVault"
                        }
   large_capacity     = ((each.value.capacity_gib >= 15360) &&  ((each.value.service_level == "PREMIUM") || (each.value.service_level == "EXTREME"))) ? true : false
