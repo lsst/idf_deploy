@@ -61,6 +61,10 @@ resource "google_netapp_volume" "instance" {
   unix_permissions   = each.value.unix_permissions
   description        = each.value.description
   snapshot_directory = each.value.snapshot_directory
+  large_capacity     = ((each.value.capacity_gib >= 15360) &&  ((each.value.service_level == "PREMIUM") || (each.value.service_level == "EXTREME"))) ? true : false
+  security_style     = "UNIX"
+  kerberos_enabled   = false
+  
   # An argument named "snapshot_policy" is not expected here. Did you mean to
   # define a block of type "snapshot_policy"?
   # I don't know, did I?
@@ -72,9 +76,6 @@ resource "google_netapp_volume" "instance" {
   # backup_config      = { backup_policies = "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${name}"
                          backup_vault = "projects/${var.project}/locations/${var.location}/backupVaults/backupVault"
                        }
-  large_capacity     = ((each.value.capacity_gib >= 15360) &&  ((each.value.service_level == "PREMIUM") || (each.value.service_level == "EXTREME"))) ? true : false
-  security_style     = "UNIX"
-  kerberos_enabled   = false
 }
 
 resource "google_netapp_backup_policy" "instance" {
