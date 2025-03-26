@@ -22,7 +22,9 @@
 
 resource "google_netapp_storage_pool" "instance" {
   # Each volume gets its own pool, at least for now.
-  for_each      = var.definitions
+  for_each      = tomap({
+                    for voldef in var.definitions: "${voldef.name}" => voldef
+                  })
   project       = var.project
   location      = var.location
   name          = "pool-${each.value.name}"
