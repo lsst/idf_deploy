@@ -41,11 +41,13 @@ resource "google_netapp_backup_vault" "instance" {
   name = "backupVault"
   location = var.location
   project = var.project
-  labels = var.label
+  labels = var.labels
 }
 
 resource "google_netapp_volume" "instance" {
-  for_each           = var.definitions
+  for_each           = tomap({
+                          for voldef in var.definitions: "${voldef.name}" => voldef
+                       })
   location           = var.location
   labels             = var.labels
   project            = var.project
@@ -73,7 +75,10 @@ resource "google_netapp_volume" "instance" {
 resource "google_netapp_backup_policy" "instance" {
   depends_on           = [google_netapp_volume.instance]  // needs each?
   location             = var.location
-  for_each             = var.definitions
+  for_each             = tomap({
+                           for voldef in var.definitions: "${voldef.name}" => voldef
+                         })
+
   labels               = var.labels
   project              = var.project
 
@@ -86,7 +91,11 @@ resource "google_netapp_backup_policy" "instance" {
 
 resource "google_netapp_volume_quota_rule" "default_user_quota" {
   // default user quota rule
-  for_each             = var.definitions
+  for_each             = tomap({
+                           for voldef in var.definitions: "${voldef.name}" => voldef
+                         })
+
+
   depends_on           = [ google_netapp_volume.instance ]  // needs each?
   type                 = "DEFAULT_USER_QUOTA"
   labels               = var.labels
