@@ -53,6 +53,28 @@ resource "google_project_iam_member" "filestore_tool_sa_file" {
   project            = module.project_factory.project_id
 }
 
+# Analogous to Filestore, but Netapp Cloud Volumes
+
+resource "google_service_account" "netapp_admin_sa" {
+  account_id   = "netapp-admin"
+  display_name = "Netapp Cloud Volume admin service account"
+  description  = "Terraform-managed service account for Netapp Cloud Volume access"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "netapp_admin_sa_wi" {
+  service_account_id = google_service_account.netapp_admin_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[netapp-backup/netapp-backup]"
+}
+
+resource "google_project_iam_member" "netapp_admin_sa_file" {
+  role               = "roles/netapp.admin"
+  member             = "serviceAccount:${google_service_account.netapp_admin_sa.email}"
+  project            = module.project_factory.project_id
+}
+
+
 resource "google_service_account" "gar_sa" {
   account_id   = "cachemachine-wi"
   display_name = "Created by Terraform"
@@ -141,6 +163,7 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
+
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
   count        = var.num_static_ips
@@ -164,6 +187,22 @@ module "nat" {
     nat_ips = google_compute_address.static.*.name
   }]
 }
+
+module "netapp-volumes" {
+  source             = "../../../modules/netapp_volumes"
+  network            = module.project_factory.network_name
+  project            = module.project_factory.project_id
+  location           = var.location
+  labels = {
+    project          = module.project_factory.project_id
+    environment      = var.environment
+    application_name = var.application_name
+  }
+  definitions        = var.netapp_definitions
+
+  depends_on = [module.project_factory]
+}
+
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
