@@ -56,7 +56,7 @@ node_pools = [
     autoscaling        = true
     initial_node_count = 1
     min_count          = 1
-    max_count          = 100
+    max_count          = 120
     image_type         = "cos_containerd"
     enable_secure_boot = true
     disk_size_gb       = "300"
@@ -90,7 +90,6 @@ node_pools_taints = {
       effect = "NO_EXECUTE"
     }
   ]
-  
 }
 
 # TF State declared during pipeline
@@ -98,4 +97,4 @@ node_pools_taints = {
 # prefix = "qserv/int/gke"
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 6
+# Serial: 7
