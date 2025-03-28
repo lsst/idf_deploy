@@ -44,17 +44,6 @@ module "cloudsql-db" {
   }
 }
 
-module "private-service-access" {
-  source = "../private_service_access"
-
-  project_id    = var.project_id
-  vpc_network   = var.vpc_network
-  address       = var.address
-  prefix_length = var.prefix_length
-  ip_version    = var.ip_version
-  labels        = var.labels
-}
-
 module "service_accounts" {
   source        = "terraform-google-modules/service-accounts/google"
   version       = ">= 4.0"
