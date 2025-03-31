@@ -15,6 +15,7 @@ butler_registry_ipv4_enabled                           = true
 butler_registry_db_maintenance_window_update_track     = "canary"
 butler_registry_backups_enabled                        = true
 butler_registry_backups_point_in_time_recovery_enabled = true
+enable_legacy_butler_registry = false
 
 # Butler Registry DP02 Database
 butler_registry_dp02_db_name          = "butler-registry-dp02-int"
