@@ -1,43 +1,3 @@
-# Butler Registry Original.  Conditionally enabled with enable_butler_registry variable.  Remove after migration to Butler Registry DP02
-module "private-postgres" {
-  source = "../../../../modules/cloudsql/postgres-private"
-  count  = var.enable_legacy_butler_registry ? 1 : 0
-  authorized_networks = [
-    {
-      "name" : "sample-gcp-health-checkers-range",
-      "value" : "130.211.0.0/28"
-    }
-  ]
-  database_version                = var.butler_registry_database_version
-  db_name                         = var.butler_registry_db_name
-  tier                            = var.butler_registry_tier
-  database_flags                  = var.butler_registry_database_flags
-  maintenance_window_day          = var.butler_registry_db_maintenance_window_day
-  maintenance_window_hour         = var.butler_registry_db_maintenance_window_hour
-  maintenance_window_update_track = var.butler_registry_db_maintenance_window_update_track
-  names                           = ["service-account"]
-  project_roles                   = ["${var.project_id}=>roles/cloudsql.client"]
-  project_id                      = var.project_id
-  vpc_network                     = var.network
-  ipv4_enabled                    = var.butler_registry_ipv4_enabled
-  require_ssl                     = var.butler_registry_require_ssl
-  deletion_protection             = true
-
-  backup_configuration = {
-    enabled                        = var.butler_registry_backups_enabled
-    start_time                     = var.butler_registry_backups_start_time
-    location                       = "us-central1"
-    point_in_time_recovery_enabled = var.butler_registry_backups_point_in_time_recovery_enabled
-  }
-}
-
-moved {
-  # The 'count' parameter to this module was added after it was already
-  # deployed to dev.
-  from = module.private-postgres
-  to = module.private-postgres[0]
-}
-
 # Sets up a connection from the VPC to Google services, to allow the use of a
 # private IP.
 module "private-service-access" {
@@ -47,6 +7,10 @@ module "private-service-access" {
   vpc_network   = var.network
 }
 
+moved {
+  from = module.private-postgres
+  to = module.private-postgres[0]
+}
 moved {
   from = module.private-postgres[0].module.private-service-access
   to = module.private-service-access
