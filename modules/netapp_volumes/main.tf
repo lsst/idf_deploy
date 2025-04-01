@@ -20,6 +20,10 @@
 # https://discuss.hashicorp.com/t/how-to-deal-with-nested-for-each-loops-in-dependent-ressources/50551/2
 # https://developer.hashicorp.com/terraform/language/expressions/type-constraints
 
+# Once we have an MVP, consider replacing this with
+# https://github.com/GoogleCloudPlatform/terraform-google-netapp-volumes
+
+
 resource "google_netapp_storage_pool" "instance" {
   # Each volume gets its own pool, at least for now.
   for_each      = tomap({
@@ -64,11 +68,6 @@ resource "google_netapp_volume" "instance" {
   security_style     = "UNIX"
   kerberos_enabled   = false
   
-  # An argument named "snapshot_policy" is not expected here. Did you mean to
-  # define a block of type "snapshot_policy"?
-  # I don't know, did I?
-  #
-  # Comment these out for now...
   snapshot_policy    {
     enabled = each.value.snapshot_policy.enabled
     hourly_schedule {
@@ -88,12 +87,37 @@ resource "google_netapp_volume" "instance" {
     }
   }
   restricted_actions = each.value.restricted_actions
-  # export_policy = ## Uh oh, here's where we need a nested loop over rules
   backup_config {
     scheduled_backup_enabled = each.value.backup_policy.enabled
     backup_policies = [ "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${each.value.name}" ]
     backup_vault = "projects/${var.project}/locations/${var.location}/backupVaults/backupVault"
   }
+
+  # Here's the tricky bit
+  dynamic "export_policy" {
+    for_each = each.value.export_policy_rules == null ? [] : ["export_policy_rules"]
+    content {
+      dynamic "rules" {
+        for_each = each.value.export_policy_rules == null ? {} : each.value.export_policy_rules
+	content {
+	  allowed_clients = "10.129.0.0/16" # var.allowed_ips
+	  has_root_access = lookup(rules.value, "has_root_access")
+	  access_type     = lookup(rules.value, "access_type")
+	  nfsv3           = true
+	  nfsv4           = true
+        }
+      }
+    }
+  }
+  # export_policy {
+  #   rules {
+  #     nfsv3 = true
+  #     nfsv4 = true
+  #     has_root_access = true
+  #     access_type = "READ_WRITE"
+  #     allowed_clients = "10.129.0.0/16"
+  #   }
+  # }
 }
 
 resource "google_netapp_backup_policy" "instance" {

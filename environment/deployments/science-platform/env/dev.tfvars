@@ -113,15 +113,12 @@ netapp_definitions = [
       weekly_backup_limit = 5
       monthly_backup_limit = 12
     }
-    export_policy = {
-      rules = [ {
-	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
-	has_root_access = true
-	access_type = "READ_WRITE"
-	nfsv3 = true
-	nfsv4 = true
-      } ]
-    }
+    export_policy_rules = [
+      {
+        has_root_access = true
+        access_type = "READ_WRITE"
+      }
+    ]
     default_user_quota_mib = 5000
   },
   { name = "project"
@@ -153,15 +150,12 @@ netapp_definitions = [
       weekly_backup_limit = 5
       monthly_backup_limit = 12
     }
-    export_policy = {
-      rules = [ {
-	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
-	has_root_access = true
-	access_type = "READ_WRITE"
-	nfsv3 = true
-	nfsv4 = true
-      } ]
-    }
+    export_policy_rules = [
+      {
+        has_root_access = true
+        access_type = "READ_WRITE"
+      }
+    ]    
     default_user_quota_mib = 5000
   },
   { name = "scratch"
@@ -188,21 +182,18 @@ netapp_definitions = [
         snapshots_to_keep = 0
       }
     }
-    export_policy = {
-      rules = [ {
-	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
-	has_root_access = true
-	access_type = "READ_WRITE"
-	nfsv3 = true
-	nfsv4 = true
-      } ]
-    }
     backup_policy = {
       enabled = false
       daily_backup_limit = 0
       weekly_backup_limit = 0
       monthly_backup_limit = 0
     }    
+    export_policy_rules = [
+      {
+        has_root_access = true
+        access_type = "READ_WRITE"
+      }
+    ]
     default_user_quota_mib = 5000
   }
 ]

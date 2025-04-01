@@ -188,6 +188,18 @@ module "nat" {
   }]
 }
 
+locals {
+  flat_allow_ips = flatten(
+    values(
+      var.secondary_ranges
+    )
+  )
+
+  allowed_ip_map = tomap({
+    for subnet in local.flat_allow_ips : subnet.range_name => subnet.ip_cidr_range
+  })
+}
+
 module "netapp-volumes" {
   source             = "../../../modules/netapp_volumes"
   network            = module.project_factory.network_name
@@ -199,6 +211,7 @@ module "netapp-volumes" {
     application_name = var.application_name
   }
   definitions        = var.netapp_definitions
+  allowed_ips        = local.allowed_ip_map["kubernetes-pods"]
 
   depends_on = [module.project_factory]
 }
