@@ -215,6 +215,19 @@ module "service_account_cluster" {
   ]
 }
 
+moved {
+    # Google provider version update
+    from = module.service_account_cluster.google_service_account.service_accounts["cluster"]
+    to = module.service_account_cluster.google_service_account.service_accounts[0]
+}
+
+moved {
+    # Google provider version update
+    from = module.service_account_cluster.google_project_iam_member.project-roles["cluster-science-platform-dev-7696=>roles/container.clusterAdmin"]
+    to = module.service_account_cluster.google_project_iam_member.project-roles[0]
+}
+
+
 module "firewall_cert_manager" {
   source = "../../../modules/firewall"
 
