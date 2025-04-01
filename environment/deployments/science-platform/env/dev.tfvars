@@ -129,7 +129,7 @@ netapp_definitions = [
     capacity_gib = 2000
     protocols = [ "NFSV3", "NFSV4" ]
     deletion_policy = "DEFAULT"
-    unix_permissions = 1777,
+    unix_permissions = 01777,
     restricted_actions = []
     snapshot_directory = true
     snapshot_policy = {
@@ -169,7 +169,7 @@ netapp_definitions = [
     capacity_gib = 2000
     protocols = [ "NFSV3", "NFSV4" ]
     deletion_policy = "DEFAULT"
-    unix_permissions = 1777
+    unix_permissions = 01777
     restricted_actions = []
     # No snapshots or backups.
     snapshot_directory = false
