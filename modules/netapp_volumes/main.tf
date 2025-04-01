@@ -32,7 +32,6 @@ resource "google_netapp_storage_pool" "instance" {
   labels        = var.labels
   
   service_level = each.value.service_level
-  description   = each.value.description
   capacity_gib  = each.value.capacity_gib
 }
 
@@ -69,7 +68,24 @@ resource "google_netapp_volume" "instance" {
   # I don't know, did I?
   #
   # Comment these out for now...
-  # snapshot_policy    { each.value.snapshot_policy }
+  snapshot_policy    {
+    enabled = each.value.snapshot_policy.enabled
+    hourly_schedule {
+      snapshots_to_keep = each.value.snapshot_policy.hourly_schedule.snapshots_to_keep
+      minute = each.value.snapshot_policy.hourly_schedule.minute
+    }
+    daily_schedule {
+      snapshots_to_keep = each.value.snapshot_policy.daily_schedule.snapshots_to_keep
+      minute = each.value.snapshot_policy.daily_schedule.minute
+      hour = each.value.snapshot_policy.daily_schedule.hour
+    }
+    weekly_schedule {
+      snapshots_to_keep = each.value.snapshot_policy.weekly_schedule.snapshots_to_keep
+      minute = each.value.snapshot_policy.weekly_schedule.minute
+      hour = each.value.snapshot_policy.weekly_schedule.hour
+      day = each.value.snapshot_policy.weekly_schedule.day
+    }
+  }
   restricted_actions = each.value.restricted_actions
   # export_policy      = each.value.export_policy  # Can't punt this one though
   # backup_config      = { backup_policies = "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${name}"

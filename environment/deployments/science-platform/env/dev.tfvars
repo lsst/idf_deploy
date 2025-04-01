@@ -117,7 +117,7 @@ netapp_definitions = [
       rules = [ {
 	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
 	has_root_access = true
-	access_type = "READ_WRITE",
+	access_type = "READ_WRITE"
 	nfsv3 = true
 	nfsv4 = true
       } ]
@@ -129,7 +129,7 @@ netapp_definitions = [
     capacity_gib = 2000
     protocols = [ "NFSV3", "NFSV4" ]
     deletion_policy = "DEFAULT"
-    unix_permissions = 01777,
+    unix_permissions = 01777
     restricted_actions = []
     snapshot_directory = true
     snapshot_policy = {
@@ -157,7 +157,7 @@ netapp_definitions = [
       rules = [ {
 	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
 	has_root_access = true
-	access_type = "READ_WRITE",
+	access_type = "READ_WRITE"
 	nfsv3 = true
 	nfsv4 = true
       } ]
@@ -173,15 +173,36 @@ netapp_definitions = [
     restricted_actions = []
     # No snapshots or backups.
     snapshot_directory = false
+    snapshot_policy = {
+      enabled = false
+      hourly_schedule = {
+        snapshots_to_keep = 0
+	minute = 0
+      }
+      daily_schedule = {
+        snapshots_to_keep = 0
+	minute = 0
+	hour = 0
+      }
+      weekly_schedule = {
+        snapshots_to_keep = 0
+      }
+    }
     export_policy = {
       rules = [ {
 	allowed_clients = "10.128.0.0/15"  # How to take this from networks?
 	has_root_access = true
-	access_type = "READ_WRITE",
+	access_type = "READ_WRITE"
 	nfsv3 = true
 	nfsv4 = true
       } ]
     }
+    backup_policy = {
+      enabled = false
+      daily_backup_limit = 0
+      weekly_backup_limit = 0
+      monthly_backup_limit = 0
+    }    
     default_user_quota_mib = 5000
   }
 ]
