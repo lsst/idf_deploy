@@ -50,6 +50,7 @@ resource "google_netapp_volume" "instance" {
   location           = var.location
   labels             = var.labels
   project            = var.project
+  # allowed_ips        = module.vpc.subnets_ips
   
   capacity_gib       = each.value.capacity_gib
   name               = each.value.name
@@ -87,10 +88,12 @@ resource "google_netapp_volume" "instance" {
     }
   }
   restricted_actions = each.value.restricted_actions
-  # export_policy      = each.value.export_policy  # Can't punt this one though
-  # backup_config      = { backup_policies = "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${name}"
-  #                       backup_vault = "projects/${var.project}/locations/${var.location}/backupVaults/backupVault"
-  #                     }
+  # export_policy = ## Uh oh, here's where we need a nested loop over rules
+  backup_config {
+    scheduled_backup_enabled = each.value.backup_policy.enabled
+    backup_policies = [ "projects/${var.project}/locations/${var.location}/backupPolicies/backup_${each.value.name}" ]
+    backup_vault = "projects/${var.project}/locations/${var.location}/backupVaults/backupVault"
+  }
 }
 
 resource "google_netapp_backup_policy" "instance" {
