@@ -59,3 +59,14 @@ output "static_ip" {
   description = "Reserved static IP"
   value       = google_compute_address.static.*.address
 }
+
+// GitHub GCP auth federation
+output "github_workload_identity_provider" {
+  description = "ID of the Workload Identity Provider for GCP auth in GitHub workflows. This can be used as the `workload_identity_provider` value in `google-github-actions/auth` actions"
+  value       = google_iam_workload_identity_pool_provider.github.id
+}
+
+output "prodromos_github_service_account" {
+  description = "ID of the service account with powers to access Prodromos resources from GitHub workflows. This can be used as the `service_account` value in `google-github-actions/auth` actions."
+  value       = google_service_account.prodromos_github.email
+}

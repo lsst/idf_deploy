@@ -130,16 +130,16 @@ resource "google_project_iam_member" "vault_server_cryptokey_sa" {
 
 // RW storage access to Vault Server bucket
 resource "google_storage_bucket_iam_member" "vault_server_storage_sa" {
-  bucket  = module.storage_bucket.name
-  role    = "roles/storage.objectUser"
-  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  bucket = module.storage_bucket.name
+  role   = "roles/storage.objectUser"
+  member = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Admin storage access to Vault Server backup bucket
 resource "google_storage_bucket_iam_member" "vault_server_storage_backup_sa" {
-  bucket  = module.storage_bucket_b.name
-  role    = "roles/storage.admin"
-  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  bucket = module.storage_bucket_b.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Hidden SA for data transfer job
@@ -149,27 +149,27 @@ data "google_storage_transfer_project_service_account" "vault_backup_transfer_sa
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_source_sa" {
-  bucket  = module.storage_bucket.name
-  role    = "roles/storage.objectViewer"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_source_sa_r" {
-  bucket  = module.storage_bucket.name
-  role    = "roles/storage.legacyBucketReader"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket.name
+  role   = "roles/storage.legacyBucketReader"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_sa" {
-  bucket  = module.storage_bucket_b.name
-  role    = "roles/storage.legacyBucketWriter"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket_b.name
+  role   = "roles/storage.legacyBucketWriter"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_sa_r" {
-  bucket  = module.storage_bucket_b.name
-  role    = "roles/storage.legacyBucketReader"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket_b.name
+  role   = "roles/storage.legacyBucketReader"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 // Resources for Vault Server storage backups
@@ -198,7 +198,7 @@ resource "google_storage_transfer_job" "vault_server_storage_backup" {
       nanos   = 0
     }
   }
-  depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa,google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa,google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r,google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r]
+  depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r]
 }
 
 # Service account for Git LFS read/write
@@ -265,6 +265,90 @@ resource "google_service_account" "reaper_sa" {
   display_name = "Reaper"
   description  = "Terraform-managed service account for Reaper artifact registry access"
   project      = module.project_factory.project_id
+}
+
+# WorkloadIdentityPool for workloads to use Workload Identity Federation
+# instead of maintaining long-lived service account creds.
+resource "google_iam_workload_identity_pool" "pool" {
+  workload_identity_pool_id = "main"
+  display_name              = "Main"
+  description               = "Main identity pool for this project"
+  project                   = module.project_factory.project_id
+}
+
+# A Workload Identity Provider for workloads running from GitHub actions.
+#
+# https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions
+#
+# Available GitHub OIDC claims to map:
+# https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect#understanding-the-oidc-token
+resource "google_iam_workload_identity_pool_provider" "github" {
+  workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id
+  workload_identity_pool_provider_id = "github"
+  display_name                       = "GitHub"
+  description                        = "GitHub Actions identity pool provider."
+  attribute_mapping = {
+    "google.subject"       = "assertion.sub"
+    "attribute.actor"      = "assertion.actor"
+    "attribute.aud"        = "assertion.aud"
+    "attribute.repository" = "assertion.repository"
+  }
+  oidc {
+    issuer_uri = "https://token.actions.githubusercontent.com"
+  }
+}
+
+locals {
+  full_prodromos_repo              = "lsst-sqre/prodromos"
+  atlantis_k8s_namespace           = "atlantis"
+  atlantis_k8s_serviceaccount_name = "atlantis"
+}
+
+# Service account for Prodromos
+resource "google_service_account" "prodromos_github" {
+  account_id   = "prodromos"
+  display_name = "Prodromos"
+  description  = "Terraform-managed service account for Prodromos terraform state bucket access"
+  project      = module.project_factory.project_id
+}
+
+# Allow these things to impersonate the service account:
+# * Workloads from the Prodomos repo impersonate the service account
+# * Atlantis app in the RSP cluster
+resource "google_service_account_iam_binding" "prodromos" {
+  service_account_id = google_service_account.prodromos_github.name
+  role               = "roles/iam.workloadIdentityUser"
+  members = [
+    "principalSet://iam.googleapis.com/projects/${module.project_factory.project_id}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.pool.id}/attribute.repository/${local.full_prodromos_repo}",
+    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[${local.atlantis_k8s_namespace}/${local.atlantis_k8s_serviceaccount_name}]",
+  ]
+}
+
+# Prodromos terraform state bucket
+module "prodromos_state_bucket" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = [var.prodromos_terraform_state_bucket_suffix]
+  prefix_name   = "rubin-us-central1"
+  versioning = {
+    (var.prodromos_terraform_state_bucket_suffix) = true
+  }
+  force_destroy = {
+    (var.vault_server_bucket_suffix) = false
+  }
+  labels = {
+    environment = var.environment
+    application = "prodromos"
+  }
+}
+
+# read/write access to the Prodromos bucket
+resource "google_storage_bucket_iam_member" "prodromos_read_write" {
+  bucket = module.prodromos_state_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.prodromos_github.email}"
 }
 
 module "service_account_cluster" {
