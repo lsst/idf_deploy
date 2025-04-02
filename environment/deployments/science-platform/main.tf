@@ -165,8 +165,6 @@ module "nat" {
   }]
 }
 
-
-
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
   version    = "~> 2.0"

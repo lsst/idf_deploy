@@ -1,13 +1,29 @@
-description        = "A description of the instance."
-capacity_gib       = 3500
-pool_name          = "test-pool"
-share_name         = "share1"
+allowed_ips        = "10.230.0.0/16"
+description        = "Home volume"
 labels = {
-  "application_name": "app_name",
-  "name": "cluster"
+  "application_name": "app_name"
+  "environment": "development"
+  "project": "some-project-id"
+  "netapp_volume": "home"
 }
-name          = "test-volume"
 network       = "default"
-project       = ""
-service_level = "PREMIUM"
+project       = "some-project-id"
 location      = "us-central1-b"
+definition    = {
+  name                   = "home"
+  service_level          = "PREMIUM"        # EXTREME, PREMIUM, STANDARD, FLEX
+  capacity_gib           = 2000             # At least 2000
+  unix_permissions       = 0770             # Octal Unix permissions for mount
+  snapshot_directory     = true
+  backups_enabled        = true
+  has_root_access        = true
+  access_type            = "READ_WRITE"     # READ_ONLY, READ_WRITE, READ_NONE
+  default_user_quota_mib = 5000
+  override_user_quotas   = [
+    {
+      username           = "bot-mobu-user"  # Not checked
+      uid                = 100001
+      disk_limit_mib     = 6000
+    }
+  ]
+}

@@ -1,26 +1,44 @@
-# A given science-platform instance will have an arbitrary number of
-# NetApp Cloud Volumes.  Each one of these will have its own storage pool,
-# so the volume-to-pool mapping is one-to-one.
+# A given RSP instance at the IDF will have an arbitrary number of NetApp
+# Cloud Volumes.
 #
-# That instance will have a single backup vault.  Each volume will have its
-# own backup and snapshot policy, which could be null (for instance, the
-# scratch volume likely does not need backups).  We impose standard retention
-# policies rather than exposing them via config.
+# We expect each instance to have at least three, corresponding to home,
+# project, and scratch space.
 #
-# Each instance will also get its own default user quota.  If there are
-# override user quotas specified, they will be attached to the instance.
+# If the number of volumes is greater than zero, the RSP instance will have
+# a single backup vault.  That is configured in the RSP instance definition
+# rather than here.  What is configured in this module is the set of objects
+# created for a single volume definition, which is passed in as var.definition.
 #
-# At this point we're not implementing tiered storage, user key management,
-# or volume replication, and we are assuming UNIX/NFS rather than AD/SMB.
+# Each volume will have its own storage pool defined: the volume-to-pool
+# mapping is one-to-one.  Unless we go to individual user volumes (which we
+# could do with "FLEX" volumes and the Trident operator), we will not need
+# volumes smaller than the minimum pool size, so it is simpler to manage
+# single-volume pools whose entire storage is dedicated to that volume.
+#
+# Each volume can enable or disable backups and snapshots.  If enabled, these
+# will have standard retention policies, rather than per-volume configuration
+# settings.  This is a (reversible) choice made to simplify configuration.
+#
+# Each volume may have a default user quota.  In practice, the home and
+# project volumes should certainly have a quota, and the scratch volume
+# probably should.
+#
+# Each volume may additionally have zero or more override user quotas
+# specified.  Whether the username matches the UID is not checked, and in
+# fact the username is only given to make quota identification easier; the
+# implementation relies only on the UID.
+#
+# We currently do not implement tiered storage, user key management, or
+# volume replication.  We assume UNIX/NFS rather than AD/SMB as our identity
+# and file sharing protocol implementation.
 
 # This could be simplified, probably, if we used
 # https://github.com/GoogleCloudPlatform/terraform-google-netapp-volumes
-# However, that does not yet support quotas, which are the entire reason
-# we need to move to NetApp volumes.
+# However, that provider does not yet support quotas, which are the entire
+# reason we need to move to NetApp volumes.
 
-
+# Per-volume storage pool
 resource "google_netapp_storage_pool" "instance" {
-  # Each volume gets its own pool, at least for now.
   project  = var.project
   location = var.location
   name     = "pool-${var.definition.name}"
@@ -31,6 +49,7 @@ resource "google_netapp_storage_pool" "instance" {
   capacity_gib  = var.definition.capacity_gib
 }
 
+# Volume
 resource "google_netapp_volume" "instance" {
   location = var.location
   labels   = var.labels
@@ -78,13 +97,14 @@ resource "google_netapp_volume" "instance" {
 
   export_policy {
     rules {
-      allowed_clients = var.allowed_ips
+      allowed_clients = var.allowed_ips # The "kubernetes-pods" range
       has_root_access = var.definition.has_root_access
       access_type     = var.definition.access_type
     }
   }
 }
 
+# Backup policy (if needed); highly opinionated
 resource "google_netapp_backup_policy" "instance" {
   depends_on = [google_netapp_volume.instance] // needs each?
 
@@ -105,8 +125,8 @@ resource "google_netapp_backup_policy" "instance" {
 
 }
 
+# Disabled if the default quota is not set
 resource "google_netapp_volume_quota_rule" "default_user_quota" {
-  // default user quota rule
 
   count = var.definition.default_user_quota_mib == null ? 0 : 1
 
@@ -119,6 +139,7 @@ resource "google_netapp_volume_quota_rule" "default_user_quota" {
   description    = "Default user quota for ${var.definition.name}"
 }
 
+# Listed in configuration; username is not checked.
 resource "google_netapp_volume_quota_rule" "individual_user_quota" {
 
   for_each = tomap({
