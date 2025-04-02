@@ -163,7 +163,6 @@ module "filestore" {
   depends_on = [module.project_factory]
 }
 
-
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
   count        = var.num_static_ips
@@ -188,6 +187,7 @@ module "nat" {
   }]
 }
 
+# Extract allowable IP ranges for NetApp clients
 locals {
   flat_allow_ips = flatten(
     values(

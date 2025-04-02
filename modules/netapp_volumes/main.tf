@@ -1,5 +1,3 @@
-# The idea here is:
-#
 # A given science-platform instance will have an arbitrary number of
 # NetApp Cloud Volumes.  Each one of these will have its own storage pool,
 # so the volume-to-pool mapping is one-to-one.
