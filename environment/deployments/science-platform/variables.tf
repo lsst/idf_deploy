@@ -263,14 +263,9 @@ variable "netapp_definitions" {
       weekly_backup_limit  = optional(number)
       monthly_backup_limit = optional(number)
     }))
-    export_policy_rules = optional(list(object({
-      allowed_clients = optional(string)
-      has_root_access = optional(bool, false)
-      access_type = optional(string) # READ_ONLY, READ_WRITE, READ_NONE
-      nfsv3 = optional(bool, true)
-      nfsv4 = optional(bool, true)
-      # Not bothering with Kerberos 5 options
-    })))
+    # allowed_clients = string #  Derived from subnets
+    has_root_access = bool
+    access_type = string
     default_user_quota_mib = optional(number)
   }))
 }

@@ -113,12 +113,8 @@ netapp_definitions = [
       weekly_backup_limit = 5
       monthly_backup_limit = 12
     }
-    export_policy_rules = [
-      {
-        has_root_access = true
-        access_type = "READ_WRITE"
-      }
-    ]
+    has_root_access = true
+    access_type = "READ_WRITE"
     default_user_quota_mib = 5000
   },
   { name = "project"
@@ -150,12 +146,8 @@ netapp_definitions = [
       weekly_backup_limit = 5
       monthly_backup_limit = 12
     }
-    export_policy_rules = [
-      {
-        has_root_access = true
-        access_type = "READ_WRITE"
-      }
-    ]    
+    has_root_access = true
+    access_type = "READ_WRITE"
     default_user_quota_mib = 5000
   },
   { name = "scratch"
@@ -188,12 +180,8 @@ netapp_definitions = [
       weekly_backup_limit = 0
       monthly_backup_limit = 0
     }    
-    export_policy_rules = [
-      {
-        has_root_access = true
-        access_type = "READ_WRITE"
-      }
-    ]
+    has_root_access = true
+    access_type = "READ_WRITE"
     default_user_quota_mib = 5000
   }
 ]

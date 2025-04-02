@@ -9,8 +9,7 @@
 # scratch volume likely does not need backups).
 #
 # Each instance will also get its own default user quota.  Terraforming
-# additions to the user quotas is not yet supported; the ID mapping is the
-# difficult part.
+# individual overrides for user quotas is not yet supported.
 #
 # At this point we're not implementing tiered storage, user key management,
 # or volume replication, and we are assuming UNIX/NFS rather than AD/SMB.
@@ -94,30 +93,13 @@ resource "google_netapp_volume" "instance" {
   }
 
   # Here's the tricky bit
-  dynamic "export_policy" {
-    for_each = each.value.export_policy_rules == null ? [] : ["export_policy_rules"]
-    content {
-      dynamic "rules" {
-        for_each = each.value.export_policy_rules == null ? {} : each.value.export_policy_rules
-	content {
-	  allowed_clients = "10.129.0.0/16" # var.allowed_ips
-	  has_root_access = lookup(rules.value, "has_root_access")
-	  access_type     = lookup(rules.value, "access_type")
-	  nfsv3           = true
-	  nfsv4           = true
-        }
-      }
+  export_policy {
+    rules {
+      allowed_clients = var.allowed_ips
+      has_root_access = each.value.has_root_access
+      access_type     = each.value.access_type
     }
   }
-  # export_policy {
-  #   rules {
-  #     nfsv3 = true
-  #     nfsv4 = true
-  #     has_root_access = true
-  #     access_type = "READ_WRITE"
-  #     allowed_clients = "10.129.0.0/16"
-  #   }
-  # }
 }
 
 resource "google_netapp_backup_policy" "instance" {

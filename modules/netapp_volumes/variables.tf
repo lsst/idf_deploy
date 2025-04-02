@@ -59,13 +59,13 @@ variable "definitions" {
 	hour = optional(number,0)
       }))
       weekly_schedule = optional(object({
-	snapshots_to_keep = number,
+	snapshots_to_keep = number
 	minute = optional(number,0)
 	hour = optional(number,0)
 	day = optional(string, "Sunday")
       })) 
       monthly_schedule = optional(object({
-	snapshots_to_keep = number,
+	snapshots_to_keep = number
 	minute = optional(number,0)
 	hour = optional(number,0)
 	days = optional(string, "1")
@@ -77,11 +77,9 @@ variable "definitions" {
       weekly_backup_limit  = optional(number)
       monthly_backup_limit = optional(number)
     }))
-    export_policy_rules = optional(list(object({
-      allowed_clients = string
-      has_root_access = bool
-      access_type = string
-    })))
+    # allowed_clients = string  # Derived from subnets
+    has_root_access = bool
+    access_type = string
     default_user_quota_mib = optional(number)
   }))
 }
