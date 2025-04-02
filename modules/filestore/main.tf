@@ -3,7 +3,7 @@ resource "google_filestore_instance" "instance" {
 
   project     = var.project
   name        = var.name
-  zone        = var.zone
+  location    = var.zone
   tier        = var.tier
   description = var.description
   labels      = var.labels
