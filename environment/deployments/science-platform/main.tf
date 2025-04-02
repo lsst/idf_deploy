@@ -48,32 +48,10 @@ resource "google_service_account_iam_member" "filestore_tool_sa_wi" {
 }
 
 resource "google_project_iam_member" "filestore_tool_sa_file" {
-  role               = "roles/file.editor"
-  member             = "serviceAccount:${google_service_account.filestore_tool_sa.email}"
-  project            = module.project_factory.project_id
+  role    = "roles/file.editor"
+  member  = "serviceAccount:${google_service_account.filestore_tool_sa.email}"
+  project = module.project_factory.project_id
 }
-
-# Analogous to Filestore, but Netapp Cloud Volumes
-
-resource "google_service_account" "netapp_admin_sa" {
-  account_id   = "netapp-admin"
-  display_name = "Netapp Cloud Volume admin service account"
-  description  = "Terraform-managed service account for Netapp Cloud Volume access"
-  project      = module.project_factory.project_id
-}
-
-resource "google_service_account_iam_member" "netapp_admin_sa_wi" {
-  service_account_id = google_service_account.netapp_admin_sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[netapp-backup/netapp-backup]"
-}
-
-resource "google_project_iam_member" "netapp_admin_sa_file" {
-  role               = "roles/netapp.admin"
-  member             = "serviceAccount:${google_service_account.netapp_admin_sa.email}"
-  project            = module.project_factory.project_id
-}
-
 
 resource "google_service_account" "gar_sa" {
   account_id   = "cachemachine-wi"
@@ -112,9 +90,9 @@ resource "google_service_account_iam_member" "dns_validator_sa_wi" {
 }
 
 resource "google_project_iam_member" "dns_validator_sa_dns" {
-  role               = "roles/compute.viewer"
-  member             = "serviceAccount:${google_service_account.dns_validator_sa.email}"
-  project            = module.project_factory.project_id
+  role    = "roles/compute.viewer"
+  member  = "serviceAccount:${google_service_account.dns_validator_sa.email}"
+  project = module.project_factory.project_id
 }
 
 resource "google_service_account" "hips_sa" {
@@ -187,34 +165,6 @@ module "nat" {
   }]
 }
 
-# Extract allowable IP ranges for NetApp clients
-locals {
-  flat_allow_ips = flatten(
-    values(
-      var.secondary_ranges
-    )
-  )
-
-  allowed_ip_map = tomap({
-    for subnet in local.flat_allow_ips : subnet.range_name => subnet.ip_cidr_range
-  })
-}
-
-module "netapp-volumes" {
-  source             = "../../../modules/netapp_volumes"
-  network            = module.project_factory.network_name
-  project            = module.project_factory.project_id
-  location           = var.location
-  labels = {
-    project          = module.project_factory.project_id
-    environment      = var.environment
-    application_name = var.application_name
-  }
-  definitions        = var.netapp_definitions
-  allowed_ips        = local.allowed_ip_map["kubernetes-pods"]
-
-  depends_on = [module.project_factory]
-}
 
 
 module "service_account_cluster" {
@@ -229,15 +179,15 @@ module "service_account_cluster" {
 }
 
 moved {
-    # Google provider version update
-    from = module.service_account_cluster.google_service_account.service_accounts["cluster"]
-    to = module.service_account_cluster.google_service_account.service_accounts[0]
+  # Google provider version update
+  from = module.service_account_cluster.google_service_account.service_accounts["cluster"]
+  to   = module.service_account_cluster.google_service_account.service_accounts[0]
 }
 
 moved {
-    # Google provider version update
-    from = module.service_account_cluster.google_project_iam_member.project-roles["cluster-science-platform-dev-7696=>roles/container.clusterAdmin"]
-    to = module.service_account_cluster.google_project_iam_member.project-roles[0]
+  # Google provider version update
+  from = module.service_account_cluster.google_project_iam_member.project-roles["cluster-science-platform-dev-7696=>roles/container.clusterAdmin"]
+  to   = module.service_account_cluster.google_project_iam_member.project-roles[0]
 }
 
 

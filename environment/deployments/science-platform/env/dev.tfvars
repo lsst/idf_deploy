@@ -87,65 +87,25 @@ netapp_definitions = [
   { name = "home"
     service_level = "PREMIUM"
     capacity_gib = 2000
-    protocols = [ "NFSV3", "NFSV4" ]
-    deletion_policy = "DEFAULT"
-    unix_permissions = 0770
-    restricted_actions = []
     snapshot_directory = true
-    snapshot_policy = {
-      enabled = true
-      hourly_schedule = {
-        snapshots_to_keep = 24
-	minute = 3
-      }
-      daily_schedule = {
-        snapshots_to_keep = 7
-	minute = 5
-	hour = 2
-      }
-      weekly_schedule = {
-        snapshots_to_keep = 5
-      }
-    }
-    backup_policy = {
-      enabled = true,
-      daily_backup_limit = 7
-      weekly_backup_limit = 5
-      monthly_backup_limit = 12
-    }
+    backups_enabled = true
     has_root_access = true
     access_type = "READ_WRITE"
     default_user_quota_mib = 5000
+    override_user_quotas = [
+      {
+        username = "bot-mobu-user"
+        uid = 100001
+        disk_limit_mib = 6000
+      }
+    ]
   },
   { name = "project"
     service_level = "PREMIUM"
     capacity_gib = 2000
-    protocols = [ "NFSV3", "NFSV4" ]
-    deletion_policy = "DEFAULT"
     unix_permissions = 01777
-    restricted_actions = []
     snapshot_directory = true
-    snapshot_policy = {
-      enabled = true
-      hourly_schedule = {
-        snapshots_to_keep = 24
-	minute = 3
-      }
-      daily_schedule = {
-        snapshots_to_keep = 7
-	minute = 5
-	hour = 2
-      }
-      weekly_schedule = {
-        snapshots_to_keep = 5
-      }
-    }
-    backup_policy = {
-      enabled = true,
-      daily_backup_limit = 7
-      weekly_backup_limit = 5
-      monthly_backup_limit = 12
-    }
+    backups_enabled = true
     has_root_access = true
     access_type = "READ_WRITE"
     default_user_quota_mib = 5000
@@ -153,33 +113,7 @@ netapp_definitions = [
   { name = "scratch"
     service_level = "PREMIUM"
     capacity_gib = 2000
-    protocols = [ "NFSV3", "NFSV4" ]
-    deletion_policy = "DEFAULT"
     unix_permissions = 01777
-    restricted_actions = []
-    # No snapshots or backups.
-    snapshot_directory = false
-    snapshot_policy = {
-      enabled = false
-      hourly_schedule = {
-        snapshots_to_keep = 0
-	minute = 0
-      }
-      daily_schedule = {
-        snapshots_to_keep = 0
-	minute = 0
-	hour = 0
-      }
-      weekly_schedule = {
-        snapshots_to_keep = 0
-      }
-    }
-    backup_policy = {
-      enabled = false
-      daily_backup_limit = 0
-      weekly_backup_limit = 0
-      monthly_backup_limit = 0
-    }    
     has_root_access = true
     access_type = "READ_WRITE"
     default_user_quota_mib = 5000

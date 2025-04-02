@@ -224,49 +224,20 @@ variable "location" {
 variable "netapp_definitions" {
   description = "A list of NetApp Cloud Volume definitions"
   type = list(object({
-    name = string # Volume name
-    service_level = string # PREMIUM, EXTREME, STANDARD, FLEX
-    capacity_gib = number # At least 2000
-    protocols = list(string) # each item is one of NFSV3, NFSV4, SMB
-			     # SMB and either NFS, both NFSes, or any solo
-    deletion_policy = string  # DEFAULT or FORCE
-    unix_permissions=optional(number, 0770) # Unix permission for mount point
-    restricted_actions = optional(list(string), [])  # Or [DELETE]
-    snapshot_directory = bool
-    snapshot_policy = optional(object({
-      enabled = bool
-      hourly_schedule = optional(object({
-	snapshots_to_keep = number,
-	minute = optional(number,0)
-      }))
-      daily_schedule = optional(object({
-	snapshots_to_keep = number
-	minute = optional(number,0)
-	hour = optional(number,0)
-      }))
-      weekly_schedule = optional(object({
-	snapshots_to_keep = number,
-	minute = optional(number,0)
-	hour = optional(number,0)
-	day = optional(string, "Sunday")
-      })) 
-      monthly_schedule = optional(object({
-	snapshots_to_keep = number,
-	minute = optional(number,0)
-	hour = optional(number,0)
-	days = optional(string, "1")
-      }))
-    }))
-    backup_policy = optional(object({
-      enabled = bool # Enable backups?
-      daily_backup_limit = optional(number)
-      weekly_backup_limit  = optional(number)
-      monthly_backup_limit = optional(number)
-    }))
-    # allowed_clients = string #  Derived from subnets
-    has_root_access = bool
-    access_type = string
+    name                   = string                 # Volume name
+    service_level          = string                 # PREMIUM, EXTREME, STANDARD, FLEX
+    capacity_gib           = number                 # At least 2000
+    unix_permissions       = optional(number, 0770) # Unix permission for mount point
+    snapshot_directory     = optional(bool, false)
+    backups_enabled        = optional(bool, false)
+    has_root_access        = optional(bool, false)
+    access_type            = optional(string, "READ_ONLY") # READ_ONLY, READ_WRITE, READ_NONE
     default_user_quota_mib = optional(number)
+    override_user_quotas = optional(list(object({
+      username       = string
+      uid            = number
+      disk_limit_mib = number
+    })), [])
   }))
 }
 
