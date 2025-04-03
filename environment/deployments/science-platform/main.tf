@@ -181,10 +181,22 @@ moved {
   from = module.service_account_cluster.google_service_account.service_accounts["cluster"]
   to   = module.service_account_cluster.google_service_account.service_accounts[0]
 }
-
+# DEV
 moved {
   # Google provider version update
   from = module.service_account_cluster.google_project_iam_member.project-roles["cluster-science-platform-dev-7696=>roles/container.clusterAdmin"]
+  to   = module.service_account_cluster.google_project_iam_member.project-roles[0]
+}
+# INT
+moved {
+  # Google provider version update
+  from = module.service_account_cluster.google_project_iam_member.project-roles["cluster-science-platform-int-dc5d=>roles/container.clusterAdmin"]
+  to   = module.service_account_cluster.google_project_iam_member.project-roles[0]
+}
+# PROD
+moved {
+  # Google provider version update
+  from = module.service_account_cluster.google_project_iam_member.project-roles["cluster-science-platform-stable-6994=>roles/container.clusterAdmin"]
   to   = module.service_account_cluster.google_project_iam_member.project-roles[0]
 }
 
