@@ -86,7 +86,7 @@ nats = [{ name = "cloud-nat" }]
 netapp_definitions = [
   { name = "home"
     service_level = "PREMIUM"
-    capacity_gib = 2000
+    capacity_gib = 2048
     snapshot_directory = true
     backups_enabled = true
     has_root_access = true
@@ -102,7 +102,7 @@ netapp_definitions = [
   },
   { name = "project"
     service_level = "PREMIUM"
-    capacity_gib = 2000
+    capacity_gib = 2048
     unix_permissions = 01777
     snapshot_directory = true
     backups_enabled = true
@@ -112,7 +112,7 @@ netapp_definitions = [
   },
   { name = "scratch"
     service_level = "PREMIUM"
-    capacity_gib = 2000
+    capacity_gib = 2048
     unix_permissions = 01777
     has_root_access = true
     access_type = "READ_WRITE"
