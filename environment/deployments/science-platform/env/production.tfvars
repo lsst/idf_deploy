@@ -57,14 +57,6 @@ custom_rules = {
 # NAT
 nats = [{ name = "cloud-nat" }]
 
-
-# NetApp Cloud Volumes
-#
-# Each item in netapp_definitions is what we need to create
-# a storage pool/volume pair.
-#
-netapp_definitions = []
-
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
 # our standard APIs.
