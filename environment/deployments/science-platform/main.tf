@@ -48,9 +48,9 @@ resource "google_service_account_iam_member" "filestore_tool_sa_wi" {
 }
 
 resource "google_project_iam_member" "filestore_tool_sa_file" {
-  role               = "roles/file.editor"
-  member             = "serviceAccount:${google_service_account.filestore_tool_sa.email}"
-  project            = module.project_factory.project_id
+  role    = "roles/file.editor"
+  member  = "serviceAccount:${google_service_account.filestore_tool_sa.email}"
+  project = module.project_factory.project_id
 }
 
 resource "google_service_account" "gar_sa" {
@@ -90,9 +90,9 @@ resource "google_service_account_iam_member" "dns_validator_sa_wi" {
 }
 
 resource "google_project_iam_member" "dns_validator_sa_dns" {
-  role               = "roles/compute.viewer"
-  member             = "serviceAccount:${google_service_account.dns_validator_sa.email}"
-  project            = module.project_factory.project_id
+  role    = "roles/compute.viewer"
+  member  = "serviceAccount:${google_service_account.dns_validator_sa.email}"
+  project = module.project_factory.project_id
 }
 
 resource "google_service_account" "hips_sa" {
@@ -167,7 +167,7 @@ module "nat" {
 
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
+  version    = "~> 4.4.3"
   project_id = module.project_factory.project_id
   prefix     = var.environment
   names      = ["cluster"]

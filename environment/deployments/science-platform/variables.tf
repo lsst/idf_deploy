@@ -31,7 +31,8 @@ variable "activate_apis" {
     "file.googleapis.com",
     "storage.googleapis.com",
     "billingbudgets.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "servicenetworking.googleapis.com",
+    "netapp.googleapis.com"
   ]
 }
 
@@ -77,7 +78,8 @@ variable "project_iam_permissions" {
     "roles/logging.admin",
     "roles/file.editor",
     "roles/compute.networkAdmin",
-    "roles/compute.securityAdmin"
+    "roles/compute.securityAdmin",
+    "roles/netapp.admin"
   ]
 }
 
@@ -209,6 +211,34 @@ variable "router_name" {
   type        = string
   description = "Name of the router"
   default     = "cloud-router"
+}
+
+# NETAPP CLOUD VOLUMES
+
+variable "location" {
+  description = "The name of the location of the Netapp instance (synonym for zone)"
+  type        = string
+  default     = "us-central1-b"
+}
+
+variable "netapp_definitions" {
+  description = "A list of NetApp Cloud Volume definitions"
+  type = list(object({
+    name                   = string                 # Volume name
+    service_level          = string                 # PREMIUM, EXTREME, STANDARD, FLEX
+    capacity_gib           = number                 # At least 2000
+    unix_permissions       = optional(number, 0770) # Unix permission for mount point
+    snapshot_directory     = optional(bool, false)
+    backups_enabled        = optional(bool, false)
+    has_root_access        = optional(bool, false)
+    access_type            = optional(string, "READ_ONLY") # READ_ONLY, READ_WRITE, READ_NONE
+    default_user_quota_mib = optional(number)
+    override_user_quotas = optional(list(object({
+      username       = string
+      uid            = number
+      disk_limit_mib = number
+    })), [])
+  }))
 }
 
 # STATIC IP RESERVATION
