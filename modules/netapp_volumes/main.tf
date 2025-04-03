@@ -106,7 +106,6 @@ resource "google_netapp_volume" "instance" {
 
 # Backup policy (if needed); highly opinionated
 resource "google_netapp_backup_policy" "instance" {
-  depends_on = [google_netapp_volume.instance] // needs each?
 
   count = var.definition.backups_enabled ? 1 : 0
 

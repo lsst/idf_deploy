@@ -6,21 +6,18 @@ resource "google_service_account" "netapp_admin_sa" {
   display_name = "Netapp Cloud Volume admin service account"
   description  = "Terraform-managed service account for Netapp Cloud Volume access"
   project      = module.project_factory.project_id
-  depends_on   = [module.project_factory]
 }
 
 resource "google_service_account_iam_member" "netapp_admin_sa_wi" {
   service_account_id = google_service_account.netapp_admin_sa.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[netapp-backup/netapp-backup]"
-  depends_on         = [module.project_factory]
 }
 
 resource "google_project_iam_member" "netapp_admin_sa_file" {
   role       = "roles/netapp.admin"
   member     = "serviceAccount:${google_service_account.netapp_admin_sa.email}"
   project    = module.project_factory.project_id
-  depends_on = [module.project_factory]
 }
 
 locals {
@@ -40,8 +37,6 @@ locals {
     environment      = var.environment
     application_name = var.application_name
   }
-
-  depends_on = [module.project_factory]
 }
 
 resource "google_netapp_backup_vault" "instance" {
@@ -52,7 +47,6 @@ resource "google_netapp_backup_vault" "instance" {
   location   = var.zone
   project    = module.project_factory.project_id
   labels     = local.labels
-  depends_on = [module.project_factory]
 }
 
 module "netapp-volumes" {
@@ -71,5 +65,4 @@ module "netapp-volumes" {
   }
   allowed_ips = local.allowed_ip_map["kubernetes-pods"]
   definition  = each.value
-  depends_on  = [module.project_factory]
 }
