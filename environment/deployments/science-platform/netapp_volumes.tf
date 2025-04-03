@@ -44,7 +44,7 @@ resource "google_netapp_backup_vault" "instance" {
   count = length(var.netapp_definitions) == 0 ? 0 : 1
 
   name       = "netapp-backup-vault"
-  location   = var.zone
+  location   = var.subnets[0].subnet_region
   project    = module.project_factory.project_id
   labels     = local.labels
 }
@@ -56,7 +56,7 @@ module "netapp-volumes" {
   source   = "../../../modules/netapp_volumes"
   network  = module.project_factory.network_name
   project  = module.project_factory.project_id
-  location = var.zone
+  location = var.subnets[0].subnet_region
   labels = {
     project          = module.project_factory.project_id
     environment      = var.environment

@@ -216,9 +216,9 @@ variable "router_name" {
 # NETAPP CLOUD VOLUMES
 
 variable "location" {
-  description = "The name of the location of the Netapp instance (synonym for zone)"
+  description = "The name of the location of the Netapp instance (synonym for region)"
   type        = string
-  default     = "us-central1-b"
+  default     = "us-central1"
 }
 
 variable "netapp_definitions" {

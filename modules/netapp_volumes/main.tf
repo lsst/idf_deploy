@@ -91,7 +91,7 @@ resource "google_netapp_volume" "instance" {
 
   backup_config {
     scheduled_backup_enabled = var.definition.backups_enabled
-    backup_policies          = var.definition.backups_enabled ? ["projects/${var.project}/locations/${var.location}/backupPolicies/backup_${var.definition.name}"] : null
+    backup_policies          = var.definition.backups_enabled ? ["projects/${var.project}/locations/${var.location}/backupPolicies/backup-${var.definition.name}"] : null
     backup_vault             = var.definition.backups_enabled ? "projects/${var.project}/locations/${var.location}/backupVaults/netapp-backup-vault" : null
   }
 
@@ -113,7 +113,7 @@ resource "google_netapp_backup_policy" "instance" {
   labels   = var.labels
   project  = var.project
 
-  name    = "backup_${var.definition.name}"
+  name    = "backup-${var.definition.name}"
   enabled = var.definition.backups_enabled
 
   # We may want to make this configurable again sometime.
