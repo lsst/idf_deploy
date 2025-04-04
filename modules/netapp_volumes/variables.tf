@@ -41,7 +41,7 @@ variable "definition" {
     name                   = string                 # Volume name
     service_level          = string                 # PREMIUM, EXTREME, STANDARD, FLEX
     capacity_gib           = number                 # At least 2000
-    unix_permissions       = optional(number, 0770) # Unix permission for mount point
+    unix_permissions       = optional(string, "0770") # Unix permission for mount point
     snapshot_directory     = optional(bool, false)
     backups_enabled        = optional(bool, false)
     has_root_access        = optional(bool, false)
