@@ -130,7 +130,8 @@ resource "google_netapp_backup_policy" "instance" {
 
 # Disabled if the default quota is not set
 resource "google_netapp_volume_quota_rule" "default_user_quota" {
-
+  project  = var.project
+  location = var.location
   count = var.definition.default_user_quota_mib == null ? 0 : 1
 
   name           = "${var.definition.name}-default-quota"
@@ -148,7 +149,8 @@ resource "google_netapp_volume_quota_rule" "individual_user_quota" {
   for_each = tomap({
     for quota in var.definition.override_user_quotas : "${quota.uid}" => quota
   })
-
+  project  = var.project
+  location = var.location
   depends_on     = [google_netapp_volume.instance]
   type           = "INDIVIDUAL_USER_QUOTA"
   labels         = var.labels
