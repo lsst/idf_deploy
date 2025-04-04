@@ -104,7 +104,7 @@ netapp_definitions = [
   { name = "project"
     service_level = "PREMIUM"
     capacity_gib = 2048
-    unix_permissions = "01777"
+    unix_permissions = "1777"
     snapshot_directory = true
     backups_enabled = true
     has_root_access = true
@@ -114,7 +114,7 @@ netapp_definitions = [
   { name = "scratch"
     service_level = "PREMIUM"
     capacity_gib = 2048
-    unix_permissions = "01777"
+    unix_permissions = "1777"
     has_root_access = true
     access_type = "READ_WRITE"
     default_user_quota_mib = 5000
@@ -141,4 +141,4 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 29
+# Serial: 30
