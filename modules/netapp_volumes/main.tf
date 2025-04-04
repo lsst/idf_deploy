@@ -51,6 +51,8 @@ resource "google_netapp_storage_pool" "instance" {
 
 # Volume
 resource "google_netapp_volume" "instance" {
+  depends_on = [google_netapp_storage_pool.instance]
+
   location = var.location
   labels   = var.labels
   project  = var.project
@@ -100,6 +102,8 @@ resource "google_netapp_volume" "instance" {
       allowed_clients = var.allowed_ips # The "kubernetes-pods" range
       has_root_access = var.definition.has_root_access
       access_type     = var.definition.access_type
+      nfsv3           = true
+      nfsv4           = true
     }
   }
 }
