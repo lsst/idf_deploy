@@ -33,7 +33,7 @@ jobs:
       with:
         credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-    # gcloud setup     
+    # gcloud setup
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v2'
       with:
@@ -61,6 +61,12 @@ jobs:
     # Generates an execution plan for terraform
     - name: Terraform Plan
       id: plan
+      run: terraform plan -var-file=env/production.tfvars -no-color
+      continue-on-error: true
+
+    # Generates an execution plan for terraform
+    - name: Dan Fuchs Testing He Can Do Whatever He Pleases In A Branch
+      id: what-if-dfuchs-was-bad
       run: terraform plan -var-file=env/production.tfvars -no-color
       continue-on-error: true
 
