@@ -54,7 +54,7 @@ module "netapp-volumes" {
     for voldef in var.netapp_definitions : "${voldef.name}" => voldef
   })
   source   = "../../../modules/netapp_volumes"
-  network  = module.project_factory.network_name
+  network  = module.project_factory.network.network_id
   project  = module.project_factory.project_id
   location = var.subnets[0].subnet_region
   labels = {
