@@ -63,6 +63,6 @@ module "netapp-volumes" {
     application_name = var.application_name
     netapp_volume    = each.value.name
   }
-  allowed_ips = local.allowed_ip_map["kubernetes-pods"]
+  allowed_ips = join(",",local.allowed_ip_map.values)
   definition  = each.value
 }

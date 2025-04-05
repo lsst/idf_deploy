@@ -99,7 +99,7 @@ resource "google_netapp_volume" "instance" {
 
   export_policy {
     rules {
-      allowed_clients = var.allowed_ips # The "kubernetes-pods" range
+      allowed_clients = var.allowed_ips # Need pods AND hosts...
       has_root_access = var.definition.has_root_access
       access_type     = var.definition.access_type
       nfsv3           = true
