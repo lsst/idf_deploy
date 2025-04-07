@@ -21,13 +21,14 @@ resource "google_project_iam_member" "netapp_admin_sa_file" {
 }
 
 locals {
-  # Extract allowable IP ranges for NetApp clients
-  flat_allow_ips = flatten(
+  # Extract allowable IP ranges for NetApp clients.  We need the primary subnet
+  # range and any secondary ranges.
+  flat_allow_2dry_ips = flatten(
     values(
       var.secondary_ranges
     )
   )
-  allowed_ip_list = [ for subnet in local.flat_allow_ips: subnet.ip_cidr_range ]
+  allowed_ip_list = concat([var.subnets[0]["subnet_ip"]],[ for subnet in local.flat_allow_2dry_ips: subnet.ip_cidr_range ])
 
   # General labels
   labels = {
