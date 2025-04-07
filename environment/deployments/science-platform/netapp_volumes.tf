@@ -27,9 +27,7 @@ locals {
       var.secondary_ranges
     )
   )
-  allowed_ip_map = tomap({
-    for subnet in local.flat_allow_ips : subnet.range_name => subnet.ip_cidr_range
-  })
+  allowed_ip_list = [ for subnet in local.flat_allow_ips: subnet.ip_cidr_range ]
 
   # General labels
   labels = {
@@ -63,6 +61,6 @@ module "netapp-volumes" {
     application_name = var.application_name
     netapp_volume    = each.value.name
   }
-  allowed_ips = local.allowed_ip_map["kubernetes-pods"]
+  allowed_ips = join(",",local.allowed_ip_list)
   definition  = each.value
 }
