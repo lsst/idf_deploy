@@ -11,7 +11,7 @@ resource "google_service_account" "netapp_admin_sa" {
 resource "google_service_account_iam_member" "netapp_admin_sa_wi" {
   service_account_id = google_service_account.netapp_admin_sa.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[netapp-backup/netapp-backup]"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[trident/trident-controller]"
 }
 
 resource "google_project_iam_member" "netapp_admin_sa_file" {
