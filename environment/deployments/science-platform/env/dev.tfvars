@@ -98,12 +98,7 @@ netapp_definitions = [
         username = "bot-mobu-user"
         uid = 100001
         disk_limit_mib = 6000
-      },
-      {
-        username = "adam"
-        uid = 3000001
-        disk_limit_mib = 30000
-      },
+      }
     ]
   },
   { name = "project"
@@ -123,6 +118,13 @@ netapp_definitions = [
     has_root_access = true
     access_type = "READ_WRITE"
     default_user_quota_mib = 5000
+    override_user_quotas = [
+      {
+        username = "adam"
+        uid = 3000001
+        disk_limit_mib = 30000
+      }
+    ]    
   }
 ]
   
@@ -147,4 +149,4 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 36
+# Serial: 37
