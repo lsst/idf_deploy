@@ -59,3 +59,8 @@ output "static_ip" {
   description = "Reserved static IP"
   value       = google_compute_address.static.*.address
 }
+
+output "prodromos_terraform_state_bucket" {
+  description = "The bucket to hold Prodromos Terraform state. This should be specified in the gcs backend blocks in Prodromos terraform."
+  value       = module.prodromos_state_bucket.name
+}

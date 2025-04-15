@@ -130,16 +130,16 @@ resource "google_project_iam_member" "vault_server_cryptokey_sa" {
 
 // RW storage access to Vault Server bucket
 resource "google_storage_bucket_iam_member" "vault_server_storage_sa" {
-  bucket  = module.storage_bucket.name
-  role    = "roles/storage.objectUser"
-  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  bucket = module.storage_bucket.name
+  role   = "roles/storage.objectUser"
+  member = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Admin storage access to Vault Server backup bucket
 resource "google_storage_bucket_iam_member" "vault_server_storage_backup_sa" {
-  bucket  = module.storage_bucket_b.name
-  role    = "roles/storage.admin"
-  member  = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+  bucket = module.storage_bucket_b.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
 // Hidden SA for data transfer job
@@ -149,27 +149,27 @@ data "google_storage_transfer_project_service_account" "vault_backup_transfer_sa
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_source_sa" {
-  bucket  = module.storage_bucket.name
-  role    = "roles/storage.objectViewer"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_source_sa_r" {
-  bucket  = module.storage_bucket.name
-  role    = "roles/storage.legacyBucketReader"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket.name
+  role   = "roles/storage.legacyBucketReader"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_sa" {
-  bucket  = module.storage_bucket_b.name
-  role    = "roles/storage.legacyBucketWriter"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket_b.name
+  role   = "roles/storage.legacyBucketWriter"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_sa_r" {
-  bucket  = module.storage_bucket_b.name
-  role    = "roles/storage.legacyBucketReader"
-  member  = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+  bucket = module.storage_bucket_b.name
+  role   = "roles/storage.legacyBucketReader"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
 // Resources for Vault Server storage backups
@@ -198,7 +198,7 @@ resource "google_storage_transfer_job" "vault_server_storage_backup" {
       nanos   = 0
     }
   }
-  depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa,google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa,google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r,google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r]
+  depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r]
 }
 
 # Service account for Git LFS read/write
@@ -265,6 +265,50 @@ resource "google_service_account" "reaper_sa" {
   display_name = "Reaper"
   description  = "Terraform-managed service account for Reaper artifact registry access"
   project      = module.project_factory.project_id
+}
+
+# Service account for Atlantis
+resource "google_service_account" "atlantis" {
+  account_id   = "atlantis"
+  display_name = "Atlantis"
+  description  = "Terraform-managed service account for the Atlantis service in the RSP cluster"
+  project      = module.project_factory.project_id
+}
+
+# Allow the Atlantis app in the RSP cluster to impersonate the service account
+resource "google_service_account_iam_binding" "atlantis" {
+  service_account_id = google_service_account.atlantis.name
+  role               = "roles/iam.workloadIdentityUser"
+  members = [
+    "serviceAccount:${module.project_factory.project_id}.svc.id.goog[atlantis/atlantis]",
+  ]
+}
+
+# Prodromos terraform state bucket
+module "prodromos_state_bucket" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = [var.prodromos_terraform_state_bucket_suffix]
+  prefix_name   = "rubin-us-central1"
+  versioning = {
+    (var.prodromos_terraform_state_bucket_suffix) = true
+  }
+  force_destroy = {
+    (var.vault_server_bucket_suffix) = false
+  }
+  labels = {
+    environment = var.environment
+    application = "prodromos"
+  }
+}
+
+# Give Atlantis read/write access to the Prodromos state bucket
+resource "google_storage_bucket_iam_member" "prodromos_read_write" {
+  bucket = module.prodromos_state_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.atlantis.email}"
 }
 
 module "service_account_cluster" {
