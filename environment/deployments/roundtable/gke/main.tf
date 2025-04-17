@@ -41,6 +41,7 @@ module "gke" {
   node_pools             = var.node_pools
   release_channel        = var.release_channel
   gce_pd_csi_driver      = var.gce_pd_csi_driver
+  gcs_fuse_csi_driver    = var.gcs_fuse_csi_driver
   network_policy         = var.network_policy
   maintenance_start_time = var.maintenance_start_time
   maintenance_end_time   = var.maintenance_end_time

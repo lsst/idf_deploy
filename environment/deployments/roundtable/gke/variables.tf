@@ -40,6 +40,12 @@ variable "gce_pd_csi_driver" {
   default     = false
 }
 
+variable "gcs_fuse_csi_driver" {
+  description = "Whether GCE FUSE CSI driver is enabled for this cluster."
+  type        = bool
+  default     = false
+}
+
 variable "maintenance_start_time" {
   description = "Time window start for maintenance operations in RFC3339 format"
   type        = string

@@ -172,6 +172,12 @@ variable "gce_pd_csi_driver" {
   default     = false
 }
 
+variable "gcs_fuse_csi_driver" {
+  description = "Whether GCE FUSE CSI driver is enabled for this cluster."
+  type        = bool
+  default     = false
+}
+
 variable "cluster_telemetry_type" {
   type        = string
   description = "Available options include ENABLED, DISABLED, and SYSTEM_ONLY"
