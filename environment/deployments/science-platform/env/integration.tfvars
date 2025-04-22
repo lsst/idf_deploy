@@ -89,46 +89,8 @@ netapp_definitions = [
     backups_enabled = true
     has_root_access = true
     access_type = "READ_WRITE"
-    default_user_quota_mib = 10000
-    # These are empirically determined, rounded up to the next 10GB, except
-    # for Firefly, which keeps a week's worth of uploads and is currently
-    # about 500GB.
+    default_user_quota_mib = 30000
     override_user_quotas = [
-      {
-        username = "firefly",
-	uid = 91,
-	disk_limit_mib = 1000000
-      },
-      {
-        username = "mgower",
-	uid = 3000009,
-	disk_limit_mib = 20000
-      },
-      {
-        username = "wguan",
-	uid = 30000023,
-	disk_limit_mib = 20000
-      },
-      {
-        username = "plazas",
-	uid = 30000051,
-	disk_limit_mib = 20000
-      },
-      {
-        username = "douglasleetucker",
-	uid = 30000026,
-	disk_limit_mib = 30000
-      },
-      {
-        username = "cadair",
-	uid = 30000038,
-	disk_limit_mib = 30000
-      },
-      {
-        username = "hlin730",
-	uid = 3000007,
-	disk_limit_mib = 30000
-      },
       {
         username = "yanny",
 	uid = 30000012,
@@ -179,5 +141,3 @@ activate_apis = [
 
 # Increase this number to force Terraform to update the int environment.
 # Serial: 9
-
-
