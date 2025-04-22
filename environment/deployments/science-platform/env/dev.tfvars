@@ -113,7 +113,7 @@ netapp_definitions = [
   },
   { name = "scratch"
     service_level = "PREMIUM"
-    capacity_gib = 2048
+    capacity_gib = 2049
     unix_permissions = "1777"
     has_root_access = true
     access_type = "READ_WRITE"
@@ -149,4 +149,4 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 37
+# Serial: 38
