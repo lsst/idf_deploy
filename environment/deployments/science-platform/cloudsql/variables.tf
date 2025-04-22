@@ -176,7 +176,7 @@ variable "butler_registry_dp1_backups_enabled" {
 variable "science_platform_database_version" {
   description = "The database version to use for the Science Platform"
   type        = string
-  default     = "POSTGRES_15"
+  default     = "POSTGRES_16"
 }
 
 variable "science_platform_database_tier" {
