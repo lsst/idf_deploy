@@ -20,6 +20,14 @@ resource "google_project_iam_member" "netapp_admin_sa_file" {
   project    = module.project_factory.project_id
 }
 
+# Create a Private Service Access connection
+# When using shared-VPCs, this resource needs to be created in host project
+resource "google_service_networking_connection" "default" {
+  network                 = module.project_factory.network.network_id
+  service                 = "netapp.servicenetworking.goog"
+  reserved_peering_ranges = ["10.234.16.0/20"]
+}
+
 locals {
   # Extract allowable IP ranges for NetApp clients.  We need the primary subnet
   # range and any secondary ranges.
