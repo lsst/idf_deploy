@@ -75,6 +75,52 @@ custom_rules = {
 
 num_static_ips = 1
 
+# NetApp Cloud Volumes
+#
+# Each item in netapp_definitions is what we need to create
+# a storage pool/volume pair.
+#
+netapp_definitions = [
+  { name = "home"
+    service_level = "PREMIUM"
+    capacity_gib = 5000
+    unix_permissions = "0770"
+    snapshot_directory = true
+    backups_enabled = true
+    has_root_access = true
+    access_type = "READ_WRITE"
+    default_user_quota_mib = 30000
+    override_user_quotas = [
+      {
+        username = "yanny",
+	uid = 30000012,
+	disk_limit_mib = 40000
+      }
+    ]
+  },
+  { name = "project"
+    service_level = "PREMIUM"
+    capacity_gib = 3000
+    unix_permissions = "1777"
+    snapshot_directory = true
+    backups_enabled = true
+    has_root_access = true
+    access_type = "READ_WRITE"
+    default_user_quota_mib = 5000  # Mostly owned by root.
+    # Do we even need Gaia DR2?
+  },
+  { name = "scratch"
+    service_level = "PREMIUM"
+    capacity_gib = 5000
+    unix_permissions = "1777"
+    has_root_access = true
+    access_type = "READ_WRITE"
+    default_user_quota_mib = 10000
+    override_user_quotas = []
+  }
+]
+
+
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
 # our standard APIs.
@@ -94,5 +140,4 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 8
-
+# Serial: 9
