@@ -28,7 +28,7 @@ variable "database_tier" {
 variable "database_version" {
   description = "The database version to use for the general database"
   type        = string
-  default     = "POSTGRES_15"
+  default     = "POSTGRES_16"
 }
 
 variable "db_maintenance_window_day" {
