@@ -1,3 +1,13 @@
+# When you want to use Netapp Cloud Volumes for storage, do the following
+# first in the UI:
+#
+# 1: enable NetApp Cloud Volumes API manually
+# 2: create a pool/volume pair.  As part of that, create a service
+#    network connection.  Take the defaults.  We haven't figured out how
+#    to automate that piece in TF yet, and without it, volume creation
+#    will fail later.
+# 3: delete that pool/volume pair.
+
 # Service accounts/WI for Netapp Cloud Volumes
 # Will be needed for Trident operator
 
