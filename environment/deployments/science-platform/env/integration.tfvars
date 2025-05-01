@@ -89,6 +89,26 @@ netapp_definitions = [
     backups_enabled = true
     has_root_access = true
     access_type = "READ_WRITE"
+    default_user_quota_mib = 35000
+  },
+  { name = "project"
+    service_level = "PREMIUM"
+    capacity_gib = 3000
+    unix_permissions = "1777"
+    snapshot_directory = false
+    backups_enabled = false
+    has_root_access = true
+    access_type = "READ_WRITE"
+    default_user_quota_mib = 30000
+  },
+  { name = "scratch"
+    service_level = "PREMIUM"
+    capacity_gib = 5000
+    unix_permissions = "1777"
+    snapshot_directory = false
+    backups_enabled = false
+    has_root_access = true
+    access_type = "READ_WRITE"
     default_user_quota_mib = 30000
   }
 ]
@@ -113,4 +133,5 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 13
+# Serial: 14
+
