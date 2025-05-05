@@ -110,6 +110,7 @@ module "alloydb_butler_data_preview" {
   cluster_id = "butler-data-preview-${var.environment}"
   location   = "us-central1"
   network_id = data.google_compute_network.network.id
+  project_id = var.project_id
 }
 
 resource "google_dns_managed_zone" "sql_private_zone" {
