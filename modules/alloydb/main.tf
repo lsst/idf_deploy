@@ -12,6 +12,11 @@ resource "google_alloydb_instance" "data_preview_primary" {
   cluster = google_alloydb_cluster.data_preview.name
   instance_id = "${var.cluster_id}-primary"
   instance_type = "PRIMARY"
+  # Only allocate a single node for the master, instead of two across
+  # multiple zones.
+  # End users will only be accessing the read pool, so we don't need
+  # the master to be highly available.
+  availability_type = "ZONAL"
   machine_config {
     machine_type = "n2-highmem-2"
   }
