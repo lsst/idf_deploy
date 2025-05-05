@@ -17,6 +17,9 @@ butler_registry_dp1_enabled          = true
 butler_registry_dp1_tier             = "db-custom-2-7680"
 butler_registry_dp1_backups_enabled  = false
 
+# Butler DP0.2/DP1 AlloyDB
+butler_registry_alloydb_enabled = true
+
 # Science Platform Database
 science_platform_db_maintenance_window_day  = 2
 science_platform_db_maintenance_window_hour = 22

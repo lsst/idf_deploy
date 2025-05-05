@@ -171,6 +171,12 @@ variable "butler_registry_dp1_backups_enabled" {
   default     = false
 }
 
+variable "butler_registry_alloydb_enabled" {
+  type = bool
+  description = "True if an AlloyDB cluster will be created to use as the Butler Registry"
+  default = false
+}
+
 // Science Platform Database variables
 
 variable "science_platform_database_version" {

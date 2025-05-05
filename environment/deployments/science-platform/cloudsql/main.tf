@@ -101,6 +101,17 @@ module "db_butler_registry_dp1" {
   }
 }
 
+# AlloyDB Butler Registry for Data Preview 0.2 and Data Preview 1.
+# This is being explored as a more-scalable alternative to Cloud SQL.
+module "alloydb_butler_data_preview" {
+  source = "../../../../modules/alloydb"
+  count = var.butler_registry_alloydb_enabled ? 1 : 0
+
+  cluster_id = "butler-data-preview-${var.environment}"
+  location   = "us-central1"
+  network_id = data.google_compute_network.network.id
+}
+
 resource "google_dns_managed_zone" "sql_private_zone" {
   name        = "sql-private-zone-${var.environment}"
   dns_name    = "rsp-sql-${var.environment}.internal."
