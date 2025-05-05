@@ -2,6 +2,7 @@ resource "google_alloydb_cluster" "data_preview" {
   cluster_id = var.cluster_id
   database_version = "POSTGRES_16"
   location   = "us-central1"
+  project = var.project_id
   network_config {
     network = var.network_id
   }

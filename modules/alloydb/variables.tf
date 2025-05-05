@@ -12,3 +12,8 @@ variable "location" {
   description = "Google data center location where the database will be created"
   type        = string
 }
+
+variable "project_id" {
+  description = "ID of the Google Cloud Platform project that will contain these resources"
+  type        = string
+}
