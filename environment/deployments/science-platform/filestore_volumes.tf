@@ -13,7 +13,7 @@ resource "google_service_account_iam_member" "filestore_tool_sa_wi" {
 
 resource "google_project_iam_member" "filestore_tool_sa_file" {
   role    = "roles/file.editor"
-  member  = "serviceAccount:${google_service_account.filestore_tool_sa.email}"
+  member  = google_service_account.filestore_tool_sa.member
   project = module.project_factory.project_id
 }
 
