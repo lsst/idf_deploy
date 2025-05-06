@@ -31,13 +31,14 @@ secondary_ranges = {
 fileshare_capacity = 4000
 
 # Filestore
-filestore_definitions = [
-  {
-    description = "Prod filestore for /project"
-    name = "project"
-    capacity = 24000
-  }
-]
+filestore_definitions = []
+# [
+#   {
+#     description = "Prod filestore for /project"
+#     name = "project"
+#     capacity = 24000
+#   }
+# ]
 
 # FIREWALL
 #
