@@ -31,11 +31,15 @@ secondary_ranges = {
 # GKE
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
+# LEGACY filestore, to be removed once new volumes are in place and
+# data has been copied.
+fileshare_capacity = 3000
+
 # Filestore
 filestore_definitions = [
   {
-    description = "Dev filestore"
-    name = "fshare-instance-dev"
+    description = "Dev filestore for /project"
+    name = "project"
     capacity = 3000
   }
 ]

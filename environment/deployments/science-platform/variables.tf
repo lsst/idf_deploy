@@ -143,6 +143,9 @@ variable filestore_definitions {
   }))
 }
 
+# LEGACY Filestore, to be removed once new volumes are created and contents
+# have been copied.
+
 variable "name" {
   description = "The resource name of the instance."
   type        = string

@@ -23,8 +23,8 @@ variable "labels" {
   }
 }
 
-variable "zone" {
-  description = "The name of the Filestore zone of the instance"
+variable "location" {
+  description = "The name of the Filestore zone or region (depends on tier) of the instance"
   type        = string
   default     = "us-central1-b"
 }
@@ -41,7 +41,7 @@ variable "fileshare_name" {
   default     = "share1"
 }
 
-variable "fileshare_capacity" {
+variable "capacity" {
   description = "File share capacity in GiB. This must be at least 1024 GiB for the standard tier, or 2560 GiB for the premium tier."
   type        = number
   default     = 2600
@@ -58,4 +58,14 @@ variable "modes" {
   type        = list(string)
   default     = ["MODE_IPV4"]
 
+}
+
+variable "definition" {
+  type = object({
+    location = string
+    capacity = number
+    name     = string
+    modes    = list(string)
+    tier     = string
+  })
 }
