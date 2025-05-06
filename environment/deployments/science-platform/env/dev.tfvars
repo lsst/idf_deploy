@@ -41,7 +41,12 @@ filestore_definitions = [
     description = "Dev filestore for /project"
     name = "project"
     capacity = 3000
-  }
+  },
+  {
+    description = "Dev filestore for Firefly"
+    name = "firefly"
+    capacity = 3000
+  }  
 ]
 
 # FIREWALL
