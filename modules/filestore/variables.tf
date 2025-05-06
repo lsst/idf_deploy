@@ -23,8 +23,8 @@ variable "labels" {
   }
 }
 
-variable "zone" {
-  description = "The name of the Filestore zone of the instance"
+variable "location" {
+  description = "The name of the location (zone/region) of the Filestore instance"
   type        = string
   default     = "us-central1-b"
 }
@@ -35,13 +35,13 @@ variable "tier" {
   default     = "BASIC_SSD"
 }
 
-variable "fileshare_name" {
+variable "share_name" {
   description = "The name of the fileshare (16 characters or less)"
   type        = string
   default     = "share1"
 }
 
-variable "fileshare_capacity" {
+variable "capacity" {
   description = "File share capacity in GiB. This must be at least 1024 GiB for the standard tier, or 2560 GiB for the premium tier."
   type        = number
   default     = 2600

@@ -32,8 +32,13 @@ secondary_ranges = {
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
 # Filestore
-fileshare_capacity = 3000
-#fileshare_tier = "BASIC_SSD"
+filestore_definitions = [
+  {
+    description = "Dev filestore"
+    name = "fshare-instance-dev"
+    capacity = 3000
+  }
+]
 
 # FIREWALL
 #

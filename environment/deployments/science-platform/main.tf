@@ -34,25 +34,6 @@ resource "google_service_account_iam_member" "datalinker_sa_wi" {
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[datalinker/datalinker]"
 }
 
-resource "google_service_account" "filestore_tool_sa" {
-  account_id   = "filestore-tool"
-  display_name = "filestore tool account"
-  description  = "Terraform-managed service account for Filestore access"
-  project      = module.project_factory.project_id
-}
-
-resource "google_service_account_iam_member" "filestore_tool_sa_wi" {
-  service_account_id = google_service_account.filestore_tool_sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[filestore-backup/filestore-backup]"
-}
-
-resource "google_project_iam_member" "filestore_tool_sa_file" {
-  role    = "roles/file.editor"
-  member  = "serviceAccount:${google_service_account.filestore_tool_sa.email}"
-  project = module.project_factory.project_id
-}
-
 resource "google_service_account" "gar_sa" {
   account_id   = "cachemachine-wi"
   display_name = "Created by Terraform"
@@ -120,25 +101,6 @@ resource "google_service_account_iam_member" "sqlproxy_butler_int_sa" {
   service_account_id = google_service_account.sqlproxy_butler_int_sa[count.index].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-cross-project/sqlproxy-butler-int]"
-}
-
-module "filestore" {
-  source             = "../../../modules/filestore"
-  fileshare_capacity = var.fileshare_capacity
-  fileshare_name     = var.fileshare_name
-  modes              = var.modes
-  name               = "${var.name}-${var.environment}"
-  network            = module.project_factory.network_name
-  project            = module.project_factory.project_id
-  tier               = var.tier
-  zone               = var.zone
-  labels = {
-    project          = module.project_factory.project_id
-    environment      = var.environment
-    application_name = var.application_name
-  }
-
-  depends_on = [module.project_factory]
 }
 
 // Reserve a static ip for Cloud NAT

@@ -27,7 +27,13 @@ secondary_ranges = {
 }
 
 # Filestore
-fileshare_capacity = 24000
+filestore_definitions = [
+  {
+    description = "Prod filestore"
+    name = "fshare-instance-stable"
+    capacity = 24000
+  }
+]
 
 # FIREWALL
 #
