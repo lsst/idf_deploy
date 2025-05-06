@@ -1,5 +1,5 @@
 description        = "A description of the instance."
-fileshare_capacity = 2660
+capacity = 2660
 fileshare_name     = "share1"
 labels = {
   "application_name": "app_name",
@@ -8,8 +8,8 @@ labels = {
 modes = [
   "MODE_IPV4"
 ]
-name    = "test-instance"
-network = "default"
-project = ""
-tier    = "STANDARD"
-zone    = "us-central1-b"
+name     = "test-instance"
+network  = "default"
+project  = ""
+tier     = "BASIC_SSD"
+location = "us-central1-b"

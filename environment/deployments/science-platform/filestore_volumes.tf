@@ -43,7 +43,7 @@ module "filestore" {
 
 module "filestore_volumes" {
   for_each = tomap({
-    for voldef in var.filestore_definitions : "{voldef.name}" => voldef
+    for voldef in var.filestore_definitions : "${voldef.name}" => voldef
   })
   source = "../../../modules/filestore_volumes"
   network  = module.project_factory.network.network_id
