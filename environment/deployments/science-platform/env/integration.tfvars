@@ -28,8 +28,18 @@ secondary_ranges = {
   ]
 }
 
-# Filestore
+# LEGACY filestore, to be removed once new volumes are in place and
+# data has been copied.
 fileshare_capacity = 4000
+
+# Filestore
+filestore_definitions = [
+  {
+    description = "Int filestore for /project"
+    name = "project"
+    capacity = 4000
+  }
+]
 
 # FIREWALL
 #

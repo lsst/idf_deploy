@@ -1,8 +1,8 @@
 # A given RSP instance at the IDF will have an arbitrary number of NetApp
 # Cloud Volumes.
 #
-# We expect each instance to have at least three, corresponding to home,
-# project, and scratch space.
+# We expect each instance to have at least two, corresponding to home and
+# scratch space.
 #
 # If the number of volumes is greater than zero, the RSP instance will have
 # a single backup vault.  That is configured in the RSP instance definition
@@ -75,19 +75,19 @@ resource "google_netapp_volume" "instance" {
   snapshot_policy {
     enabled = var.definition.snapshot_directory
     hourly_schedule {
-      snapshots_to_keep = 24
-      minute            = 3
+      snapshots_to_keep = var.definition.snapshot_directory ? 24 : 0
+      minute            = var.definition.snapshot_directory ? 3 : null
     }
     daily_schedule {
-      snapshots_to_keep = 7
-      minute            = 6
-      hour              = 3
+      snapshots_to_keep = var.definition.snapshot_directory ? 7 : 0
+      minute            = var.definition.snapshot_directory ? 6 : null
+      hour              = var.definition.snapshot_directory ? 3 : null
     }
     weekly_schedule {
-      snapshots_to_keep = 5
-      minute            = 9
-      hour              = 6
-      day               = "Sunday"
+      snapshots_to_keep = var.definition.snapshot_directory ? 5 : 0
+      minute            = var.definition.snapshot_directory ? 9 : null
+      hour              = var.definition.snapshot_directory ? 6 : null
+      day               = var.definition.snapshot_directory ? "Sunday" : null
     }
   }
 

@@ -26,8 +26,18 @@ secondary_ranges = {
   ]
 }
 
-# Filestore
+# LEGACY filestore, to be removed once new volumes are in place and
+# data has been copied.
 fileshare_capacity = 24000
+
+# Filestore
+filestore_definitions = [
+  {
+    description = "Prod filestore for /project"
+    name = "project"
+    capacity = 8000
+  }
+]
 
 # FIREWALL
 #
@@ -56,6 +66,14 @@ custom_rules = {
 
 # NAT
 nats = [{ name = "cloud-nat" }]
+
+# NetApp Cloud Volumes
+#
+# Each item in netapp_definitions is what we need to create
+# a storage pool/volume pair.
+#
+netapp_definitions = []
+
 
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to

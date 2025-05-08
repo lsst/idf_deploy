@@ -1,0 +1,15 @@
+description        = "A description of the instance."
+capacity = 2660
+fileshare_name     = "share1"
+labels = {
+  "application_name": "app_name",
+  "name": "cluster"
+}
+modes = [
+  "MODE_IPV4"
+]
+name     = "test-instance"
+network  = "default"
+project  = ""
+tier     = "BASIC_SSD"
+location = "us-central1-b"

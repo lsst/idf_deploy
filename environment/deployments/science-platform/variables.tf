@@ -130,6 +130,22 @@ variable "secondary_ranges" {
 
 # FileStore
 
+variable filestore_definitions {
+  description = "A list of Filestore definitions"
+  type = list(object({
+    name                      = string  # Filestore instance name
+    share_name                = optional(string, "share1")  # 16 chars max
+    location                  = optional(string, "us-central1-b")
+    capacity                  = optional(number, 2660)
+    tier                      = optional(string, "BASIC_SSD")
+    description               = optional(string, "Instance description")
+    modes                     = optional(list(string), ["MODE_IPV4"])
+  }))
+}
+
+# LEGACY Filestore, to be removed once new volumes are created and contents
+# have been copied.
+
 variable "name" {
   description = "The resource name of the instance."
   type        = string
