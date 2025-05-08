@@ -32,11 +32,11 @@ fileshare_capacity = 24000
 
 # Filestore
 filestore_definitions = [
-  {
-    description = "Prod filestore for /project"
-    name = "project"
-    capacity = 8000
-  }
+  # {
+  #   description = "Prod filestore for /project"
+  #   name = "project"
+  #   capacity = 8000
+  # }
 ]
 
 # FIREWALL
