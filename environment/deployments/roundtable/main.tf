@@ -201,6 +201,22 @@ resource "google_storage_transfer_job" "vault_server_storage_backup" {
   depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r]
 }
 
+# Service account for EUPS Ready only
+resource "google_service_account" "eups_distributor_sa" {
+  account_id   = "eups-distributor"
+  display_name = "EUPS Distributor SA"
+  description  = "Terraform-managed service account for EUPS Distributor GCS access"
+  project      = module.project_factory.project_id
+}
+
+# Use Workload Identity to have the service run as the appropriate service
+# account (bound to a Kubernetes service account)
+resource "google_service_account_iam_member" "eups_distributor_sa_wi" {
+  service_account_id = google_service_account.eups_distributor_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[eups-distributor/eups-distributor]"
+}
+
 # Service account for Git LFS read/write
 resource "google_service_account" "git_lfs_rw_sa" {
   account_id   = "git-lfs-rw"
