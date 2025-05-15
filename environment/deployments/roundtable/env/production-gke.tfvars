@@ -5,6 +5,7 @@ application_name        = "roundtable"
 # GKE
 master_ipv4_cidr_block = "172.30.0.0/28"
 gce_pd_csi_driver      = true
+gcs_fuse_csi_driver    = true
 network_policy         = true
 maintenance_start_time = "2021-08-20T00:00:00Z"
 maintenance_end_time   = "2021-08-20T12:00:00Z"
@@ -92,4 +93,4 @@ node_pools_taints = {
 }
 
 # Increase this number to force Terraform to update the production environment.
-# Serial: 3
+# Serial: 4
