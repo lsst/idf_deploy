@@ -202,6 +202,12 @@ variable "node_metadata" {
   type        = string
 }
 
+variable "enable_gcfs" {
+  description = "Enable image streaming on cluster level"
+  type        = bool
+  default     = false
+}
+
 # ----------------------------------------
 #  NODE POOL VALUES
 # ----------------------------------------
