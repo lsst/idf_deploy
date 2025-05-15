@@ -118,3 +118,9 @@ variable "node_pools_taints" {
     all = []
   }
 }
+
+variable "enable_gcfs" {
+  description = "Enable image streaming on cluster level"
+  type        = bool
+  default     = true
+}
