@@ -106,6 +106,15 @@ netapp_definitions = [
     access_type = "READ_WRITE"
     default_user_quota_mib = 10000
   },
+  { name = "firefly"
+    service_level = "PREMIUM"
+    capacity_gib = 2048
+    unix_permissions = "0755"
+    snapshot_directory = false
+    backups_enabled = false
+    has_root_access = true
+    access_type = "READ_WRITE"
+  },
   { name = "delete-weekly"
     service_level = "PREMIUM"
     capacity_gib = 2048
@@ -137,5 +146,4 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 15
-
+# Serial: 16
