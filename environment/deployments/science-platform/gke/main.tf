@@ -46,6 +46,7 @@ module "gke" {
   maintenance_end_time   = var.maintenance_end_time
   maintenance_recurrence = var.maintenance_recurrence
   cluster_autoscaling    = var.cluster_autoscaling
+  enable_gcfs            = var.enable_gcfs
 
   # Labels
   cluster_resource_labels = {
