@@ -272,3 +272,21 @@ variable "cluster_autoscaling" {
     max_memory_gb       = 0
   }
 }
+
+variable "monitoring_enable_managed_prometheus" {
+  description = "Configuration for Managed Service for Prometheus. Whether or not the managed collection is enabled."
+  type        = bool
+  default     = false
+}
+
+variable "monitoring_enabled_components" {
+  description = <<-EOT
+    List of services to monitor: SYSTEM_COMPONENTS, APISERVER, SCHEDULER,
+    CONTROLLER_MANAGER, STORAGE, HPA, POD, DAEMONSET, DEPLOYMENT, STATEFULSET,
+    KUBELET, CADVISOR and DCGM. Empty list is default GKE configuration."
+  EOT
+  type        = list(string)
+  default     = []
+
+}
+

@@ -48,6 +48,9 @@ module "gke" {
   cluster_autoscaling    = var.cluster_autoscaling
   enable_gcfs            = var.enable_gcfs
 
+  monitoring_enabled_components        = var.monitoring_enabled_components
+  monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
+
   # Labels
   cluster_resource_labels = {
     environment      = var.environment
