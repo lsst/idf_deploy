@@ -30,16 +30,11 @@ secondary_ranges = {
 
 # LEGACY filestore, to be removed once new volumes are in place and
 # data has been copied.
+# 20250516: To be deleted after migration
 fileshare_capacity = 4000
 
 # Filestore
-filestore_definitions = [
-  {
-    description = "Int filestore for /project"
-    name = "project"
-    capacity = 4000
-  }
-]
+filestore_definitions = []
 
 # FIREWALL
 #
@@ -101,26 +96,25 @@ netapp_definitions = [
     access_type = "READ_WRITE"
     default_user_quota_mib = 35000
   },
-  { name = "project"
+  { name = "rubin"
     service_level = "PREMIUM"
-    capacity_gib = 3000
+    capacity_gib = 2048
     unix_permissions = "1777"
-    snapshot_directory = true
+    snapshot_directory = false
     backups_enabled = true
     has_root_access = true
     access_type = "READ_WRITE"
-    default_user_quota_mib = 30000
+    default_user_quota_mib = 10000
   },
-  { name = "scratch"
+  { name = "delete-weekly"
     service_level = "PREMIUM"
-    capacity_gib = 5000
+    capacity_gib = 2048
     unix_permissions = "1777"
     snapshot_directory = false
     backups_enabled = false
     has_root_access = true
     access_type = "READ_WRITE"
-    default_user_quota_mib = 30000
-  }
+  },
 ]
 
 
@@ -143,5 +137,5 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 14
+# Serial: 15
 
