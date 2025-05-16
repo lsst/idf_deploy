@@ -93,9 +93,5 @@ node_pools_taints = {
   
 }
 
-# TF State declared during pipeline
-# bucket = "lsst-terraform-state"
-# prefix = "qserv/int/gke"
-
 # Increase this number to force Terraform to update the int environment.
-# Serial: 6
+# Serial: 7
