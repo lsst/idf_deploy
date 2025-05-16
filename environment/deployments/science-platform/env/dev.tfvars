@@ -33,21 +33,11 @@ secondary_ranges = {
 
 # LEGACY filestore, to be removed once new volumes are in place and
 # data has been copied.
-fileshare_capacity = 3000
+fileshare_capacity = 2560  # Minimal
 
 # Filestore
-filestore_definitions = [
-  {
-    description = "Dev filestore for /project"
-    name = "project"
-    capacity = 3000
-  },
-  {
-    description = "Dev filestore for Firefly"
-    name = "firefly"
-    capacity = 3000
-  }  
-]
+# 20250516: remove once data migrated to Netapp
+filestore_definitions = []
 
 # FIREWALL
 #
@@ -115,6 +105,33 @@ netapp_definitions = [
       }
     ]
   },
+  { name = "rubin"
+    service_level = "PREMIUM"
+    capacity_gib = 2048
+    unix_permissions = "1777"
+    snapshot_directory = true
+    backups_enabled = true
+    has_root_access = true
+    access_type = "READ_WRITE"
+    default_user_quota_mib = 5000
+  },
+  { name = "firefly"
+    service_level = "PREMIUM"
+    capacity_gib = 2048
+    unix_permissions = "0755"
+    has_root_access = true
+    access_type = "READ_WRITE"
+    default_user_quota_mib = 5000
+  },
+  { name = "deleted-weekly"
+    service_level = "PREMIUM"
+    capacity_gib = 2048
+    unix_permissions = "1777"
+    has_root_access = true
+    access_type = "READ_WRITE"
+    default_user_quota_mib = 5000
+  },
+  # 20250516: remove once data migrated to new volumes
   { name = "project"
     service_level = "PREMIUM"
     capacity_gib = 2048
@@ -125,6 +142,7 @@ netapp_definitions = [
     access_type = "READ_WRITE"
     default_user_quota_mib = 5000
   },
+  # 20250516: remove once data migrated to new volumes
   { name = "scratch"
     service_level = "PREMIUM"
     capacity_gib = 2049
@@ -138,10 +156,10 @@ netapp_definitions = [
         uid = 3000001
         disk_limit_mib = 30000
       }
-    ]    
+    ]
   }
 ]
-  
+
 
 
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
