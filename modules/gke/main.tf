@@ -44,7 +44,10 @@ module "gke" {
   gcs_fuse_csi_driver                = var.gcs_fuse_csi_driver
   cluster_telemetry_type             = var.cluster_telemetry_type
   default_max_pods_per_node          = var.default_max_pods_per_node
-  enable_gcfs                        = var.enable_gcfs 
+  enable_gcfs                        = var.enable_gcfs
+
+  monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
+  monitoring_enabled_components        = var.monitoring_enabled_components
 
   node_pools_labels = var.node_pools_labels
   node_pools_taints = var.node_pools_taints
