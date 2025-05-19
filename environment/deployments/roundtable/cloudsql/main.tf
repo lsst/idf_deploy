@@ -1,13 +1,20 @@
 resource "random_password" "gafaelfawr" {
   length  = 24
-  numeric  = true
+  numeric = true
+  upper   = true
+  special = false
+}
+
+resource "random_password" "grafana" {
+  length  = 24
+  numeric = true
   upper   = true
   special = false
 }
 
 resource "random_password" "ook" {
   length  = 24
-  numeric  = true
+  numeric = true
   upper   = true
   special = false
 }
@@ -53,6 +60,11 @@ module "db_roundtable" {
       collation = "en_US.UTF8"
     },
     {
+      name      = "grafana"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    },
+    {
       name      = "ook"
       charset   = "UTF8"
       collation = "en_US.UTF8"
@@ -61,13 +73,18 @@ module "db_roundtable" {
 
   additional_users = [
     {
-      name     = "gafaelfawr"
-      password = random_password.gafaelfawr.result
+      name            = "gafaelfawr"
+      password        = random_password.gafaelfawr.result
       random_password = false
     },
     {
-      name     = "ook"
-      password = random_password.ook.result
+      name            = "grafana"
+      password        = random_password.grafana.result
+      random_password = false
+    },
+    {
+      name            = "ook"
+      password        = random_password.ook.result
       random_password = false
     },
   ]

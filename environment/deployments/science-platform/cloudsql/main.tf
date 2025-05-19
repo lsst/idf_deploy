@@ -3,17 +3,17 @@
 module "private-service-access" {
   source = "../../../../modules/cloudsql/private_service_access"
 
-  project_id    = var.project_id
-  vpc_network   = var.network
+  project_id  = var.project_id
+  vpc_network = var.network
 }
 
 moved {
   from = module.private-postgres
-  to = module.private-postgres[0]
+  to   = module.private-postgres[0]
 }
 moved {
   from = module.private-postgres[0].module.private-service-access
-  to = module.private-service-access
+  to   = module.private-service-access
 }
 
 # Butler Registry DP02
@@ -56,7 +56,7 @@ moved {
   # The 'count' parameter to this module was added after it was already
   # deployed to dev.
   from = module.db_butler_registry_dp02
-  to = module.db_butler_registry_dp02[0]
+  to   = module.db_butler_registry_dp02[0]
 }
 
 # Butler Registry for Data Preview 1
@@ -69,12 +69,12 @@ module "db_butler_registry_dp1" {
       "value" : "130.211.0.0/28"
     }
   ]
-  database_version                = "POSTGRES_16"
-  db_name                         = "butler-registry-dp1-${var.environment}"
-  tier                            = var.butler_registry_dp1_tier
-  database_flags                  = [
-      { name = "max_connections", value = "400" },
-      { name = "password_encryption", value = "scram-sha-256" }
+  database_version = "POSTGRES_16"
+  db_name          = "butler-registry-dp1-${var.environment}"
+  tier             = var.butler_registry_dp1_tier
+  database_flags = [
+    { name = "max_connections", value = "400" },
+    { name = "password_encryption", value = "scram-sha-256" }
   ]
   disk_size                       = 20
   enable_default_db               = false
@@ -105,7 +105,7 @@ module "db_butler_registry_dp1" {
 # This is being explored as a more-scalable alternative to Cloud SQL.
 module "alloydb_butler_data_preview" {
   source = "../../../../modules/alloydb"
-  count = var.butler_registry_alloydb_enabled ? 1 : 0
+  count  = var.butler_registry_alloydb_enabled ? 1 : 0
 
   cluster_id = "butler-data-preview-${var.environment}"
   location   = "us-central1"
@@ -128,7 +128,7 @@ resource "google_dns_managed_zone" "sql_private_zone" {
 }
 
 resource "google_dns_record_set" "dp02" {
-  count  = var.butler_registry_dp02_enable ? 1 : 0
+  count = var.butler_registry_dp02_enable ? 1 : 0
 
   managed_zone = google_dns_managed_zone.sql_private_zone.name
   name         = "dp02.${google_dns_managed_zone.sql_private_zone.dns_name}"
@@ -138,7 +138,7 @@ resource "google_dns_record_set" "dp02" {
 }
 
 resource "google_dns_record_set" "dp1" {
-  count  = var.butler_registry_dp1_enabled ? 1 : 0
+  count = var.butler_registry_dp1_enabled ? 1 : 0
 
   managed_zone = google_dns_managed_zone.sql_private_zone.name
   name         = "dp1.${google_dns_managed_zone.sql_private_zone.dns_name}"
@@ -159,6 +159,13 @@ resource "google_dns_record_set" "alloydb_dp" {
 
 
 resource "random_password" "gafaelfawr" {
+  length  = 24
+  numeric = true
+  upper   = true
+  special = false
+}
+
+resource "random_password" "grafana" {
   length  = 24
   numeric = true
   upper   = true
@@ -245,6 +252,11 @@ module "db_science_platform" {
       collation = "en_US.UTF8"
     },
     {
+      name      = "grafana"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    },
+    {
       name      = "nublado"
       charset   = "UTF8"
       collation = "en_US.UTF8"
@@ -280,6 +292,11 @@ module "db_science_platform" {
     {
       name            = "gafaelfawr"
       password        = random_password.gafaelfawr.result
+      random_password = false
+    },
+    {
+      name            = "grafana"
+      password        = random_password.grafana.result
       random_password = false
     },
     {
