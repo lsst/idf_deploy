@@ -108,7 +108,7 @@ module "service_accounts" {
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
-  names         = ["gafaelfawr", "ook-sa"]
+  names         = ["gafaelfawr", "grafana", "ook-sa"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
@@ -122,6 +122,12 @@ resource "google_service_account_iam_member" "gafaelfawr_operator_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr-operator]"
+}
+
+resource "google_service_account_iam_member" "grafana_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["grafana"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[grafana/grafana]"
 }
 
 resource "google_service_account_iam_member" "ook_sa_wi" {

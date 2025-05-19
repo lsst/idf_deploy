@@ -378,6 +378,7 @@ module "service_accounts" {
   description  = "Terraform-managed service account for PostgreSQL access"
   names = [
     "gafaelfawr",
+    "grafana",
     "nublado",
     "ssotap",
     "tap-service",
@@ -408,6 +409,12 @@ resource "google_service_account_iam_member" "gafaelfawr_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["gafaelfawr"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[gafaelfawr/gafaelfawr]"
+}
+
+resource "google_service_account_iam_member" "grafana_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["grafana"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[grafana/grafana]"
 }
 
 resource "google_service_account_iam_member" "gafaelfawr_operator_wi" {
