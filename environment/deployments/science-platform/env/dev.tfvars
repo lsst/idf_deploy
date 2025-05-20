@@ -121,7 +121,6 @@ netapp_definitions = [
     unix_permissions = "0755"
     has_root_access = true
     access_type = "READ_WRITE"
-    default_user_quota_mib = 5000
   },
   { name = "deleted-weekly"
     service_level = "PREMIUM"
@@ -129,7 +128,6 @@ netapp_definitions = [
     unix_permissions = "1777"
     has_root_access = true
     access_type = "READ_WRITE"
-    default_user_quota_mib = 5000
   },
   # 20250516: remove once data migrated to new volumes
   { name = "project"
@@ -181,4 +179,4 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 40
+# Serial: 41
