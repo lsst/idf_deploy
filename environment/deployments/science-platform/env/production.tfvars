@@ -34,8 +34,8 @@ fileshare_capacity = 24000
 filestore_definitions = [
   {
     description = "Prod filestore for /project"
-    name = "project"
-    capacity = 8000
+    name        = "project"
+    capacity    = 8000
   }
 ]
 
@@ -92,4 +92,4 @@ activate_apis = [
 ]
 
 # Increase this number to force Terraform to update the production environment.
-# Serial: 4
+# Serial: 5
