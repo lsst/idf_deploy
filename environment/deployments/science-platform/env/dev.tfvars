@@ -130,31 +130,13 @@ netapp_definitions = [
     access_type      = "READ_WRITE"
   },
   # 20250516: remove once data migrated to new volumes
-  { name                   = "project"
-    service_level          = "PREMIUM"
-    capacity_gib           = 2048
-    unix_permissions       = "1777"
-    snapshot_directory     = true
-    backups_enabled        = true
-    has_root_access        = true
-    access_type            = "READ_WRITE"
-    default_user_quota_mib = 5000
-  },
-  # 20250516: remove once data migrated to new volumes
-  { name                   = "scratch"
-    service_level          = "PREMIUM"
-    capacity_gib           = 2049
-    unix_permissions       = "1777"
-    has_root_access        = true
-    access_type            = "READ_WRITE"
-    default_user_quota_mib = 5000
-    override_user_quotas = [
-      {
-        username       = "adam"
-        uid            = 3000001
-        disk_limit_mib = 30000
-      }
-    ]
+  # 20250527: something is hanging on to it, don't know what yet
+  { name = "scratch"
+    service_level = "PREMIUM"
+    capacity_gib = 2049
+    unix_permissions = "1777"
+    has_root_access = true
+    access_type = "READ_WRITE"
   }
 ]
 
