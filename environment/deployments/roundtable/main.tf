@@ -172,6 +172,20 @@ resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_
   member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
 
+// In-cluster Grafana access
+
+// The service account is created in the cloudsql config
+data "google_service_account" "grafana_service_account" {
+  account_id = "grafana"
+  project    = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "grafana_monitoring_viewer" {
+  service_account_id = data.google_service_account.grafana_service_account.name
+  role               = "roles/monitoring.viewer"
+  member             = data.google_service_account.grafana_service_account.member
+}
+
 // Resources for Vault Server storage backups
 
 resource "google_storage_transfer_job" "vault_server_storage_backup" {

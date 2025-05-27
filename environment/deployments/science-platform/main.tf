@@ -103,6 +103,20 @@ resource "google_service_account_iam_member" "sqlproxy_butler_int_sa" {
   member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[sqlproxy-cross-project/sqlproxy-butler-int]"
 }
 
+// In-cluster Grafana access
+
+// The service account is created in the cloudsql config
+data "google_service_account" "grafana_service_account" {
+  account_id = "grafana"
+  project    = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "grafana_monitoring_viewer" {
+  service_account_id = data.google_service_account.grafana_service_account.name
+  role               = "roles/monitoring.viewer"
+  member             = data.google_service_account.grafana_service_account.member
+}
+
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
   count        = var.num_static_ips
