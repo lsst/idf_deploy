@@ -111,10 +111,10 @@ data "google_service_account" "grafana_service_account" {
   project    = module.project_factory.project_id
 }
 
-resource "google_service_account_iam_member" "grafana_monitoring_viewer" {
-  service_account_id = data.google_service_account.grafana_service_account.name
-  role               = "roles/monitoring.viewer"
-  member             = data.google_service_account.grafana_service_account.member
+resource "google_project_iam_member" "grafana_monitoring_viewer" {
+  project = module.project_factory.project_id
+  role    = "roles/monitoring.viewer"
+  member  = data.google_service_account.grafana_service_account.member
 }
 
 // Reserve a static ip for Cloud NAT
