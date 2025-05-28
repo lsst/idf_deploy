@@ -117,6 +117,36 @@ resource "google_project_iam_member" "grafana_monitoring_viewer" {
   member  = data.google_service_account.grafana_service_account.member
 }
 
+// A separate service account is needed for google cloud monitoring access
+// through the built-in Prometheus plugin because it doesn't speak oauth2 and
+// we need a separate process to periodically auth to google and update a JWT
+// in grafana via the grafana API:
+//
+// https://cloud.google.com/stackdriver/docs/managed-prometheus/query#ui-grafana
+resource "google_service_account" "grafana_datasource_syncer" {
+  account_id   = "grafana-datasource-syncer"
+  display_name = "Created by Terraform"
+  project      = module.project_factory.project_id
+}
+
+resource "google_service_account_iam_member" "grafana_datasource_syncer" {
+  service_account_id = google_service_account.grafana_datasource_syncer.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[google-cloud-observability/grafana-datasource-syncer]"
+}
+
+resource "google_project_iam_member" "grafana_datasource_syncer_monitoring_viewer" {
+  project = module.project_factory.project_id
+  role    = "roles/monitoring.viewer"
+  member  = google_service_account.grafana_datasource_syncer.member
+}
+
+resource "google_project_iam_member" "grafana_datasource_syncer_service_account_token_creator" {
+  project = module.project_factory.project_id
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = google_service_account.grafana_datasource_syncer.member
+}
+
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
   count        = var.num_static_ips
