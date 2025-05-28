@@ -68,7 +68,8 @@ resource "google_netapp_volume" "instance" {
   protocols          = ["NFSV3", "NFSV4"]
   deletion_policy    = "DEFAULT"
   restricted_actions = ["DELETE"]
-  large_capacity     = ((var.definition.capacity_gib >= 15360) && ((var.definition.service_level == "PREMIUM") || (var.definition.service_level == "EXTREME"))) ? true : false
+  large_capacity     = false  # "large capacity" volumes cannot be backed up!
+    # https://cloud.google.com/netapp/volumes/docs/protect-data/about-backups
   security_style     = "UNIX"
   kerberos_enabled   = false
 
