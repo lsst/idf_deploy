@@ -73,5 +73,7 @@ vault_server_bucket_suffix = "vault-server-dev"
 
 prodromos_terraform_state_bucket_suffix = "prodromos-terraform-dev"
 
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
+
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 16
