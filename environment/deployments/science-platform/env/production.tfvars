@@ -125,5 +125,7 @@ activate_apis = [
   "sqladmin.googleapis.com"
 ]
 
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
+
 # Increase this number to force Terraform to update the production environment.
 # Serial: 5
