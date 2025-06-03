@@ -47,6 +47,9 @@ module "gke" {
   maintenance_end_time   = var.maintenance_end_time
   maintenance_recurrence = var.maintenance_recurrence
 
+  monitoring_enabled_components        = var.monitoring_enabled_components
+  monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
+
   # Labels
   cluster_resource_labels = {
     environment      = var.environment
@@ -62,7 +65,7 @@ module "gke" {
       project          = local.project_id
       application_name = var.application_name
     },
-    kafka-pool = var.node_pools_labels.kafka-pool,
+    kafka-pool     = var.node_pools_labels.kafka-pool,
     zookeeper-pool = var.node_pools_labels.zookeeper-pool,
   }
 
