@@ -131,12 +131,12 @@ netapp_definitions = [
   },
   # 20250516: remove once data migrated to new volumes
   # 20250527: something is hanging on to it, don't know what yet
-  { name = "scratch"
-    service_level = "PREMIUM"
-    capacity_gib = 2049
+  { name             = "scratch"
+    service_level    = "PREMIUM"
+    capacity_gib     = 2049
     unix_permissions = "1777"
-    has_root_access = true
-    access_type = "READ_WRITE"
+    has_root_access  = true
+    access_type      = "READ_WRITE"
   }
 ]
 
@@ -159,6 +159,8 @@ activate_apis = [
   "iap.googleapis.com",
   "netapp.googleapis.com"
 ]
+
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 44

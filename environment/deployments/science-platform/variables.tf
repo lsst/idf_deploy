@@ -130,16 +130,16 @@ variable "secondary_ranges" {
 
 # FileStore
 
-variable filestore_definitions {
+variable "filestore_definitions" {
   description = "A list of Filestore definitions"
   type = list(object({
-    name                      = string  # Filestore instance name
-    share_name                = optional(string, "share1")  # 16 chars max
-    location                  = optional(string, "us-central1-b")
-    capacity                  = optional(number, 2660)
-    tier                      = optional(string, "BASIC_SSD")
-    description               = optional(string, "Instance description")
-    modes                     = optional(list(string), ["MODE_IPV4"])
+    name        = string                     # Filestore instance name
+    share_name  = optional(string, "share1") # 16 chars max
+    location    = optional(string, "us-central1-b")
+    capacity    = optional(number, 2660)
+    tier        = optional(string, "BASIC_SSD")
+    description = optional(string, "Instance description")
+    modes       = optional(list(string), ["MODE_IPV4"])
   }))
 }
 
@@ -240,9 +240,9 @@ variable "location" {
 variable "netapp_definitions" {
   description = "A list of NetApp Cloud Volume definitions"
   type = list(object({
-    name                   = string                 # Volume name
-    service_level          = string                 # PREMIUM, EXTREME, STANDARD, FLEX
-    capacity_gib           = number                 # At least 2048
+    name                   = string                   # Volume name
+    service_level          = string                   # PREMIUM, EXTREME, STANDARD, FLEX
+    capacity_gib           = number                   # At least 2048
     unix_permissions       = optional(string, "0770") # Unix permission for mount point
     snapshot_directory     = optional(bool, false)
     backups_enabled        = optional(bool, false)
@@ -263,4 +263,9 @@ variable "static_ip_name" {
   description = "Name to give to the static ip"
   type        = string
   default     = "load-balancer"
+}
+
+variable "atlantis_monitoring_admin_service_account_member" {
+  type        = string
+  description = "The service account that should have Google Cloud monitoring admin permissions in THIS project. This service account is probably provisioned in a different project."
 }

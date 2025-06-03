@@ -70,5 +70,8 @@ activate_apis = [
 vault_server_bucket_suffix = "vault-server"
 
 prodromos_terraform_state_bucket_suffix = "prodromos-terraform"
+
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
+
 # Increase this number to force Terraform to update the prod environment.
 # Serial: 11
