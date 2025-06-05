@@ -150,24 +150,32 @@ module "storage_bucket_4" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = ["dp02-hips"]
+  suffix_name   = ["dp02-hips", "dp1-hips"]
   prefix_name   = "static-us-central1"
   versioning = {
     dp02-hips = false
+    dp1-hips = false
   }
   force_destroy = {
     dp02-hips = false
+    dp1-hips = false
   }
   labels = {
     environment = var.environment
     application = "hips"
   }
 }
-// RO storage access to HiPS VISTA bucket
-resource "google_storage_bucket_iam_binding" "dp02-hips-bucket-ro-iam-binding" {
-  bucket  = module.storage_bucket_4.name
+// RO storage access to HiPS buckets
+resource "google_storage_bucket_iam_binding" "dp-hips-bucket-ro-iam-binding" {
+  for_each = toset(module.storage_bucket_4.names_list)
+  bucket  = each.key
   role    = "roles/storage.objectViewer"
   members = var.hips_service_accounts
+}
+
+moved {
+  from = google_storage_bucket_iam_binding.dp02-hips-bucket-ro-iam-binding
+  to = google_storage_bucket_iam_binding.dp-hips-bucket-ro-iam-binding["static-us-central1-dp02-hips"]
 }
 
 // Git LFS Storage Bucket (Prod)
