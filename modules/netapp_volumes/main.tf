@@ -45,8 +45,9 @@ resource "google_netapp_storage_pool" "instance" {
   network  = var.network
   labels   = var.labels
 
-  service_level = var.definition.service_level
-  capacity_gib  = var.definition.capacity_gib
+  service_level      = var.definition.service_level
+  capacity_gib       = var.definition.capacity_gib
+  allow_auto_tiering = var.definition.allow_auto_tiering
 }
 
 # Volume
@@ -63,15 +64,19 @@ resource "google_netapp_volume" "instance" {
   storage_pool       = "pool-${var.definition.name}"
   unix_permissions   = var.definition.unix_permissions
   snapshot_directory = var.definition.snapshot_directory
+  tiering_policy {
+    cooling_threshold_days = var.definition.cooling_threshold_days
+    tier_action            = ( var.definition.allow_auto_tiering && var.definition.enable_auto_tiering )? "ENABLED" : "PAUSED"
+  }
 
   # Opinionated choices not exposed to users
   protocols          = ["NFSV3", "NFSV4"]
   deletion_policy    = "DEFAULT"
   restricted_actions = ["DELETE"]
-  large_capacity     = false  # "large capacity" volumes cannot be backed up!
-    # https://cloud.google.com/netapp/volumes/docs/protect-data/about-backups
-  security_style     = "UNIX"
-  kerberos_enabled   = false
+  large_capacity     = false # "large capacity" volumes cannot be backed up!
+  # https://cloud.google.com/netapp/volumes/docs/protect-data/about-backups
+  security_style   = "UNIX"
+  kerberos_enabled = false
 
   snapshot_policy {
     enabled = var.definition.snapshot_directory
@@ -133,7 +138,7 @@ resource "google_netapp_backup_policy" "instance" {
 resource "google_netapp_volume_quota_rule" "default_user_quota" {
   project  = var.project
   location = var.location
-  count = var.definition.default_user_quota_mib == null ? 0 : 1
+  count    = var.definition.default_user_quota_mib == null ? 0 : 1
 
   name           = "${var.definition.name}-default-quota"
   depends_on     = [google_netapp_volume.instance]
@@ -150,8 +155,8 @@ resource "google_netapp_volume_quota_rule" "individual_user_quota" {
   for_each = tomap({
     for quota in var.definition.override_user_quotas : "${quota.uid}" => quota
   })
-  project  = var.project
-  location = var.location
+  project        = var.project
+  location       = var.location
   depends_on     = [google_netapp_volume.instance]
   type           = "INDIVIDUAL_USER_QUOTA"
   labels         = var.labels

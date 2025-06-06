@@ -88,7 +88,8 @@ nats = [{ name = "cloud-nat" }]
 # a storage pool/volume pair.
 #
 netapp_definitions = [
-  { name                   = "home"
+  {
+    name                   = "home"
     service_level          = "PREMIUM"
     capacity_gib           = 2048
     unix_permissions       = "0775"
@@ -105,7 +106,29 @@ netapp_definitions = [
       }
     ]
   },
-  { name                   = "rubin"
+  {
+    name                   = "home-tiered"
+    service_level          = "PREMIUM"
+    capacity_gib           = 2048
+    unix_permissions       = "0775"
+    snapshot_directory     = true
+    backups_enabled        = true
+    has_root_access        = true
+    access_type            = "READ_WRITE"
+    default_user_quota_mib = 5000
+    allow_auto_tiering     = true
+    enable_auto_tiering    = true
+    cooling_threshold_days = 7
+    override_user_quotas = [
+      {
+        username       = "bot-mobu-user"
+        uid            = 100001
+        disk_limit_mib = 6000
+      }
+    ]
+  },
+  {
+    name                   = "rubin"
     service_level          = "PREMIUM"
     capacity_gib           = 2048
     unix_permissions       = "1777"
@@ -115,28 +138,21 @@ netapp_definitions = [
     access_type            = "READ_WRITE"
     default_user_quota_mib = 5000
   },
-  { name             = "firefly"
-    service_level    = "PREMIUM"
-    capacity_gib     = 2048
-    unix_permissions = "0755"
-    has_root_access  = true
-    access_type      = "READ_WRITE"
+  {
+    name               = "firefly"
+    service_level      = "PREMIUM"
+    capacity_gib       = 2048
+    unix_permissions   = "0755"
+    has_root_access    = true
+    access_type        = "READ_WRITE"
   },
-  { name             = "deleted-weekly"
-    service_level    = "PREMIUM"
-    capacity_gib     = 2048
-    unix_permissions = "1777"
-    has_root_access  = true
-    access_type      = "READ_WRITE"
-  },
-  # 20250516: remove once data migrated to new volumes
-  # 20250527: something is hanging on to it, don't know what yet
-  { name = "scratch"
-    service_level = "PREMIUM"
-    capacity_gib = 2049
-    unix_permissions = "1777"
-    has_root_access = true
-    access_type = "READ_WRITE"
+  {
+    name               = "deleted-weekly"
+    service_level      = "PREMIUM"
+    capacity_gib       = 2048
+    unix_permissions   = "1777"
+    has_root_access    = true
+    access_type        = "READ_WRITE"
   }
 ]
 

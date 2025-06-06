@@ -130,16 +130,16 @@ variable "secondary_ranges" {
 
 # FileStore
 
-variable filestore_definitions {
+variable "filestore_definitions" {
   description = "A list of Filestore definitions"
   type = list(object({
-    name                      = string  # Filestore instance name
-    share_name                = optional(string, "share1")  # 16 chars max
-    location                  = optional(string, "us-central1-b")
-    capacity                  = optional(number, 2660)
-    tier                      = optional(string, "BASIC_SSD")
-    description               = optional(string, "Instance description")
-    modes                     = optional(list(string), ["MODE_IPV4"])
+    name        = string                     # Filestore instance name
+    share_name  = optional(string, "share1") # 16 chars max
+    location    = optional(string, "us-central1-b")
+    capacity    = optional(number, 2660)
+    tier        = optional(string, "BASIC_SSD")
+    description = optional(string, "Instance description")
+    modes       = optional(list(string), ["MODE_IPV4"])
   }))
 }
 
@@ -240,13 +240,16 @@ variable "location" {
 variable "netapp_definitions" {
   description = "A list of NetApp Cloud Volume definitions"
   type = list(object({
-    name                   = string                 # Volume name
-    service_level          = string                 # PREMIUM, EXTREME, STANDARD, FLEX
-    capacity_gib           = number                 # At least 2048
+    name                   = string                   # Volume name
+    service_level          = string                   # PREMIUM, EXTREME, STANDARD, FLEX
+    capacity_gib           = number                   # At least 2048
     unix_permissions       = optional(string, "0770") # Unix permission for mount point
     snapshot_directory     = optional(bool, false)
     backups_enabled        = optional(bool, false)
     has_root_access        = optional(bool, false)
+    allow_auto_tiering     = optional(bool, false)
+    enable_auto_tiering    = optional(bool, false)
+    cooling_threshold_days = optional(number, 183)
     access_type            = optional(string, "READ_ONLY") # READ_ONLY, READ_WRITE, READ_NONE
     default_user_quota_mib = optional(number)
     override_user_quotas = optional(list(object({

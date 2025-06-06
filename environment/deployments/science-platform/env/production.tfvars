@@ -66,7 +66,47 @@ nats = [{ name = "cloud-nat" }]
 # Each item in netapp_definitions is what we need to create
 # a storage pool/volume pair.
 #
-netapp_definitions = []
+netapp_definitions = [
+  { name                   = "home"
+    service_level          = "PREMIUM"
+    capacity_gib           = 100000
+    unix_permissions       = "0775"
+    snapshot_directory     = true
+    backups_enabled        = true
+    has_root_access        = true
+    allow_auto_tiering     = true
+    access_type            = "READ_WRITE"
+    default_user_quota_mib = 35000
+  },
+  { name                   = "rubin"
+    service_level          = "PREMIUM"
+    capacity_gib           = 8000
+    unix_permissions       = "0755"
+    snapshot_directory     = false
+    backups_enabled        = true
+    has_root_access        = true
+    allow_auto_tiering     = true
+    access_type            = "READ_WRITE"
+  },
+  { name               = "firefly"
+    service_level      = "PREMIUM"
+    capacity_gib       = 5000
+    unix_permissions   = "0755"
+    snapshot_directory = false
+    backups_enabled    = false
+    has_root_access    = true
+    access_type        = "READ_WRITE"
+  },
+  { name               = "deleted-sundays"
+    service_level      = "PREMIUM"
+    capacity_gib       = 8000
+    unix_permissions   = "1777"
+    snapshot_directory = false
+    backups_enabled    = false
+    has_root_access    = true
+    access_type        = "READ_WRITE"
+  },
+]
 
 
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
