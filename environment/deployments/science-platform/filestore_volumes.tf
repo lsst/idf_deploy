@@ -45,14 +45,14 @@ module "filestore_volumes" {
   for_each = tomap({
     for voldef in var.filestore_definitions : "${voldef.name}" => voldef
   })
-  source = "../../../modules/filestore_volumes"
+  source   = "../../../modules/filestore_volumes"
   network  = module.project_factory.network.network_id
   project  = module.project_factory.project_id
-  location = var.zone  # if regional, var.subnets[0].subnet_region
+  location = var.zone # if regional, var.subnets[0].subnet_region
   capacity = each.value.capacity
-  name = each.value.name
-  modes = each.value.modes
-  tier = each.value.tier
+  name     = each.value.name
+  modes    = each.value.modes
+  tier     = each.value.tier
   labels = {
     project          = module.project_factory.project_id
     environment      = var.environment

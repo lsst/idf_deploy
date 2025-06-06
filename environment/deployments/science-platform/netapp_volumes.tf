@@ -25,9 +25,9 @@ resource "google_service_account_iam_member" "netapp_admin_sa_wi" {
 }
 
 resource "google_project_iam_member" "netapp_admin_sa_file" {
-  role       = "roles/netapp.admin"
-  member     = "serviceAccount:${google_service_account.netapp_admin_sa.email}"
-  project    = module.project_factory.project_id
+  role    = "roles/netapp.admin"
+  member  = "serviceAccount:${google_service_account.netapp_admin_sa.email}"
+  project = module.project_factory.project_id
 }
 
 locals {
@@ -38,7 +38,7 @@ locals {
       var.secondary_ranges
     )
   )
-  allowed_ip_list = concat([var.subnets[0]["subnet_ip"]],[ for subnet in local.flat_allow_2dry_ips: subnet.ip_cidr_range ])
+  allowed_ip_list = concat([var.subnets[0]["subnet_ip"]], [for subnet in local.flat_allow_2dry_ips : subnet.ip_cidr_range])
 
   # General labels
   labels = {
@@ -52,10 +52,10 @@ resource "google_netapp_backup_vault" "instance" {
   # Singleton per location, only exists if netapp_definitions is not empty
   count = length(var.netapp_definitions) == 0 ? 0 : 1
 
-  name       = "netapp-backup-vault"
-  location   = var.subnets[0].subnet_region
-  project    = module.project_factory.project_id
-  labels     = local.labels
+  name     = "netapp-backup-vault"
+  location = var.subnets[0].subnet_region
+  project  = module.project_factory.project_id
+  labels   = local.labels
 }
 
 module "netapp-volumes" {
@@ -72,6 +72,6 @@ module "netapp-volumes" {
     application_name = var.application_name
     netapp_volume    = each.value.name
   }
-  allowed_ips = join(",",local.allowed_ip_list)
+  allowed_ips = join(",", local.allowed_ip_list)
   definition  = each.value
 }

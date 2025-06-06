@@ -45,7 +45,8 @@ variable "definition" {
     snapshot_directory     = optional(bool, false)
     backups_enabled        = optional(bool, false)
     has_root_access        = optional(bool, false)
-    allow_auto_tiering     = optional(bool, true)          # Not for STANDARD/FLEX
+    allow_auto_tiering     = optional(bool, false) # Not for STANDARD/FLEX
+    cooling_threshold_days = optional(number, 31)
     access_type            = optional(string, "READ_ONLY") # READ_ONLY, READ_WRITE, READ_NONE
     default_user_quota_mib = optional(number)
     override_user_quotas = optional(list(object({

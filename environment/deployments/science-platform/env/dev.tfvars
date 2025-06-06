@@ -96,7 +96,6 @@ netapp_definitions = [
     snapshot_directory     = true
     backups_enabled        = true
     has_root_access        = true
-    allow_auto_tiering     = false
     access_type            = "READ_WRITE"
     default_user_quota_mib = 5000
     override_user_quotas = [
@@ -115,7 +114,6 @@ netapp_definitions = [
     snapshot_directory     = true
     backups_enabled        = true
     has_root_access        = true
-    allow_auto_tiering     = false
     access_type            = "READ_WRITE"
     default_user_quota_mib = 5000
   },
@@ -125,7 +123,6 @@ netapp_definitions = [
     capacity_gib       = 2048
     unix_permissions   = "0755"
     has_root_access    = true
-    allow_auto_tiering = false    
     access_type        = "READ_WRITE"
   },
   {
@@ -134,7 +131,6 @@ netapp_definitions = [
     capacity_gib       = 2048
     unix_permissions   = "1777"
     has_root_access    = true
-    allow_auto_tiering = false
     access_type        = "READ_WRITE"
   }
 ]
