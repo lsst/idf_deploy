@@ -45,8 +45,9 @@ resource "google_netapp_storage_pool" "instance" {
   network  = var.network
   labels   = var.labels
 
-  service_level = var.definition.service_level
-  capacity_gib  = var.definition.capacity_gib
+  service_level      = var.definition.service_level
+  capacity_gib       = var.definition.capacity_gib
+  allow_auto_tiering = true
 }
 
 # Volume
