@@ -66,7 +66,7 @@ resource "google_netapp_volume" "instance" {
   snapshot_directory = var.definition.snapshot_directory
   tiering_policy {
     cooling_threshold_days = var.definition.cooling_threshold_days
-    tier_action            = var.definition.allow_auto_tiering ? "ENABLED" : "PAUSED"
+    tier_action            = ( var.definition.allow_auto_tiering && var.definition.enable_auto_tiering )? "ENABLED" : "PAUSED"
   }
 
   # Opinionated choices not exposed to users

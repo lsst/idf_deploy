@@ -107,6 +107,27 @@ netapp_definitions = [
     ]
   },
   {
+    name                   = "home-tiered"
+    service_level          = "PREMIUM"
+    capacity_gib           = 2048
+    unix_permissions       = "0775"
+    snapshot_directory     = true
+    backups_enabled        = true
+    has_root_access        = true
+    access_type            = "READ_WRITE"
+    default_user_quota_mib = 5000
+    allow_auto_tiering     = true
+    enable_auto_tiering    = true
+    cooling_threshold_days = 7
+    override_user_quotas = [
+      {
+        username       = "bot-mobu-user"
+        uid            = 100001
+        disk_limit_mib = 6000
+      }
+    ]
+  },
+  {
     name                   = "rubin"
     service_level          = "PREMIUM"
     capacity_gib           = 2048
