@@ -38,13 +38,14 @@ variable "allowed_ips" {
 variable "definition" {
   description = "A definition for a set of NetApp Cloud Volume objects"
   type = object({
-    name                   = string                 # Volume name
-    service_level          = string                 # PREMIUM, EXTREME, STANDARD, FLEX
-    capacity_gib           = number                 # At least 2000
+    name                   = string                   # Volume name
+    service_level          = string                   # PREMIUM, EXTREME, STANDARD, FLEX
+    capacity_gib           = number                   # At least 2000
     unix_permissions       = optional(string, "0770") # Unix permission for mount point
     snapshot_directory     = optional(bool, false)
     backups_enabled        = optional(bool, false)
     has_root_access        = optional(bool, false)
+    allow_auto_tiering     = optional(bool, true)          # Not for STANDARD/FLEX
     access_type            = optional(string, "READ_ONLY") # READ_ONLY, READ_WRITE, READ_NONE
     default_user_quota_mib = optional(number)
     override_user_quotas = optional(list(object({

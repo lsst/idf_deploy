@@ -88,13 +88,15 @@ nats = [{ name = "cloud-nat" }]
 # a storage pool/volume pair.
 #
 netapp_definitions = [
-  { name                   = "home"
+  {
+    name                   = "home"
     service_level          = "PREMIUM"
     capacity_gib           = 2048
     unix_permissions       = "0775"
     snapshot_directory     = true
     backups_enabled        = true
     has_root_access        = true
+    allow_auto_tiering     = false
     access_type            = "READ_WRITE"
     default_user_quota_mib = 5000
     override_user_quotas = [
@@ -105,29 +107,35 @@ netapp_definitions = [
       }
     ]
   },
-  { name                   = "rubin"
+  {
+    name                   = "rubin"
     service_level          = "PREMIUM"
     capacity_gib           = 2048
     unix_permissions       = "1777"
     snapshot_directory     = true
     backups_enabled        = true
     has_root_access        = true
+    allow_auto_tiering     = false
     access_type            = "READ_WRITE"
     default_user_quota_mib = 5000
   },
-  { name             = "firefly"
-    service_level    = "PREMIUM"
-    capacity_gib     = 2048
-    unix_permissions = "0755"
-    has_root_access  = true
-    access_type      = "READ_WRITE"
+  {
+    name               = "firefly"
+    service_level      = "PREMIUM"
+    capacity_gib       = 2048
+    unix_permissions   = "0755"
+    has_root_access    = true
+    allow_auto_tiering = false    
+    access_type        = "READ_WRITE"
   },
-  { name             = "deleted-weekly"
-    service_level    = "PREMIUM"
-    capacity_gib     = 2048
-    unix_permissions = "1777"
-    has_root_access  = true
-    access_type      = "READ_WRITE"
+  {
+    name               = "deleted-weekly"
+    service_level      = "PREMIUM"
+    capacity_gib       = 2048
+    unix_permissions   = "1777"
+    has_root_access    = true
+    allow_auto_tiering = false
+    access_type        = "READ_WRITE"
   }
 ]
 

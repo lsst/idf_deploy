@@ -93,6 +93,7 @@ netapp_definitions = [
     snapshot_directory     = true
     backups_enabled        = true
     has_root_access        = true
+    allow_auto_tiering = false
     access_type            = "READ_WRITE"
     default_user_quota_mib = 35000
   },
@@ -113,6 +114,7 @@ netapp_definitions = [
     snapshot_directory = false
     backups_enabled    = false
     has_root_access    = true
+    allow_auto_tiering = false
     access_type        = "READ_WRITE"
   },
   { name               = "delete-weekly"
@@ -122,6 +124,7 @@ netapp_definitions = [
     snapshot_directory = false
     backups_enabled    = false
     has_root_access    = true
+    allow_auto_tiering = false    
     access_type        = "READ_WRITE"
   },
 ]
