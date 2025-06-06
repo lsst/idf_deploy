@@ -128,15 +128,6 @@ netapp_definitions = [
     unix_permissions = "1777"
     has_root_access  = true
     access_type      = "READ_WRITE"
-  },
-  # 20250516: remove once data migrated to new volumes
-  # 20250527: something is hanging on to it, don't know what yet
-  { name = "scratch"
-    service_level = "PREMIUM"
-    capacity_gib = 2049
-    unix_permissions = "1777"
-    has_root_access = true
-    access_type = "READ_WRITE"
   }
 ]
 
