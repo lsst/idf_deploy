@@ -64,9 +64,45 @@ resource "google_netapp_volume" "instance" {
   storage_pool       = "pool-${var.definition.name}"
   unix_permissions   = var.definition.unix_permissions
   snapshot_directory = var.definition.snapshot_directory
-  tiering_policy {
-    cooling_threshold_days = var.definition.cooling_threshold_days
-    tier_action            = ( var.definition.allow_auto_tiering && var.definition.enable_auto_tiering )? "ENABLED" : "PAUSED"
+
+  # Dynamic pieces that should only appear if enabled
+  dynamic tiering_policy {
+    for_each = var.definition.allow_auto_tiering ? [ "yes" ] : []
+    content {
+      cooling_threshold_days = var.definition.cooling_threshold_days
+      tier_action            = var.definition.enable_auto_tiering ? "ENABLED" : "PAUSED"
+    }
+  }
+
+  dynamic snapshot_policy {
+    for_each = var.definition.snapshot_directory ? [ "yes" ] : []
+    content {
+      enabled = true
+      hourly_schedule {
+        snapshots_to_keep = 24
+        minute            = 3
+      }
+      daily_schedule {
+        snapshots_to_keep = 7
+        minute            = 6
+        hour              = 3
+      }
+      weekly_schedule {
+        snapshots_to_keep = 5
+        minute            = 9
+        hour              = 6
+        day               = "Sunday"
+      }
+    }
+  }
+
+  dynamic backup_config {
+    for_each = var.definition.backups_enabled ? [ "yes" ] : []  
+    content {
+      scheduled_backup_enabled = true
+      backup_policies          = ["projects/${var.project}/locations/${var.location}/backupPolicies/backup-${var.definition.name}"]
+      backup_vault             = "projects/${var.project}/locations/${var.location}/backupVaults/netapp-backup-vault"
+    }
   }
 
   # Opinionated choices not exposed to users
@@ -77,31 +113,6 @@ resource "google_netapp_volume" "instance" {
   # https://cloud.google.com/netapp/volumes/docs/protect-data/about-backups
   security_style   = "UNIX"
   kerberos_enabled = false
-
-  snapshot_policy {
-    enabled = var.definition.snapshot_directory
-    hourly_schedule {
-      snapshots_to_keep = var.definition.snapshot_directory ? 24 : 0
-      minute            = var.definition.snapshot_directory ? 3 : null
-    }
-    daily_schedule {
-      snapshots_to_keep = var.definition.snapshot_directory ? 7 : 0
-      minute            = var.definition.snapshot_directory ? 6 : null
-      hour              = var.definition.snapshot_directory ? 3 : null
-    }
-    weekly_schedule {
-      snapshots_to_keep = var.definition.snapshot_directory ? 5 : 0
-      minute            = var.definition.snapshot_directory ? 9 : null
-      hour              = var.definition.snapshot_directory ? 6 : null
-      day               = var.definition.snapshot_directory ? "Sunday" : null
-    }
-  }
-
-  backup_config {
-    scheduled_backup_enabled = var.definition.backups_enabled
-    backup_policies          = var.definition.backups_enabled ? ["projects/${var.project}/locations/${var.location}/backupPolicies/backup-${var.definition.name}"] : null
-    backup_vault             = var.definition.backups_enabled ? "projects/${var.project}/locations/${var.location}/backupVaults/netapp-backup-vault" : null
-  }
 
   export_policy {
     rules {
