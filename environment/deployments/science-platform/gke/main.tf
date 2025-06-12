@@ -33,21 +33,20 @@ module "gke" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "${var.application_name}-${var.environment}"
-  project_id             = local.project_id
-  network                = var.network_name
-  subnetwork             = local.subnetwork
-  master_ipv4_cidr_block = var.master_ipv4_cidr_block
-  node_pools             = var.node_pools
-  release_channel        = var.release_channel
-  gce_pd_csi_driver      = var.gce_pd_csi_driver
-  network_policy         = var.network_policy
-  maintenance_start_time = var.maintenance_start_time
-  maintenance_end_time   = var.maintenance_end_time
-  maintenance_recurrence = var.maintenance_recurrence
-  cluster_autoscaling    = var.cluster_autoscaling
-  enable_gcfs            = var.enable_gcfs
-
+  name                                 = "${var.application_name}-${var.environment}"
+  project_id                           = local.project_id
+  network                              = var.network_name
+  subnetwork                           = local.subnetwork
+  master_ipv4_cidr_block               = var.master_ipv4_cidr_block
+  node_pools                           = var.node_pools
+  release_channel                      = var.release_channel
+  gce_pd_csi_driver                    = var.gce_pd_csi_driver
+  network_policy                       = var.network_policy
+  maintenance_start_time               = var.maintenance_start_time
+  maintenance_end_time                 = var.maintenance_end_time
+  maintenance_recurrence               = var.maintenance_recurrence
+  cluster_autoscaling                  = var.cluster_autoscaling
+  enable_gcfs                          = var.enable_gcfs
   monitoring_enabled_components        = var.monitoring_enabled_components
   monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
 
