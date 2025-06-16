@@ -104,7 +104,6 @@ netapp_definitions = [
     backups_enabled        = true
     has_root_access        = true
     access_type            = "READ_WRITE"
-    default_user_quota_mib = 10000
   },
   { name               = "firefly"
     service_level      = "PREMIUM"
