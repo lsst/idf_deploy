@@ -123,7 +123,9 @@ gcp_square_administrators_iam_permissions = [
   "roles/resourcemanager.projectCreator",
   "roles/container.admin",
   "roles/owner",
-  "roles/artifactregistry.admin"
+  "roles/artifactregistry.admin",
+  "roles/cloudsupport.admin",
+  "roles/cloudsupport.techSupportEditor"
 ]
 gcp_square_gke_cluster_admins_iam_permissions = [
   "roles/container.admin",
