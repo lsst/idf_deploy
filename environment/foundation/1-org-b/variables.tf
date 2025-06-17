@@ -179,6 +179,15 @@ variable "gcp_org_administrators_shared_service_iam_permissions" {
   ]
 }
 
+variable "gcp_epo_administrators_iam_permissions" {
+  description = "List of permissions granted to the group."
+  type        = list(string)
+  default = [
+    "roles/resourcemanager.projectCreator",
+    "roles/container.admin",
+    "roles/editor"
+  ]
+}
 
 
 # ----------------------------------------
