@@ -96,7 +96,7 @@ resource "google_folder_iam_member" "gcp_shared_service_org_admin_iam_permission
 
 // EPO Folder
 resource "google_folder_iam_member" "gcp_epo_administrators_iam_permissions" {
-  for_each = toset(var.gcp_square_administrators_iam_permissions)
+  for_each = toset(var.gcp_epo_administrators_iam_permissions)
   folder   = data.google_active_folder.epo_sub_folder.name
   role     = each.value
   member   = "group:${module.constants.values.groups.gcp_epo_administrators}"
