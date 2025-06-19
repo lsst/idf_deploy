@@ -254,8 +254,8 @@ resource "google_service_account" "legacy_butler_service_account" {
 }
 
 moved {
-  from=module.data_curation_prod_accounts.module.service_accounts.something
-  to=google_service_account.legacy_butler_service_account
+  from = module.data_curation_prod_accounts.module.service_accounts.google_service_account.service_accounts["butler-gcs-data-sa"]
+  to = google_service_account.legacy_butler_service_account
 }
 
 // RW storage access to DP 0.1 bucket for Butler
@@ -320,6 +320,13 @@ module "butler_server_account" {
 resource "google_storage_bucket_iam_member" "data_curation_prod_ro_dp1" {
   for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp1"
+  role     = each.value
+  member   = "serviceAccount:${module.butler_server_account.email}"
+}
+
+resource "google_storage_bucket_iam_member" "data_curation_prod_ro_dp02_user" {
+  for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
+  bucket   = "butler-us-central1-dp02-user"
   role     = each.value
   member   = "serviceAccount:${module.butler_server_account.email}"
 }
