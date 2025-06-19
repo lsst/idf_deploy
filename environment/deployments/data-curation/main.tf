@@ -242,62 +242,63 @@ resource "google_storage_bucket_iam_binding" "git-lfs-bucket-dev-rw-iam-binding"
   members = var.git_lfs_rw_dev_service_accounts
 }
 
-#---------------------------------------------------------------
-// Data Curation Prod
-#---------------------------------------------------------------
-module "data_curation_prod_accounts" {
-  source = "../../../modules/service_accounts/"
-
-  project_id   = "data-curation-prod-fbdb"
-  prefix       = "butler-gcs"
-  names        = var.data_curation_prod_names
+# This account was formerly used by end users for direct butler
+# access.  Users should no longer provided with this access,
+# but for the moment this is disabled instead of deleted
+# to confirm there are no surprises.
+resource "google_service_account" "legacy_butler_service_account" {
+  account_id = "butler-gcs-butler-gcs-data-sa"
   display_name = "Butler GCS Service account for Data Curation Prod"
   description  = "Butler GCS access service account managed by Terraform"
-
-  project_roles = [
-  ]
+  disabled = true
 }
+
+moved {
+  from=module.data_curation_prod_accounts.module.service_accounts.something
+  to=google_service_account.legacy_butler_service_account
+}
+
 // RW storage access to DP 0.1 bucket for Butler
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp01"
   role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  member   = "serviceAccount:${google_service_account.legacy_butler_service_account.email}"
 }
 // RW storage access to the -dev Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_dev" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp01-dev"
   role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  member   = "serviceAccount:${google_service_account.legacy_butler_service_account.email}"
 }
 // RW storage access to the -int Butler bucket
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp0_int" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp01-int"
   role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  member   = "serviceAccount:${google_service_account.legacy_butler_service_account.email}"
 }
 // RW storage access to repo-locations Butler bucket 
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_repo_locations" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-repo-locations"
   role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  member   = "serviceAccount:${google_service_account.legacy_butler_service_account.email}"
 }
 // RW storage access to DP 0.2 bucket for Butler
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp02_user" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp02-user"
   role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  member   = "serviceAccount:${google_service_account.legacy_butler_service_account.email}"
 }
 // RW storage access to DP 0.2 HiPS bucket for Butler (temporary)
 resource "google_storage_bucket_iam_member" "data_curation_prod_rw_dp02_hips" {
   for_each = toset(["roles/storage.objectAdmin", "roles/storage.legacyBucketReader"])
   bucket   = "static-us-central1-dp02-hips"
   role     = each.value
-  member   = "serviceAccount:${module.data_curation_prod_accounts.email}"
+  member   = "serviceAccount:${google_service_account.legacy_butler_service_account.email}"
 }
 
 
