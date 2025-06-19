@@ -67,28 +67,26 @@ nats = [{ name = "cloud-nat" }]
 # a storage pool/volume pair.
 #
 netapp_definitions = [
- #  20250609: we need an increase in allotment before we can allocate /home
- #  Request is in the queue 60318832, 60318951
- #  { name                   = "home"
- #   service_level          = "PREMIUM"
- #   capacity_gib           = 100000
- #   unix_permissions       = "0775"
- #   snapshot_directory     = true
- #   backups_enabled        = true
- #   has_root_access        = true
- #   allow_auto_tiering     = true
- #   access_type            = "READ_WRITE"
- #   default_user_quota_mib = 35000
- #  },
-  { name                   = "rubin"
+  { name                   = "home"
     service_level          = "PREMIUM"
-    capacity_gib           = 8000
-    unix_permissions       = "0755"
-    snapshot_directory     = false
+    capacity_gib           = 100000
+    unix_permissions       = "0775"
+    snapshot_directory     = true
     backups_enabled        = true
     has_root_access        = true
     allow_auto_tiering     = true
     access_type            = "READ_WRITE"
+    default_user_quota_mib = 35000
+  },
+  { name               = "rubin"
+    service_level      = "PREMIUM"
+    capacity_gib       = 8000
+    unix_permissions   = "0755"
+    snapshot_directory = false
+    backups_enabled    = true
+    has_root_access    = true
+    allow_auto_tiering = true
+    access_type        = "READ_WRITE"
   },
   { name               = "firefly"
     service_level      = "PREMIUM"
