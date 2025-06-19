@@ -1,6 +1,6 @@
 # Project
-environment             = "int"
-application_name        = "science-platform"
+environment      = "int"
+application_name = "science-platform"
 
 # GKE
 master_ipv4_cidr_block = "172.18.0.0/28"
@@ -29,8 +29,8 @@ node_pools = [
     max_count          = 100
   },
   {
-    name = "kafka-pool"
-    machine_type = "n2-standard-32"
+    name               = "kafka-pool"
+    machine_type       = "n2-standard-32"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
@@ -79,19 +79,43 @@ node_pools_taints = {
   kafka-pool = [
     {
       effect = "NO_SCHEDULE"
-      key = "kafka",
-      value = "ok"
+      key    = "kafka",
+      value  = "ok"
     }
   ],
   "user-lab-pool" = [
     {
-      key = "nublado.lsst.io/permitted"
-      value = "true"
+      key    = "nublado.lsst.io/permitted"
+      value  = "true"
       effect = "NO_EXECUTE"
     }
   ]
-  
+
 }
+
+monitoring_enable_managed_prometheus = true
+monitoring_enabled_components = [
+  # Default
+  "SYSTEM_COMPONENTS",
+
+  # Don't include kube-state-metrics, because the managed kube-state-metrics
+  # doesn't provide kube_pod_container_status_last_terminated_reason, and
+  # kube_pod_container_status_restarts_total, which are essential to alerting
+  # on OOM kills. Phalanx installations can run their own kube-state-metrics
+  # with these and other metrics, configured in the google-cloud-observability
+  # app:
+  # https://cloud.google.com/kubernetes-engine/docs/how-to/kube-state-metrics
+  #
+  # Google recommends not using the managed kube-state-metrics at all if you're
+  # going to run your own:
+  # https://cloud.google.com/kubernetes-engine/docs/how-to/kube-state-metrics#requirements
+
+  # Gets us PVC disk usage metrics
+  "KUBELET",
+
+  # Gets us CPU throttling metrics
+  "CADVISOR"
+]
 
 # Increase this number to force Terraform to update the int environment.
 # Serial: 7

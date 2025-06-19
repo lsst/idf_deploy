@@ -1,6 +1,6 @@
 # Project
-environment             = "dev"
-application_name        = "roundtable"
+environment      = "dev"
+application_name = "roundtable"
 
 # GKE
 release_channel        = "RAPID"
@@ -91,6 +91,30 @@ node_pools_taints = {
     }
   ]
 }
+
+monitoring_enable_managed_prometheus = true
+monitoring_enabled_components = [
+  # Default
+  "SYSTEM_COMPONENTS",
+
+  # Don't include kube-state-metrics, because the managed kube-state-metrics
+  # doesn't provide kube_pod_container_status_last_terminated_reason, and
+  # kube_pod_container_status_restarts_total, which are essential to alerting
+  # on OOM kills. Phalanx installations can run their own kube-state-metrics
+  # with these and other metrics, configured in the google-cloud-observability
+  # app:
+  # https://cloud.google.com/kubernetes-engine/docs/how-to/kube-state-metrics
+  #
+  # Google recommends not using the managed kube-state-metrics at all if you're
+  # going to run your own:
+  # https://cloud.google.com/kubernetes-engine/docs/how-to/kube-state-metrics#requirements
+
+  # Gets us PVC disk usage metrics
+  "KUBELET",
+
+  # Gets us CPU throttling metrics
+  "CADVISOR"
+]
 
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 3
