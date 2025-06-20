@@ -139,21 +139,21 @@ netapp_definitions = [
     default_user_quota_mib = 5000
   },
   {
-    name               = "firefly"
-    service_level      = "PREMIUM"
-    capacity_gib       = 2048
-    unix_permissions   = "0755"
-    has_root_access    = true
-    access_type        = "READ_WRITE"
+    name             = "firefly"
+    service_level    = "PREMIUM"
+    capacity_gib     = 2048
+    unix_permissions = "0755"
+    has_root_access  = true
+    access_type      = "READ_WRITE"
   },
   {
-    name               = "deleted-weekly"
-    service_level      = "PREMIUM"
-    capacity_gib       = 2048
-    unix_permissions   = "1777"
-    has_root_access    = true
-    access_type        = "READ_WRITE"
-  }
+    name             = "deleted-weekly"
+    service_level    = "PREMIUM"
+    capacity_gib     = 2048
+    unix_permissions = "1777"
+    has_root_access  = true
+    access_type      = "READ_WRITE"
+  },
 ]
 
 
@@ -175,6 +175,8 @@ activate_apis = [
   "iap.googleapis.com",
   "netapp.googleapis.com"
 ]
+
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 45

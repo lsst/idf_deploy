@@ -147,6 +147,14 @@ resource "google_project_iam_member" "grafana_datasource_syncer_service_account_
   member  = google_service_account.grafana_datasource_syncer.member
 }
 
+// Allow the active Atlantis instance service account to have read/write powers
+// on Google Cloud monitoring in this project
+resource "google_project_iam_member" "atlantis_monitoring_admin" {
+  project = module.project_factory.project_id
+  role    = "roles/monitoring.admin"
+  member  = var.atlantis_monitoring_admin_service_account_member
+}
+
 // Reserve a static ip for Cloud NAT
 resource "google_compute_address" "static" {
   count        = var.num_static_ips
