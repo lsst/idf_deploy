@@ -136,7 +136,9 @@ gcp_square_gke_cluster_admins_iam_permissions = [
   "roles/logging.admin",
   "roles/file.editor",
   "roles/compute.networkAdmin",
-  "roles/compute.securityAdmin"
+  "roles/compute.securityAdmin",
+  "roles/cloudsupport.admin",
+  "roles/cloudsupport.techSupportEditor"
 ]
 gcp_square_gke_developer_iam_permissions = [
   "roles/container.clusterViewer",
