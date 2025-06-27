@@ -23,6 +23,7 @@ module "gke" {
   maintenance_start_time             = var.maintenance_start_time
   maintenance_end_time               = var.maintenance_end_time
   maintenance_recurrence             = var.maintenance_recurrence
+  maintenance_exclusions             = var.maintenance_exclusions
   create_service_account             = var.create_service_account
   enable_resource_consumption_export = var.enable_resource_consumption_export
   http_load_balancing                = var.http_load_balancing
