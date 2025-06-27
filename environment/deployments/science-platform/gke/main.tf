@@ -45,6 +45,7 @@ module "gke" {
   maintenance_start_time               = var.maintenance_start_time
   maintenance_end_time                 = var.maintenance_end_time
   maintenance_recurrence               = var.maintenance_recurrence
+  maintenance_exclusions               = var.maintenance_exclusions
   cluster_autoscaling                  = var.cluster_autoscaling
   enable_gcfs                          = var.enable_gcfs
   monitoring_enabled_components        = var.monitoring_enabled_components

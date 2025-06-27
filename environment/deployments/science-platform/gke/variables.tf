@@ -58,6 +58,12 @@ variable "maintenance_recurrence" {
   default     = "FREQ=DAILY"
 }
 
+variable "maintenance_exclusions" {
+  description = "List of maintenance exclusions. A cluster can have up to three"
+  type        = list(object({ name = string, start_time = string, end_time = string, exclusion_scope = string }))
+  default     = []
+}
+
 variable "cluster_autoscaling" {
   type = object({
     enabled             = bool

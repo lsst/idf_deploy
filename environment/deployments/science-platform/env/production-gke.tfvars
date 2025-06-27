@@ -9,6 +9,14 @@ network_policy         = true
 maintenance_start_time = "2021-08-20T00:00:00Z"
 maintenance_end_time   = "2021-08-20T12:00:00Z"
 maintenance_recurrence = "FREQ=WEEKLY;BYDAY=FR"
+maintenance_exclusions = [
+  {
+    name            = "DP1"
+    start_time      = "2025-06-27T00:00:00Z"
+    end_time        = "2025-07-10T19:30:00Z" # 12:30PM PDT
+    exclusion_scope = "NO_UPGRADES"
+  },
+]
 
 node_pools = [
   {

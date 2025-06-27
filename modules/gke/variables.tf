@@ -87,6 +87,12 @@ variable "maintenance_recurrence" {
   default     = "FREQ=WEEKLY;BYDAY=WE"
 }
 
+variable "maintenance_exclusions" {
+  description = "List of maintenance exclusions. A cluster can have up to three"
+  type        = list(object({ name = string, start_time = string, end_time = string, exclusion_scope = string }))
+  default     = []
+}
+
 variable "enable_intranode_visibility" {
   description = "Whether Intra-node visibility is enabled for this cluster. This makes same node pod to pod traffic visible for VPC network"
   type        = bool
