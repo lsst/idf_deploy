@@ -31,10 +31,6 @@ secondary_ranges = {
 # GKE
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
-# LEGACY filestore, to be removed once new volumes are in place and
-# data has been copied.
-fileshare_capacity = 2560 # Minimal
-
 # Filestore
 # 20250516: remove once data migrated to Netapp
 filestore_definitions = []

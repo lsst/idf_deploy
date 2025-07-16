@@ -31,10 +31,6 @@ secondary_ranges = {
 # GKE
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
-# Filestore
-fileshare_capacity = 3000
-#fileshare_tier = "BASIC_SSD"
-
 # FIREWALL
 #
 # This allows the Kubernetes master to talk to validation controllers

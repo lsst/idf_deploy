@@ -26,10 +26,6 @@ secondary_ranges = {
   ]
 }
 
-# LEGACY filestore, to be removed once new volumes are in place and
-# data has been copied.
-fileshare_capacity = 24000
-
 # Filestore
 filestore_definitions = []
 

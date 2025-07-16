@@ -17,30 +17,6 @@ resource "google_project_iam_member" "filestore_tool_sa_file" {
   project = module.project_factory.project_id
 }
 
-### LEGACY to be removed after new volumes are created and contents are moved
-#
-# Because filestore changes shape from a singleton to a map, we cannot just
-# update in place, as far as terraform is concerned.
-#
-module "filestore" {
-  source             = "../../../modules/filestore"
-  fileshare_capacity = var.fileshare_capacity
-  fileshare_name     = var.fileshare_name
-  modes              = var.modes
-  name               = "${var.name}-${var.environment}"
-  network            = module.project_factory.network_name
-  project            = module.project_factory.project_id
-  tier               = var.tier
-  zone               = var.zone
-  labels = {
-    project          = module.project_factory.project_id
-    environment      = var.environment
-    application_name = var.application_name
-  }
-
-  depends_on = [module.project_factory]
-}
-
 module "filestore_volumes" {
   for_each = tomap({
     for voldef in var.filestore_definitions : "${voldef.name}" => voldef
