@@ -83,25 +83,8 @@ nats = [{ name = "cloud-nat" }]
 # Each item in netapp_definitions is what we need to create
 # a storage pool/volume pair.
 #
+# In dev, to save money, we are just packing everything onto one filesystem.
 netapp_definitions = [
-  {
-    name                   = "home"
-    service_level          = "PREMIUM"
-    capacity_gib           = 2048
-    unix_permissions       = "0775"
-    snapshot_directory     = true
-    backups_enabled        = true
-    has_root_access        = true
-    access_type            = "READ_WRITE"
-    default_user_quota_mib = 5000
-    override_user_quotas = [
-      {
-        username       = "bot-mobu-user"
-        uid            = 100001
-        disk_limit_mib = 6000
-      }
-    ]
-  },
   {
     name                   = "home-tiered"
     service_level          = "PREMIUM"
@@ -120,36 +103,14 @@ netapp_definitions = [
         username       = "bot-mobu-user"
         uid            = 100001
         disk_limit_mib = 6000
+      },
+      {
+        username       = "firefly"
+        uid            = 91
+        disk_limit_mib = 500000
       }
     ]
-  },
-  {
-    name                   = "rubin"
-    service_level          = "PREMIUM"
-    capacity_gib           = 2048
-    unix_permissions       = "1777"
-    snapshot_directory     = true
-    backups_enabled        = true
-    has_root_access        = true
-    access_type            = "READ_WRITE"
-    default_user_quota_mib = 5000
-  },
-  {
-    name             = "firefly"
-    service_level    = "PREMIUM"
-    capacity_gib     = 2048
-    unix_permissions = "0755"
-    has_root_access  = true
-    access_type      = "READ_WRITE"
-  },
-  {
-    name             = "deleted-weekly"
-    service_level    = "PREMIUM"
-    capacity_gib     = 2048
-    unix_permissions = "1777"
-    has_root_access  = true
-    access_type      = "READ_WRITE"
-  },
+  }
 ]
 
 
@@ -175,4 +136,5 @@ activate_apis = [
 atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 45
+# Serial: 46
+
