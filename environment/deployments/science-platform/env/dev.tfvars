@@ -110,7 +110,6 @@ netapp_definitions = [
         disk_limit_mib = 500000
       }
     ]
-  }    
   }
 ]
 
@@ -137,4 +136,5 @@ activate_apis = [
 atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 45
+# Serial: 46
+
