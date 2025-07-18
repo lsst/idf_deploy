@@ -98,6 +98,19 @@ netapp_definitions = [
     allow_auto_tiering     = true
     enable_auto_tiering    = true
     cooling_threshold_days = 7
+    override_user_quotas = [
+      {
+        username       = "bot-mobu-user"
+        uid            = 100001
+        disk_limit_mib = 6000
+      },
+      {
+        username       = "firefly"
+        uid            = 91
+        disk_limit_mib = 500000
+      }
+    ]
+  }    
   }
 ]
 
