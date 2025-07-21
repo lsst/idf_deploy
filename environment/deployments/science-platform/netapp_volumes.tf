@@ -52,9 +52,9 @@ resource "google_netapp_backup_vault" "instance" {
   # Singleton per location, only exists if netapp_definitions is not empty
   count = length(var.netapp_definitions) == 0 ? 0 : 1
 
-  name     = "netapp-backup-vault"
+  name     = "netapp-backup-vault-${module.project_factory.project_id}"
   location = var.subnets[0].subnet_region
-  project  = module.project_factory.project_id
+  project  = "data-curation-prod-fdbd"  # Get from variable somehow?
   labels   = local.labels
 }
 
@@ -66,6 +66,9 @@ module "netapp-volumes" {
   network  = module.project_factory.network.network_id
   project  = module.project_factory.project_id
   location = var.subnets[0].subnet_region
+  backup_location = var.subnets[0].subnet_region
+  backup_project = "data-curation-prod-fdbd"
+  backup_network = "curation-proc-vpc"
   labels = {
     project          = module.project_factory.project_id
     environment      = var.environment

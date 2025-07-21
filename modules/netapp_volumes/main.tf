@@ -101,7 +101,7 @@ resource "google_netapp_volume" "instance" {
     content {
       scheduled_backup_enabled = true
       backup_policies          = ["projects/${var.project}/locations/${var.location}/backupPolicies/backup-${var.definition.name}"]
-      backup_vault             = "projects/${var.project}/locations/${var.location}/backupVaults/netapp-backup-vault"
+      backup_vault             = "projects/${var.backup_project}/locations/${var.backup_location}/backupVaults/netapp-backup-vault-${var.project}"
     }
   }
 

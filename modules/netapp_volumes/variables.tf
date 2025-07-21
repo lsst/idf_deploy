@@ -35,6 +35,24 @@ variable "allowed_ips" {
   default     = "127.0.0.1"
 }
 
+variable "backup_project" {
+  description = "Project containing the NetApp Backup Vaults"
+  type        = string
+  default     = "data-curation-prod-fbdb"
+}
+
+variable "backup_location" {
+  description = "Location of NetApp Backup Vault
+  type        = string
+  default     = "us-central-1b"
+}
+
+variable "backup_network" {
+  description = "Network allowing access to NetApp Backup Vault"
+  type        = string
+  default     = "curation-prod-vpc"
+}
+
 variable "definition" {
   description = "A definition for a set of NetApp Cloud Volume objects"
   type = object({
