@@ -34,15 +34,42 @@ custom_rules = {
     description          = "Deployed with Terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["10.128.0.0/23", "10.128.16.0/20", "10.129.0.0/16"]
+    ranges               = [
+                            "10.128.0.0/23", # RSP-dev
+                            "10.128.16.0/20",
+                            "10.129.0.0/16",
+                            "10.130.0.0/23", # RSP-int
+                            "10.131.0.0/16",
+                            "10.130.16.0/20",
+                            "10.132.0.0/23", # RSP-prod
+                            "10.133.0.0/16",
+                            "10.132.16.0/20"
+                            ]
     sources              = []
     targets              = ["gke-curation-prod"]
     use_service_accounts = false
     rules = [
       {
         protocol = "tcp"
-        ports    = ["4040"]
-      }
+        ports    = [
+                    "4040",  # Butler
+                    "111",   # portmapper
+                    "635",   # mountd
+                    "2049",  # nfsd
+                    "4045",  # nlockmgr
+                    "4046"   # status
+                    ]
+      },
+      {
+        protocol = "udp"
+        ports    = [
+                    "111",   # portmapper
+                    "635",   # mountd
+                    "2049",  # nfsd
+                    "4045",  # nlockmgr
+                    "4046"   # status
+                   ]
+      },
     ]
 
     extra_attributes = {

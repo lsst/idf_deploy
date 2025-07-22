@@ -42,7 +42,7 @@ variable "backup_project" {
 }
 
 variable "backup_location" {
-  description = "Location of NetApp Backup Vault
+  description = "Location of NetApp Backup Vault"
   type        = string
   default     = "us-central-1b"
 }

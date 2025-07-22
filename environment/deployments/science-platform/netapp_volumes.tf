@@ -33,12 +33,14 @@ resource "google_project_iam_member" "netapp_admin_sa_file" {
 locals {
   # Extract allowable IP ranges for NetApp clients.  We need the primary subnet
   # range and any secondary ranges.
+  # We also need the prod-data-curation IP ranges, because that's where our
+  # backup vaults live.
   flat_allow_2dry_ips = flatten(
     values(
       var.secondary_ranges
     )
   )
-  allowed_ip_list = concat([var.subnets[0]["subnet_ip"]], [for subnet in local.flat_allow_2dry_ips : subnet.ip_cidr_range])
+  allowed_ip_list = concat([var.subnets[0]["subnet_ip"]], [for subnet in local.flat_allow_2dry_ips : subnet.ip_cidr_range], ["10.144.0.0/23", "10.145.0.0/16", "10.144.16.0/20"])
 
   # General labels
   labels = {
@@ -54,7 +56,7 @@ resource "google_netapp_backup_vault" "instance" {
 
   name     = "netapp-backup-vault-${module.project_factory.project_id}"
   location = var.subnets[0].subnet_region
-  project  = "data-curation-prod-fdbd"  # Get from variable somehow?
+  project  = "data-curation-prod-fdbd" # Get from variable somehow?
   labels   = local.labels
 }
 
@@ -62,13 +64,13 @@ module "netapp-volumes" {
   for_each = tomap({
     for voldef in var.netapp_definitions : "${voldef.name}" => voldef
   })
-  source   = "../../../modules/netapp_volumes"
-  network  = module.project_factory.network.network_id
-  project  = module.project_factory.project_id
-  location = var.subnets[0].subnet_region
+  source          = "../../../modules/netapp_volumes"
+  network         = module.project_factory.network.network_id
+  project         = module.project_factory.project_id
+  location        = var.subnets[0].subnet_region
   backup_location = var.subnets[0].subnet_region
-  backup_project = "data-curation-prod-fdbd"
-  backup_network = "curation-proc-vpc"
+  backup_project  = "data-curation-prod-fdbd"
+  backup_network  = "curation-prod-vpc"
   labels = {
     project          = module.project_factory.project_id
     environment      = var.environment
