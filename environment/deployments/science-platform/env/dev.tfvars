@@ -107,7 +107,7 @@ netapp_definitions = [
       {
         username       = "bot-mobu-tutorial"
         uid            = 100024
-        disk_limit_mib = 6000
+        disk_limit_mib = 10000
       },
       {
         username       = "firefly"
@@ -141,4 +141,4 @@ activate_apis = [
 atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 48
+# Serial: 49
