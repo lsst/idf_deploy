@@ -2,15 +2,15 @@
 name: 'RSP DEMO GKE'
 
 on:
-  workflow_dispatch
-  # pull_request:
-  #   paths:
-  #     - 'environment/deployments/science-platform/env/demo-gke.tfvars'
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - 'environment/deployments/science-platform/env/demo-gke.tfvars'
+  # workflow dispatch # Comment out below, uncomment this to disable
+  pull_request:
+    paths:
+      - 'environment/deployments/science-platform/env/demo-gke.tfvars'
+  push:
+    branches:
+      - main
+    paths:
+      - 'environment/deployments/science-platform/env/demo-gke.tfvars'
 
 jobs:
   terraform:

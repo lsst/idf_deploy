@@ -31,6 +31,9 @@ secondary_ranges = {
 # GKE
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
+# Filestore
+filestore_definitions = []
+
 # FIREWALL
 #
 # This allows the Kubernetes master to talk to validation controllers
@@ -73,13 +76,6 @@ custom_rules = {
 
 # NAT
 nats = [{ name = "cloud-nat" }]
-
-# NetApp Cloud Volumes
-#
-# Each item in netapp_definitions is what we need to create
-# a storage pool/volume pair.
-#
-netapp_definitions = []
 
 # NetApp Cloud Volumes
 #
@@ -137,6 +133,8 @@ activate_apis = [
   "sqladmin.googleapis.com",
   "iap.googleapis.com"
 ]
+
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
 # Increase this number to force Terraform to update the demo environment.
 # Serial: 4

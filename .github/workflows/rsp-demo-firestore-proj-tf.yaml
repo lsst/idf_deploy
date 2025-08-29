@@ -2,15 +2,15 @@
 name: 'RSP DEMO FIRESTORE GCP Project'
 
 on:
-  workflow_dispatch
-  # pull_request:
-  #   paths:
-  #     - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
-  # push:
-  #   paths:
-  #     - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
-  #   branches:
-  #     - main
+  # workflow dispatch # Comment out below, uncomment this to disable
+  pull_request:
+    paths:
+      - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
+  push:
+    paths:
+      - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
+    branches:
+      - main
 
 jobs:
   terraform:
