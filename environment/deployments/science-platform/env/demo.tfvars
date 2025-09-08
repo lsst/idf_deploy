@@ -31,6 +31,9 @@ secondary_ranges = {
 # GKE
 # master_ipv4_cidr_block = "172.16.0.0/28"
 
+# Filestore
+filestore_definitions = []
+
 # FIREWALL
 #
 # This allows the Kubernetes master to talk to validation controllers
@@ -79,7 +82,40 @@ nats = [{ name = "cloud-nat" }]
 # Each item in netapp_definitions is what we need to create
 # a storage pool/volume pair.
 #
-netapp_definitions = []
+# In demo, to save money, we are just packing everything onto one filesystem.
+netapp_definitions = [
+  {
+    name                   = "home"
+    service_level          = "PREMIUM"
+    capacity_gib           = 3000
+    unix_permissions       = "0775"
+    snapshot_directory     = true
+    backups_enabled        = true
+    has_root_access        = true
+    access_type            = "READ_WRITE"
+    default_user_quota_mib = 5000
+    allow_auto_tiering     = true
+    enable_auto_tiering    = true
+    cooling_threshold_days = 7
+    override_user_quotas = [
+      {
+        username       = "bot-mobu-user"
+        uid            = 100001
+        disk_limit_mib = 6000
+      },
+      {
+        username       = "bot-mobu-tutorial"
+        uid            = 100024
+        disk_limit_mib = 10000
+      },
+      {
+        username       = "firefly"
+        uid            = 91
+        disk_limit_mib = 500000
+      }
+    ]
+  }
+]
 
 # Enable Google Artifact Registry, Service Networking, Container Filesystem,
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
@@ -98,6 +134,8 @@ activate_apis = [
   "iap.googleapis.com"
 ]
 
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
+
 # Increase this number to force Terraform to update the demo environment.
-# Serial: 3
+# Serial: 4
 

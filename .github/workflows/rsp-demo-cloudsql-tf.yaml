@@ -2,15 +2,15 @@
 name: 'RSP DEMO CLOUD SQL'
 
 on:
-  workflow_dispatch
-  # pull_request:
-  #   paths:
-  #     - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
+  # workflow dispatch # Comment out below, uncomment this to disable
+  pull_request:
+    paths:
+      - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
+  push:
+    branches:
+      - main
+    paths:
+      - 'environment/deployments/science-platform/env/demo-cloudsql.tfvars'
 
 jobs:
   terraform:
