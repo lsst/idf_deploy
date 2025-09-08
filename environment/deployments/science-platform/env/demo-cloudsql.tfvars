@@ -19,6 +19,6 @@ project_id       = "science-platform-demo-9e05"
 # science_platform_db_maintenance_window_hour         = 22
 
 # Increase this number to force Terraform to update the demo environment.
-# Serial: 4
+# Serial: 5
 
 science_platform_db_additional_databases = []
