@@ -12,6 +12,7 @@ project_id       = "science-platform-demo-9e05"
 # ]
 # butler_database_version = "POSTGRES_13"
 # butler_ipv4_enabled     = true
+butler_registry_dp02_backups_point_in_time_recovery_enabled = false
 
 # General database
 # Just take defaults.
@@ -20,5 +21,3 @@ project_id       = "science-platform-demo-9e05"
 
 # Increase this number to force Terraform to update the demo environment.
 # Serial: 5
-
-science_platform_db_additional_databases = []
