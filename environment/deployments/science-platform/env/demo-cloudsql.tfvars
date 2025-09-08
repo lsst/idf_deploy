@@ -20,3 +20,5 @@ project_id       = "science-platform-demo-9e05"
 
 # Increase this number to force Terraform to update the demo environment.
 # Serial: 4
+
+science_platform_db_additional_databases = []
