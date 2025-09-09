@@ -20,4 +20,5 @@ butler_registry_dp02_backups_point_in_time_recovery_enabled = false
 # science_platform_db_maintenance_window_hour         = 22
 
 # Increase this number to force Terraform to update the demo environment.
-# Serial: 5
+# Serial: 6
+
