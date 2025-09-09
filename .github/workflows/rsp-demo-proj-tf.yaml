@@ -2,18 +2,18 @@
 name: 'RSP Demo GCP Project'
 
 on:
-  workflow_dispatch # Comment out below, uncomment this to disable
+  # workflow_dispatch # Comment out below, uncomment this to disable
   # For the "proj" workflows only: This running depends on cloudsql
   # running first, so leave this one commented out until clouldsql
   # has been revived.
-  # pull_request:
-  #   paths:
-  #     - 'environment/deployments/science-platform/env/demo.tfvars'
-  # push:
-  #   paths:
-  #     - 'environment/deployments/science-platform/env/demo.tfvars'
-  #   branches:
-  #     - main
+  pull_request:
+    paths:
+      - 'environment/deployments/science-platform/env/demo.tfvars'
+  push:
+    paths:
+      - 'environment/deployments/science-platform/env/demo.tfvars'
+    branches:
+      - main
 
 jobs:
   terraform:
