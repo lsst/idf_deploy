@@ -88,7 +88,7 @@ netapp_definitions = [
   {
     name                   = "home-tiered"
     service_level          = "PREMIUM"
-    capacity_gib           = 2500
+    capacity_gib           = 2048
     unix_permissions       = "0775"
     snapshot_directory     = true
     backups_enabled        = true
