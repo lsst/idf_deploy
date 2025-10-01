@@ -13,7 +13,7 @@ maintenance_recurrence = "FREQ=WEEKLY;BYDAY=WE"
 node_pools = [
   {
     name               = "core-pool"
-    machine_type       = "n2-standard-8"
+    machine_type       = "t2a-standard-8"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
