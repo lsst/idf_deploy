@@ -58,7 +58,10 @@ monitoring_enabled_components = [
   "KUBELET",
 
   # Gets us CPU throttling metrics
-  "CADVISOR"
+  "CADVISOR",
+
+  # Gets us sum of requests/limits per node
+  "SCHEDULER",
 ]
 
 gke_backup_agent_config = true
