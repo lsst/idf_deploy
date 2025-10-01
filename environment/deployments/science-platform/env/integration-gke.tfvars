@@ -114,7 +114,10 @@ monitoring_enabled_components = [
   "KUBELET",
 
   # Gets us CPU throttling metrics
-  "CADVISOR"
+  "CADVISOR",
+
+  # Gets us sum of requests/limits per node
+  "SCHEDULER",
 ]
 
 # Increase this number to force Terraform to update the int environment.
