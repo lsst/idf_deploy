@@ -171,6 +171,16 @@ resource "google_dns_record_set" "alloydb_dp" {
   ttl          = 1800
 }
 
+resource "google_dns_record_set" "alloydb_butler_prompt" {
+  count = var.butler_prompt_data_products_enabled ? 1 : 0
+
+  managed_zone = google_dns_managed_zone.sql_private_zone.name
+  name         = "alloydb-butler-prompt.${google_dns_managed_zone.sql_private_zone.dns_name}"
+  type         = "A"
+  rrdatas      = [module.alloydb_butler_data_preview[0].read_pool_private_ip]
+  ttl          = 1800
+}
+
 
 resource "random_password" "gafaelfawr" {
   length  = 24
