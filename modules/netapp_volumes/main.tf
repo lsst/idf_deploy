@@ -64,6 +64,7 @@ resource "google_netapp_volume" "instance" {
   storage_pool       = "pool-${var.definition.name}"
   unix_permissions   = var.definition.unix_permissions
   snapshot_directory = var.definition.snapshot_directory
+  large_capacity     = var.definition.large_capacity
 
   # Dynamic pieces that should only appear if enabled
   dynamic tiering_policy {
@@ -109,8 +110,6 @@ resource "google_netapp_volume" "instance" {
   protocols          = ["NFSV3", "NFSV4"]
   deletion_policy    = "DEFAULT"
   restricted_actions = ["DELETE"]
-  large_capacity     = false # "large capacity" volumes cannot be backed up!
-  # https://cloud.google.com/netapp/volumes/docs/protect-data/about-backups
   security_style   = "UNIX"
   kerberos_enabled = false
 
