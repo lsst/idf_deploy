@@ -1,6 +1,6 @@
 resource "google_alloydb_cluster" "data_preview" {
   cluster_id = var.cluster_id
-  database_version = "POSTGRES_16"
+  database_version = var.database_version
   location   = "us-central1"
   project = var.project_id
   network_config {
@@ -17,8 +17,21 @@ resource "google_alloydb_instance" "data_preview_primary" {
   # End users will only be accessing the read pool, so we don't need
   # the master to be highly available.
   availability_type = "ZONAL"
+  
   machine_config {
     machine_type = "n2-highmem-2"
+  }
+
+  network_config {
+    # Enabling public IP without any authorized_external_networks blocks means
+    # that connections will be required to go through the AlloyDB Auth Proxy.
+    enable_public_ip = var.enable_public_ip_for_primary
+  }
+
+  lifecycle {
+    # Have Terraform ignore changes to the machine type, so we can tweak
+    # it on the fly in Google Cloud console.
+    ignore_changes = [machine_config[0].machine_type]
   }
 }
 

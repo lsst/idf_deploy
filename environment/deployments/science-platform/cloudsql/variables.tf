@@ -173,7 +173,13 @@ variable "butler_registry_dp1_backups_enabled" {
 
 variable "butler_registry_alloydb_enabled" {
   type = bool
-  description = "True if an AlloyDB cluster will be created to use as the Butler Registry"
+  description = "True if an AlloyDB cluster will be created to use as the Butler Registry for data previews"
+  default = false
+}
+
+variable "butler_prompt_data_products_enabled" {
+  type = bool
+  description = "True if an AlloyDB cluster will be created to use as the Butler Registry for prompt data products."
   default = false
 }
 
