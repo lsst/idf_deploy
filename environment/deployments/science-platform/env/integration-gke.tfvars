@@ -93,5 +93,7 @@ monitoring_enabled_components = [
   "SCHEDULER",
 ]
 
+gke_backup_agent_config = true
+
 # Increase this number to force Terraform to update the int environment.
 # Serial: 7

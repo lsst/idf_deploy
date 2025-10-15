@@ -37,5 +37,7 @@ node_pools_labels = {
   }
 }
 
+gke_backup_agent_config = true
+
 # Increase this number to force Terraform to update the demo environment.
 # Serial: 6
