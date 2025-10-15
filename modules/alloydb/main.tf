@@ -33,6 +33,10 @@ resource "google_alloydb_instance" "data_preview_primary" {
     # it on the fly in Google Cloud console.
     ignore_changes = [machine_config[0].machine_type]
   }
+
+  database_flags = var.enable_public_ip_for_primary ? {
+    "password.enforce_complexity" = "on"
+  } : {}
 }
 
 resource "google_alloydb_instance" "data_preview_readpool" {
