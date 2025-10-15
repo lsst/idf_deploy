@@ -46,6 +46,7 @@ module "gke" {
   cluster_telemetry_type             = var.cluster_telemetry_type
   default_max_pods_per_node          = var.default_max_pods_per_node
   enable_gcfs                        = var.enable_gcfs
+  gke_backup_agent_config            = var.gke_backup_agent_config
 
   monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
   monitoring_enabled_components        = var.monitoring_enabled_components

@@ -68,4 +68,6 @@ module "gke" {
   }
 
   node_pools_taints = var.node_pools_taints
+
+  gke_backup_agent_config = var.gke_backup_agent_config
 }

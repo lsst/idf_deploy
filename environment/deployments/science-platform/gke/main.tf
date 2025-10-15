@@ -50,6 +50,8 @@ module "gke" {
   enable_gcfs                          = var.enable_gcfs
   monitoring_enabled_components        = var.monitoring_enabled_components
   monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
+  gke_backup_agent_config              = var.gke_backup_agent_config
+
 
   # Labels
   cluster_resource_labels = {

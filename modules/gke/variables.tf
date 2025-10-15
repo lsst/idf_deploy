@@ -296,3 +296,8 @@ variable "monitoring_enabled_components" {
 
 }
 
+variable "gke_backup_agent_config" {
+  description = "Whether Backup for GKE agent is enabled for this cluster."
+  type = bool
+  default = false
+}
