@@ -177,7 +177,7 @@ resource "google_dns_record_set" "alloydb_butler_prompt" {
   managed_zone = google_dns_managed_zone.sql_private_zone.name
   name         = "alloydb-butler-prompt.${google_dns_managed_zone.sql_private_zone.dns_name}"
   type         = "A"
-  rrdatas      = [module.alloydb_butler_data_preview[0].read_pool_private_ip]
+  rrdatas      = [module.alloydb_butler_prompt_data_products[0].read_pool_private_ip]
   ttl          = 1800
 }
 
