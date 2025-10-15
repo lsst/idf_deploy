@@ -95,6 +95,8 @@ monitoring_enabled_components = [
   "CADVISOR"
 ]
 
+gke_backup_agent_config = true
+
 # TF State declared during pipeline
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/stable/gke"

@@ -61,5 +61,7 @@ monitoring_enabled_components = [
   "CADVISOR"
 ]
 
+gke_backup_agent_config = true
+
 # Increase this number to force Terraform to update the production environment.
 # Serial: 4
