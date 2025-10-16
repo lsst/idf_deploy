@@ -58,7 +58,7 @@ monitoring_enabled_components = [
   "SCHEDULER",
 ]
 
-gke_backup_agent_config = false
+gke_backup_agent_config = true
 
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 3
