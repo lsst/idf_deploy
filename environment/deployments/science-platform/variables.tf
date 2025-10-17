@@ -245,6 +245,7 @@ variable "netapp_definitions" {
     capacity_gib           = number                   # At least 2048
     unix_permissions       = optional(string, "0770") # Unix permission for mount point
     snapshot_directory     = optional(bool, false)
+    large_capacity         = optional(bool, false)
     backups_enabled        = optional(bool, false)
     has_root_access        = optional(bool, false)
     allow_auto_tiering     = optional(bool, false)
