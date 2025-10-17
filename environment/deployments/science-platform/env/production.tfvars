@@ -76,7 +76,7 @@ netapp_definitions = [
   },
   { name                   = "lcv-home"
     service_level          = "PREMIUM"
-    capacity_gib           = 15000
+    capacity_gib           = 15360
     large_capacity         = true
     unix_permissions       = "0775"
     snapshot_directory     = true
