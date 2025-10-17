@@ -52,6 +52,8 @@ module "gke" {
   monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
   gke_backup_agent_config              = var.gke_backup_agent_config
 
+  enable_dataplane_v2 = var.enable_dataplane_v2
+
 
   # Labels
   cluster_resource_labels = {
