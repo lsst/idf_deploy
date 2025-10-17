@@ -2,6 +2,10 @@
 #   CLUSTER BLOCK
 # ------------------------------------------------------------
 
+locals {
+  datapath_provider = var.enable_dataplane_v2 ? "ADVANCED_DATAPATH" : "DATAPATH_PROVIDER_UNSPECIFIED"
+}
+
 module "gke" {
   #source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
   # Use this module because some of the features are only available in the google-beta version
@@ -15,6 +19,8 @@ module "gke" {
   zones      = var.zones
   network    = var.network
   subnetwork = var.subnetwork
+
+  datapath_provider = local.datapath_provider
 
   ip_range_pods                      = var.ip_range_pods
   ip_range_services                  = var.ip_range_services

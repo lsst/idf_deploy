@@ -47,6 +47,8 @@ module "gke" {
   maintenance_end_time   = var.maintenance_end_time
   maintenance_recurrence = var.maintenance_recurrence
 
+  enable_dataplane_v2 = var.enable_dataplane_v2
+
   monitoring_enabled_components        = var.monitoring_enabled_components
   monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
 

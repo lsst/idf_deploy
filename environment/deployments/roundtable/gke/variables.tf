@@ -127,3 +127,9 @@ variable "gke_backup_agent_config" {
   type = bool
   default = false
 }
+
+variable "enable_dataplane_v2" {
+  description = "Whether to enable Dataplane V2 (all new clusters should have this enabled)."
+  type = bool
+  default = true
+}
