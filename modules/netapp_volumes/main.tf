@@ -65,6 +65,9 @@ resource "google_netapp_volume" "instance" {
   unix_permissions   = var.definition.unix_permissions
   snapshot_directory = var.definition.snapshot_directory
   large_capacity     = var.definition.large_capacity
+  # This is correct: we only use multiple endpoints on Large Capacity volumes
+  # but they are mandatory for those.
+  multiple_endpoints = var.definition.large_capacity
 
   # Dynamic pieces that should only appear if enabled
   dynamic tiering_policy {
