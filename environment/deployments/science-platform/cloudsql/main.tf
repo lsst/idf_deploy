@@ -131,6 +131,7 @@ module "alloydb_butler_prompt_data_products" {
 # to access the AlloyDB Butler registries.
 # See https://cloud.google.com/alloydb/docs/auth-proxy/overview
 resource "google_service_account" "usdf_alloydb_auth_proxy" {
+  project = var.project_id
   account_id = "usdf-alloydb-auth-proxy"
   display_name = "USDF AlloyDB Auth Proxy"
 }
