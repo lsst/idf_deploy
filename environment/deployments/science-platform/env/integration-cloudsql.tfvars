@@ -29,4 +29,4 @@ science_platform_db_maintenance_window_hour = 22
 science_platform_backups_enabled            = true
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 21
+# Serial: 22
