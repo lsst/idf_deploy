@@ -135,5 +135,12 @@ activate_apis = [
 
 atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
+ingress_ip_address = {
+  name = "nginx-load-balancer"
+
+  # This was on the resource before we imported it
+  description = "data.lsst.cloud"
+}
+
 # Increase this number to force Terraform to update the production environment.
-# Serial: 7
+# Serial: 8
