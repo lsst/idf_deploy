@@ -127,6 +127,21 @@ module "alloydb_butler_prompt_data_products" {
   enable_public_ip_for_primary = true
 }
 
+# Service account for running AlloyDB Auth Proxy at USDF
+# to access the AlloyDB Butler registries.
+# See https://cloud.google.com/alloydb/docs/auth-proxy/overview
+resource "google_service_account" "usdf_alloydb_auth_proxy" {
+  account_id = "usdf-alloydb-auth-proxy"
+  display_name = "USDF AlloyDB Auth Proxy"
+}
+resource "google_service_account_iam_member" "usdf_alloydb_auth_proxy_role" {
+  for_each = var.butler_prompt_data_products_enabled ? toset(["roles/alloydb.client", "roles/serviceusage.serviceUsageConsumer"]) : toset([])
+  service_account_id = google_service_account.usdf_alloydb_auth_proxy.id
+  member = google_service_account.usdf_alloydb_auth_proxy.member
+  role = each.value
+}
+
+
 resource "google_dns_managed_zone" "sql_private_zone" {
   name        = "sql-private-zone-${var.environment}"
   dns_name    = "rsp-sql-${var.environment}.internal."
