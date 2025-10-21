@@ -273,3 +273,11 @@ variable "atlantis_monitoring_admin_service_account_member" {
   type        = string
   description = "The service account that should have Google Cloud monitoring admin permissions in THIS project. This service account is probably provisioned in a different project."
 }
+
+variable "ingress_ip_address" {
+  description = "The name and description for the static IP address attached to the cluster ingress load balancer."
+  type = object({
+    name = string
+    description = string
+  })
+}

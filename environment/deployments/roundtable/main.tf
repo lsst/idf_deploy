@@ -400,7 +400,8 @@ module "firewall_cert_manager" {
 
 // Reserve a public IP for ingress
 resource "google_compute_address" "external_ip_address" {
-  name    = "public-ip"
+  name    = var.ingress_ip_address.name
+  description = var.ingress_ip_address.description
   region  = var.default_region
   project = module.project_factory.project_id
 }

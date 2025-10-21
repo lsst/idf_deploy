@@ -53,9 +53,14 @@ output "router_region" {
   description = "The region of the created router"
 }
 
-// Reserved Static IP
+// Reserved Static IPs
+
+output "static_ip_ingress" {
+  description = "Reserved static IP for ingress-nginx cluster ingress"
+  value       = google_compute_address.external_ip_address.address
+}
 
 output "static_ip" {
-  description = "Reserved static IP"
+  description = "Reserved static IP for NAT gateway"
   value       = google_compute_address.static.*.address
 }

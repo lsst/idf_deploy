@@ -75,5 +75,11 @@ prodromos_terraform_state_bucket_suffix = "prodromos-terraform-dev"
 
 atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
+ingress_ip_address = {
+  # This was already on the resource when we imported it
+  name = "public-ip"
+  description = null
+}
+
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 16
+# Serial: 17

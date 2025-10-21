@@ -140,5 +140,10 @@ activate_apis = [
 
 atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
 
+ingress_ip_address = {
+  name = "nginx-load-balancer"
+  description = null
+}
+
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 50
+# Serial: 51
