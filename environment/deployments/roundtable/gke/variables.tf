@@ -133,3 +133,9 @@ variable "enable_dataplane_v2" {
   type = bool
   default = true
 }
+
+variable "cluster_backup_plan" {
+  description = "Config for creating a backup plan for this environment's cluster"
+  type = object({})
+  default = {}
+}
