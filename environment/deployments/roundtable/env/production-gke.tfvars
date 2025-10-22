@@ -68,7 +68,5 @@ gke_backup_agent_config = true
 
 enable_dataplane_v2 = false
 
-cluster_backup_plan = null
-
 # Increase this number to force Terraform to update the production environment.
-# Serial: 4
+# Serial: 5
