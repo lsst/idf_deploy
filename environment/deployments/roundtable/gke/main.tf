@@ -79,6 +79,7 @@ resource "google_gke_backup_backup_plan" "complete" {
 
   name = "${module.gke.name}"
   cluster = module.gke.id
+  project = local.project_id
   location = "us-central1"
 
   backup_config {

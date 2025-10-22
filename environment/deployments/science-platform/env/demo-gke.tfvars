@@ -62,4 +62,4 @@ gke_backup_agent_config = true
 enable_dataplane_v2 = false
 
 # Increase this number to force Terraform to update the demo environment.
-# Serial: 7
+# Serial: 8
