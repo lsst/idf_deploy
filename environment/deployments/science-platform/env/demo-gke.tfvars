@@ -27,14 +27,34 @@ node_pools = [
     enable_secure_boot = true
     disk_size_gb       = "300"
     disk_type          = "pd-ssd"
-  }
+  },
+  {
+    name               = "user-lab-pool"
+    machine_type       = "t2a-standard-8"
+    node_locations     = "us-central1-b"
+    local_ssd_count    = 0
+    auto_repair        = true
+    auto_upgrade       = true
+    preemptible        = false
+    autoscaling        = true
+    initial_node_count = 1
+    min_count          = 1
+    max_count          = 100
+    image_type         = "cos_containerd"
+    enable_secure_boot = true
+    disk_size_gb       = "300"
+    disk_type          = "pd-ssd"
+  }  
 ]
 
-node_pools_labels = {
-  core-pool = {
-    infrastructure = "ok",
-    jupyterlab = "ok"
-  }
+node_pools_taints = {
+  "user-lab-pool" = [
+    {
+      key    = "nublado.lsst.io/permitted"
+      value  = "true"
+      effect = "NO_EXECUTE"
+    }
+  ]
 }
 
 gke_backup_agent_config = true
