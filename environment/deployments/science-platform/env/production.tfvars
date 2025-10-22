@@ -74,18 +74,18 @@ netapp_definitions = [
     access_type            = "READ_WRITE"
     default_user_quota_mib = 35000
   },
-  # { name                   = "lcv-home"  # Put back once case
-  #   service_level          = "PREMIUM"   # 64072011 is resolved.
-  #   capacity_gib           = 15360
-  #   large_capacity         = true
-  #   unix_permissions       = "0775"
-  #   snapshot_directory     = true
-  #   backups_enabled        = true
-  #   has_root_access        = true
-  #   allow_auto_tiering     = true
-  #   access_type            = "READ_WRITE"
-  #   default_user_quota_mib = 35000
-  # },
+  { name                   = "lcv-home"
+    service_level          = "PREMIUM"
+    capacity_gib           = 15360
+    large_capacity         = true
+    unix_permissions       = "0775"
+    snapshot_directory     = true
+    backups_enabled        = true
+    has_root_access        = true
+    allow_auto_tiering     = true
+    access_type            = "READ_WRITE"
+    default_user_quota_mib = 35000
+  },
   { name               = "rubin"
     service_level      = "PREMIUM"
     capacity_gib       = 8000
