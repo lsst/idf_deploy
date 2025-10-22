@@ -127,6 +127,7 @@ activate_apis = [
   "compute.googleapis.com",
   "container.googleapis.com",
   "containerfilesystem.googleapis.com",
+  "gkebackup.googleapis.com",
   "stackdriver.googleapis.com",
   "file.googleapis.com",
   "storage.googleapis.com",
