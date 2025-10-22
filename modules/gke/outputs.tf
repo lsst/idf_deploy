@@ -22,6 +22,11 @@ output "name" {
   value       = module.gke.name
 }
 
+output "id" {
+  description = "Cluster ID"
+  value       = module.gke.cluster_id
+}
+
 output "location" {
   description = "Cluster location (region if regional cluster zone if zonal cluster)"
   value       = module.gke.location

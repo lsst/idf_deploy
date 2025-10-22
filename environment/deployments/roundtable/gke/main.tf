@@ -73,3 +73,17 @@ module "gke" {
 
   gke_backup_agent_config = var.gke_backup_agent_config
 }
+
+resource "google_gke_backup_backup_plan" "complete" {
+  count = var.cluster_backup_plan != null ? 1 : 0
+
+  name = "${module.gke.name}"
+  cluster = module.gke.id
+  location = "us-central1"
+
+  backup_config {
+    include_volume_data = true
+    include_secrets = true
+    all_namespaces = true
+  }
+}
