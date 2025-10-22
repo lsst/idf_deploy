@@ -16,6 +16,7 @@ module "rsp_demo_gke_pipeline_accounts" {
     "science-platform-demo-9e05=>roles/container.admin",
     "science-platform-demo-9e05=>roles/container.clusterAdmin",
     "science-platform-demo-9e05=>roles/iam.serviceAccountUser",
+    "science-platform-demo-9e05=>roles/gkebackup.backupAdmin",
   ]
 }
 // Storage access to read tfstate
@@ -76,6 +77,7 @@ module "rsp_dev_gke_pipeline_accounts" {
     "science-platform-dev-7696=>roles/container.admin",
     "science-platform-dev-7696=>roles/container.clusterAdmin",
     "science-platform-dev-7696=>roles/iam.serviceAccountUser",
+    "science-platform-dev-7696=>roles/gkebackup.backupAdmin",
   ]
 }
 // Storage access to read tfstate
@@ -135,6 +137,7 @@ module "rsp_int_gke_pipeline_accounts" {
     "science-platform-int-dc5d=>roles/container.admin",
     "science-platform-int-dc5d=>roles/container.clusterAdmin",
     "science-platform-int-dc5d=>roles/iam.serviceAccountUser",
+    "science-platform-int-dc5d=>roles/gkebackup.backupAdmin",
   ]
 }
 // Storage access to read tfstate
