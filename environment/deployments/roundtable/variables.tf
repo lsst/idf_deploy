@@ -185,6 +185,11 @@ variable "vault_server_bucket_suffix" {
   description = "Suffix for bucket used for Vault server storage"
 }
 
+variable "turborepo_cache_bucket_suffix" {
+  type        = string
+  description = "Suffix for bucket used for Turborepo remote cache"
+}
+
 variable "prodromos_terraform_state_bucket_suffix" {
   type        = string
   description = "Suffix for bucket used for Prodromos Terraform state"

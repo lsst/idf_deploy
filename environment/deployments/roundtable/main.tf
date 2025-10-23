@@ -429,3 +429,62 @@ module "nat" {
     nat_ips = google_compute_address.static.*.name
   }]
 }
+
+// Turborepo Cache Storage Bucket
+module "turborepo_cache_bucket" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = [var.turborepo_cache_bucket_suffix]
+  prefix_name   = "rubin-us-central1"
+  versioning = {
+    (var.turborepo_cache_bucket_suffix) = false
+  }
+  lifecycle_rules = [
+    {
+      action = {
+        type = "Delete"
+      }
+      condition = {
+        age = "30"
+      }
+    }
+  ]
+  force_destroy = {
+    (var.turborepo_cache_bucket_suffix) = true
+  }
+  labels = {
+    environment = var.environment
+    application = "turborepo-cache"
+  }
+}
+
+// Service account for Turborepo Cache
+resource "google_service_account" "turborepo_cache_sa" {
+  account_id   = "turborepo-cache"
+  display_name = "Turborepo Cache"
+  description  = "Terraform-managed service account for Turborepo cache GCS access"
+  project      = module.project_factory.project_id
+}
+
+// Use Workload Identity to bind the service account to Kubernetes service account
+resource "google_service_account_iam_member" "turborepo_cache_sa_wi" {
+  service_account_id = google_service_account.turborepo_cache_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.project_factory.project_id}.svc.id.goog[turborepo-cache/turborepo-cache]"
+}
+
+// Grant the turborepo cache service account token creator permissions for signed URLs
+resource "google_service_account_iam_member" "turborepo_cache_gcs_sa" {
+  service_account_id = google_service_account.turborepo_cache_sa.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:turborepo-cache@${module.project_factory.project_id}.iam.gserviceaccount.com"
+}
+
+// Grant Storage Object Admin access to the bucket
+resource "google_storage_bucket_iam_member" "turborepo_cache_bucket_admin" {
+  bucket = module.turborepo_cache_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:turborepo-cache@${module.project_factory.project_id}.iam.gserviceaccount.com"
+}
