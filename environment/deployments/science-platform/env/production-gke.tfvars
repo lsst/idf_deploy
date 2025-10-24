@@ -102,8 +102,6 @@ gke_backup_agent_config = true
 
 enable_dataplane_v2 = false
 
-cluster_backup_plan = null
-
 # TF State declared during pipeline
 # bucket = "lsst-terraform-state"
 # prefix = "qserv/stable/gke"
