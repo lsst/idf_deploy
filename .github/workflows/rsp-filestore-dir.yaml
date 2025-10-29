@@ -8,7 +8,7 @@ on:
         description: GCP Project ID
         required: true
       gkeCluster:
-        description: 'GKE Cluster used to prep NFS dirs'     
+        description: 'GKE Cluster used to prep NFS dirs'
         required: true
       filestore:
         description: 'Filestore to configure NFS dirs'
@@ -24,7 +24,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./kubernetes-manifests
-  
+
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -36,7 +36,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-      # gcloud setup     
+      # gcloud setup
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
         with:
@@ -74,3 +74,13 @@ jobs:
       - name: Deploy Kubernetes Manifests
         run: |-
           kustomize build overlays/dev | kubectl apply -f -
+
+      - name: Report status
+        if: failure() && github.ref == 'refs/heads/main'
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          status: ${{ job.status }}
+          notify_when: failure
+          notification_title: 'idf_deploy: Periodic plan for {workflow} failed'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_ALERT_WEBHOOK }}

@@ -10,6 +10,8 @@ on:
       - main
     paths:
       - 'environment/deployments/science-platform/env/integration-gke.tfvars'
+  schedule:
+  - cron: 25 2 * * *
 
 
 jobs:
@@ -34,7 +36,7 @@ jobs:
       with:
         credentials_json: ${{ secrets.PIPELINE_RSP_INT_GKE }}
 
-    # gcloud setup     
+    # gcloud setup
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v2'
       with:
@@ -62,9 +64,19 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=../env/integration-gke.tfvars -no-color
+      run: terraform plan -var-file=../env/integration-gke.tfvars -no-color ${{ github.event_name == 'schedule' && '-detailed-exitcode' || '' }}
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -var-file=../env/integration-gke.tfvars -auto-approve
+
+    - name: Report status
+      if: failure() && github.ref == 'refs/heads/main'
+      uses: ravsamhq/notify-slack-action@v2
+      with:
+        status: ${{ job.status }}
+        notify_when: failure
+        notification_title: 'idf_deploy: Periodic plan for {workflow} failed'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_ALERT_WEBHOOK }}
