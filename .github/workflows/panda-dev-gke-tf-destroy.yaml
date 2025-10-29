@@ -31,7 +31,7 @@ jobs:
       with:
         credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-    # gcloud setup     
+    # gcloud setup
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v2'
       with:
@@ -59,7 +59,7 @@ jobs:
     # Generates an execution destroy for terraform
     - name: Terraform Plan Destroy
       id: plan
-      run: terraform plan -destroy -var-file=../env/dev-gke.tfvars -no-color  
+      run: terraform plan -destroy -var-file=../env/dev-gke.tfvars -no-color
 
     # Generates an execution destroy for terraform
     - name: Terraform Destroy
@@ -70,3 +70,13 @@ jobs:
     # - name: Terraform Destroy Approve
     #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     #   run: terraform destroy -var-file=../env/dev-gke.tfvars -refresh=false -auto-approve
+
+    - name: Report status
+      if: failure() && github.ref == 'refs/heads/main'
+      uses: ravsamhq/notify-slack-action@v2
+      with:
+        status: ${{ job.status }}
+        notify_when: failure
+        notification_title: 'idf_deploy: Periodic plan for {workflow} failed'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_ALERT_WEBHOOK }}
