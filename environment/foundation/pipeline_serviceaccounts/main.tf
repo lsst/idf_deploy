@@ -51,11 +51,12 @@ resource "google_storage_bucket_iam_member" "rsp_demo" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "rsp_demo" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.rsp_demo_pipeline_accounts.email}"
-}
+# I (Dan) don't think we need these GitHub actions workflow accounts to have billing.admin
+# resource "google_billing_account_iam_member" "rsp_demo" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.rsp_demo_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 // Science Platform Dev GKE
@@ -110,11 +111,11 @@ resource "google_storage_bucket_iam_member" "rsp_dev" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "rsp_dev" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.rsp_dev_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "rsp_dev" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.rsp_dev_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 // Science Platform Int GKE
@@ -169,11 +170,11 @@ resource "google_storage_bucket_iam_member" "rsp_int" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "rsp_int" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.rsp_int_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "rsp_int" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.rsp_int_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 # EPO INT Project
@@ -195,11 +196,11 @@ resource "google_storage_bucket_iam_member" "epo_int" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "epo_int" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.epo_int_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "epo_int" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.epo_int_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 # EPO PROD Project
@@ -221,11 +222,11 @@ resource "google_storage_bucket_iam_member" "epo_prod" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "epo_prod" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.epo_prod_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "epo_prod" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.epo_prod_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 # Alert Dev Project
@@ -247,8 +248,8 @@ resource "google_storage_bucket_iam_member" "alert_dev" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "alert_dev" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.alert_dev_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "alert_dev" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.alert_dev_pipeline_accounts.email}"
+# }
