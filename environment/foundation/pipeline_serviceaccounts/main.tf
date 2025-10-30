@@ -1,121 +1,4 @@
 #---------------------------------------------------------------
-# QServ Dev GKE
-#---------------------------------------------------------------
-module "qserv_dev_gke_pipeline_accounts" {
-  source = "../../../modules/service_accounts/"
-
-  project_id   = "rubin-automation-prod"
-  prefix       = "pipeline"
-  names        = var.qserv_dev_gke_names
-  display_name = "Pipelines for Qserv Dev GKE"
-  description  = "Github action pipeline service account managed by Terraform"
-
-  project_roles = [
-    "qserv-dev-3d7e=>roles/browser",
-    "qserv-dev-3d7e=>roles/compute.admin",
-    "qserv-dev-3d7e=>roles/container.admin",
-    "qserv-dev-3d7e=>roles/container.clusterAdmin",
-    "qserv-dev-3d7e=>roles/iam.serviceAccountUser",
-  ]
-}
-
-// Storage access to read tfstate
-resource "google_storage_bucket_iam_member" "qserv_dev_gke" {
-  bucket = "lsst-terraform-state"
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${module.qserv_dev_gke_pipeline_accounts.email}"
-}
-
-
- #---------------------------------------------------------------
- # QServ Dev Project
- #---------------------------------------------------------------
-module "qserv_dev_pipeline_accounts" {
-  source = "../../../modules/service_accounts/"
-
-  project_id   = "rubin-automation-prod"
-  prefix       = "pipeline"
-  names        = var.qserv_dev_names
-  display_name = "Pipelines for Qserv Dev Project"
-  description  = "Github action pipeline service account managed by Terraform"
-
-  project_roles = [
-    "qserv-dev-3d7e=>roles/editor",
-    "qserv-dev-3d7e=>roles/resourcemanager.projectIamAdmin",
-  ]
-}
-// Storage access to read tfstate
-resource "google_storage_bucket_iam_member" "qserv_dev" {
-  bucket = "lsst-terraform-state"
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${module.qserv_dev_pipeline_accounts.email}"
-}
-
-// Billing Account to update budgets
-resource "google_billing_account_iam_member" "qserv_dev" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.qserv_dev_pipeline_accounts.email}"
-}
-#---------------------------------------------------------------
-// QServ Int GKE
-#---------------------------------------------------------------
-module "qserv_int_gke_pipeline_accounts" {
-  source = "../../../modules/service_accounts/"
-
-  project_id   = "rubin-automation-prod"
-  prefix       = "pipeline"
-  names        = var.qserv_int_gke_names
-  display_name = "Pipelines for Qserv Int GKE"
-  description  = "Github action pipeline service account managed by Terraform"
-
-  project_roles = [
-    "qserv-int-8069=>roles/browser",
-    "qserv-int-8069=>roles/compute.admin",
-    "qserv-int-8069=>roles/container.admin",
-    "qserv-int-8069=>roles/container.clusterAdmin",
-    "qserv-int-8069=>roles/iam.serviceAccountUser",
-  ]
-}
-// Storage access to read tfstate
-resource "google_storage_bucket_iam_member" "qserv_int_gke" {
-  bucket = "lsst-terraform-state"
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${module.qserv_int_gke_pipeline_accounts.email}"
-}
-
-#---------------------------------------------------------------
-# QServ Int Project
-#---------------------------------------------------------------
-module "qserv_int_pipeline_accounts" {
-  source = "../../../modules/service_accounts/"
-
-  project_id   = "rubin-automation-prod"
-  prefix       = "pipeline"
-  names        = var.qserv_int_names
-  display_name = "Pipelines for Qserv Int Project"
-  description  = "Github action pipeline service account managed by Terraform"
-
-  project_roles = [
-    "qserv-int-8069=>roles/editor",
-    "qserv-int-8069=>roles/resourcemanager.projectIamAdmin",
-  ]
-}
-// Storage access to read tfstate
-resource "google_storage_bucket_iam_member" "qserv_int" {
-  bucket = "lsst-terraform-state"
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${module.qserv_int_pipeline_accounts.email}"
-}
-
-// Billing Account to update budgets
-resource "google_billing_account_iam_member" "qserv_int" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.qserv_int_pipeline_accounts.email}"
-}
-
-#---------------------------------------------------------------
 // Science Platform Demo GKE
 #---------------------------------------------------------------
 module "rsp_demo_gke_pipeline_accounts" {
@@ -168,11 +51,12 @@ resource "google_storage_bucket_iam_member" "rsp_demo" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "rsp_demo" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.rsp_demo_pipeline_accounts.email}"
-}
+# I (Dan) don't think we need these GitHub actions workflow accounts to have billing.admin
+# resource "google_billing_account_iam_member" "rsp_demo" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.rsp_demo_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 // Science Platform Dev GKE
@@ -227,11 +111,11 @@ resource "google_storage_bucket_iam_member" "rsp_dev" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "rsp_dev" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.rsp_dev_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "rsp_dev" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.rsp_dev_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 // Science Platform Int GKE
@@ -286,11 +170,11 @@ resource "google_storage_bucket_iam_member" "rsp_int" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "rsp_int" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.rsp_int_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "rsp_int" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.rsp_int_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 # EPO INT Project
@@ -312,11 +196,11 @@ resource "google_storage_bucket_iam_member" "epo_int" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "epo_int" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.epo_int_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "epo_int" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.epo_int_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 # EPO PROD Project
@@ -338,11 +222,11 @@ resource "google_storage_bucket_iam_member" "epo_prod" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "epo_prod" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.epo_prod_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "epo_prod" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.epo_prod_pipeline_accounts.email}"
+# }
 
 #---------------------------------------------------------------
 # Alert Dev Project
@@ -364,8 +248,8 @@ resource "google_storage_bucket_iam_member" "alert_dev" {
 }
 
 // Billing Account to update budgets
-resource "google_billing_account_iam_member" "alert_dev" {
-  billing_account_id = var.billing_account_id
-  role               = "roles/billing.admin"
-  member             = "serviceAccount:${module.alert_dev_pipeline_accounts.email}"
-}
+# resource "google_billing_account_iam_member" "alert_dev" {
+#   billing_account_id = var.billing_account_id
+#   role               = "roles/billing.admin"
+#   member             = "serviceAccount:${module.alert_dev_pipeline_accounts.email}"
+# }
