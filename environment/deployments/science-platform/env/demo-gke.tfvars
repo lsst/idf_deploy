@@ -61,7 +61,7 @@ node_pools = [
     enable_secure_boot = true
     disk_size_gb       = "300"
     disk_type          = "pd-ssd"
-  }  
+  }
 ]
 
 node_pools_labels = {
@@ -85,4 +85,4 @@ gke_backup_agent_config = true
 enable_dataplane_v2 = false
 
 # Increase this number to force Terraform to update the demo environment.
-# Serial: 8
+# Serial: 9
