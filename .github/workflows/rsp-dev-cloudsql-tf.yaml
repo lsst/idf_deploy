@@ -63,7 +63,7 @@ jobs:
     # Generates an execution plan for terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=../env/dev-cloudsql.tfvars -no-color ${{ github.event_name == 'schedule' && '-detailed-exitcode' }}
+      run: terraform plan -var-file=../env/dev-cloudsql.tfvars -no-color ${{ github.event_name == 'schedule' && '-detailed-exitcode' || '' }}
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
