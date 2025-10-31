@@ -63,17 +63,6 @@ nats = [{ name = "cloud-nat" }]
 # a storage pool/volume pair.
 #
 netapp_definitions = [
-  { name                   = "home"
-    service_level          = "PREMIUM"
-    capacity_gib           = 100000
-    unix_permissions       = "0775"
-    snapshot_directory     = true
-    backups_enabled        = true
-    has_root_access        = true
-    allow_auto_tiering     = true
-    access_type            = "READ_WRITE"
-    default_user_quota_mib = 35000
-  },
   { name                   = "lcv-home"
     service_level          = "PREMIUM"
     capacity_gib           = 15360
