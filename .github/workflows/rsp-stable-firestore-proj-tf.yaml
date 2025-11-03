@@ -10,6 +10,8 @@ on:
       - 'environment/deployments/science-platform/firestore/env/production.tfvars'
     branches:
       - main
+  schedule:
+  - cron: 25 2 * * *
 
 jobs:
   terraform:
@@ -33,7 +35,7 @@ jobs:
       with:
         credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-    # gcloud setup     
+    # gcloud setup
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v2'
       with:
@@ -61,9 +63,19 @@ jobs:
     # Generates Terraform execution plan
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=env/production.tfvars -no-color
+      run: terraform plan -var-file=env/production.tfvars -no-color ${{ github.event_name == 'schedule' && '-detailed-exitcode' || '' }}
 
     # On push to main, build or change infrastructure according to terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -var-file=env/production.tfvars -auto-approve
+
+    - name: Report status
+      if: failure() && github.ref == 'refs/heads/main'
+      uses: ravsamhq/notify-slack-action@v2
+      with:
+        status: ${{ job.status }}
+        notify_when: failure
+        notification_title: 'idf_deploy: Periodic plan for {workflow} failed'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_ALERT_WEBHOOK }}
