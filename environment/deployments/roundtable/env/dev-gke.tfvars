@@ -11,6 +11,11 @@ maintenance_start_time = "2021-08-18T00:00:00Z"
 maintenance_end_time   = "2021-08-18T12:00:00Z"
 maintenance_recurrence = "FREQ=WEEKLY;BYDAY=WE"
 
+# This refers to the pre-DataplaneV2 Calico network policies. These are not
+# compatible with DataplaneV2, so they must not be enabled in clusters with
+# Dataplane V2 enabled.
+network_policy = false
+
 node_pools = [
   {
     name               = "core-pool"
