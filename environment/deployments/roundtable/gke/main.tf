@@ -105,6 +105,7 @@ resource "google_gke_backup_restore_plan" "complete" {
   count = var.cluster_backup_plan != null ? 1 : 0
 
   name = "${module.gke.name}"
+  project = local.project_id
   location = "us-central1"
   backup_plan = google_gke_backup_backup_plan.complete[0].id
   cluster = module.gke.id
