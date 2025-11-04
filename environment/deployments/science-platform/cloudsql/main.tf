@@ -420,6 +420,7 @@ module "service_accounts" {
     "gafaelfawr",
     "grafana",
     "nublado",
+    "repertoire",
     "ssotap",
     "tap-service",
     "times-square",
@@ -497,6 +498,12 @@ resource "google_service_account_iam_member" "tap_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["tap-service"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[tap/tap]"
+}
+
+resource "google_service_account_iam_member" "repertoire_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["repertoire"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[repertoire/repertoire]"
 }
 
 # The vo-cutouts service account must be granted the ability to generate
