@@ -95,7 +95,8 @@ resource "google_gke_backup_backup_plan" "complete" {
   # plan destroyed.
   lifecycle {
     ignore_changes = [
-      cluster
+      cluster,
+      name,
     ]
   }
 }
