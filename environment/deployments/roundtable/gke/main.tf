@@ -100,3 +100,41 @@ resource "google_gke_backup_backup_plan" "complete" {
     ]
   }
 }
+
+resource "google_gke_backup_restore_plan" "complete" {
+  count = var.cluster_backup_plan != null ? 1 : 0
+
+  name = "${module.gke.name}"
+  location = "us-central1"
+  backup_plan = google_gke_backup_backup_plan.complete[0].id
+  cluster = module.gke.id
+
+  restore_config {
+    all_namespaces = true
+
+    # We're assuming this restore plan is intended to run on a completely empty
+    # new cluster.
+    namespaced_resource_restore_mode = "FAIL_ON_CONFLICT"
+
+    # We're assuming this restore plan is intended to run on a completely empty
+    # new cluster, so REUSE_VOLUME_HANDLE_FROM_BACKUP won't work.
+    volume_data_restore_policy = "RESTORE_VOLUME_DATA_FROM_BACKUP"
+
+    cluster_resource_conflict_policy = "USE_EXISTING_VERSION"
+
+    cluster_resource_restore_scope {
+      all_group_kinds = true
+    }
+  }
+
+  # If you destroy the associated cluster, terraform will try to destroy and
+  # recreate this restore plan. If we are trying to intentionally rebuild a
+  # cluster, we will need to destroy it first, and we don't want this restore
+  # plan destroyed.
+  lifecycle {
+    ignore_changes = [
+      cluster,
+      name,
+    ]
+  }
+}
