@@ -307,3 +307,9 @@ variable "enable_dataplane_v2" {
   type = bool
   default = true
 }
+
+variable "use_update_variant" {
+  description = "Whether to use the update variant of the GKE module. This should only be false when creating a cluster from scratch or intentionally destroying and recreating a cluster."
+  type = bool
+  default = true
+}

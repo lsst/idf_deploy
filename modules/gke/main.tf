@@ -7,9 +7,8 @@ locals {
 }
 
 module "gke" {
-  #source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster"
-  # Use this module because some of the features are only available in the google-beta version
-  source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster-update-variant"
+  # Use the beta module because some of the features are only available in the google-beta version
+  source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster${var.use_update_variant ? "update-variant" : ""}"
   version = "~> 36.0"
 
   project_id = var.project_id
