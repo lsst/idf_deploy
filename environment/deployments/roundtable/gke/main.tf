@@ -124,13 +124,100 @@ resource "google_gke_backup_restore_plan" "complete" {
     cluster_resource_conflict_policy = "USE_EXISTING_VERSION"
 
     cluster_resource_restore_scope {
+      # If we're restoring to a DataplaneV2 cluster from a non-DataplaneV2
+      # backup, we don't want to restore these resources, since the Calico
+      # CRDs won't exist. If we're restoring from DataplaneV2 to DataplaneV2,
+      # then we shouldn't have any of these resources in the backup anyway
+      # and this won't matter.
+
       excluded_group_kinds {
-        # If we're restoring to a DataplaneV2 cluster from a non-DataplaneV2
-        # backup, we don't want to restore these resources, since the Calico
-        # CRDs won't exist. If we're restoring from DataplaneV2 to DataplaneV2,
-        # then we shouldn't have any of these resources in the backup anyway
-        # and this won't matter.
         resource_group = "crd.projectcalico.org"
+        resource_kind = "BGPConfiguration"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "BGPFilter"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "BGPPeer"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "BlockAffinity"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "CalicoNodeStatus"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "ClusterInformation"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "FelixConfiguration"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalBGPConfig"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalFelixConfig"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalNetworkPolicy"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalNetworkSet"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "HostEndpoint"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPAMBlock"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPAMConfig"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPAMHandle"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPPool"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPReservation"
+      }
+
+      excluded_group_kinds {
+      resource_group = "crd.projectcalico.org"
+        resource_kind = "KubeControllersConfiguration"
       }
     }
   }
