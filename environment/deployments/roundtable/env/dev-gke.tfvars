@@ -67,5 +67,8 @@ gke_backup_agent_config = true
 
 enable_dataplane_v2 = true
 
-# Increase this number to force Terraform to update the dev environment.
-# Serial: 14
+# If you didn't make any other changes to this file, increase this number to
+# force Terraform to update this environment. You may need to do this if you
+# changed .tf files in this environment, or if you changed any modules that
+# this environment uses, but you didn't change any variables in this file.
+# Serial: 15
