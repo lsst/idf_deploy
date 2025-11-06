@@ -125,10 +125,13 @@ resource "google_gke_backup_restore_plan" "complete" {
 
     cluster_resource_restore_scope {
       # If we're restoring to a DataplaneV2 cluster from a non-DataplaneV2
-      # backup, we don't want to restore these resources, since the Calico
-      # CRDs won't exist. If we're restoring from DataplaneV2 to DataplaneV2,
-      # then we shouldn't have any of these resources in the backup anyway
-      # and this won't matter.
+      # backup, we don't want to restore these resources, since the Calico CRDs
+      # won't exist. If we're restoring from DataplaneV2 to DataplaneV2, then
+      # we shouldn't have any of these resources in the backup anyway and this
+      # won't matter. If we're restoring from non-DataplaneV2 to
+      # non-DataplaneV2, then these resources get installed by the addon
+      # anyway, and will not be restored from the backup due to the
+      # USE_EXISTING_VERSION cluster_resource_conflict_policy.
 
       excluded_group_kinds {
         resource_group = "crd.projectcalico.org"

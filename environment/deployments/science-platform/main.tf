@@ -205,3 +205,166 @@ module "firewall_cert_manager" {
   network      = module.project_factory.network_name
   custom_rules = var.custom_rules
 }
+
+resource "google_gke_backup_backup_plan" "complete" {
+  count = var.cluster_backup_plan != null ? 1 : 0
+
+  name = "${module.gke.name}"
+  cluster = module.gke.id
+  project = local.project_id
+  location = "us-central1"
+
+  backup_config {
+    include_volume_data = true
+    include_secrets = true
+    all_namespaces = true
+  }
+
+  # If you destroy the associated cluster, terraform will try to destroy and
+  # recreate this backup plan, which will also try to destroy all of the
+  # backups associated with the plan. If we are trying to intentionally rebuild
+  # a cluster, we will need to destroy it first, and we don't want this backup
+  # plan destroyed.
+  lifecycle {
+    ignore_changes = [
+      cluster,
+      name,
+    ]
+  }
+}
+
+resource "google_gke_backup_restore_plan" "complete" {
+  count = var.cluster_backup_plan != null ? 1 : 0
+
+  name = "${module.gke.name}"
+  project = local.project_id
+  location = "us-central1"
+  backup_plan = google_gke_backup_backup_plan.complete[0].id
+  cluster = module.gke.id
+
+  restore_config {
+    all_namespaces = true
+
+    # We're assuming this restore plan is intended to run on a completely empty
+    # new cluster.
+    namespaced_resource_restore_mode = "FAIL_ON_CONFLICT"
+
+    # We're assuming this restore plan is intended to run on a completely empty
+    # new cluster, so REUSE_VOLUME_HANDLE_FROM_BACKUP won't work.
+    volume_data_restore_policy = "RESTORE_VOLUME_DATA_FROM_BACKUP"
+
+    cluster_resource_conflict_policy = "USE_EXISTING_VERSION"
+
+    cluster_resource_restore_scope {
+      # If we're restoring to a DataplaneV2 cluster from a non-DataplaneV2
+      # backup, we don't want to restore these resources, since the Calico CRDs
+      # won't exist. If we're restoring from DataplaneV2 to DataplaneV2, then
+      # we shouldn't have any of these resources in the backup anyway and this
+      # won't matter. If we're restoring from non-DataplaneV2 to
+      # non-DataplaneV2, then these resources get installed by the addon
+      # anyway, and will not be restored from the backup due to the
+      # USE_EXISTING_VERSION cluster_resource_conflict_policy.
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "BGPConfiguration"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "BGPFilter"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "BGPPeer"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "BlockAffinity"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "CalicoNodeStatus"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "ClusterInformation"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "FelixConfiguration"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalBGPConfig"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalFelixConfig"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalNetworkPolicy"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "GlobalNetworkSet"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "HostEndpoint"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPAMBlock"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPAMConfig"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPAMHandle"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPPool"
+      }
+
+      excluded_group_kinds {
+        resource_group = "crd.projectcalico.org"
+        resource_kind = "IPReservation"
+      }
+
+      excluded_group_kinds {
+      resource_group = "crd.projectcalico.org"
+        resource_kind = "KubeControllersConfiguration"
+      }
+    }
+  }
+
+  # If you destroy the associated cluster, terraform will try to destroy and
+  # recreate this restore plan. If we are trying to intentionally rebuild a
+  # cluster, we will need to destroy it first, and we don't want this restore
+  # plan destroyed.
+  lifecycle {
+    ignore_changes = [
+      cluster,
+      name,
+    ]
+  }
+}
