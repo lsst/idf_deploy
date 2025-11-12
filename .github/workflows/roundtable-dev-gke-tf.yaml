@@ -12,6 +12,7 @@ on:
       - 'environment/deployments/roundtable/env/dev-gke.tfvars'
   schedule:
   - cron: 25 2 * * *
+  workflow_dispatch:
 
 jobs:
   terraform:
