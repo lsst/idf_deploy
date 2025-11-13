@@ -113,9 +113,23 @@ resource "google_gke_backup_restore_plan" "complete" {
   restore_config {
     all_namespaces = true
 
-    # We're assuming this restore plan is intended to run on a completely empty
-    # new cluster.
-    namespaced_resource_restore_mode = "FAIL_ON_CONFLICT"
+    # This can't be FAIL_ON_CONFLICT, because we need to use fine-grained
+    # restore, because we need to ignore specific namespaced cert-manager
+    # resources, and specific kinds of namespaced resources can't be declared
+    #
+    # in a restore plan :(
+    # This mode merges the backup and the target cluster and skips the
+    # conflicting resources except volume data. If a PVC to restore already
+    # exists, this mode will restore/reconnect the volume without overwriting
+    # the PVC. It is similar to MERGE_SKIP_ON_CONFLICT except that it will
+    # apply the volume data policy for the conflicting PVCs: -
+    # RESTORE_VOLUME_DATA_FROM_BACKUP: restore data only and respect the
+    # reclaim policy of the original PV; - REUSE_VOLUME_HANDLE_FROM_BACKUP:
+    # reconnect and respect the reclaim policy of the original PV; -
+    # NO_VOLUME_DATA_RESTORATION: new provision and respect the reclaim policy
+    # of the original PV. Note that this mode could cause data loss as the
+    # original PV can be retained or deleted depending on its reclaim policy.
+    namespaced_resource_restore_mode = "MERGE_REPLACE_VOLUME_ON_CONFLICT"
 
     # We're assuming this restore plan is intended to run on a completely empty
     # new cluster, so REUSE_VOLUME_HANDLE_FROM_BACKUP won't work.
