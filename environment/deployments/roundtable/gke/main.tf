@@ -123,13 +123,59 @@ resource "google_gke_backup_restore_plan" "complete" {
 
     cluster_resource_conflict_policy = "USE_EXISTING_VERSION"
 
+    restore_order {
+      # Restore secrets before some other resources to avoid re-issuing
+      # certificates
+      # https://cert-manager.io/docs/devops-tips/backup/#avoiding-unnecessary-certificate-reissuance
+      group_kind_dependencies {
+        satisfying {
+          resource_group = "core"
+          resource_kind = "Secret"
+        }
+
+        requiring {
+          resource_group = "cert-manager.io"
+          resource_kind = "Certificate"
+        }
+      }
+
+      group_kind_dependencies {
+        satisfying {
+          resource_group = "core"
+          resource_kind = "Secret"
+        }
+
+        requiring {
+          resource_group = "networking.k8s.io"
+          resource_kind = "Ingress"
+        }
+      }
+    }
+
     cluster_resource_restore_scope {
+
+      # Ignore certain ephemeral cert-manager resources
+      # https://cert-manager.io/docs/devops-tips/backup/
+      excluded_group_kinds {
+        resource_group = "cert-manager.io"
+        resource_kind = "Order"
+      }
+
+      excluded_group_kinds {
+        resource_group = "cert-manager.io"
+        resource_kind = "Challenge"
+      }
+
+      excluded_group_kinds {
+        resource_group = "cert-manager.io"
+        resource_kind = "CertificateRequest"
+      }
+
       # If we're restoring to a DataplaneV2 cluster from a non-DataplaneV2
       # backup, we don't want to restore these resources, since the Calico
       # CRDs won't exist. If we're restoring from DataplaneV2 to DataplaneV2,
       # then we shouldn't have any of these resources in the backup anyway
       # and this won't matter.
-
       excluded_group_kinds {
         resource_group = "crd.projectcalico.org"
         resource_kind = "BGPConfiguration"
