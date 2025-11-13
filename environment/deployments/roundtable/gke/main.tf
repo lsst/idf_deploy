@@ -116,8 +116,8 @@ resource "google_gke_backup_restore_plan" "complete" {
     # This can't be FAIL_ON_CONFLICT, because we need to use fine-grained
     # restore, because we need to ignore specific namespaced cert-manager
     # resources, and specific kinds of namespaced resources can't be declared
-    #
     # in a restore plan :(
+    #
     # This mode merges the backup and the target cluster and skips the
     # conflicting resources except volume data. If a PVC to restore already
     # exists, this mode will restore/reconnect the volume without overwriting
@@ -137,93 +137,7 @@ resource "google_gke_backup_restore_plan" "complete" {
 
     cluster_resource_conflict_policy = "USE_EXISTING_VERSION"
 
-    restore_order {
-      # Restore secrets before some other resources to avoid re-issuing
-      # certificates
-      # https://cert-manager.io/docs/devops-tips/backup/#avoiding-unnecessary-certificate-reissuance
-      group_kind_dependencies {
-        satisfying {
-          resource_group = "core"
-          resource_kind = "Secret"
-        }
-
-        requiring {
-          resource_group = "cert-manager.io"
-          resource_kind = "Certificate"
-        }
-      }
-
-      group_kind_dependencies {
-        satisfying {
-          resource_group = "core"
-          resource_kind = "Secret"
-        }
-
-        requiring {
-          resource_group = "networking.k8s.io"
-          resource_kind = "Ingress"
-        }
-      }
-
-      group_kind_dependencies {
-        satisfying {
-          resource_group = "networking.k8s.io"
-          resource_kind = "Ingress"
-        }
-
-        requiring {
-          resource_group = "cert-manager.io"
-          resource_kind = "Certificate"
-        }
-      }
-
-      # Let new secrets get generated from these CRDs so they are associated
-      # with CRD resources with the correct UIDs. When the restore process
-      # tries to restore a secret and finds it already exists, it will not
-      # restore it from the backup.
-      group_kind_dependencies {
-        satisfying {
-          resource_group = "gafaelfawr.lsst.io"
-          resource_kind = "GafaelfawrServiceToken"
-        }
-
-        requiring {
-          resource_group = "core"
-          resource_kind = "Secret"
-        }
-      }
-
-      group_kind_dependencies {
-        satisfying {
-          resource_group = "ricoberger.de"
-          resource_kind = "VaultSecret"
-        }
-
-        requiring {
-          resource_group = "core"
-          resource_kind = "Secret"
-        }
-      }
-    }
-
     cluster_resource_restore_scope {
-
-      # Ignore certain ephemeral cert-manager resources
-      # https://cert-manager.io/docs/devops-tips/backup/
-      excluded_group_kinds {
-        resource_group = "acme.cert-manager.io"
-        resource_kind = "Order"
-      }
-
-      excluded_group_kinds {
-        resource_group = "acme.cert-manager.io"
-        resource_kind = "Challenge"
-      }
-
-      excluded_group_kinds {
-        resource_group = "cert-manager.io"
-        resource_kind = "CertificateRequest"
-      }
 
       # If we're restoring to a DataplaneV2 cluster from a non-DataplaneV2
       # backup, we don't want to restore these resources, since the Calico
