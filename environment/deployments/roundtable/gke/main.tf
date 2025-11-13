@@ -171,12 +171,12 @@ resource "google_gke_backup_restore_plan" "complete" {
       # Ignore certain ephemeral cert-manager resources
       # https://cert-manager.io/docs/devops-tips/backup/
       excluded_group_kinds {
-        resource_group = "cert-manager.io"
+        resource_group = "acme.cert-manager.io"
         resource_kind = "Order"
       }
 
       excluded_group_kinds {
-        resource_group = "cert-manager.io"
+        resource_group = "acme.cert-manager.io"
         resource_kind = "Challenge"
       }
 
