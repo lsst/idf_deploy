@@ -137,6 +137,24 @@ resource "google_gke_backup_restore_plan" "complete" {
 
     cluster_resource_conflict_policy = "USE_EXISTING_VERSION"
 
+    # If we don't provision restored PVs with a "Retain" reclaim policy, then
+    # there is a race condition in the restore where they could get deleted
+    # because they get provisioned unbound to a PVC.
+    transformation_rules {
+      description = "Provision all PVs with Retain reclaim policy"
+      resource_filter {
+        group_kinds {
+          resource_kind = "PersistentVolume"
+          resource_group = ""
+        }
+      }
+      field_actions {
+        op = "REPLACE"
+        path = "/spec/persistentVolumeReclaimPolicy"
+        value = "Retain"
+      }
+    }
+
     cluster_resource_restore_scope {
 
       # If we're restoring to a DataplaneV2 cluster from a non-DataplaneV2
