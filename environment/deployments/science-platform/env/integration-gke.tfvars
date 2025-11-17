@@ -91,6 +91,10 @@ monitoring_enabled_components = [
 
   # Gets us sum of requests/limits per node
   "SCHEDULER",
+
+  # Gets us Kubernetes API server metrics, to help diagnose errors in our
+  # controllers
+  "APISERVER",
 ]
 
 gke_backup_agent_config = true
