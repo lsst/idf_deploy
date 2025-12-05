@@ -33,7 +33,7 @@ module "gke" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                                 = "${var.application_name}-${var.environment}"
+  name                                 = "${var.application_name}-${var.environment}2"
   project_id                           = local.project_id
   network                              = var.network_name
   subnetwork                           = local.subnetwork
@@ -88,5 +88,17 @@ resource "google_gke_backup_backup_plan" "complete" {
     include_volume_data = true
     include_secrets = true
     all_namespaces = true
+  }
+
+  # If you destroy the associated cluster, terraform will try to destroy and
+  # recreate this backup plan, which will also try to destroy all of the
+  # backups associated with the plan. If we are trying to intentionally rebuild
+  # a cluster, we will need to destroy it first, and we don't want this backup
+  # plan destroyed.
+  lifecycle {
+    ignore_changes = [
+      cluster,
+      name,
+    ]
   }
 }
