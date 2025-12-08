@@ -9,7 +9,7 @@ network_policy = false
 
 # GKE
 release_channel        = "RAPID"
-master_ipv4_cidr_block = "172.16.0.0/28"
+master_ipv4_cidr_block = "172.16.1.0/28"
 gce_pd_csi_driver      = true
 maintenance_start_time = "2021-08-18T00:00:00Z"
 maintenance_end_time   = "2021-08-18T12:00:00Z"
