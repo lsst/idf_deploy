@@ -12,6 +12,7 @@ on:
       - 'environment/deployments/science-platform/env/dev2-gke.tfvars'
   schedule:
   - cron: 25 2 * * *
+  workflow_dispatch:
 
 jobs:
   terraform:
@@ -67,7 +68,7 @@ jobs:
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
       run: terraform apply -var-file=../env/dev2-gke.tfvars -auto-approve
 
     - name: Report status
