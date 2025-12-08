@@ -1,15 +1,15 @@
 # Deploys Science Platform Dev GCP Project with Terraform
-name: 'RSP DEV2 GKE'
+name: 'RSP DEV NEW GKE'
 
 on:
   pull_request:
     paths:
-      - 'environment/deployments/science-platform/env/dev2-gke.tfvars'
+      - 'environment/deployments/science-platform/env/dev-new-gke.tfvars'
   push:
     branches:
       - main
     paths:
-      - 'environment/deployments/science-platform/env/dev2-gke.tfvars'
+      - 'environment/deployments/science-platform/env/dev-new-gke.tfvars'
   schedule:
   - cron: 25 2 * * *
   workflow_dispatch:
@@ -55,7 +55,7 @@ jobs:
 
      # Initialize a new or existing terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=science-platform/dev2/gke
+      run: terraform init -backend-config=bucket=${{ secrets.TERRAFORM_STATE_BUCKET }} -backend-config=prefix=science-platform/dev-new/gke
 
     # Checks that all terraform configuration files adhere to a canonical format
     - name: Terraform Validate
@@ -64,12 +64,12 @@ jobs:
     # Generates an execution plan for terraform
     - name: Terraform Plan
       id: plan
-      run: terraform plan -var-file=../env/dev2-gke.tfvars -no-color
+      run: terraform plan -var-file=../env/dev-new-gke.tfvars -no-color
 
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-      run: terraform apply -var-file=../env/dev2-gke.tfvars -auto-approve
+      run: terraform apply -var-file=../env/dev-new-gke.tfvars -auto-approve
 
     - name: Report status
       if: failure() && github.ref == 'refs/heads/main'

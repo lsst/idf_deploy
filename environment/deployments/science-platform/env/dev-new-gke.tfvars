@@ -1,6 +1,7 @@
 # Project
 environment      = "dev"
 application_name = "science-platform"
+cluster_name = "rsp-dev"
 
 # This refers to the pre-DataplaneV2 Calico network policies. These are not
 # compatible with DataplaneV2, so they must not be enabled in clusters with
