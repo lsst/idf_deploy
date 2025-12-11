@@ -254,6 +254,13 @@ resource "random_password" "tap" {
   special = false
 }
 
+resource "random_password" "ppdbtap" {
+  length  = 24
+  numeric = true
+  upper   = true
+  special = false
+}
+
 data "google_compute_network" "network" {
   name    = var.network
   project = var.project_id
@@ -325,6 +332,11 @@ module "db_science_platform" {
       name      = "tap"
       charset   = "UTF8"
       collation = "en_US.UTF8"
+    },
+    {
+      name      = "ppdbtap"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
     }
   ]
 
@@ -352,6 +364,11 @@ module "db_science_platform" {
     {
       name            = "vo-cutouts"
       password        = random_password.vo-cutouts.result
+      random_password = false
+    },
+    {
+      name            = "ppdbtap"
+      password        = random_password.ppdbtap.result
       random_password = false
     },
     {
@@ -420,6 +437,7 @@ module "service_accounts" {
     "gafaelfawr",
     "grafana",
     "nublado",
+    "ppdbtap",
     "repertoire",
     "ssotap",
     "tap-service",
@@ -504,6 +522,30 @@ resource "google_service_account_iam_member" "repertoire_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["repertoire"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[repertoire/repertoire]"
+}
+
+resource "google_service_account_iam_member" "ppdbtap_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["ppdbtap"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[ppdbtap/ppdbtap]"
+}
+
+resource "google_project_iam_member" "ppdbtap_bigquery_data_viewer" {
+  project = "ppdb-dev-438721"
+  role    = "roles/bigquery.dataViewer"
+  member  = module.service_accounts.service_accounts_map["ppdbtap"].member
+}
+
+resource "google_project_iam_member" "ppdbtap_bigquery_job_user" {
+  project = "ppdb-dev-438721"
+  role    = "roles/bigquery.jobUser"
+  member  = module.service_accounts.service_accounts_map["ppdbtap"].member
+}
+
+resource "google_project_iam_member" "ppdbtap_bigquery_read_session_user" {
+  project = "ppdb-dev-438721"
+  role    = "roles/bigquery.readSessionUser"
+  member  = module.service_accounts.service_accounts_map["ppdbtap"].member
 }
 
 # The vo-cutouts service account must be granted the ability to generate
