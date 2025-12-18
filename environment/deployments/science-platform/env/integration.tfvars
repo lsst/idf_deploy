@@ -89,7 +89,7 @@ netapp_definitions = [
     backups_enabled        = true
     has_root_access        = true
     access_type            = "READ_WRITE"
-    default_user_quota_mib = 35000
+    default_user_quota_mib = 40000
   },
   { name                   = "rubin"
     service_level          = "PREMIUM"
