@@ -124,6 +124,7 @@ netapp_definitions = [
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
 # our standard APIs.
 activate_apis = [
+  "bigquery.googleapis.com",
   "compute.googleapis.com",
   "container.googleapis.com",
   "containerfilesystem.googleapis.com",

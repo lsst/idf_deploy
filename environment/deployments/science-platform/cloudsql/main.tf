@@ -434,6 +434,7 @@ module "service_accounts" {
   display_name = "PostgreSQL client"
   description  = "Terraform-managed service account for PostgreSQL access"
   names = [
+    "bigquery-kafka",
     "gafaelfawr",
     "grafana",
     "nublado",
@@ -530,6 +531,12 @@ resource "google_service_account_iam_member" "ppdbtap_sa_wi" {
   member             = "serviceAccount:${var.project_id}.svc.id.goog[ppdbtap/ppdbtap]"
 }
 
+resource "google_service_account_iam_member" "bigquery_kafka_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["bigquery-kafka"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[bigquery-kafka/bigquery-kafka]"
+}
+
 resource "google_project_iam_member" "ppdbtap_bigquery_data_viewer" {
   project = "ppdb-dev-438721"
   role    = "roles/bigquery.dataViewer"
@@ -546,6 +553,24 @@ resource "google_project_iam_member" "ppdbtap_bigquery_read_session_user" {
   project = "ppdb-dev-438721"
   role    = "roles/bigquery.readSessionUser"
   member  = module.service_accounts.service_accounts_map["ppdbtap"].member
+}
+
+resource "google_project_iam_member" "bigquery_kafka_bigquery_data_viewer" {
+  project = "ppdb-dev-438721"
+  role    = "roles/bigquery.dataViewer"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
+resource "google_project_iam_member" "bigquery_kafka_bigquery_job_user" {
+  project = "ppdb-dev-438721"
+  role    = "roles/bigquery.jobUser"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
+resource "google_project_iam_member" "bigquery_kafka_bigquery_read_session_user" {
+  project = "ppdb-dev-438721"
+  role    = "roles/bigquery.readSessionUser"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
 }
 
 # The vo-cutouts service account must be granted the ability to generate
