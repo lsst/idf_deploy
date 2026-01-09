@@ -30,7 +30,7 @@ node_pools = [
   },
   {
     name               = "user-lab-pool"
-    machine_type       = "n2-standard-32"
+    machine_type       = "n2-himem-16"
     node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
@@ -102,4 +102,5 @@ gke_backup_agent_config = true
 enable_dataplane_v2 = false
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 10
+# Serial: 11
+
