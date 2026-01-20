@@ -10,8 +10,9 @@ on:
       - 'environment/deployments/roundtable/env/production.tfvars'
     branches:
       - main
-  schedule:
-  - cron: 25 2 * * *
+  # Re-enable this when/if we want to deal with drift
+  # schedule:
+  # - cron: 25 2 * * *
 
 jobs:
   terraform:
