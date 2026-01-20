@@ -11,8 +11,9 @@ on:
       - main
     paths:
       - 'environment/deployments/science-platform/env/demo-gke.tfvars'
-  schedule:
-  - cron: 25 2 * * *
+  # Re-enable this when/if we want to deal with drift
+  # schedule:
+  # - cron: 25 2 * * *
 
 jobs:
   terraform:

@@ -11,6 +11,7 @@ on:
   #     - 'environment/deployments/science-platform/firestore/env/demo.tfvars'
   #   branches:
   #     - main
+  # Re-enable this when/if we want to deal with drift
   # schedule:
   # - cron: 25 2 * * *
 

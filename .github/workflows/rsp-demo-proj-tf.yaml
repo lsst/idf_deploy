@@ -14,8 +14,9 @@ on:
       - 'environment/deployments/science-platform/env/demo.tfvars'
     branches:
       - main
-  schedule:
-  - cron: 25 2 * * *
+  # Re-enable this when/if we want to deal with drift
+  # schedule:
+  # - cron: 25 2 * * *
 
 jobs:
   terraform:
