@@ -170,14 +170,6 @@ variable "router_name" {
   default     = "cloud-router"
 }
 
-# STATIC IP RESERVATION
-
-variable "static_ip_name" {
-  description = "Name to give to the static ip"
-  type        = string
-  default     = "load-balancer"
-}
-
 # Buckets
 
 variable "vault_server_bucket_suffix" {
@@ -200,9 +192,46 @@ variable "atlantis_monitoring_admin_service_account_member" {
   description = "The service account that should have Google Cloud monitoring admin permissions in THIS project. This service account is probably provisioned in a different project."
 }
 
+# STATIC IP RESERVATION
 variable "ingress_ip_address" {
   description = "The name and description for the static IP address attached to the cluster ingress load balancer."
   type = object({
+    name = string
+    description = string
+  })
+}
+
+variable "kafka_bootstrap_ip_address" {
+  description = "The name and description for the static IP address attached to the cluster ingress load balancer."
+  type = object({
+    enabled = bool
+    name = string
+    description = string
+  })
+}
+
+variable "kafka_broker1_ip_address" {
+  description = "The name and description for the static IP address attached to the cluster ingress load balancer."
+  type = object({
+    enabled = bool
+    name = string
+    description = string
+  })
+}
+
+variable "kafka_broker2_ip_address" {
+  description = "The name and description for the static IP address attached to the cluster ingress load balancer."
+  type = object({
+    enabled = bool
+    name = string
+    description = string
+  })
+}
+
+variable "kafka_broker3_ip_address" {
+  description = "The name and description for the static IP address attached to the cluster ingress load balancer."
+  type = object({
+    enabled = bool
     name = string
     description = string
   })
