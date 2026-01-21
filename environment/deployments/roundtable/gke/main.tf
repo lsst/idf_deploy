@@ -74,50 +74,6 @@ module "gke" {
   gke_backup_agent_config = var.gke_backup_agent_config
 }
 
-module "gke-new" {
-  source = "../../../../modules/gke"
-
-  # Cluster
-  name                   = "${var.application_name}-${var.environment}-new"
-  project_id             = local.project_id
-  network                = var.network_name
-  subnetwork             = local.subnetwork
-  master_ipv4_cidr_block = var.master_ipv4_cidr_block
-  node_pools             = var.node_pools
-  release_channel        = var.release_channel
-  gce_pd_csi_driver      = var.gce_pd_csi_driver
-  gcs_fuse_csi_driver    = var.gcs_fuse_csi_driver
-  network_policy         = var.network_policy
-  maintenance_start_time = var.maintenance_start_time
-  maintenance_end_time   = var.maintenance_end_time
-  maintenance_recurrence = var.maintenance_recurrence
-
-  enable_dataplane_v2 = true
-
-  monitoring_enabled_components        = var.monitoring_enabled_components
-  monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
-
-  # Labels
-  cluster_resource_labels = {
-    environment      = var.environment
-    project          = local.project_id
-    application_name = var.application_name
-    subnetwork       = local.subnetwork
-  }
-
-  # Node Pools
-  node_pools_labels = {
-    all = {
-      environment      = var.environment
-      project          = local.project_id
-      application_name = var.application_name
-    }
-  }
-
-  node_pools_taints = var.node_pools_taints
-
-  gke_backup_agent_config = var.gke_backup_agent_config
-}
 resource "google_gke_backup_backup_plan" "complete" {
   count = var.cluster_backup_plan != null ? 1 : 0
 
