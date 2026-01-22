@@ -33,7 +33,7 @@ module "gke" {
   source = "../../../../modules/gke"
 
   # Cluster
-  name                   = "${var.application_name}-${var.environment}"
+  name                   = var.cluster_name != null ? var.cluster_name : "${var.application_name}-${var.environment}"
   project_id             = local.project_id
   network                = var.network_name
   subnetwork             = local.subnetwork

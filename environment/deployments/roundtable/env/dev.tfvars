@@ -33,14 +33,17 @@ secondary_ranges = {
 # This allows the Kubernetes master to talk to validation controllers
 # running inside the GKE cluster.  The IP range must match
 # master_ipv4_cidr_block in the GKE configuration.
+# We have two ranges here: one for the original cluster, and one for the
+# rebuilt clusters with Dataplane V2 enabled. When the original clusters are
+# destroyed, we can remove the range for them here.
 custom_rules = {
   cert-manager-terraform = {
     description          = "cert manager rule created by terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["172.16.0.0/28"]
+    ranges               = ["172.16.0.0/28", "172.16.1.0/28"]
     sources              = []
-    targets              = ["gke-roundtable-dev"]
+    targets              = ["gke-roundtable-dev", "gke-roundtable-dev-2"]
     use_service_accounts = false
     rules = [
       {
