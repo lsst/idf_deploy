@@ -10,6 +10,12 @@ variable "environment" {
   type        = string
 }
 
+variable "cluster_name" {
+  description = "The name of the GKE cluster, if you want it to be different than application_name"
+  type = string
+  default = null
+}
+
 # VPC
 
 variable "network_name" {
