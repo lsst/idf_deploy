@@ -573,6 +573,24 @@ resource "google_project_iam_member" "bigquery_kafka_bigquery_read_session_user"
   member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
 }
 
+resource "google_project_iam_member" "bigquery_kafka_bigquery_data_viewer_prod" {
+  project = "ppdb-prod"
+  role    = "roles/bigquery.dataViewer"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
+resource "google_project_iam_member" "bigquery_kafka_bigquery_job_user_prod" {
+  project = "ppdb-prod"
+  role    = "roles/bigquery.jobUser"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
+resource "google_project_iam_member" "bigquery_kafka_bigquery_read_session_user_prod" {
+  project = "ppdb-prod"
+  role    = "roles/bigquery.readSessionUser"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
 # The vo-cutouts service account must be granted the ability to generate
 # tokens for itself so that it can generate signed GCS URLs starting from
 # the GKE service account token without requiring an exported secret key
