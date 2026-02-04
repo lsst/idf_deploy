@@ -10,7 +10,7 @@ network_policy = false
 
 # GKE
 release_channel        = "RAPID"
-kubernetes_version     = "v1.34.3-gke.1051003"
+kubernetes_version     = "1.34.3-gke.1051003"
 master_ipv4_cidr_block = "172.16.1.0/28"
 gce_pd_csi_driver      = true
 maintenance_start_time = "2021-08-18T00:00:00Z"
