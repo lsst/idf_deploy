@@ -154,6 +154,12 @@ variable "release_channel" {
   default     = "REGULAR"
 }
 
+variable "kubernetes_version" {
+  type        = string
+  description = "The Kubernetes version of the masters. If set to 'latest' it will pull latest available version in the selected region."
+  default     = "latest"
+}
+
 variable "enable_resource_consumption_export" {
   description = "Whether to enable resource consumption metering on this cluster. When enabled, a table will be created in the resource export BigQuery dataset to store resource consumption data. The resulting table can be joined with the resource usage table or with BigQuery billing export."
   type        = bool

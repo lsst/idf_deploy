@@ -40,6 +40,7 @@ module "gke" {
   master_ipv4_cidr_block               = var.master_ipv4_cidr_block
   node_pools                           = var.node_pools
   release_channel                      = var.release_channel
+  kubernetes_version                   = var.kubernetes_version
   gce_pd_csi_driver                    = var.gce_pd_csi_driver
   network_policy                       = var.network_policy
   maintenance_start_time               = var.maintenance_start_time

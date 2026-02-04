@@ -46,6 +46,7 @@ module "gke" {
   node_metadata                      = var.node_metadata
   node_pools                         = var.node_pools
   release_channel                    = var.release_channel
+  kubernetes_version                 = var.kubernetes_version
   dns_cache                          = var.dns_cache
   gce_pd_csi_driver                  = var.gce_pd_csi_driver
   gcs_fuse_csi_driver                = var.gcs_fuse_csi_driver

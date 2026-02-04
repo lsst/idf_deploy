@@ -34,6 +34,12 @@ variable "release_channel" {
   default = "REGULAR"
 }
 
+variable "kubernetes_version" {
+  type        = string
+  description = "The Kubernetes version of the masters. If set to 'latest' it will pull latest available version in the selected region."
+  default     = "latest"
+}
+
 variable "zones" {
   description = "The zones to host the cluster in (optional if regional cluster / required if zonal)"
   type        = list(string)
