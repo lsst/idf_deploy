@@ -12,7 +12,7 @@ variable "folder_id" {
 variable "billing_account" {
   description = "The ID of the billing account to associated this project with"
   type        = string
-  default     = "017AD6-5564CB-B8A78F"
+  default     = "018501-45EA37-7D3D1F"
 }
 
 variable "application_name" {
