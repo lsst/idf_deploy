@@ -10,10 +10,8 @@ on:
       - main
     paths:
       - 'environment/deployments/science-platform/env/dev-new-gke.tfvars'
-  # Re-enable this when/if we want to deal with drift
-  # schedule:
-  # - cron: 25 2 * * *
-  workflow_dispatch:
+  schedule:
+  - cron: 25 2 * * *
 
 jobs:
   terraform:
