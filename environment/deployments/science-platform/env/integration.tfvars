@@ -41,9 +41,9 @@ custom_rules = {
     description          = "cert manager rule created by terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["172.18.0.0/28"]
+    ranges               = ["172.18.0.0/28", "172.18.1.0/28"]
     sources              = []
-    targets              = ["gke-science-platform-int"]
+    targets              = ["gke-science-platform-int", "rsp-int"]
     use_service_accounts = false
     rules = [
       {
