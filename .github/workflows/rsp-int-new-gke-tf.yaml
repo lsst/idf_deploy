@@ -35,7 +35,9 @@ jobs:
     - name: GCP login
       uses: google-github-actions/auth@v2
       with:
-        credentials_json: ${{ secrets.PIPELINE_RSP_INT_GKE }}
+        credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+        # Put these back after the cluster is created
+        # credentials_json: ${{ secrets.PIPELINE_RSP_INT_GKE }}
 
     # gcloud setup
     - name: 'Set up Cloud SDK'
