@@ -43,7 +43,7 @@ custom_rules = {
     action               = "allow"
     ranges               = ["172.18.0.0/28", "172.18.1.0/28"]
     sources              = []
-    targets              = ["gke-science-platform-int", "rsp-int"]
+    targets              = ["gke-science-platform-int", "gke-rsp-int"]
     use_service_accounts = false
     rules = [
       {
