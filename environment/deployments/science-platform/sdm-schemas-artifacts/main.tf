@@ -5,7 +5,7 @@
 # Repertoire is the customer for these artifacts and uses them to
 # populate TAP_SCHEMA databases.
 #
-# Artifacts are publicly readable.
+# Artifacts are readable by the Repertoire service account.
 
 #---------------------------------------------------------------
 // Artifact bucket
@@ -21,10 +21,10 @@ module "sdm_schemas_artifacts_bucket" {
   labels        = var.labels
 }
 
-resource "google_storage_bucket_iam_member" "public_read" {
+resource "google_storage_bucket_iam_member" "repertoire_read" {
   bucket = module.sdm_schemas_artifacts_bucket.name
   role   = "roles/storage.objectViewer"
-  member = "allUsers"
+  member = "serviceAccount:repertoire@science-platform-dev-7696.iam.gserviceaccount.com"
 }
 
 #---------------------------------------------------------------
