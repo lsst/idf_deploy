@@ -330,3 +330,52 @@ resource "google_storage_bucket_iam_member" "data_curation_prod_ro_dp02_user" {
   role     = each.value
   member   = "serviceAccount:${module.butler_server_account.email}"
 }
+
+# GCS bucket for sdm_schemas CI release artifacts.
+module "sdm_schemas_artifacts_bucket" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "STANDARD"
+  location      = "US"
+  prefix_name   = "rubin"
+  suffix_name   = ["sdm-schemas-artifacts"]
+  labels = {
+    environment = var.environment
+    managed-by  = "terraform"
+    service     = "sdm-schemas"
+  }
+}
+
+module "sdm_schemas_uploader" {
+  source = "../../../modules/service_accounts/"
+
+  project_id   = module.project_factory.project_id
+  prefix       = "pipeline"
+  names        = ["sdm-schemas-uploader"]
+  display_name = "SDM Schemas artifact uploader"
+  description  = "GitHub Actions service account for uploading sdm_schemas CI artifacts to GCS"
+}
+
+resource "google_storage_bucket_iam_member" "sdm_schemas_uploader_write" {
+  bucket = module.sdm_schemas_artifacts_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${module.sdm_schemas_uploader.email}"
+}
+
+resource "google_storage_bucket_iam_member" "repertoire_dev_read" {
+  bucket = module.sdm_schemas_artifacts_bucket.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:repertoire@science-platform-dev-7696.iam.gserviceaccount.com"
+}
+
+resource "google_storage_bucket_iam_member" "repertoire_int_read" {
+  bucket = module.sdm_schemas_artifacts_bucket.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:repertoire@science-platform-int-dc5d.iam.gserviceaccount.com"
+}
+
+resource "google_storage_bucket_iam_member" "repertoire_stable_read" {
+  bucket = module.sdm_schemas_artifacts_bucket.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:repertoire@science-platform-stable-6994.iam.gserviceaccount.com"
+}

@@ -64,3 +64,13 @@ output "nat_id" {
   description = "The self ID of the NAT"
   value       = module.nat.nat_id
 }
+
+output "sdm_schemas_bucket_name" {
+  description = "Name of the GCS bucket holding sdm_schemas CI artifacts."
+  value       = module.sdm_schemas_artifacts_bucket.name
+}
+
+output "sdm_schemas_uploader_service_account_email" {
+  description = "Email of the service account used by sdm_schemas GitHub Actions CI to upload artifacts."
+  value       = module.sdm_schemas_uploader.email
+}
