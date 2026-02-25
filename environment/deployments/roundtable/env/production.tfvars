@@ -36,9 +36,9 @@ custom_rules = {
     description          = "cert manager rule created by terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["172.30.0.0/28"]
+    ranges               = ["172.30.0.0/28", "172.30.1.0/28"]
     sources              = []
-    targets              = ["gke-roundtable-prod"]
+    targets              = ["gke-roundtable-prod", "gke-roundtable-prod-2"]
     use_service_accounts = false
     rules = [
       {
