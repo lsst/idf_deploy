@@ -53,9 +53,7 @@ custom_rules = {
 # NAT
 nats = [{ name = "cloud-nat" }]
 
-# Enable Google Artifact Registry, Service Networking, Container Filesystem,
-# and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
-# our standard APIs.
+# Google Cloud APIs to activate in addition to our standard set.
 activate_apis = [
   "compute.googleapis.com",
   "container.googleapis.com",
@@ -65,7 +63,9 @@ activate_apis = [
   "storage.googleapis.com",
   "billingbudgets.googleapis.com",
   "servicenetworking.googleapis.com",
-  "sqladmin.googleapis.com"
+  "sqladmin.googleapis.com",
+  "run.googleapis.com",
+  "certificatemanager.googleapis.com",
 ]
 
 vault_server_bucket_suffix = "vault-server"

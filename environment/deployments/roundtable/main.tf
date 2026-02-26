@@ -95,6 +95,37 @@ module "storage_bucket_b" {
   }
 }
 
+// Vault Server Storage Bucket (Temporary). This can be used as backing storage
+// when working on the cluster in which vault itself lives.
+module "storage_bucket_t" {
+  source        = "../../../modules/bucket"
+  project_id    = module.project_factory.project_id
+  storage_class = "REGIONAL"
+  location      = "us-central1"
+  suffix_name   = ["${var.vault_server_bucket_suffix}-temp"]
+  prefix_name   = "rubin-us-central1"
+  versioning = {
+    "${var.vault_server_bucket_suffix}-temp" = true
+  }
+  lifecycle_rules = [
+    {
+      action = {
+        type = "Delete"
+      }
+      condition = {
+        num_newer_versions = "20"
+      }
+    }
+  ]
+  force_destroy = {
+    "${var.vault_server_bucket_suffix}-temp" = false
+  }
+  labels = {
+    environment = var.environment
+    application = "vault"
+  }
+}
+
 // Service account and roles for Vault Server
 
 // Service account for Vault Server
@@ -142,6 +173,13 @@ resource "google_storage_bucket_iam_member" "vault_server_storage_backup_sa" {
   member = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
 }
 
+// Admin storage access to Vault Server temp bucket
+resource "google_storage_bucket_iam_member" "vault_server_storage_temporary_sa" {
+  bucket = module.storage_bucket_t.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:vault-server@${module.project_factory.project_id}.iam.gserviceaccount.com"
+}
+
 // Hidden SA for data transfer job
 
 data "google_storage_transfer_project_service_account" "vault_backup_transfer_sa" {
@@ -168,6 +206,18 @@ resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_
 
 resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_sa_r" {
   bucket = module.storage_bucket_b.name
+  role   = "roles/storage.legacyBucketReader"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+}
+
+resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_temporary_sa" {
+  bucket = module.storage_bucket_t.name
+  role   = "roles/storage.legacyBucketWriter"
+  member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
+}
+
+resource "google_storage_bucket_iam_member" "vault_server_storage_transfer_sink_temporary_sa_r" {
+  bucket = module.storage_bucket_t.name
   role   = "roles/storage.legacyBucketReader"
   member = "serviceAccount:${data.google_storage_transfer_project_service_account.vault_backup_transfer_sa.email}"
 }
@@ -243,6 +293,32 @@ resource "google_storage_transfer_job" "vault_server_storage_backup" {
     }
   }
   depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r]
+}
+
+
+
+# We can use kick this transfer job manually if we're ever working on the
+# cluster with the in-use vault instance, and we need read access to the vault
+# data. We can take a snapshot of the data, provision another temporary vault
+# instance, and point it at the snapshotted data.
+#
+# This works with the temp instance strategy in the
+# https://github.com/lsst-sqre/vault-temp repo.
+#
+# We could use the existing backup bucket for this, but we don't want to
+# accidentally corrupt the backup data.
+resource "google_storage_transfer_job" "vault_server_storage_temp" {
+  description = "Temporary copy of Vault Server storage"
+  project     = module.project_factory.project_id
+  transfer_spec {
+    gcs_data_source {
+      bucket_name = module.storage_bucket.name
+    }
+    gcs_data_sink {
+      bucket_name = module.storage_bucket_t.name
+    }
+  }
+  depends_on = [google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_source_sa_r, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_sa_r, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_temporary_sa, google_storage_bucket_iam_member.vault_server_storage_transfer_sink_temporary_sa_r]
 }
 
 # Service account for EUPS Ready only
