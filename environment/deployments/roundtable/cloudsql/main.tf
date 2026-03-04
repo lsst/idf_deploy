@@ -19,6 +19,13 @@ resource "random_password" "ook" {
   special = false
 }
 
+resource "random_password" "docverse" {
+  length  = 24
+  numeric = true
+  upper   = true
+  special = false
+}
+
 
 data "google_compute_network" "network" {
   name    = var.network
@@ -68,6 +75,11 @@ module "db_roundtable" {
       name      = "ook"
       charset   = "UTF8"
       collation = "en_US.UTF8"
+    },
+    {
+      name      = "docverse"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
     }
   ]
 
@@ -85,6 +97,11 @@ module "db_roundtable" {
     {
       name            = "ook"
       password        = random_password.ook.result
+      random_password = false
+    },
+    {
+      name            = "docverse"
+      password        = random_password.docverse.result
       random_password = false
     },
   ]
@@ -108,7 +125,7 @@ module "service_accounts" {
   project_id    = var.project_id
   display_name  = "PostgreSQL client"
   description   = "Terraform-managed service account for PostgreSQL access"
-  names         = ["gafaelfawr", "grafana", "ook-sa"]
+  names         = ["gafaelfawr", "grafana", "ook-sa", "docverse-sa"]
   project_roles = ["${var.project_id}=>roles/cloudsql.client"]
 }
 
@@ -134,4 +151,10 @@ resource "google_service_account_iam_member" "ook_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["ook-sa"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[ook/ook]"
+}
+
+resource "google_service_account_iam_member" "docverse_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["docverse-sa"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[docverse/docverse]"
 }
