@@ -21,7 +21,7 @@ node_pools = [
   {
     name               = "core-pool"
     machine_type       = "n2-standard-2" # 2 vCPU 8GB
-    node_locations     = "us-central1-a,us-central1-b,us-central1-c"
+    node_locations     = "us-central1-b"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
