@@ -27,38 +27,42 @@ cluster_autoscaling = {
 
 node_pools = [
   {
-    name               = "core-pool"
-    machine_type       = "n2-standard-8"
-    node_locations     = "us-central1-b"
-    local_ssd_count    = 0
-    auto_repair        = true
-    auto_upgrade       = true
-    preemptible        = false
-    autoscaling        = true
-    initial_node_count = 1
-    min_count          = 1
-    max_count          = 100
-    image_type         = "cos_containerd"
-    enable_secure_boot = true
-    disk_size_gb       = "300"
-    disk_type          = "pd-ssd"
+    name                        = "core-pool"
+    machine_type                = "n2-standard-32"
+    node_locations              = "us-central1-b"
+    local_ssd_count             = 0
+    auto_repair                 = true
+    auto_upgrade                = true
+    preemptible                 = false
+    autoscaling                 = true
+    initial_node_count          = 1
+    min_count                   = 1
+    max_count                   = 100
+    image_type                  = "cos_containerd"
+    enable_secure_boot          = true
+    disk_size_gb                = "300"
+    disk_type                   = "pd-ssd"
+    enable_gvnic                = true
+    total_egress_bandwidth_tier = "TIER1"
   },
   {
-    name               = "user-lab-pool"
-    machine_type       = "n2-standard-8"
-    node_locations     = "us-central1-b"
-    local_ssd_count    = 0
-    auto_repair        = true
-    auto_upgrade       = true
-    preemptible        = false
-    autoscaling        = true
-    initial_node_count = 1
-    min_count          = 1
-    max_count          = 100
-    image_type         = "cos_containerd"
-    enable_secure_boot = true
-    disk_size_gb       = "300"
-    disk_type          = "pd-ssd"
+    name                        = "user-lab-pool"
+    machine_type                = "n2-standard-32"
+    node_locations              = "us-central1-b"
+    local_ssd_count             = 0
+    auto_repair                 = true
+    auto_upgrade                = true
+    preemptible                 = false
+    autoscaling                 = true
+    initial_node_count          = 1
+    min_count                   = 1
+    max_count                   = 100
+    image_type                  = "cos_containerd"
+    enable_secure_boot          = true
+    disk_size_gb                = "300"
+    disk_type                   = "pd-ssd"
+    enable_gvnic                = true
+    total_egress_bandwidth_tier = "TIER1"
   }
 ]
 

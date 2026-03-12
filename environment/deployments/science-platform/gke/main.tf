@@ -80,15 +80,15 @@ module "gke" {
 resource "google_gke_backup_backup_plan" "complete" {
   count = var.cluster_backup_plan != null ? 1 : 0
 
-  name = "${module.gke.name}"
-  cluster = module.gke.id
-  project = local.project_id
+  name     = module.gke.name
+  cluster  = module.gke.id
+  project  = local.project_id
   location = "us-central1"
 
   backup_config {
     include_volume_data = true
-    include_secrets = true
-    all_namespaces = true
+    include_secrets     = true
+    all_namespaces      = true
   }
 
   # If you destroy the associated cluster, terraform will try to destroy and

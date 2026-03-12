@@ -157,10 +157,10 @@ resource "google_project_iam_member" "atlantis_monitoring_admin" {
 
 // Reserve a public IP for ingress
 resource "google_compute_address" "external_ip_address" {
-  name    = var.ingress_ip_address.name
+  name        = var.ingress_ip_address.name
   description = var.ingress_ip_address.description
-  region  = var.default_region
-  project = module.project_factory.project_id
+  region      = var.default_region
+  project     = module.project_factory.project_id
 }
 
 // Reserve a static ip for Cloud NAT
