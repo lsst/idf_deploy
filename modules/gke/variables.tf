@@ -230,18 +230,18 @@ variable "node_pools" {
 
   default = [
     {
-      name                  = "core-pool"
-      machine_type          = "n2-standard-4"
-      node_locations        = "us-central1-b"
-      node_count            = 5
-      local_ssd_count       = 0
-      auto_repair           = true
-      auto_upgrade          = true
-      preemptible           = false
-      image_type            = "cos_containerd"
-      enable_secure_boot    = true
-      disk_size_gb          = "200"
-      disk_type             = "pd-ssd"
+      name               = "core-pool"
+      machine_type       = "n2-standard-4"
+      node_locations     = "us-central1-b"
+      node_count         = 5
+      local_ssd_count    = 0
+      auto_repair        = true
+      auto_upgrade       = true
+      preemptible        = false
+      image_type         = "cos_containerd"
+      enable_secure_boot = true
+      disk_size_gb       = "200"
+      disk_type          = "pd-ssd"
     },
   ]
 }
@@ -304,18 +304,18 @@ variable "monitoring_enabled_components" {
 
 variable "gke_backup_agent_config" {
   description = "Whether Backup for GKE agent is enabled for this cluster."
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "enable_dataplane_v2" {
   description = "Whether to enable Dataplane V2 (all new clusters should have this enabled)."
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "enable_tier1_network" {
   description = "Whether to enable high performance networking."
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }

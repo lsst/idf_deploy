@@ -277,7 +277,7 @@ variable "atlantis_monitoring_admin_service_account_member" {
 variable "ingress_ip_address" {
   description = "The name and description for the static IP address attached to the cluster ingress load balancer."
   type = object({
-    name = string
+    name        = string
     description = string
   })
 }

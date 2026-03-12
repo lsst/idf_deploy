@@ -12,8 +12,8 @@ variable "environment" {
 
 variable "cluster_name" {
   description = "The name of the GKE cluster, if you want it to be different than application_name"
-  type = string
-  default = null
+  type        = string
+  default     = null
 }
 
 # VPC
@@ -161,18 +161,18 @@ variable "monitoring_enabled_components" {
 
 variable "gke_backup_agent_config" {
   description = "Whether Backup for GKE agent is enabled for this cluster."
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "enable_dataplane_v2" {
   description = "Whether to enable Dataplane V2 (all new clusters should have this enabled)."
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "cluster_backup_plan" {
   description = "Config for creating a backup plan for this environment's cluster"
-  type = object({})
-  default = {}
+  type        = object({})
+  default     = {}
 }
