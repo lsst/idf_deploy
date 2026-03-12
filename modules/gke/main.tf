@@ -55,7 +55,6 @@ module "gke" {
   default_max_pods_per_node            = var.default_max_pods_per_node
   enable_gcfs                          = var.enable_gcfs
   gke_backup_agent_config              = var.gke_backup_agent_config
-  gvnic                                = var.enable_gvnic
   total_egress_bandwidth_tier          = local.network_performance
 
   monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
