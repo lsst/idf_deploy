@@ -3,8 +3,7 @@
 # ------------------------------------------------------------
 
 locals {
-  datapath_provider   = var.enable_dataplane_v2 ? "ADVANCED_DATAPATH" : "DATAPATH_PROVIDER_UNSPECIFIED"
-  network_performance = var.enable_tier1_network ? "TIER_1" : null
+  datapath_provider = var.enable_dataplane_v2 ? "ADVANCED_DATAPATH" : "DATAPATH_PROVIDER_UNSPECIFIED"
 }
 
 module "gke" {
@@ -55,7 +54,6 @@ module "gke" {
   default_max_pods_per_node          = var.default_max_pods_per_node
   enable_gcfs                        = var.enable_gcfs
   gke_backup_agent_config            = var.gke_backup_agent_config
-  total_egress_bandwidth_tier        = local.network_performance
 
   monitoring_enable_managed_prometheus = var.monitoring_enable_managed_prometheus
   monitoring_enabled_components        = var.monitoring_enabled_components

@@ -313,9 +313,3 @@ variable "enable_dataplane_v2" {
   type        = bool
   default     = true
 }
-
-variable "enable_tier1_network" {
-  description = "Whether to enable high performance networking."
-  type        = bool
-  default     = false
-}
