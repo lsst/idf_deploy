@@ -31,16 +31,9 @@ resource "google_project_iam_member" "sa-gcs-access" {
   member   = "serviceAccount:gcs-access@panda-dev-1a74.iam.gserviceaccount.com"
 }
 
-// Grant access to the service account used in data-dev.lsst.cloud to
-// access the Butler repository database.
-resource "google_project_iam_binding" "data-dev-iam-binding" {
-  role    = "roles/cloudsql.client"
-  members = var.cross_project_service_accounts
-}
-
 module "service_account_cluster" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
+  version    = "~> 4.4.3"
   project_id = module.project_factory.project_id
   prefix     = var.environment
   names      = ["cluster"]
@@ -51,7 +44,7 @@ module "service_account_cluster" {
 
 module "service_account_panda" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
+  version = ">= 4.0"
   project_id = module.project_factory.project_id
   prefix     = var.environment
   names      = ["panda-harvester"]
