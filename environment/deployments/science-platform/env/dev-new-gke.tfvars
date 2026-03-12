@@ -43,7 +43,7 @@ node_pools = [
     disk_size_gb                = "300"
     disk_type                   = "pd-ssd"
     enable_gvnic                = true
-    total_egress_bandwidth_tier = "TIER1"
+    total_egress_bandwidth_tier = "TIER_1"
   },
   {
     name                        = "user-lab-pool"
@@ -62,7 +62,7 @@ node_pools = [
     disk_size_gb                = "300"
     disk_type                   = "pd-ssd"
     enable_gvnic                = true
-    total_egress_bandwidth_tier = "TIER1"
+    total_egress_bandwidth_tier = "TIER_1"
   }
 ]
 
