@@ -72,14 +72,3 @@ output "subnets_self_links" {
 #   description = "The self ID of the NAT"
 #   value       = module.nat.nat_id
 # }
-
-// Instance
-output "instance_name" {
-  description = "Name of the instance"
-  value       = module.external_vm.name
-}
-
-output "instance_zone" {
-  description = "The zone the instance was deployed"
-  value       = module.external_vm.instance_zone
-}
