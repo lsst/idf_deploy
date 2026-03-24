@@ -31,27 +31,9 @@ resource "google_project_iam_member" "sa-gcs-access" {
   member   = "serviceAccount:gcs-access@panda-dev-1a74.iam.gserviceaccount.com"
 }
 
-// Grant access to the service account used in data-dev.lsst.cloud to
-// access the Butler repository database.
-resource "google_project_iam_binding" "data-dev-iam-binding" {
-  role    = "roles/cloudsql.client"
-  members = var.cross_project_service_accounts
-}
-
-module "service_account_cluster" {
-  source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
-  project_id = module.project_factory.project_id
-  prefix     = var.environment
-  names      = ["cluster"]
-  project_roles = [
-    "${module.project_factory.project_id}=>roles/container.clusterAdmin",
-  ]
-}
-
 module "service_account_panda" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "~> 2.0"
+  version = ">= 4.0"
   project_id = module.project_factory.project_id
   prefix     = var.environment
   names      = ["panda-harvester"]
@@ -59,7 +41,6 @@ module "service_account_panda" {
     "${module.project_factory.project_id}=>roles/container.developer",
   ]
 }
-
 
 module "firewall_1" {
   source = "../../../modules/firewall"
@@ -114,47 +95,12 @@ data "google_compute_subnetwork" "my-subnetwork" {
   project = module.project_factory.project_id
 }
 
-// Enable Identity Aware Proxy
-// Commented out because we no longer needed IAP, but want to leave for future use case
-module "iap_tunnel" {
-  for_each = toset(module.external_vm.name)
-  source   = "../../../modules/iap"
-  project  = module.project_factory.project_id
-  network  = data.google_compute_network.my-network.self_link
-  members  = var.members
-  instances = [{
-    name = each.value
-    zone = "us-central1-a"
-  }]
-
-  depends_on = [module.external_vm]
-}
-
 resource "google_compute_address" "external_ip_address" {
   name    = "public-ip"
   region  = var.default_region
   project = module.project_factory.project_id
 }
 
-// Create a Public Instance for PyCharm Access
-module "external_vm" {
-  source             = "../../../modules/compute_instance"
-  project            = module.project_factory.project_id
-  subnetwork         = data.google_compute_subnetwork.my-subnetwork.self_link
-  subnetwork_project = module.project_factory.project_id
-  hostname           = "${var.application_name}-${var.environment}-public"
-  machine_type       = var.machine_type
-  num_instances      = var.num_instances
-  size               = var.size
-  image              = "centos-7-v20210316"
-  region             = var.default_region
-  tags               = var.tags
-
-  access_config = [{
-    nat_ip       = google_compute_address.external_ip_address.address
-    network_tier = "PREMIUM"
-  }]
-}
 
 // Storage Bucket
 module "storage_bucket" {
@@ -163,7 +109,7 @@ module "storage_bucket" {
   storage_class      = "REGIONAL"
   location           = "us-central1"
   suffix_name        = ["logging", "containers"]
-  prefix_name        = "drp"
+  prefix_name        = "drp-us-central1"
   bucket_policy_only = var.bucket_policy_only
   versioning = {
     logging    = true
