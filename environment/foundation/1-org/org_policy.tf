@@ -9,7 +9,7 @@ locals {
 
 module "org_domain_restricted_sharing" {
   source           = "terraform-google-modules/org-policy/google//modules/domain_restricted_sharing"
-  version          = "~> 3.0"
+  version          = "~> 7.2.0"
   organization_id  = local.organization_id
   folder_id        = local.folder_id
   policy_for       = local.parent_resource_type
@@ -22,7 +22,7 @@ module "org_domain_restricted_sharing" {
 
 module "org_skip_default_network" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 7.2.0"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.parent_resource_type
@@ -37,7 +37,7 @@ module "org_skip_default_network" {
 
 module "org_restrict_public_ip_access_cloudsql" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 7.2.0"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.parent_resource_type
@@ -52,7 +52,7 @@ module "org_restrict_public_ip_access_cloudsql" {
 
 module "org_disable_service_account_key_create" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 7.2.0"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.parent_resource_type
@@ -69,7 +69,7 @@ module "org_disable_service_account_key_create" {
 
 module "org_disable_automatic_iam_grants" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 7.2.0"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.parent_resource_type
@@ -84,7 +84,7 @@ module "org_disable_automatic_iam_grants" {
 
 module "org_shielded_vms" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 7.2.0"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.parent_resource_type

@@ -8,10 +8,10 @@ locals {
 
 module "top_folders" {
   source  = "terraform-google-modules/folders/google"
-  version = "~> 2.0"
+  version = "~> 5.1"
 
   parent = local.parent
   names  = var.folder_names
 
-  depends_on = [module.org_monitoring, module.org_audit_logs, module.org_shared_services]
+  depends_on = [module.org_shared_services]
 }
