@@ -105,5 +105,4 @@ monitoring_enabled_components = [
 gke_backup_agent_config = true
 
 # Increase this number to force Terraform to update the int environment.
-# Serial: 1
-
+# Serial: 2
