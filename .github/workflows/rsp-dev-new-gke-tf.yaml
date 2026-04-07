@@ -11,7 +11,7 @@ on:
     paths:
       - 'environment/deployments/science-platform/env/dev-new-gke.tfvars'
   schedule:
-  - cron: 25 2 * * *
+    - cron: 25 2 * * *
 
 jobs:
   terraform:

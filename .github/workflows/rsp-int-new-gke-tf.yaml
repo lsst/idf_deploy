@@ -11,7 +11,7 @@ on:
     paths:
       - 'environment/deployments/science-platform/env/integration-new-gke.tfvars'
   schedule:
-  - cron: 25 2 * * *
+    - cron: 25 2 * * *
   workflow_dispatch:
 
 
