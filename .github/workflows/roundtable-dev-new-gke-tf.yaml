@@ -11,8 +11,8 @@ on:
     paths:
       - 'environment/deployments/roundtable/env/dev-new-gke.tfvars'
   # Re-enable this when/if we want to deal with drift
-  # schedule:
-  # - cron: 25 2 * * *
+  schedule:
+    - cron: 25 2 * * *
   workflow_dispatch:
 
 jobs:
