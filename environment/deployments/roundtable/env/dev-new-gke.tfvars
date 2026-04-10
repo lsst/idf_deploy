@@ -54,18 +54,18 @@ monitoring_enabled_components = [
   # going to run your own:
   # https://cloud.google.com/kubernetes-engine/docs/how-to/kube-state-metrics#requirements
 
-  # Gets us PVC disk usage metrics
-  "KUBELET",
-
-  # Gets us CPU throttling metrics
-  "CADVISOR",
+  # Gets us Kubernetes API server metrics, to help diagnose errors in our
+  # controllers
+  "APISERVER",
 
   # Gets us sum of requests/limits per node
   "SCHEDULER",
 
-  # Gets us Kubernetes API server metrics, to help diagnose errors in our
-  # controllers
-  "APISERVER",
+  # Gets us CPU throttling metrics
+  "CADVISOR",
+
+  # Gets us PVC disk usage metrics
+  "KUBELET",
 ]
 
 gke_backup_agent_config = true
