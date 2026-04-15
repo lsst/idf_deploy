@@ -2,7 +2,7 @@
 environment                 = "prod"
 application_name            = "data-curation"
 folder_id                   = "415931067174"
-budget_amount               = 1000
+budget_amount               = 30000
 budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 
 # VPC
