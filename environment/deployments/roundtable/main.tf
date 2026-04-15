@@ -420,11 +420,33 @@ resource "google_service_account_iam_binding" "atlantis" {
   ]
 }
 
-# Allow the active Atlantis instance service account to have read/write powers
-# on Google Cloud monitoring in this project
+// Role with read/write permissions to log-based alerts
+resource "google_project_iam_custom_role" "logging_notification_admin" {
+  role_id     = "logging.notification.admin"
+  title       = "Logging Notification Admin"
+  description = "Read write permissions on Logging notifications"
+  permissions = [
+    "logging.notificationRules.create",
+    "logging.notificationRules.delete",
+    "logging.notificationRules.get",
+    "logging.notificationRules.list",
+    "logging.notificationRules.update",
+  ]
+}
+
+// Allow the active Atlantis instance service account to have read/write powers
+// on Google Cloud monitoring in this project
 resource "google_project_iam_member" "atlantis_monitoring_admin" {
   project = module.project_factory.project_id
   role    = "roles/monitoring.admin"
+  member  = var.atlantis_monitoring_admin_service_account_member
+}
+
+// Allow the active Atlantis instance service account to have read/write powers
+// on Google Cloud Logging notifications in this project
+resource "google_project_iam_member" "atlantis_logging_notifcation_admin" {
+  project = module.project_factory.project_id
+  role    = google_project_iam_custom_role.logging_notification_admin.id
   member  = var.atlantis_monitoring_admin_service_account_member
 }
 
@@ -476,10 +498,10 @@ module "firewall_cert_manager" {
 
 // Reserve a public IP for ingress
 resource "google_compute_address" "external_ip_address" {
-  name    = var.ingress_ip_address.name
+  name        = var.ingress_ip_address.name
   description = var.ingress_ip_address.description
-  region  = var.default_region
-  project = module.project_factory.project_id
+  region      = var.default_region
+  project     = module.project_factory.project_id
 }
 
 // Reserve a static ip for Cloud NAT
