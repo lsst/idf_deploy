@@ -2,6 +2,7 @@
 environment      = "stable"
 application_name = "science-platform"
 folder_id        = "719717645081"
+budget_amount    = 30000
 
 # VPC
 network_name = "science-platform-stable-vpc"
