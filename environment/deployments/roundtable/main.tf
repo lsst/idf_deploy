@@ -422,7 +422,8 @@ resource "google_service_account_iam_binding" "atlantis" {
 
 // Role with read/write permissions to log-based alerts
 resource "google_project_iam_custom_role" "logging_notification_admin" {
-  role_id     = "logging.notification.admin"
+  project     = module.project_factory.project_id
+  role_id     = "loggingNotificationAdmin"
   title       = "Logging Notification Admin"
   description = "Read write permissions on Logging notifications"
   permissions = [
