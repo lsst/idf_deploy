@@ -428,6 +428,14 @@ resource "google_project_iam_member" "atlantis_monitoring_admin" {
   member  = var.atlantis_monitoring_admin_service_account_member
 }
 
+// Allow the active Atlantis instance service account to have read/write powers
+// on Google Cloud Logging notifications in this project
+resource "google_project_iam_member" "atlantis_logging_notifcation_admin" {
+  project = module.project_factory.project_id
+  role    = google_project_iam_custom_role.logging_notification_admin.id
+  member  = var.atlantis_monitoring_admin_service_account_member
+}
+
 # Prodromos terraform state bucket
 module "prodromos_state_bucket" {
   source        = "../../../modules/bucket"
@@ -476,7 +484,7 @@ module "firewall_cert_manager" {
 
 // Reserve a public IP for ingress
 resource "google_compute_address" "external_ip_address" {
-  name    = var.ingress_ip_address.name
+  name        = var.ingress_ip_address.name
   description = var.ingress_ip_address.description
   region  = var.default_region
   project = module.project_factory.project_id
