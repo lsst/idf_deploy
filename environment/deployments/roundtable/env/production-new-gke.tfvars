@@ -5,6 +5,9 @@ cluster_name = "roundtable-prod-2"
 
 # GKE
 master_ipv4_cidr_block = "172.30.1.0/28"
+
+# Temporarily pin this to the version of the old cluster
+kubernetes_version = "1.34.4-gke.1193000"
 gce_pd_csi_driver      = true
 gcs_fuse_csi_driver    = true
 maintenance_start_time = "2021-08-20T00:00:00Z"
