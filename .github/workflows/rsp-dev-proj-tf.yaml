@@ -34,7 +34,8 @@ jobs:
     - name: GCP login
       uses: google-github-actions/auth@v2
       with:
-        credentials_json: ${{ secrets.PIPELINE_RSP_DEV_PROJECT }}
+        # credentials_json: ${{ secrets.PIPELINE_RSP_DEV_PROJECT }}
+        credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
     # gcloud setup
     - name: 'Set up Cloud SDK'
