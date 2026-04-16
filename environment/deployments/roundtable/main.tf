@@ -420,18 +420,23 @@ resource "google_service_account_iam_binding" "atlantis" {
   ]
 }
 
-// Role with read/write permissions to log-based alerts
-resource "google_project_iam_custom_role" "logging_notification_admin" {
+// Role with read/write permissions to log-based alerts and metrics
+resource "google_project_iam_custom_role" "logging_monitoring_admin" {
   project     = module.project_factory.project_id
-  role_id     = "loggingNotificationAdmin"
-  title       = "Logging Notification Admin"
-  description = "Read write permissions on Logging notifications"
+  role_id     = "loggingMonitoringAdmin"
+  title       = "Logging Monitoring Admin"
+  description = "Read write permissions on Logging notifications and metrics"
   permissions = [
     "logging.notificationRules.create",
     "logging.notificationRules.delete",
     "logging.notificationRules.get",
     "logging.notificationRules.list",
     "logging.notificationRules.update",
+    "logging.logMetrics.list",
+    "logging.logMetrics.create",
+    "logging.logMetrics.get",
+    "logging.logMetrics.update",
+    "logging.logMetrics.delete",
   ]
 }
 
@@ -447,7 +452,7 @@ resource "google_project_iam_member" "atlantis_monitoring_admin" {
 // on Google Cloud Logging notifications in this project
 resource "google_project_iam_member" "atlantis_logging_notifcation_admin" {
   project = module.project_factory.project_id
-  role    = google_project_iam_custom_role.logging_notification_admin.id
+  role    = google_project_iam_custom_role.logging_monitoring_admin.id
   member  = var.atlantis_monitoring_admin_service_account_member
 }
 
