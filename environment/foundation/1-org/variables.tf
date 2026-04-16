@@ -118,58 +118,6 @@ variable "org_cloudsql_admins_iam_permissions" {
 }
 
 # ----------------------------------------
-#   LOG SINK
-# ----------------------------------------
-
-// Pub/Sub Topics and Subscriptions
-variable "log_sink_name_pubsub" {
-  description = "Name of the pub/sub log sink"
-  default     = "pubsub_org_sink"
-}
-
-variable "log_sink_name_storage" {
-  description = "Name of the storage log sink"
-  default     = "storage_org_sink"
-}
-
-variable "include_children" {
-  description = "To include all child objects in sink."
-  type        = string
-  default     = "true"
-}
-
-// Archive Storage
-variable "storage_archive_bucket_name" {
-  description = "The name for the bucket that will store archive of admin activity logs"
-  default     = "archive_active_logs"
-}
-
-variable "storage_class" {
-  description = "Storage class"
-  type        = string
-  default     = "STANDARD"
-}
-
-variable "storage_location" {
-  description = "Region to put archive"
-  type        = string
-  default     = "US"
-}
-
-// SCC NotificationChannel
-variable "scc_notification_topic" {
-  description = "Name of the pub/sub SCC notification topic"
-  type        = string
-  default     = "top-scc-notification"
-}
-
-variable "scc_notification_subscription" {
-  description = "Name of the pub/sub SCC notification subscription"
-  type        = string
-  default     = "sub-scc-notification"
-}
-
-# ----------------------------------------
 #   ORG POLICY VARIABLES
 # ----------------------------------------
 
@@ -200,12 +148,6 @@ variable "auto_create_network" {
   default     = false
 }
 
-variable "skip_gcloud_download" {
-  description = "Whether to skip downloading gcloud (assumes gcloud is already available outside the module)"
-  type        = bool
-  default     = true
-}
-
 variable "default_service_account" {
   description = "Project default service account setting: can be one of delete, depriviledge, or keep."
   default     = "depriviledge"
@@ -216,78 +158,6 @@ variable "label_environment" {
   type        = string
   default     = "prod"
 }
-
-/***************************
-  Project specific vars
-***************************/
-// DATA ACCESS PROJECT VARS
-variable "data_access_project_name" {
-  description = "The name to append to the var.project_prefix value."
-  type        = string
-  default     = "data-access"
-}
-
-variable "activate_apis_data_access_project" {
-  description = "What APIs to activate for this project."
-  type        = list(string)
-  default     = ["sql-component.googleapis.com", "storage.googleapis.com", "logging.googleapis.com", "bigquery.googleapis.com", "stackdriver.googleapis.com", "pubsub.googleapis.com", "billingbudgets.googleapis.com"]
-}
-
-variable "org_data_access_project_alert_spent_percents" {
-  description = "A list of percentages of the budget to alert on when threshold is exceeded for the org billing logs project."
-  type        = list(number)
-  default     = [0.5, 0.75, 0.9, 0.95]
-}
-
-variable "org_data_access_project_alert_pubsub_topic" {
-  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the org billing logs project."
-  type        = string
-  default     = null
-}
-
-variable "org_data_access_project_budget_amount" {
-  description = "The amount to use as the budget for the org billing logs project."
-  type        = number
-  default     = 1000
-}
-
-// AUDIT LOG PROJECT VARS
-variable "enable_audit_log_project" {
-  description = "Option to enable or disable the creation of the project for: Shared Host Project"
-  type        = number
-  default     = 1
-}
-
-variable "audit_log_project_name" {
-  description = "The name to append to the var.project_prefix value."
-  type        = string
-  default     = "infosec"
-}
-
-variable "activate_apis_audit_log_project" {
-  description = "What APIs to activate for this project."
-  type        = list(string)
-  default     = ["logging.googleapis.com", "bigquery.googleapis.com", "stackdriver.googleapis.com", "pubsub.googleapis.com", "securitycenter.googleapis.com", "billingbudgets.googleapis.com"]
-}
-
-variable "org_audit_log_project_alert_spent_percents" {
-  description = "A list of percentages of the budget to alert on when threshold is exceeded for the org billing logs project."
-  type        = list(number)
-  default     = [0.5, 0.75, 0.9, 0.95]
-}
-
-variable "org_audit_log_project_alert_pubsub_topic" {
-  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the org billing logs project."
-  type        = string
-  default     = null
-}
-
-variable "org_audit_log_project_budget_amount" {
-  description = "The amount to use as the budget for the org billing logs project."
-  type        = number
-  default     = 1000
-}
-
 
 // SHARED SERVICE PROJECT VARS
 variable "enable_shared_services_project" {
@@ -325,49 +195,6 @@ variable "org_shared_services_project_budget_amount" {
   type        = number
   default     = 1000
 }
-
-
-
-
-
-// MONITORING PROJECT VARS
-variable "enable_monitoring_project" {
-  description = "Option to enable or disable the creation of the project for: Monitoring Project."
-  type        = number
-  default     = 1
-}
-
-variable "monitoring_project_name" {
-  description = "The name to append to the var.project_prefix value."
-  type        = string
-  default     = "monitoring"
-}
-
-variable "activate_apis_monitoring_project" {
-  description = "What APIs to activate for this project."
-  type        = list(string)
-  default     = ["logging.googleapis.com", "monitoring.googleapis.com", "stackdriver.googleapis.com", "billingbudgets.googleapis.com"]
-}
-
-variable "org_monitoring_project_alert_spent_percents" {
-  description = "A list of percentages of the budget to alert on when threshold is exceeded for the org billing logs project."
-  type        = list(number)
-  default     = [0.5, 0.75, 0.9, 0.95]
-}
-
-variable "org_monitoring_project_alert_pubsub_topic" {
-  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the org billing logs project."
-  type        = string
-  default     = null
-}
-
-variable "org_monitoring_project_budget_amount" {
-  description = "The amount to use as the budget for the org billing logs project."
-  type        = number
-  default     = 1000
-}
-
-
 
 // BILLING PROJECT VARS
 variable "enable_billing_project" {
