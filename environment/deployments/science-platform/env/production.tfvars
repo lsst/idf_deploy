@@ -40,7 +40,10 @@ custom_rules = {
     description          = "cert manager rule created by terraform"
     direction            = "INGRESS"
     action               = "allow"
-    ranges               = ["172.30.0.0/28"]
+
+    # Ranges for both old and new GKE cluster. When old cluster is destroyed,
+    # .0.0 can be removed.
+    ranges               = ["172.30.0.0/28", "172.30.1.0/28"]
     sources              = []
     targets              = ["gke-science-platform-stable"]
     use_service_accounts = false
