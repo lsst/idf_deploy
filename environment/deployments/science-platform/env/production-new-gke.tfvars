@@ -7,7 +7,7 @@ cluster_name = "rsp-prod"
 master_ipv4_cidr_block = "172.30.1.0/28"
 
 # Pin Kubernetes version until the rebuild is complete.
-kubernetes_version = "v1.34.4-gke.1193000"
+kubernetes_version = "1.34.4-gke.1193000"
 gce_pd_csi_driver      = true
 maintenance_start_time = "2021-08-20T00:00:00Z"
 maintenance_end_time   = "2021-08-20T12:00:00Z"
