@@ -45,7 +45,7 @@ custom_rules = {
     # .0.0 can be removed.
     ranges               = ["172.30.0.0/28", "172.30.1.0/28"]
     sources              = []
-    targets              = ["gke-science-platform-stable"]
+    targets              = ["gke-science-platform-stable", "gke-rsp-prod"]
     use_service_accounts = false
     rules = [
       {
