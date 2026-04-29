@@ -21,13 +21,12 @@ locals {
       monitoring_viewer = "gcp-monitoring-viewer@lsst.cloud"
       cloudsql_admins   = "gcp-cloudsql-admins@lsst.cloud"
 
-      gcp_qserv_administrators            = "gcp-qserv-administrators@lsst.cloud"
       gcp_science_platform_administrators = "gcp-science-platform-administrators@lsst.cloud"
       gcp_processing_administrators       = "gcp-processing-administrators@lsst.cloud"
       gcp_square_administrators           = "gcp-square-administrators@lsst.cloud"
       gcp_epo_administrators              = "gcp-epo-administrators@lsst.cloud"
+      gcp_ppdb_administrators             = "gcp-ppdb-administrators@lsst.cloud"
 
-      gcp_qserv_gke_cluster_admins            = "gcp-qserv-gke-cluster-admins@lsst.cloud"
       gcp_science_platform_gke_cluster_admins = "gcp-science-platform-gke-cluster-admins@lsst.cloud"
       gcp_processing_gke_cluster_admins       = "gcp-processing-gke-cluster-admins@lsst.cloud"
       gcp_square_gke_cluster_admins           = "gcp-square-gke-cluster-admins@lsst.cloud"
@@ -35,7 +34,6 @@ locals {
       gcp_square_gke_developer           = "gcp-square-gke-developer@lsst.cloud"
       gcp_processing_gke_developer       = "gcp-processing-gke-developer@lsst.cloud"
       gcp_science_platform_gke_developer = "gcp-science-platform-gke-developer@lsst.cloud"
-      gcp_qserv_gke_developer            = "gcp-qserv-gke-developer@lsst.cloud"
     }
 
     // Shared VPC
