@@ -1,26 +1,3 @@
-// Qserv Folder
-resource "google_folder_iam_member" "gcp_qserv_gke_cluster_admins_iam_permissions" {
-  for_each = toset(var.gcp_qserv_gke_cluster_admins_iam_permissions)
-  folder   = data.google_active_folder.qserv_sub_folder.name
-  role     = each.value
-  member   = "group:${module.constants.values.groups.gcp_qserv_gke_cluster_admins}"
-}
-
-resource "google_folder_iam_member" "gcp_qserv_gke_developer_iam_permissions" {
-  for_each = toset(var.gcp_qserv_gke_developer_iam_permissions)
-  folder   = data.google_active_folder.qserv_sub_folder.name
-  role     = each.value
-  member   = "group:${module.constants.values.groups.gcp_qserv_gke_developer}"
-}
-
-resource "google_folder_iam_member" "gcp_qserv_administrator_iam_permissions" {
-  for_each = toset(var.gcp_qserv_administrators_iam_permissions)
-  folder   = data.google_active_folder.qserv_sub_folder.name
-  role     = each.value
-  member   = "group:${module.constants.values.groups.gcp_qserv_administrators}"
-}
-
-
 // Science Platform Folder
 resource "google_folder_iam_member" "gcp_science_platform_gke_cluster_admins_iam_permissions" {
   for_each = toset(var.gcp_science_platform_gke_cluster_admins_iam_permissions)
@@ -96,8 +73,16 @@ resource "google_folder_iam_member" "gcp_shared_service_org_admin_iam_permission
 
 // EPO Folder
 resource "google_folder_iam_member" "gcp_epo_administrators_iam_permissions" {
-  for_each = toset(var.gcp_square_administrators_iam_permissions)
+  for_each = toset(var.gcp_epo_administrators_iam_permissions)
   folder   = data.google_active_folder.epo_sub_folder.name
   role     = each.value
   member   = "group:${module.constants.values.groups.gcp_epo_administrators}"
+}
+
+// PPDB Folder
+resource "google_folder_iam_member" "gcp_ppdb_administrators_iam_permissions" {
+  for_each = toset(var.gcp_ppdb_administrators_iam_permissions)
+  folder   = data.google_active_folder.ppdb_sub_folder.name
+  role     = each.value
+  member   = "group:${module.constants.values.groups.gcp_ppdb_administrators}"
 }

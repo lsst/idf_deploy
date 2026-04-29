@@ -6,11 +6,6 @@ locals {
 #   Lookup parent folder by folder name
 # ----------------------------------------
 
-data "google_active_folder" "qserv_sub_folder" {
-  parent       = local.parent
-  display_name = var.qserv_display_name
-}
-
 data "google_active_folder" "splatform_sub_folder" {
   parent       = local.parent
   display_name = var.splatform_display_name
@@ -39,4 +34,9 @@ data "google_active_folder" "epo_sub_folder" {
 data "google_active_folder" "alert_production_sub_folder" {
   parent       = local.parent
   display_name = var.alert_production_display_name
+}
+
+data "google_active_folder" "ppdb_sub_folder" {
+  parent       = local.parent
+  display_name = var.ppdb_display_name
 }

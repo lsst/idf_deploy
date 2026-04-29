@@ -51,37 +51,6 @@ gcp_processing_gke_developer_iam_permissions = [
   "roles/storage.objectViewer"
 ]
 
-// QServ IAM Roles
-
-qserv_display_name           = "QServ"
-
-gcp_qserv_administrators_iam_permissions = [
-  "roles/resourcemanager.projectCreator",
-  "roles/container.admin",
-  "roles/editor"
-]
-gcp_qserv_gke_cluster_admins_iam_permissions = [
-  "roles/container.admin",
-  "roles/container.clusterAdmin",
-  "roles/logging.admin",
-  "roles/resourcemanager.projectCreator",
-  "roles/monitoring.admin",
-  "roles/storage.admin",
-  "roles/compute.instanceAdmin",
-  "roles/logging.admin",
-  "roles/file.editor",
-  "roles/compute.networkAdmin",
-  "roles/compute.securityAdmin"
-]
-gcp_qserv_gke_developer_iam_permissions = [
-  "roles/container.clusterViewer",
-  "roles/container.viewer",
-  "roles/container.developer",
-  "roles/logging.viewer",
-  "roles/monitoring.editor",
-  "roles/storage.objectViewer"
-]
-
 // Science Platform
 
 splatform_display_name       = "Science Platform"
@@ -154,9 +123,24 @@ epo_display_name      = "EPO"
 gcp_epo_administrators_iam_permissions = [
   "roles/resourcemanager.projectCreator",
   "roles/container.admin",
-  "roles/editor",
+  "roles/owner",
   "roles/artifactregistry.admin",
   "roles/resourcemanager.folderViewer"
 ]
 
 alert_production_display_name = "Alert Production"
+
+# PPDB
+
+ppdb_display_name = "PPDB"
+
+gcp_ppdb_administrators_iam_permissions = [
+  "roles/bigquery.dataViewer",
+  "roles/bigquery.user",
+  "roles/cloudsql.viewer",
+  "roles/dataproc.viewer",
+  "roles/logging.viewer",
+  "roles/monitoring.editor",
+  "roles/run.viewer",
+  "roles/storage.objectViewer"
+]
