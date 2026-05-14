@@ -126,3 +126,61 @@ variable "secondary_ranges" {
     ]
   }
 }
+
+// BigQuery
+
+variable "bigquery_max_time_travel_hours" {
+  description = "Defines the time travel window in hours. The value can be from 48 to 168 hours (2 to 7 days)"
+  type        = string
+  default     = "168"
+}
+
+// Cloud Storage
+
+variable "config_gcs_storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "config_gcs_versioning" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = bool
+  default     = false
+}
+
+variable "dataflow_gcs_storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "dataflow_gcs_versioning" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = bool
+  default     = false
+}
+
+variable "export_gcs_storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "export_gcs_versioning" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = bool
+  default     = false
+}
+
+variable "ingest_gcs_storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "ingest_gcs_versioning" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = bool
+  default     = false
+}
