@@ -8,7 +8,7 @@ resource "google_bigquery_dataset" "ppdb_internal" {
   delete_contents_on_destroy = false
 }
 
-resource "google_bigquery_dataset" "ppdb_ppdb_public" {
+resource "google_bigquery_dataset" "ppdb_public" {
   dataset_id                 = "ppdb_public"
   friendly_name              = "PPDB Public"
   description                = "Publically accessible views on ppdb_internal, for TAP and other public services"
@@ -19,8 +19,8 @@ resource "google_bigquery_dataset" "ppdb_ppdb_public" {
 }
 
 resource "google_bigquery_dataset" "ppdb_staging" {
-  dataset_id                 = "ppdb_public"
-  friendly_name              = "PPDB Public"
+  dataset_id                 = "ppdb_staging"
+  friendly_name              = "PPDB Staging"
   description                = "Staging tables and temp processing tables for data processing; target for Dataflow output"
   project                    = module.project_factory.project_id
   location                   = "US"
@@ -30,7 +30,7 @@ resource "google_bigquery_dataset" "ppdb_staging" {
 
 resource "google_bigquery_dataset" "ppdb_backup" {
   dataset_id                 = "ppdb_backup"
-  friendly_name              = "PPDB Public"
+  friendly_name              = "PPDB Backup"
   description                = "Backups"
   project                    = module.project_factory.project_id
   location                   = "US"
