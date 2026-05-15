@@ -205,3 +205,9 @@ variable "ssl_mode" {
   type        = string
   default     = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
 }
+
+variable "data_cache_enabled" {
+  description = "Whether data cache is enabled for the instance. Defaults to false. Feature is only available for ENTERPRISE_PLUS tier and supported database_versions"
+  type        = bool
+  default     = false
+}
