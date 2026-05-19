@@ -32,16 +32,24 @@ secondary_ranges = {
 # and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
 # our standard APIs.
 activate_apis = [
+  "artifactregistry.googleapis.com",
   "bigquery.googleapis.com",
   "billingbudgets.googleapis.com",
+  "cloudbuild.googleapis.com",
   "cloudfunctions.googleapis.com",
-  "dataproc.googleapis.com",
+  "cloudresourcemanager.googleapis.com",
+  "cloudscheduler.googleapis.com",
+  "compute.googleapis.com",
+  "dataflow.googleapis.com",
   "eventarc.googleapis.com",
+  "iam.googleapis.com",
   "logging.googleapis.com",
   "monitoring.googleapis.com",
   "pubsub.googleapis.com",
   "run.googleapis.com",
   "secretmanager.googleapis.com",
+  "serviceusage.googleapis.com",
+  "sqladmin.googleapis.com",
   "storage.googleapis.com"
 ]
 
