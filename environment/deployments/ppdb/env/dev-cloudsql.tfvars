@@ -5,6 +5,7 @@ application_name = "ppdb"
 # PPDB CloudSQL Database
 ppdb_cloud_sql_backups_enabled                        = false
 ppdb_cloud_sql_backups_point_in_time_recovery_enabled = false
+ppdb_cloud_sql_data_cache_enabled                     = true
 ppdb_cloud_sql_db_tier                                = "db-custom-2-7680"
 ppdb_cloud_sql_db_maintenance_window_day              = 1
 ppdb_cloud_sql_db_maintenance_window_hour             = 23
