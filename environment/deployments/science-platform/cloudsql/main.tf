@@ -107,10 +107,10 @@ module "alloydb_butler_data_preview" {
   source = "../../../../modules/alloydb"
   count  = var.butler_registry_alloydb_enabled ? 1 : 0
 
-  cluster_id = "butler-data-preview-${var.environment}"
-  location   = "us-central1"
-  network_id = data.google_compute_network.network.id
-  project_id = var.project_id
+  cluster_id       = "butler-data-preview-${var.environment}"
+  location         = "us-central1"
+  network_id       = data.google_compute_network.network.id
+  project_id       = var.project_id
   database_version = "POSTGRES_16"
 }
 
@@ -119,11 +119,11 @@ module "alloydb_butler_prompt_data_products" {
   source = "../../../../modules/alloydb"
   count  = var.butler_prompt_data_products_enabled ? 1 : 0
 
-  cluster_id = "butler-prompt-${var.environment}"
-  location   = "us-central1"
-  network_id = data.google_compute_network.network.id
-  project_id = var.project_id
-  database_version = "POSTGRES_17"
+  cluster_id                   = "butler-prompt-${var.environment}"
+  location                     = "us-central1"
+  network_id                   = data.google_compute_network.network.id
+  project_id                   = var.project_id
+  database_version             = "POSTGRES_17"
   enable_public_ip_for_primary = true
 }
 
@@ -131,15 +131,15 @@ module "alloydb_butler_prompt_data_products" {
 # to access the AlloyDB Butler registries.
 # See https://cloud.google.com/alloydb/docs/auth-proxy/overview
 resource "google_service_account" "usdf_alloydb_auth_proxy" {
-  project = var.project_id
-  account_id = "usdf-alloydb-auth-proxy"
+  project      = var.project_id
+  account_id   = "usdf-alloydb-auth-proxy"
   display_name = "USDF AlloyDB Auth Proxy"
 }
 resource "google_project_iam_member" "usdf_alloydb_auth_proxy_role" {
   for_each = var.butler_prompt_data_products_enabled ? toset(["roles/alloydb.client", "roles/serviceusage.serviceUsageConsumer"]) : toset([])
-  project = var.project_id
-  member = google_service_account.usdf_alloydb_auth_proxy.member
-  role = each.value
+  project  = var.project_id
+  member   = google_service_account.usdf_alloydb_auth_proxy.member
+  role     = each.value
 }
 
 
@@ -261,6 +261,13 @@ resource "random_password" "ppdbtap" {
   special = false
 }
 
+resource "random_password" "usertap" {
+  length  = 24
+  numeric = true
+  upper   = true
+  special = false
+}
+
 data "google_compute_network" "network" {
   name    = var.network
   project = var.project_id
@@ -337,7 +344,12 @@ module "db_science_platform" {
       name      = "ppdbtap"
       charset   = "UTF8"
       collation = "en_US.UTF8"
-    }
+    },
+    {
+      name      = "usertap"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    },
   ]
 
   additional_users = [
@@ -384,6 +396,11 @@ module "db_science_platform" {
     {
       name            = "wobbly"
       password        = random_password.wobbly.result
+      random_password = false
+    },
+    {
+      name            = "usertap"
+      password        = random_password.usertap.result
       random_password = false
     },
   ]
