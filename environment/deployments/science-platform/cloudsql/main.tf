@@ -460,6 +460,7 @@ module "service_accounts" {
     "ssotap",
     "tap-service",
     "times-square",
+    "usertap",
     "vo-cutouts",
     "wobbly",
   ]
@@ -552,6 +553,12 @@ resource "google_service_account_iam_member" "bigquery_kafka_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["bigquery-kafka"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[bigquery-kafka/bigquery-kafka]"
+}
+
+resource "google_service_account_iam_member" "usertap_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["usertap"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[usertap/usertap]"
 }
 
 resource "google_project_iam_member" "ppdbtap_bigquery_data_viewer" {
