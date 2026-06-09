@@ -100,6 +100,18 @@ netapp_definitions = [
     has_root_access        = true
     access_type            = "READ_WRITE"
   },
+  { name                   = "collab"
+    service_level          = "PREMIUM"
+    capacity_gib           = 2048
+    unix_permissions       = "1775"
+    snapshot_directory     = true
+    backups_enabled        = true
+    has_root_access        = true
+    allow_auto_tiering     = true
+    enable_auto_tiering    = true
+    cooling_threshold_days = 21    
+    access_type            = "READ_WRITE"
+  },
   { name               = "firefly"
     service_level      = "PREMIUM"
     capacity_gib       = 2048
