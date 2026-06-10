@@ -92,7 +92,7 @@ module "storage_bucket_2" {
   storage_class = "REGIONAL"
   location      = "us-central1"
   prefix_name   = "butler-us-central1"
-  suffix_name   = ["dp01-dev", "dp01-int", "dp01", "repo-locations", "dp02-user", "dp1"]
+  suffix_name   = ["dp01-dev", "dp01-int", "dp01", "repo-locations", "dp02-user", "dp1", "dp2"]
   versioning = {
     dp01-dev       = true
     dp01-int       = true
@@ -101,6 +101,7 @@ module "storage_bucket_2" {
     repo-locations = true
     dp02-user      = false
     dp1            = false
+    dp2            = false
   }
   force_destroy = {
     dp01-dev       = true
@@ -111,6 +112,7 @@ module "storage_bucket_2" {
     repo-locations = true
     dp02-user      = true
     dp1            = true
+    dp2            = true
   }
   labels = {
     environment = var.environment
@@ -320,6 +322,13 @@ module "butler_server_account" {
 resource "google_storage_bucket_iam_member" "data_curation_prod_ro_dp1" {
   for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
   bucket   = "butler-us-central1-dp1"
+  role     = each.value
+  member   = "serviceAccount:${module.butler_server_account.email}"
+}
+
+resource "google_storage_bucket_iam_member" "data_curation_prod_ro_dp2" {
+  for_each = toset(["roles/storage.objectViewer", "roles/storage.legacyBucketReader"])
+  bucket   = "butler-us-central1-dp2"
   role     = each.value
   member   = "serviceAccount:${module.butler_server_account.email}"
 }
