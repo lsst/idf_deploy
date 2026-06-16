@@ -219,6 +219,13 @@ resource "random_password" "nublado" {
   special = false
 }
 
+resource "random_password" "semaphore" {
+  length  = 24
+  numeric = true
+  upper   = true
+  special = false
+}
+
 resource "random_password" "times-square" {
   length  = 24
   numeric = true
@@ -316,6 +323,11 @@ module "db_science_platform" {
       collation = "en_US.UTF8"
     },
     {
+      name      = "semaphore"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    },
+    {
       name      = "times-square"
       charset   = "UTF8"
       collation = "en_US.UTF8"
@@ -366,6 +378,11 @@ module "db_science_platform" {
     {
       name            = "nublado"
       password        = random_password.nublado.result
+      random_password = false
+    },
+    {
+      name            = "semaphore"
+      password        = random_password.semaphore.result
       random_password = false
     },
     {
@@ -457,6 +474,7 @@ module "service_accounts" {
     "nublado",
     "ppdbtap",
     "repertoire",
+    "semaphore",
     "ssotap",
     "tap-service",
     "times-square",
@@ -505,6 +523,12 @@ resource "google_service_account_iam_member" "nublado_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["nublado"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[nublado/cloud-sql-proxy]"
+}
+
+resource "google_service_account_iam_member" "semaphore_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["semaphore"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[semaphore/semaphore]"
 }
 
 resource "google_service_account_iam_member" "times_square_sa_wi" {
