@@ -40,7 +40,7 @@ jobs:
 
     # Installs terraform
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v4
       with:
         terraform_version: 1.9.5
 
