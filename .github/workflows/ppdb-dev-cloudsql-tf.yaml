@@ -30,7 +30,7 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     # gcp auth
     - name: GCP login
