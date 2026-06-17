@@ -200,8 +200,20 @@ variable "private_network" {
   default     = null
 }
 
+variable "enable_private_path_for_google_cloud_services" {
+  description = "Direct services to use the private path for connectivity to CloudSQL"
+  type        = bool
+  default     = false
+}
+
 variable "ssl_mode" {
   description = "Specify how SSL connection should be enforced in DB connections.  Options are ALLOW_UNENCRYPTED_AND_ENCRYPTED, ENCRYPTED_ONLY, and TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
   type        = string
   default     = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
+}
+
+variable "data_cache_enabled" {
+  description = "Whether data cache is enabled for the instance. Defaults to false. Feature is only available for ENTERPRISE_PLUS tier and supported database_versions"
+  type        = bool
+  default     = false
 }

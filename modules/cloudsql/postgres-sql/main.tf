@@ -33,9 +33,10 @@ module "cloudsql-db" {
   database_flags      = var.database_flags
 
   ip_configuration = {
-    ipv4_enabled        = var.ipv4_enabled
-    private_network     = var.private_network
-    ssl_mode            = var.ssl_mode
-    authorized_networks = var.authorized_networks
+    ipv4_enabled                                  = var.ipv4_enabled
+    private_network                               = var.private_network
+    enable_private_path_for_google_cloud_services = var.enable_private_path_for_google_cloud_services
+    ssl_mode                                      = var.ssl_mode
+    authorized_networks                           = var.authorized_networks
   }
 }
