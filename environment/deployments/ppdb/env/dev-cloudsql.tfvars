@@ -10,7 +10,7 @@ ppdb_cloud_sql_db_tier                                = "db-custom-2-7680"
 ppdb_cloud_sql_db_maintenance_window_day              = 1
 ppdb_cloud_sql_db_maintenance_window_hour             = 23
 ppdb_cloud_sql_db_maintenance_window_update_track     = "stable"
-ppdb_cloud_sql_edition                                = "ENTERPRISE_PLUS"
+ppdb_cloud_sql_edition                                = "ENTERPRISE"
 ppdb_cloud_sql_ipv4_enabled                           = "true"
 ppdb_cloud_sql_enable_private_path                    = "true"
 
