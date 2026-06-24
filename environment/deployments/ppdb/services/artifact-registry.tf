@@ -1,6 +1,6 @@
 resource "google_artifact_registry_repository" "ppdb_repo" {
   location      = "us-central1"
-  repository_id = "ppdb_repo"
+  repository_id = "ppdb-repo"
   description   = "Docker repository for PPDB Container images"
   format        = "DOCKER"
   project       = local.project_id
