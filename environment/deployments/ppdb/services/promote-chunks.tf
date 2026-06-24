@@ -54,8 +54,8 @@ resource "google_cloud_run_v2_service" "promote_chunks" {
     }
 
     containers {
-      # This image serves as a placeholder for the initial provision
-      image = "us-central1-docker.pkg.dev/${local.project_id}/${google_artifact_registry_repository.ppdb_repo.repository_id}/promote-chunks:latest"
+      # This image serves as a placeholder for the initial provision so that the Cloud run instance can be created.  It is overwritten by the application gcloud deploy.
+      image = "gcr.io/cloudrun/hello"
 
       resources {
         startup_cpu_boost = true

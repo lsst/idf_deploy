@@ -83,8 +83,8 @@ resource "google_cloud_run_v2_service" "track_chunk" {
     }
 
     containers {
-      # This image serves as a placeholder for the initial provision
-      image = "us-central1-docker.pkg.dev/${data.terraform_remote_state.ppdb_project.outputs.project_id}/${google_artifact_registry_repository.ppdb_repo.repository_id}/track-chunk:latest"
+      # This image serves as a placeholder for the initial provision so that the Cloud run instance can be created.  It is overwritten by the application gcloud deploy.
+      image = "gcr.io/cloudrun/hello"
 
       resources {
         startup_cpu_boost = true
