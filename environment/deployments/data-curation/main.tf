@@ -152,15 +152,17 @@ module "storage_bucket_4" {
   project_id    = module.project_factory.project_id
   storage_class = "REGIONAL"
   location      = "us-central1"
-  suffix_name   = ["dp02-hips", "dp1-hips"]
+  suffix_name   = ["dp02-hips", "dp1-hips", "dp2-hips"]
   prefix_name   = "static-us-central1"
   versioning = {
     dp02-hips = false
     dp1-hips = false
+    dp2-hips = false
   }
   force_destroy = {
     dp02-hips = false
     dp1-hips = false
+    dp2-hips = false
   }
   labels = {
     environment = var.environment
