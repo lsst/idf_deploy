@@ -36,6 +36,7 @@ variable "activate_apis" {
     "pubsub.googleapis.com",
     "run.googleapis.com",
     "secretmanager.googleapis.com",
+    "servicenetworking.googleapis.com",
     "storage.googleapis.com"
   ]
 }
