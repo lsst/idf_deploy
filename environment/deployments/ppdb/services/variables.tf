@@ -251,3 +251,11 @@ variable "trigger_stage_chunk_cloud_run_temp_location" {
   description = "Temp location"
   type        = string
 }
+
+# GitHub CI
+
+variable "create_gh_ci_sa" {
+  description = "Create GitHub CI Test Service Account"
+  type        = bool
+  default     = false
+}
