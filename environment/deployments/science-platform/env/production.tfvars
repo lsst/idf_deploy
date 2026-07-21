@@ -81,7 +81,7 @@ netapp_definitions = [
   },
   { name               = "rubin"
     service_level      = "PREMIUM"
-    capacity_gib       = 15360
+    capacity_gib       = 20480
     unix_permissions   = "0755"
     snapshot_directory = false
     backups_enabled    = true
