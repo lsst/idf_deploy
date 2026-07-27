@@ -43,7 +43,7 @@ resource "google_project_iam_member" "run_invoker_trigger_stage_chunk" {
 resource "google_eventarc_trigger" "pubsub_trigger_trigger_stage_chunk" {
   name     = "trigger-stage-chunk"
   project  = local.project_id
-  location = "us-central1"
+  location = var.region
 
   service_account = google_service_account.eventarc_sa_trigger_stage_chunk.email
 
@@ -60,93 +60,81 @@ resource "google_eventarc_trigger" "pubsub_trigger_trigger_stage_chunk" {
 
   destination {
     cloud_run_service {
-      service = google_cloud_run_v2_service.trigger_stage_chunk.name
-      region  = "us-central1"
+      service = google_cloudfunctions2_function.trigger_stage_chunk.name
+      region  = var.region
     }
   }
 }
 
-# Cloud Run Definition
-resource "google_cloud_run_v2_service" "trigger_stage_chunk" {
-  name     = "trigger-stage-chunk"
-  project  = local.project_id
-  location = "us-central1"
+# Cloud Run Functions Gen2 Definition
+resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
+  name        = "trigger-stage-chunk"
+  project     = local.project_id
+  location    = var.region
+  description = "Triggers Stage Chunks"
 
-  template {
-    service_account = google_service_account.cloudrun_trigger_stage_chunk.email
+  build_config {
+    runtime         = var.trigger_stage_chunk_runtime
+    entry_point     = "trigger_stage_chunk"
+    service_account = google_service_account.cloudrun_build.id
 
-    timeout                          = var.trigger_stage_chunk_cloud_run_timeout
-    max_instance_request_concurrency = var.trigger_stage_chunk_cloud_run_concurrency
-
-    scaling {
-      min_instance_count = var.promote_chunks_cloud_run_min_instance_count
-      max_instance_count = var.promote_chunks_cloud_run_max_instance_count
-    }
-
-    containers {
-      # This image serves as a placeholder for the initial provision so that the Cloud run instance can be created.  It is overwritten by the application gcloud deploy.
-      image = "gcr.io/cloudrun/hello"
-
-      resources {
-        startup_cpu_boost = true
-        cpu_idle          = true
-
-        limits = {
-          cpu    = var.trigger_stage_chunk_cloud_run_cpu_limit
-          memory = var.trigger_stage_chunk_cloud_run_memory_limit
-        }
-      }
-
-      ports {
-        container_port = 8080
-      }
-
-      env {
-        name  = "DATAFLOW_TEMPLATE_PATH"
-        value = var.trigger_stage_chunk_cloud_run_dataflow_template_path
-      }
-
-      env {
-        name  = "LOG_LEVEL"
-        value = var.trigger_stage_chunk_cloud_run_log_level
-      }
-
-      env {
-        name  = "PROJECT_ID"
-        value = local.project_id
-      }
-
-      env {
-        name  = "REGION"
-        value = "us-central1"
-      }
-
-      env {
-        name  = "SERVICE_ACCOUNT_EMAIL"
-        value = google_service_account.cloudrun_trigger_stage_chunk.email
-      }
-
-      env {
-        name  = "TEMP_LOCATION"
-        value = var.trigger_stage_chunk_cloud_run_temp_location
-      }
-
-      env {
-        name  = "TOPIC_NAME"
-        value = google_pubsub_topic.track_chunk_topic.name
-      }
-
-      env {
-        name  = "LOG_EXECUTION_ID"
-        value = var.trigger_stage_chunk_cloud_run_log_execution_id
+    # Placeholder source code bucket/object for initial creation
+    source {
+      storage_source {
+        bucket = google_storage_bucket_object.placeholder_zip_trigger_stage_chunk.bucket
+        object = google_storage_bucket_object.placeholder_zip_trigger_stage_chunk.name
       }
     }
   }
 
+  service_config {
+    available_memory                 = var.trigger_stage_chunk_cloud_run_memory_limit
+    service_account_email            = google_service_account.cloudrun_trigger_stage_chunk.email
+    min_instance_count               = var.trigger_stage_chunk_cloud_run_min_instance_count
+    max_instance_count               = var.trigger_stage_chunk_cloud_run_max_instance_count
+    max_instance_request_concurrency = var.trigger_stage_chunk_cloud_run_concurrency
+    timeout_seconds                  = var.trigger_stage_chunk_cloud_run_timeout
+
+    direct_vpc_network_interface {
+      network    = local.network
+      subnetwork = local.subnet
+    }
+    direct_vpc_egress = "VPC_EGRESS_PRIVATE_RANGES_ONLY"
+
+    environment_variables = {
+      DATAFLOW_TEMPLATE_PATH = var.trigger_stage_chunk_cloud_run_dataflow_template_path
+      LOG_LEVEL              = var.trigger_stage_chunk_cloud_run_log_level
+      PROJECT_ID             = local.project_id
+      REGION                 = var.region
+      SERVICE_ACCOUNT_EMAIL  = google_service_account.cloudrun_trigger_stage_chunk.email
+      TEMP_LOCATION          = var.trigger_stage_chunk_cloud_run_temp_location
+      TOPIC_NAME             = google_pubsub_topic.track_chunk_topic.name
+      LOG_EXECUTION_ID       = var.trigger_stage_chunk_cloud_run_log_execution_id
+    }
+  }
+
+  # Instructs Terraform to ignore modifications to the source code artifact made by CI
   lifecycle {
-    # Keeps Terraform from reverting the image during future applies
     ignore_changes = [
-      template[0].containers[0].image,
+      build_config[0].source,
     ]
   }
+}
+
+# Dummy zip file to build function
+data "archive_file" "dummy_source_trigger_stage_chunk" {
+  type        = "zip"
+  output_path = "${path.module}/dummy_source_trigger_stage_chunk.zip"
+
+  source {
+    content  = "def trigger_stage_chunk(event, context=None):\n    return 'OK'"
+    filename = "main.py"
+  }
+}
+
+# Upload the dummy zip to Cloud Storage
+resource "google_storage_bucket_object" "placeholder_zip_trigger_stage_chunk" {
+  name   = "source/placeholder-trigger-stage-chunk.zip"
+  bucket = google_storage_bucket.config.id
+  source = data.archive_file.dummy_source_trigger_stage_chunk.output_path
 }

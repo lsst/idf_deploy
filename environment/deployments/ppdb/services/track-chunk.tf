@@ -17,6 +17,12 @@ resource "google_project_iam_member" "cloudrun_track_chunks_sql_instance_user" {
   member  = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
 }
 
+resource "google_storage_bucket_iam_member" "cloudrun_track_chunks_storage_viewer_configs" {
+  bucket = google_storage_bucket.config.id
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
+}
+
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_track_chunk" {
   project      = local.project_id
@@ -42,7 +48,7 @@ resource "google_project_iam_member" "run_invoker_track_chunk" {
 resource "google_eventarc_trigger" "pubsub_trigger_track_chunk" {
   name     = "track-chunk"
   project  = local.project_id
-  location = "us-central1"
+  location = var.region
 
   service_account = google_service_account.eventarc_sa_track_chunk.email
 
@@ -59,67 +65,87 @@ resource "google_eventarc_trigger" "pubsub_trigger_track_chunk" {
 
   destination {
     cloud_run_service {
-      service = google_cloud_run_v2_service.track_chunk.name
-      region  = "us-central1"
+      service = google_cloudfunctions2_function.track_chunk.name
+      region = var.region
     }
   }
 }
 
-# Cloud Run Definition
-resource "google_cloud_run_v2_service" "track_chunk" {
-  name     = "track-chunk"
-  project  = local.project_id
-  location = "us-central1"
+# Cloud Run Functions Gen2 Definition
+resource "google_cloudfunctions2_function" "track_chunk" {
+  name        = "track-chunk"
+  project     = local.project_id
+  location    = var.region
+  description = "Tracks processing chunks"
 
-  template {
-    service_account = google_service_account.cloudrun_track_chunks.email
+  build_config {
+    runtime         = var.track_chunk_runtime
+    entry_point     = "track_chunk"
+    service_account = google_service_account.cloudrun_build.id
 
-    timeout                          = var.track_chunk_cloud_run_timeout
-    max_instance_request_concurrency = var.track_chunk_cloud_run_concurrency
-
-    scaling {
-      min_instance_count = var.track_chunk_cloud_run_min_instance_count
-      max_instance_count = var.track_chunk_cloud_run_max_instance_count
-    }
-
-    containers {
-      # This image serves as a placeholder for the initial provision so that the Cloud run instance can be created.  It is overwritten by the application gcloud deploy.
-      image = "gcr.io/cloudrun/hello"
-
-      resources {
-        startup_cpu_boost = true
-        cpu_idle          = true
-
-        limits = {
-          cpu    = var.track_chunk_cloud_run_cpu_limit
-          memory = var.track_chunk_cloud_run_memory_limit
-        }
-      }
-
-      ports {
-        container_port = 8080
-      }
-
-      env {
-        name  = "PPDB_CONFIG_URI"
-        value = var.track_chunk_cloud_run_ppdb_config_uri
-      }
-
-      env {
-        name  = "PPDB_USE_SECRET_MANAGER"
-        value = var.track_chunk_cloud_run_ppdb_use_secret_manager
-      }
-      env {
-        name  = "LOG_EXECUTION_ID"
-        value = var.track_chunk_cloud_run_log_execution_id
+    # Placeholder source code bucket/object for initial creation
+    source {
+      storage_source {
+        bucket = google_storage_bucket_object.placeholder_zip_track_chunk.bucket
+        object = google_storage_bucket_object.placeholder_zip_track_chunk.name
       }
     }
   }
 
+  service_config {
+    available_memory                 = var.track_chunk_cloud_run_memory_limit
+    service_account_email            = google_service_account.cloudrun_track_chunks.email
+    min_instance_count               = var.track_chunk_cloud_run_min_instance_count
+    max_instance_count               = var.track_chunk_cloud_run_max_instance_count
+    max_instance_request_concurrency = var.track_chunk_cloud_run_concurrency
+    timeout_seconds                  = var.track_chunk_cloud_run_timeout
+
+    direct_vpc_network_interface {
+      network    = local.network
+      subnetwork = local.subnet
+    }
+    direct_vpc_egress = "VPC_EGRESS_PRIVATE_RANGES_ONLY"
+
+    environment_variables = {
+      PPDB_CONFIG_URI                   = var.track_chunk_cloud_run_ppdb_config_uri
+      PPDB_USE_SECRET_MANAGER           = var.track_chunk_cloud_run_ppdb_use_secret_manager
+      CLOUDSQL_ENABLED                  = "true"
+      CLOUDSQL_IP_TYPE                  = "private"
+      CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:${var.environment}"
+      CLOUDSQL_USER                     = "${google_service_account.cloudrun_track_chunks.account_id}@${local.project_id}.iam"
+      CLOUDSQL_DB_NAME                  = "ppdb-chunk-tracking"
+    }
+  }
+
+  event_trigger {
+    trigger_region = var.region
+    event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
+    pubsub_topic   = "projects/${local.project_id}/topics/track-chunk-topic"
+    retry_policy   = var.track_chunk_cloud_run_retry_policy
+  }
+
+  # Instructs Terraform to ignore modifications to the source code artifact made by CI
   lifecycle {
-    # Keeps Terraform from reverting the image during future applies
     ignore_changes = [
-      template[0].containers[0].image,
+      build_config[0].source,
     ]
   }
+}
+
+# Dummy zip file to build function
+data "archive_file" "dummy_source_track_chunk" {
+  type        = "zip"
+  output_path = "${path.module}/dummy_source_track_chunk.zip"
+
+  source {
+    content  = "def track_chunk(event, context=None):\n    return 'OK'"
+    filename = "main.py"
+  }
+}
+
+# Upload the dummy zip to Cloud Storage
+resource "google_storage_bucket_object" "placeholder_zip_track_chunk" {
+  name   = "source/placeholder-track-chunk.zip"
+  bucket = google_storage_bucket.config.id
+  source = data.archive_file.dummy_source_track_chunk.output_path
 }
