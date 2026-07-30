@@ -18,6 +18,7 @@ butler_registry_dp1_tier            = "db-custom-2-7680"
 butler_registry_dp1_backups_enabled = false
 
 # Science Platform Database
+science_platform_database_tier                      = "db-custom-4-16384"
 science_platform_db_maintenance_window_day          = 1
 science_platform_db_maintenance_window_hour         = 22
 science_platform_db_maintenance_window_update_track = "canary"

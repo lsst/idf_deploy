@@ -226,3 +226,15 @@ variable "science_platform_backups_start_time" {
   description = "Start time for backups"
   default     = "09:00"
 }
+
+variable "science_platform_database_flags" {
+  description = "List of Cloud SQL flags that are applied to the database server. See [more details](https://cloud.google.com/sql/docs/mysql/flags)"
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = [
+    { name = "max_connections", value = "500" },
+    { name = "password_encryption", value = "scram-sha-256" }
+  ]
+}

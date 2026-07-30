@@ -285,6 +285,7 @@ module "db_science_platform" {
   source = "../../../../modules/cloudsql/postgres-sql"
 
   authorized_networks             = []
+  database_flags                  = var.science_platform_database_flags
   database_version                = var.science_platform_database_version
   db_name                         = "${var.application_name}-${var.environment}"
   deletion_protection             = true
@@ -420,17 +421,6 @@ module "db_science_platform" {
       password        = random_password.usertap.result
       random_password = false
     },
-  ]
-
-  database_flags = [
-    {
-      name  = "max_connections"
-      value = 100
-    },
-    {
-      name  = "password_encryption"
-      value = "scram-sha-256"
-    }
   ]
 }
 
