@@ -24,6 +24,7 @@ butler_registry_alloydb_enabled = true
 butler_prompt_data_products_enabled = true
 
 # Science Platform Database
+science_platform_database_tier              = "db-custom-4-16384"
 science_platform_db_maintenance_window_day  = 2
 science_platform_db_maintenance_window_hour = 22
 science_platform_backups_enabled            = true
