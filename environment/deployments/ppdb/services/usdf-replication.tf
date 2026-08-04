@@ -30,3 +30,9 @@ resource "google_storage_bucket_iam_member" "usdf_replication_gcs" {
   role   = "roles/storage.objectUser"
   member = "serviceAccount:${google_service_account.usdf_replication.email}"
 }
+
+resource "google_storage_bucket_iam_member" "usdf_replication_gcs_config_viewer" {
+  bucket = google_storage_bucket.config.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.usdf_replication.email}"
+}
