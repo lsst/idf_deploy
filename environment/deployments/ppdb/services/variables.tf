@@ -13,7 +13,13 @@ variable "environment" {
   type        = string
 }
 
-// BigQuery
+variable "region" {
+  description = "The GCP region to run resources"
+  type        = string
+  default     = "us-central1"
+}
+
+# BigQuery
 
 variable "bigquery_max_time_travel_hours" {
   description = "Defines the time travel window in hours. The value can be from 48 to 168 hours (2 to 7 days)"
@@ -21,7 +27,7 @@ variable "bigquery_max_time_travel_hours" {
   default     = "168"
 }
 
-// Cloud Storage
+# Cloud Storage
 
 variable "config_gcs_storage_class" {
   description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
@@ -94,8 +100,8 @@ variable "promote_chunks_cloud_run_max_instance_count" {
 
 variable "promote_chunks_cloud_run_timeout" {
   description = "Max time execution can take"
-  default     = "900s"
-  type        = string
+  default     = "900"
+  type        = number
 }
 
 variable "promote_chunks_cloud_run_concurrency" {
@@ -112,7 +118,7 @@ variable "promote_chunks_cloud_run_cpu_limit" {
 
 variable "promote_chunks_cloud_run_memory_limit" {
   description = "Memory limit"
-  default     = "4Gi"
+  default     = "16Gi"
   type        = string
 }
 
@@ -135,6 +141,17 @@ variable "promote_chunks_cloud_run_log_execution_id" {
 
 }
 
+variable "promote_chunks_runtime" {
+  description = "Runtime for Cloud Run Functions"
+  type        = string
+}
+
+variable "promote_chunks_cloud_run_retry_policy" {
+  description = "Cloud Run retry policy"
+  default     = "RETRY_POLICY_DO_NOT_RETRY"
+  type        = string
+}
+
 # Track Chunk Cloud Run
 
 variable "track_chunk_cloud_run_min_instance_count" {
@@ -151,8 +168,8 @@ variable "track_chunk_cloud_run_max_instance_count" {
 
 variable "track_chunk_cloud_run_timeout" {
   description = "Max time execution can take"
-  default     = "60s"
-  type        = string
+  default     = 60
+  type        = number
 }
 
 variable "track_chunk_cloud_run_concurrency" {
@@ -182,14 +199,17 @@ variable "track_chunk_cloud_run_ppdb_use_secret_manager" {
   description = "Flag to use GCP Secret Manager"
   default     = true
   type        = bool
-
 }
 
-variable "track_chunk_cloud_run_log_execution_id" {
-  description = "Flag to log execution id"
-  default     = true
-  type        = bool
+variable "track_chunk_runtime" {
+  description = "Runtime for Cloud Run Functions"
+  type        = string
+}
 
+variable "track_chunk_cloud_run_retry_policy" {
+  description = "Cloud Run retry policy"
+  default     = "RETRY_POLICY_DO_NOT_RETRY"
+  type        = string
 }
 
 # Trigger Stage Chunk Cloud Run
@@ -208,8 +228,8 @@ variable "trigger_stage_chunk_cloud_run_max_instance_count" {
 
 variable "trigger_stage_chunk_cloud_run_timeout" {
   description = "Max time execution can take"
-  default     = "900s"
-  type        = string
+  default     = "900"
+  type        = number
 }
 
 variable "trigger_stage_chunk_cloud_run_concurrency" {
@@ -249,6 +269,11 @@ variable "trigger_stage_chunk_cloud_run_log_execution_id" {
 
 variable "trigger_stage_chunk_cloud_run_temp_location" {
   description = "Temp location"
+  type        = string
+}
+
+variable "trigger_stage_chunk_runtime" {
+  description = "Runtime for Cloud Run Functions"
   type        = string
 }
 

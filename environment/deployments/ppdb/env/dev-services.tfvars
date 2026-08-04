@@ -4,14 +4,17 @@ application_name = "ppdb"
 state_bucket     = "lsst-terraform-state"
 
 # Promote Chunks Cloud Run
-promote_chunks_cloud_run_ppdb_config_uri    = "gs://ppdb-dev-config/ppdb_dev.yaml"
+promote_chunks_cloud_run_ppdb_config_uri = "gs://ppdb-dev-config/ppdb_dev.yaml"
+promote_chunks_runtime = "python313"
 
 # Track Chunk Cloud Run
-track_chunk_cloud_run_ppdb_config_uri    = "gs://ppdb-dev-config/ppdb_dev.yaml"
+track_chunk_cloud_run_ppdb_config_uri = "gs://ppdb-dev-config/ppdb_dev.yaml"
+track_chunk_runtime = "python313"
 
 # Trigger Stage Chunks Cloud Run
-trigger_stage_chunk_cloud_run_dataflow_template_path    = "gs://ppdb-dev-dataflow/templates/stage_chunk_flex_template.json"
-trigger_stage_chunk_cloud_run_temp_location       = "gs://ppdb-dev-dataflow/temp"
+trigger_stage_chunk_cloud_run_dataflow_template_path = "gs://ppdb-dev-dataflow/templates/stage_chunk_flex_template.json"
+trigger_stage_chunk_cloud_run_temp_location = "gs://ppdb-dev-dataflow/temp"
+trigger_stage_chunk_runtime = "python313"
 
 # GitHub CI
 create_gh_ci_sa = true

@@ -14,6 +14,13 @@ resource "google_project_iam_member" "github_ci_bigquery_data_editor" {
   project = local.project_id
 }
 
+resource "google_project_iam_member" "github_ci_bigquery_job_user" {
+  for_each = var.create_gh_ci_sa ? { "enabled" = true } : {}
+  role    = "roles/bigquery.jobUser"
+  member  = "serviceAccount:${google_service_account.gh_ci["enabled"].email}"
+  project = local.project_id
+}
+
 resource "google_project_iam_member" "github_ci_storage_admin" {
   for_each = var.create_gh_ci_sa ? { "enabled" = true } : {}
   role    = "roles/storage.admin"
