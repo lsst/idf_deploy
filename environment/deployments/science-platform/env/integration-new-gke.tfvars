@@ -76,9 +76,6 @@ node_pools = [
 node_pools_labels = {
   core-pool = {
     infrastructure = "ok",
-  },
-  user-lab-pool-amd = {
-    schedule-user-labs: "yes"
   }
 }
 
