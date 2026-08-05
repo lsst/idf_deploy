@@ -18,6 +18,13 @@ resource "google_pubsub_topic_iam_member" "cloudrun_trigger_stage_chunk_sa_stage
   project = local.project_id
 }
 
+resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunks_dataflow_gcs_folder_viewer" {
+  bucket = google_storage_bucket.dataflow.id
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+}
+
+
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_trigger_stage_chunk" {
   account_id   = "eventarc-stage-chunk-sa"
@@ -88,12 +95,10 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
   }
 
   service_config {
-    available_memory                 = var.trigger_stage_chunk_cloud_run_memory_limit
     service_account_email            = google_service_account.cloudrun_trigger_stage_chunk.email
     min_instance_count               = var.trigger_stage_chunk_cloud_run_min_instance_count
     max_instance_count               = var.trigger_stage_chunk_cloud_run_max_instance_count
     max_instance_request_concurrency = var.trigger_stage_chunk_cloud_run_concurrency
-    timeout_seconds                  = var.trigger_stage_chunk_cloud_run_timeout
 
     direct_vpc_network_interface {
       network    = local.network
@@ -106,7 +111,7 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
       LOG_LEVEL              = var.trigger_stage_chunk_cloud_run_log_level
       PROJECT_ID             = local.project_id
       REGION                 = var.region
-      SERVICE_ACCOUNT_EMAIL  = google_service_account.cloudrun_trigger_stage_chunk.email
+      SERVICE_ACCOUNT_EMAIL  = google_service_account.dataflow_stage_chunk.email
       TEMP_LOCATION          = var.trigger_stage_chunk_cloud_run_temp_location
       TOPIC_NAME             = google_pubsub_topic.track_chunk_topic.name
       LOG_EXECUTION_ID       = var.trigger_stage_chunk_cloud_run_log_execution_id
