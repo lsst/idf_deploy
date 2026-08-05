@@ -58,12 +58,10 @@ resource "google_cloudfunctions2_function" "promote_chunks" {
   }
 
   service_config {
-    available_memory                 = var.promote_chunks_cloud_run_memory_limit
     service_account_email            = google_service_account.cloudrun_promote_chunks.email
     min_instance_count               = var.promote_chunks_cloud_run_min_instance_count
     max_instance_count               = var.promote_chunks_cloud_run_max_instance_count
     max_instance_request_concurrency = var.promote_chunks_cloud_run_concurrency
-    timeout_seconds                  = var.promote_chunks_cloud_run_timeout
 
     direct_vpc_network_interface {
       network    = local.network
@@ -74,6 +72,11 @@ resource "google_cloudfunctions2_function" "promote_chunks" {
     environment_variables = {
       PPDB_CONFIG_URI                   = var.promote_chunks_cloud_run_ppdb_config_uri
       PPDB_USE_SECRET_MANAGER           = var.promote_chunks_cloud_run_ppdb_use_secret_manager
+      CLOUDSQL_ENABLED                  = "true"
+      CLOUDSQL_IP_TYPE                  = "private"
+      CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:ppdb-${var.environment}"
+      CLOUDSQL_USER                     = "${google_service_account.cloudrun_promote_chunks.account_id}@${local.project_id}.iam"
+      CLOUDSQL_DB_NAME                  = "ppdb-chunk-tracking"
     }
   }
 
