@@ -24,6 +24,18 @@ resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunks_dataf
   member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
 }
 
+resource "google_project_iam_member" "cloudrun_trigger_stage_chunks_storage_admin" {
+  role    = "roles/storage.admin"
+  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  project = local.project_id
+}
+
+resource "google_service_account_iam_member" "cloudrun_trigger_stage_chunks_dataflow_sa_impersonation" {
+  service_account_id = google_service_account.dataflow_stage_chunk.name
+  role               = "roles/iam.serviceAccountUser"
+  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+}
+
 
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_trigger_stage_chunk" {
