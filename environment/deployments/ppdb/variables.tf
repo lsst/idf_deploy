@@ -79,21 +79,19 @@ variable "project_iam_permissions" {
     "roles/bigquery.admin",
     "roles/bigquery.dataViewer",
     "roles/bigquery.user",
-    "roles/run.admin",
     "roles/cloudsql.admin",
     "roles/cloudsql.viewer",
+    "roles/compute.securityAdmin",
     "roles/dataflow.admin",
     "roles/iam.admin",
     "roles/iam.serviceAccountKeyAdmin",
+    "roles/iam.serviceAccountUser",
     "roles/logging.admin",
-    "roles/bigquery.admin",
     "roles/monitoring.admin",
     "roles/pubsub.admin",
     "roles/run.admin",
-    "roles/serviceaccount.user",
     "roles/storage.admin",
-    "roles/storage.objectviewer",
-    "roles/compute.securityAdmin"
+    "roles/storage.objectViewer"
   ]
 }
 
