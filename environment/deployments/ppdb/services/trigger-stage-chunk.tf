@@ -119,14 +119,15 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
     direct_vpc_egress = "VPC_EGRESS_PRIVATE_RANGES_ONLY"
 
     environment_variables = {
-      DATAFLOW_TEMPLATE_PATH = var.trigger_stage_chunk_cloud_run_dataflow_template_path
-      LOG_LEVEL              = var.trigger_stage_chunk_cloud_run_log_level
-      PROJECT_ID             = local.project_id
-      REGION                 = var.region
-      SERVICE_ACCOUNT_EMAIL  = google_service_account.dataflow_stage_chunk.email
-      TEMP_LOCATION          = var.trigger_stage_chunk_cloud_run_temp_location
-      TOPIC_NAME             = google_pubsub_topic.track_chunk_topic.name
-      LOG_EXECUTION_ID       = var.trigger_stage_chunk_cloud_run_log_execution_id
+      DATAFLOW_TEMPLATE_PATH  = var.trigger_stage_chunk_cloud_run_dataflow_template_path
+      LOG_LEVEL               = var.trigger_stage_chunk_cloud_run_log_level
+      PROJECT_ID              = local.project_id
+      REGION                  = var.region
+      GOOGLE_CLOUD_SUBNETWORK = "https://www.googleapis.com/compute/v1/${local.subnet}"
+      SERVICE_ACCOUNT_EMAIL   = google_service_account.dataflow_stage_chunk.email
+      TEMP_LOCATION           = var.trigger_stage_chunk_cloud_run_temp_location
+      TOPIC_NAME              = google_pubsub_topic.track_chunk_topic.name
+      LOG_EXECUTION_ID        = var.trigger_stage_chunk_cloud_run_log_execution_id
     }
   }
 
