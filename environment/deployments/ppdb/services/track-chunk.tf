@@ -23,6 +23,14 @@ resource "google_storage_bucket_iam_member" "cloudrun_track_chunks_storage_viewe
   member = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
 }
 
+# IAM database user for CloudSQL
+resource "google_sql_user" "cloudrun_track_chunks_iam_sql_user" {
+  name     = split(".gserviceaccount.com", google_service_account.cloudrun_track_chunks.email)[0]
+  instance = local.sql_instance_name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+  project  = local.project_id
+}
+
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_track_chunk" {
   project      = local.project_id

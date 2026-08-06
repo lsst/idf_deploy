@@ -36,6 +36,14 @@ resource "google_project_iam_member" "cloudrun_promote_chunks_sql_instance_user"
   project = local.project_id
 }
 
+# IAM database user for CloudSQL
+resource "google_sql_user" "cloudrun_promote_chunks_iam_sql_user" {
+  name     = split(".gserviceaccount.com", google_service_account.cloudrun_promote_chunks.email)[0]
+  instance = local.sql_instance_name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+  project  = local.project_id
+}
+
 # Cloud Run Functions Gen2 Definition
 resource "google_cloudfunctions2_function" "promote_chunks" {
   name        = "promote-chunks"
