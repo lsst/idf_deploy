@@ -30,3 +30,27 @@ resource "google_storage_bucket_iam_member" "dataflow_stage_chunks_ingest_object
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
 }
+
+resource "google_project_iam_member" "dataflow_stage_chunks_storage_object_admin" {
+  role    = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  project = local.project_id
+}
+
+resource "google_project_iam_member" "dataflow_stage_chunks_artifact_registry_reader" {
+  role    = "roles/artifactregistry.reader"
+  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  project = local.project_id
+}
+
+resource "google_project_iam_member" "dataflow_stage_chunks_bigquery_job_user" {
+  role    = "roles/bigquery.jobUser"
+  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  project = local.project_id
+}
+
+resource "google_project_iam_member" "dataflow_stage_chunks_bigquery_data_editor" {
+  role    = "roles/bigquery.dataEditor"
+  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  project = local.project_id
+}
