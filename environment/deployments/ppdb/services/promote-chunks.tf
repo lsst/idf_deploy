@@ -24,6 +24,12 @@ resource "google_project_iam_member" "cloudrun_promote_chunks_bq_job_user" {
   project = local.project_id
 }
 
+resource "google_project_iam_member" "cloudrun_promote_chunks_bq_data_editor" {
+  role    = "roles/bigquery.dataEditor"
+  member  = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
+  project = local.project_id
+}
+
 resource "google_project_iam_member" "cloudrun_promote_chunks_sql_client" {
   role    = "roles/cloudsql.client"
   member  = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
