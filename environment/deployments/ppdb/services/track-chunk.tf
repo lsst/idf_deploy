@@ -46,7 +46,7 @@ resource "google_project_iam_member" "event_receiver_track_chunk" {
 }
 
 # Grant the Service Account permission to invoke the Track Chunk Cloud Run service
-resource "google_project_iam_member" "run_invoker_track_chunk" {
+resource "google_project_iam_member" "eventarc_run_invoker_track_chunk" {
   project = local.project_id
   role    = "roles/run.invoker"
   member  = "serviceAccount:${google_service_account.eventarc_sa_track_chunk.email}"
