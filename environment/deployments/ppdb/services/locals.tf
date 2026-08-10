@@ -16,4 +16,6 @@ locals {
       "https://www.googleapis.com/compute/v1/",
       ""
     )
+
+    bigquery_tap_sa_entry = data.terraform_remote_state.science_platform_cloudsql.outputs.service_accounts_map["bigquery-kafka"]
 }
