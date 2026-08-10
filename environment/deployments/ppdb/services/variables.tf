@@ -98,28 +98,10 @@ variable "promote_chunks_cloud_run_max_instance_count" {
   type        = number
 }
 
-variable "promote_chunks_cloud_run_timeout" {
-  description = "Max time execution can take"
-  default     = "900"
-  type        = number
-}
-
 variable "promote_chunks_cloud_run_concurrency" {
   description = "Max number of simultaneous requests for a single container instance"
   default     = 1
   type        = number
-}
-
-variable "promote_chunks_cloud_run_cpu_limit" {
-  description = "CPU limit"
-  default     = 2
-  type        = number
-}
-
-variable "promote_chunks_cloud_run_memory_limit" {
-  description = "Memory limit"
-  default     = "16Gi"
-  type        = string
 }
 
 variable "promote_chunks_cloud_run_ppdb_config_uri" {
@@ -129,7 +111,7 @@ variable "promote_chunks_cloud_run_ppdb_config_uri" {
 
 variable "promote_chunks_cloud_run_ppdb_use_secret_manager" {
   description = "Flag to use GCP Secret Manager"
-  default     = true
+  default     = false
   type        = bool
 
 }
@@ -166,28 +148,10 @@ variable "track_chunk_cloud_run_max_instance_count" {
   type        = number
 }
 
-variable "track_chunk_cloud_run_timeout" {
-  description = "Max time execution can take"
-  default     = 60
-  type        = number
-}
-
 variable "track_chunk_cloud_run_concurrency" {
   description = "Max number of simultaneous requests for a single container instance"
   default     = 1
   type        = number
-}
-
-variable "track_chunk_cloud_run_cpu_limit" {
-  description = "CPU limit"
-  default     = 2
-  type        = number
-}
-
-variable "track_chunk_cloud_run_memory_limit" {
-  description = "Memory limit"
-  default     = "4Gi"
-  type        = string
 }
 
 variable "track_chunk_cloud_run_ppdb_config_uri" {
@@ -197,7 +161,7 @@ variable "track_chunk_cloud_run_ppdb_config_uri" {
 
 variable "track_chunk_cloud_run_ppdb_use_secret_manager" {
   description = "Flag to use GCP Secret Manager"
-  default     = true
+  default     = false
   type        = bool
 }
 
@@ -226,28 +190,10 @@ variable "trigger_stage_chunk_cloud_run_max_instance_count" {
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_timeout" {
-  description = "Max time execution can take"
-  default     = "900"
-  type        = number
-}
-
 variable "trigger_stage_chunk_cloud_run_concurrency" {
   description = "Max number of simultaneous requests for a single container instance"
   default     = 1
   type        = number
-}
-
-variable "trigger_stage_chunk_cloud_run_cpu_limit" {
-  description = "CPU limit"
-  default     = 1
-  type        = number
-}
-
-variable "trigger_stage_chunk_cloud_run_memory_limit" {
-  description = "Memory limit"
-  default     = "256Mi"
-  type        = string
 }
 
 variable "trigger_stage_chunk_cloud_run_dataflow_template_path" {

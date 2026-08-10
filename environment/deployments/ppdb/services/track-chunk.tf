@@ -23,6 +23,14 @@ resource "google_storage_bucket_iam_member" "cloudrun_track_chunks_storage_viewe
   member = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
 }
 
+# IAM database user for CloudSQL
+resource "google_sql_user" "cloudrun_track_chunks_iam_sql_user" {
+  name     = split(".gserviceaccount.com", google_service_account.cloudrun_track_chunks.email)[0]
+  instance = local.sql_instance_name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+  project  = local.project_id
+}
+
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_track_chunk" {
   project      = local.project_id
@@ -38,7 +46,7 @@ resource "google_project_iam_member" "event_receiver_track_chunk" {
 }
 
 # Grant the Service Account permission to invoke the Track Chunk Cloud Run service
-resource "google_project_iam_member" "run_invoker_track_chunk" {
+resource "google_project_iam_member" "eventarc_run_invoker_track_chunk" {
   project = local.project_id
   role    = "roles/run.invoker"
   member  = "serviceAccount:${google_service_account.eventarc_sa_track_chunk.email}"
@@ -93,12 +101,10 @@ resource "google_cloudfunctions2_function" "track_chunk" {
   }
 
   service_config {
-    available_memory                 = var.track_chunk_cloud_run_memory_limit
     service_account_email            = google_service_account.cloudrun_track_chunks.email
     min_instance_count               = var.track_chunk_cloud_run_min_instance_count
     max_instance_count               = var.track_chunk_cloud_run_max_instance_count
     max_instance_request_concurrency = var.track_chunk_cloud_run_concurrency
-    timeout_seconds                  = var.track_chunk_cloud_run_timeout
 
     direct_vpc_network_interface {
       network    = local.network
@@ -111,7 +117,7 @@ resource "google_cloudfunctions2_function" "track_chunk" {
       PPDB_USE_SECRET_MANAGER           = var.track_chunk_cloud_run_ppdb_use_secret_manager
       CLOUDSQL_ENABLED                  = "true"
       CLOUDSQL_IP_TYPE                  = "private"
-      CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:${var.environment}"
+      CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:ppdb-${var.environment}"
       CLOUDSQL_USER                     = "${google_service_account.cloudrun_track_chunks.account_id}@${local.project_id}.iam"
       CLOUDSQL_DB_NAME                  = "ppdb-chunk-tracking"
     }

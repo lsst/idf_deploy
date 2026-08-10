@@ -47,3 +47,9 @@ resource "google_project_iam_member" "cloudrun_deploy_storage_object_admin" {
   member  = "serviceAccount:${google_service_account.cloudrun_deploy.email}"
   project = local.project_id
 }
+
+resource "google_project_iam_member" "cloudrun_deploy_service_account_token_creator" {
+  role    = "roles/iam.serviceAccountTokenCreator"
+  member  = "serviceAccount:${google_service_account.cloudrun_deploy.email}"
+  project = local.project_id
+}
