@@ -20,6 +20,32 @@ resource "google_bigquery_dataset" "ppdb_public" {
   delete_contents_on_destroy = false
 }
 
+resource "google_project_iam_member" "tap_sa_job_user" {
+  role    = "roles/bigquery.jobUser"
+  member = local.bigquery_tap_sa_entry.member
+  project = local.project_id
+}
+
+resource "google_project_iam_member" "tap_sa_read_session" {
+  role    = "roles/bigquery.readSessionUser"
+  member = local.bigquery_tap_sa_entry.member
+  project = local.project_id
+}
+
+resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_public" {
+  dataset_id    = google_bigquery_dataset.ppdb_public.dataset_id 
+  member        = local.bigquery_tap_sa_entry.member
+  project       = local.project_id
+  role          = "roles/bigquery.dataViewer"
+}
+
+resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_internal" {
+  dataset_id    = google_bigquery_dataset.ppdb_internal.dataset_id 
+  member        = local.bigquery_tap_sa_entry.member
+  project       = local.project_id
+  role          = "roles/bigquery.dataViewer"
+}
+
 # PPDB Staging
 resource "google_bigquery_dataset" "ppdb_staging" {
   dataset_id                 = "ppdb_staging"
@@ -41,3 +67,4 @@ resource "google_bigquery_dataset" "ppdb_backup" {
   max_time_travel_hours      = var.bigquery_max_time_travel_hours
   delete_contents_on_destroy = false
 }
+
