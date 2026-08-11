@@ -26,6 +26,12 @@ resource "google_project_iam_member" "tap_sa_job_user" {
   project = local.project_id
 }
 
+resource "google_project_iam_member" "tap_sa_read_session" {
+  role    = "roles/bigquery.readSessionUser"
+  member = local.bigquery_tap_sa_entry.member
+  project = local.project_id
+}
+
 resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_public" {
   dataset_id    = google_bigquery_dataset.ppdb_public.dataset_id 
   member        = local.bigquery_tap_sa_entry.member
