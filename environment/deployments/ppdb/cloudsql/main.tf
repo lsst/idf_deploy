@@ -60,3 +60,10 @@ module "db_ppdb" {
   ]
 
 }
+
+resource "google_sql_user" "iam_group" {
+  for_each = toset(var.ppdb_cloud_sql_db_access_iam_groups)
+  name     = each.key
+  instance = module.db_ppdb.name
+  type     = "CLOUD_IAM_GROUP"
+}

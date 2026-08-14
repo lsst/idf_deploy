@@ -15,7 +15,9 @@ ppdb_cloud_sql_edition                                = "ENTERPRISE"
 ppdb_cloud_sql_ipv4_enabled                           = "true"
 ppdb_cloud_sql_enable_private_path                    = "true"
 
-
+ppdb_cloud_sql_db_access_iam_groups = [
+  "gcp-ppdb-administrators@lsst.cloud"
+]
 
 # If you didn't make any other changes to this file, increase this number to
 # force Terraform to update this environment. You may need to do this if you

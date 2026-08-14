@@ -135,3 +135,9 @@ variable "ppdb_cloud_sql_backups_point_in_time_recovery_enabled" {
   description = "Enable Point in Time Recovery for backups"
   default     = true
 }
+
+variable "ppdb_cloud_sql_db_access_iam_groups" {
+  description = "Google Cloud IAM groups that will have access to the PPDB CloudSQL DB instance."
+  type        = list(string)
+  default     = []
+}
