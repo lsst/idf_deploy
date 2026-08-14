@@ -54,4 +54,9 @@ module "db_ppdb" {
       collation = "en_US.UTF8"
     }
   ]
+
+  depends_on = [
+    module.private-service-access
+  ]
+
 }
