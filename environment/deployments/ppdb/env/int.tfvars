@@ -1,7 +1,7 @@
 # Project
 environment                 = "int"
 application_name            = "ppdb"
-folder_id                   = "735808603000"
+folder_id                   = "263645271208"
 budget_amount               = 1000
 budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 
