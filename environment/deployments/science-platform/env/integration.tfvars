@@ -90,6 +90,13 @@ netapp_definitions = [
     has_root_access        = true
     access_type            = "READ_WRITE"
     default_user_quota_mib = 40000
+    override_user_quotas   = [
+      { username           = "firefly"
+        uid                = 91
+        disk_limit_mib     = 250000
+      }
+    ]
+      
   },
   { name                   = "rubin"
     service_level          = "PREMIUM"
