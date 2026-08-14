@@ -8,6 +8,10 @@ data "terraform_remote_state" "ppdb_project" {
   }
 }
 
+locals {
+  project_id = data.terraform_remote_state.ppdb_project.outputs.project_id
+}
+
 
 # Sets up a connection from the VPC to Google services
 module "private-service-access" {
@@ -66,4 +70,5 @@ resource "google_sql_user" "iam_group" {
   name     = each.key
   instance = module.db_ppdb.name
   type     = "CLOUD_IAM_GROUP"
+  project  = local.project_id
 }
