@@ -142,5 +142,6 @@ gcp_ppdb_administrators_iam_permissions = [
   "roles/logging.viewer",
   "roles/monitoring.editor",
   "roles/run.viewer",
-  "roles/storage.objectViewer"
+  "roles/storage.objectViewer",
+  "roles/cloudsql.instanceUser",
 ]
