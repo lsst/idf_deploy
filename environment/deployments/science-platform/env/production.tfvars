@@ -69,7 +69,7 @@ nats = [{ name = "cloud-nat" }]
 netapp_definitions = [
   { name                   = "lcv-home"
     service_level          = "PREMIUM"
-    capacity_gib           = 15360
+    capacity_gib           = 12000
     large_capacity         = true
     unix_permissions       = "0775"
     snapshot_directory     = true
@@ -91,7 +91,7 @@ netapp_definitions = [
   },
   { name               = "firefly"
     service_level      = "PREMIUM"
-    capacity_gib       = 5000
+    capacity_gib       = 2048
     unix_permissions   = "0755"
     snapshot_directory = false
     backups_enabled    = false
@@ -100,7 +100,7 @@ netapp_definitions = [
   },
   { name               = "deleted-sundays"
     service_level      = "PREMIUM"
-    capacity_gib       = 8000
+    capacity_gib       = 2048
     unix_permissions   = "1777"
     snapshot_directory = false
     backups_enabled    = false
