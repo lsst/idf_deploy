@@ -74,7 +74,7 @@ resource "google_eventarc_trigger" "pubsub_trigger_track_chunk" {
   destination {
     cloud_run_service {
       service = google_cloudfunctions2_function.track_chunk.name
-      region = var.region
+      region  = var.region
     }
   }
 }
@@ -85,6 +85,17 @@ resource "google_cloudfunctions2_function" "track_chunk" {
   project     = local.project_id
   location    = var.region
   description = "Tracks processing chunks"
+
+  depends_on = [
+    google_project_iam_member.cloudrun_deploy_functions_developer,
+    google_project_iam_member.cloudrun_deploy_run_developer,
+    google_project_iam_member.cloudrun_deploy_service_account_user,
+    google_project_iam_member.cloudrun_deploy_builds_editor,
+    google_project_iam_member.cloudrun_deploy_artifact_registry_writer,
+    google_project_iam_member.cloudrun_deploy_storage_admin,
+    google_project_iam_member.cloudrun_deploy_storage_object_admin,
+    google_project_iam_member.cloudrun_deploy_service_account_token_creator,
+  ]
 
   build_config {
     runtime         = var.track_chunk_runtime

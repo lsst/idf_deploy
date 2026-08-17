@@ -14,8 +14,8 @@ resource "google_storage_bucket_iam_member" "cloudrun_promote_chunks_ingest_obje
 resource "google_bigquery_dataset_access" "cloudrun_promote_chunks_staging_dataset_editor" {
   dataset_id = google_bigquery_dataset.ppdb_staging.dataset_id
   role       = "roles/bigquery.dataEditor"
-  iam_member  = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
-  project = local.project_id
+  iam_member = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
+  project    = local.project_id
 }
 
 resource "google_project_iam_member" "cloudrun_promote_chunks_bq_job_user" {
@@ -56,6 +56,17 @@ resource "google_cloudfunctions2_function" "promote_chunks" {
   project     = local.project_id
   location    = var.region
   description = "Promotes Chunks"
+
+  depends_on = [
+    google_project_iam_member.cloudrun_deploy_functions_developer,
+    google_project_iam_member.cloudrun_deploy_run_developer,
+    google_project_iam_member.cloudrun_deploy_service_account_user,
+    google_project_iam_member.cloudrun_deploy_builds_editor,
+    google_project_iam_member.cloudrun_deploy_artifact_registry_writer,
+    google_project_iam_member.cloudrun_deploy_storage_admin,
+    google_project_iam_member.cloudrun_deploy_storage_object_admin,
+    google_project_iam_member.cloudrun_deploy_service_account_token_creator,
+  ]
 
   build_config {
     runtime         = var.promote_chunks_runtime
