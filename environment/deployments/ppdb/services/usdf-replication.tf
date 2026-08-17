@@ -7,9 +7,9 @@ resource "google_service_account" "usdf_replication" {
 }
 
 resource "google_pubsub_topic_iam_member" "usdf_replication_stage_chunk_topic" {
-  topic  = google_pubsub_topic.stage_chunk_topic.id
-  role   = "roles/pubsub.publisher"
-  member = "serviceAccount:${google_service_account.usdf_replication.email}"
+  topic   = google_pubsub_topic.stage_chunk_topic.id
+  role    = "roles/pubsub.publisher"
+  member  = "serviceAccount:${google_service_account.usdf_replication.email}"
   project = local.project_id
 }
 
@@ -36,3 +36,4 @@ resource "google_storage_bucket_iam_member" "usdf_replication_gcs_config_viewer"
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${google_service_account.usdf_replication.email}"
 }
+

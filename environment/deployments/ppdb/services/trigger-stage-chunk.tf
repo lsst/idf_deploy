@@ -12,9 +12,9 @@ resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_dataflow" {
 }
 
 resource "google_pubsub_topic_iam_member" "cloudrun_trigger_stage_chunk_sa_stage_chunk_topic" {
-  topic  = google_pubsub_topic.stage_chunk_topic.id
-  role   = "roles/pubsub.subscriber"
-  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  topic   = google_pubsub_topic.stage_chunk_topic.id
+  role    = "roles/pubsub.subscriber"
+  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
   project = local.project_id
 }
 
@@ -26,14 +26,14 @@ resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunks_dataf
 
 resource "google_project_iam_member" "cloudrun_trigger_stage_chunks_storage_admin" {
   role    = "roles/storage.admin"
-  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
   project = local.project_id
 }
 
 resource "google_service_account_iam_member" "cloudrun_trigger_stage_chunks_dataflow_sa_impersonation" {
   service_account_id = google_service_account.dataflow_stage_chunk.name
   role               = "roles/iam.serviceAccountUser"
-  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member             = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
 }
 
 
@@ -91,6 +91,17 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
   project     = local.project_id
   location    = var.region
   description = "Triggers Stage Chunks"
+
+  depends_on = [
+    google_project_iam_member.cloudrun_deploy_functions_developer,
+    google_project_iam_member.cloudrun_deploy_run_developer,
+    google_project_iam_member.cloudrun_deploy_service_account_user,
+    google_project_iam_member.cloudrun_deploy_builds_editor,
+    google_project_iam_member.cloudrun_deploy_artifact_registry_writer,
+    google_project_iam_member.cloudrun_deploy_storage_admin,
+    google_project_iam_member.cloudrun_deploy_storage_object_admin,
+    google_project_iam_member.cloudrun_deploy_service_account_token_creator,
+  ]
 
   build_config {
     runtime         = var.trigger_stage_chunk_runtime
