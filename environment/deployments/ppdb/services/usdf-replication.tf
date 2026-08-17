@@ -37,3 +37,10 @@ resource "google_storage_bucket_iam_member" "usdf_replication_gcs_config_viewer"
   member = "serviceAccount:${google_service_account.usdf_replication.email}"
 }
 
+# IAM database user for CloudSQL
+resource "google_sql_user" "usdf_replication_iam_sql_user" {
+  name     = split(".gserviceaccount.com", google_service_account.usdf_replication.email)[0]
+  instance = local.sql_instance_name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+  project  = local.project_id
+}
