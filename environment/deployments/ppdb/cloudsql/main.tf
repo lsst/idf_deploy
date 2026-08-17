@@ -53,7 +53,7 @@ module "db_ppdb" {
 
   additional_databases = [
     {
-      name      = "ppdb-chunk-tracking"
+      name      = "ppdb"
       charset   = "UTF8"
       collation = "en_US.UTF8"
     }
