@@ -275,6 +275,13 @@ resource "random_password" "usertap" {
   special = false
 }
 
+resource "random_password" "obsforgetap" {
+  length  = 24
+  numeric = true
+  upper   = true
+  special = false
+}
+
 data "google_compute_network" "network" {
   name    = var.network
   project = var.project_id
@@ -363,6 +370,11 @@ module "db_science_platform" {
       charset   = "UTF8"
       collation = "en_US.UTF8"
     },
+    {
+      name      = "obsforgetap"
+      charset   = "UTF8"
+      collation = "en_US.UTF8"
+    }
   ]
 
   additional_users = [
@@ -421,6 +433,11 @@ module "db_science_platform" {
       password        = random_password.usertap.result
       random_password = false
     },
+    {
+      name            = "obsforgetap"
+      password        = random_password.obsforgetap.result
+      random_password = false
+    }
   ]
 }
 
@@ -462,6 +479,7 @@ module "service_accounts" {
     "gafaelfawr",
     "grafana",
     "nublado",
+    "obsforgetap",
     "ppdbtap",
     "repertoire",
     "semaphore",
@@ -573,6 +591,12 @@ resource "google_service_account_iam_member" "usertap_sa_wi" {
   service_account_id = module.service_accounts.service_accounts_map["usertap"].name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[usertap/usertap]"
+}
+
+resource "google_service_account_iam_member" "obsforgetap_sa_wi" {
+  service_account_id = module.service_accounts.service_accounts_map["obsforgetap"].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[obsforgetap/obsforgetap]"
 }
 
 resource "google_project_iam_member" "ppdbtap_bigquery_data_viewer" {
