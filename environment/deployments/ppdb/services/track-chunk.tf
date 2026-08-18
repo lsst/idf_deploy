@@ -130,7 +130,7 @@ resource "google_cloudfunctions2_function" "track_chunk" {
       CLOUDSQL_IP_TYPE                  = "private"
       CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:ppdb-${var.environment}"
       CLOUDSQL_USER                     = "${google_service_account.cloudrun_track_chunks.account_id}@${local.project_id}.iam"
-      CLOUDSQL_DB_NAME                  = "ppdb-chunk-tracking"
+      CLOUDSQL_DB_NAME                  = "ppdb"
     }
   }
 
