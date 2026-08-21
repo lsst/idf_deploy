@@ -28,32 +28,6 @@ secondary_ranges = {
   ]
 }
 
-# Enable Google Artifact Registry, Service Networking, Container Filesystem,
-# and Cloud SQL Admin (required for the Cloud SQL Auth Proxy) in addition to
-# our standard APIs.
-activate_apis = [
-  "artifactregistry.googleapis.com",
-  "bigquery.googleapis.com",
-  "billingbudgets.googleapis.com",
-  "cloudbuild.googleapis.com",
-  "cloudfunctions.googleapis.com",
-  "cloudresourcemanager.googleapis.com",
-  "cloudscheduler.googleapis.com",
-  "compute.googleapis.com",
-  "dataflow.googleapis.com",
-  "eventarc.googleapis.com",
-  "iam.googleapis.com",
-  "logging.googleapis.com",
-  "monitoring.googleapis.com",
-  "pubsub.googleapis.com",
-  "run.googleapis.com",
-  "secretmanager.googleapis.com",
-  "servicenetworking.googleapis.com",
-  "serviceusage.googleapis.com",
-  "sqladmin.googleapis.com",
-  "storage.googleapis.com"
-]
-
 # If you didn't make any other changes to this file, increase this number to
 # force Terraform to update this environment. You may need to do this if you
 # changed .tf files in this environment, or if you changed any modules that

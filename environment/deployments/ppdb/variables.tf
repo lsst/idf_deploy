@@ -26,18 +26,27 @@ variable "activate_apis" {
   description = "The api to activate for the GCP project"
   type        = list(string)
   default = [
+    "artifactregistry.googleapis.com",
     "bigquery.googleapis.com",
     "billingbudgets.googleapis.com",
+    "cloudbuild.googleapis.com",
     "cloudfunctions.googleapis.com",
-    "dataproc.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "cloudscheduler.googleapis.com",
+    "compute.googleapis.com",
+    "dataflow.googleapis.com",
     "eventarc.googleapis.com",
+    "iam.googleapis.com",
     "logging.googleapis.com",
     "monitoring.googleapis.com",
     "pubsub.googleapis.com",
     "run.googleapis.com",
     "secretmanager.googleapis.com",
     "servicenetworking.googleapis.com",
-    "storage.googleapis.com"
+    "serviceusage.googleapis.com",
+    "sqladmin.googleapis.com",
+    "storage.googleapis.com",
+    "workflows.googleapis.com"
   ]
 }
 
