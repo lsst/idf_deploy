@@ -71,4 +71,6 @@ resource "google_sql_user" "iam_group" {
   instance = module.db_ppdb.name
   type     = "CLOUD_IAM_GROUP"
   project  = local.project_id
+
+  database_roles = ["cloudsqlsuperuser"]
 }
