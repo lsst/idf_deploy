@@ -29,24 +29,15 @@ After this terraform is applied and the database instance and database are creat
 This can be done locally via the [CloudSQL auth proxy](https://docs.cloud.google.com/sql/docs/mysql/connect-auth-proxy), or through the Google Cloud web console via the CloudSQL Studio.
 Here is the [CloudSQL Studio link for the `int` environment, for example](https://console.cloud.google.com/sql/instances/ppdb-int/studio?project=ppdb-int-6c62).
 
-We could do this without using the `postgres` user by setting `database_roles` on the `gcp-ppdb-administrators` [sql_user Terraform resource](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_user#database_roles-1), but this is dangerous because any update of that value will completely replace the database roles granted to that IAM group role.
-Creating and granting all of the necessary roles is order-dependent and would require setting up in-instance provisioning of resources in Terraform, which we may do later.
-
-* Change the `postgres` user password in the instance like this (for int):
-
-```console
-$ gcloud sql users set-password postgres --project ppdb-int-6c62 --instance ppdb-int --prompt-for-password
-```
-
 * Get a session in the db either through the sql proxy or the CloudSQL Studio and run this sql:
 
 ```sql
 -- This is the role that will own all of the PPDB database objects
 CREATE ROLE ppdb NOLOGIN CREATEDB;
 
--- We have to allow the postgres user (who we're logged in as) to assume this
--- role in order to grant it to other roles.
-GRANT ppdb TO postgres;
+-- We have to allow the cloudsqlsuperuser role (who we're operating as) to
+-- assume this role in order to grant it to other roles.
+GRANT ppdb TO cloudsqlsuperuser;
 
 -- Change the ownership of everything in the ppdb database to the ppdb user
 ALTER DATABASE "ppdb" OWNER TO ppdb;
@@ -56,14 +47,9 @@ ALTER SCHEMA "public" OWNER to ppdb;
 -- role
 GRANT ppdb TO "gcp-ppdb-administrators@lsst.cloud";
 
--- Allow anyone in the gcp-ppdb-administrators Google group to assume the
--- cloudsqlsuperuser role so that we don't have to log in as the postgres
--- user with a password ever again.
-GRANT cloudsqlsuperuser TO  "gcp-ppdb-administrators@lsst.cloud";
-
--- The postgres user no longer needs this, any manual DB'ing we need to
--- do in the future should be done by someone with IAM access.
-REVOKE ppdb FROM postgres;
+-- The cloudsqlsuperuser role user no longer needs this. We can always grant
+-- it again if we need to.
+REVOKE ppdb FROM cloudsqlsuperuser;
 ```
 
 ## Doing anything else
@@ -71,4 +57,4 @@ REVOKE ppdb FROM postgres;
 Whenever you need to make manual changes to the contents of the DB instance from now on:
 * Make sure your personal `@lsst.cloud` Google account is in the `gcp-ppdb-administrators` Google group
 * Log in to the DB using your personal IAM user
-* Assume the `cloudsqlsuperuser` role if you need to with `SET ROLE cloudsqlsuperuser`.
+* Assume the `ppdb` or `cloudsqlsuperuser` roles if you need to with `SET ROLE <role>`.
