@@ -23,6 +23,7 @@
 | <a name="module_sub_folders_processing"></a> [sub\_folders\_processing](#module\_sub\_folders\_processing) | terraform-google-modules/folders/google | ~> 5.1 |
 | <a name="module_sub_folders_science_platform"></a> [sub\_folders\_science\_platform](#module\_sub\_folders\_science\_platform) | terraform-google-modules/folders/google | ~> 5.1 |
 | <a name="module_sub_folders_square"></a> [sub\_folders\_square](#module\_sub\_folders\_square) | terraform-google-modules/folders/google | ~> 5.1 |
+| <a name="module_sub_folders_usdf_backups"></a> [sub\_folders\_usdf\_backups](#module\_sub\_folders\_usdf\_backups) | terraform-google-modules/folders/google | ~> 5.1 |
 
 ## Resources
 
@@ -40,6 +41,7 @@
 | [google_folder_iam_member.gcp_square_administrator_iam_permissions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/folder_iam_member) | resource |
 | [google_folder_iam_member.gcp_square_gke_cluster_admins_iam_permissions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/folder_iam_member) | resource |
 | [google_folder_iam_member.gcp_square_gke_developer_iam_permissions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/folder_iam_member) | resource |
+| [google_folder_iam_member.gcp_usdf_backup_administrators_iam_permissions](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/folder_iam_member) | resource |
 | [google_active_folder.alert_production_sub_folder](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/active_folder) | data source |
 | [google_active_folder.epo_sub_folder](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/active_folder) | data source |
 | [google_active_folder.ppdb_sub_folder](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/active_folder) | data source |
@@ -47,6 +49,7 @@
 | [google_active_folder.shared_services_folder](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/active_folder) | data source |
 | [google_active_folder.splatform_sub_folder](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/active_folder) | data source |
 | [google_active_folder.square_sub_folder](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/active_folder) | data source |
+| [google_active_folder.usdf_backups_sub_folder](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/active_folder) | data source |
 
 ## Inputs
 
@@ -73,6 +76,7 @@
 | <a name="input_splatform_display_name"></a> [splatform\_display\_name](#input\_splatform\_display\_name) | The display name of the parent folder. | `string` | `"Science Platform"` | no |
 | <a name="input_square_display_name"></a> [square\_display\_name](#input\_square\_display\_name) | The display name of the parent folder. | `string` | `"SQuaRE"` | no |
 | <a name="input_sub_folder_names"></a> [sub\_folder\_names](#input\_sub\_folder\_names) | List out the sub folders to be created. | `list(string)` | <pre>[<br/>  "Dev",<br/>  "Integration",<br/>  "Production"<br/>]</pre> | no |
+| <a name="input_usdf_backups_display_name"></a> [usdf\_backups\_display\_name](#input\_usdf\_backups\_display\_name) | The display name of the parent folder. | `string` | `"USDF Backups"` | no |
 
 ## Outputs
 

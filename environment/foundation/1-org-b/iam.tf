@@ -86,3 +86,11 @@ resource "google_folder_iam_member" "gcp_ppdb_administrators_iam_permissions" {
   role     = each.value
   member   = "group:${module.constants.values.groups.gcp_ppdb_administrators}"
 }
+
+// USDF Backups Folder
+resource "google_folder_iam_member" "gcp_usdf_backup_administrators_iam_permissions" {
+  for_each = toset(var.gcp_usdf_backup_administrators_iam_permissions)
+  folder   = data.google_active_folder.usdf_backups_sub_folder.name
+  role     = each.value
+  member   = "group:${module.constants.values.groups.gcp_usdf_backup_administrators}"
+}

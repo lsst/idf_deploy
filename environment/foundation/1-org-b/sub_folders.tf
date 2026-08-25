@@ -51,3 +51,12 @@ module "sub_folders_ppdb" {
   parent = data.google_active_folder.ppdb_sub_folder.name
   names  = var.sub_folder_names
 }
+
+// Build Sub Folders for PPDB
+module "sub_folders_usdf_backups" {
+  source  = "terraform-google-modules/folders/google"
+  version = "~> 5.1"
+
+  parent = data.google_active_folder.usdf_backups_sub_folder.name
+  names  = var.sub_folder_names
+}

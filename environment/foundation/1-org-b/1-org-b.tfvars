@@ -144,3 +144,12 @@ gcp_ppdb_administrators_iam_permissions = [
   "roles/run.viewer",
   "roles/storage.objectViewer",
 ]
+
+# USDF Backups
+usdf_backups_display_name = "USDF Backups"
+
+gcp_usdf_backup_administrators_iam_permissions = [
+  "roles/logging.viewer",
+  "roles/monitoring.editor",
+  "roles/storage.objectViewer",
+]
