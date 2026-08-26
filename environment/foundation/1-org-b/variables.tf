@@ -158,6 +158,11 @@ variable "gcp_ppdb_administrators_iam_permissions" {
   ]
 }
 
+variable "gcp_usdf_backup_administrators_iam_permissions" {
+  description = "List of permissions granted to the group."
+  type        = list(string)
+}
+
 # ----------------------------------------
 #   SUB FOLDER VARIABLES
 # ----------------------------------------
@@ -208,6 +213,12 @@ variable "ppdb_display_name" {
   description = "The display name of the parent folder."
   type        = string
   default     = "PPDB"
+}
+
+variable "usdf_backups_display_name" {
+  description = "The display name of the parent folder."
+  type        = string
+  default     = "USDF Backups"
 }
 
 variable "sub_folder_names" {
