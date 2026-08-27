@@ -77,7 +77,7 @@ netapp_definitions = [
     has_root_access        = true
     allow_auto_tiering     = true
     access_type            = "READ_WRITE"
-    default_user_quota_mib = 40000
+    default_user_quota_mib = 50000
   },
   { name               = "rubin"
     service_level      = "PREMIUM"
