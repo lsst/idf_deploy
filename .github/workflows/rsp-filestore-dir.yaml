@@ -60,7 +60,7 @@ jobs:
 
       # Get the GKE credentials so we can deploy to the cluster
       - id: 'get-credentials'
-        uses: 'google-github-actions/get-gke-credentials@v2'
+        uses: 'google-github-actions/get-gke-credentials@v3'
         with:
           cluster_name: "${{ github.event.inputs.gkeCluster }}"
           location: "us-central1"
