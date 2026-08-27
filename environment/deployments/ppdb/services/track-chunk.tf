@@ -134,13 +134,6 @@ resource "google_cloudfunctions2_function" "track_chunk" {
     }
   }
 
-  event_trigger {
-    trigger_region = var.region
-    event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
-    pubsub_topic   = "projects/${local.project_id}/topics/track-chunk-topic"
-    retry_policy   = var.track_chunk_cloud_run_retry_policy
-  }
-
   # Instructs Terraform to ignore modifications to the source code artifact made by CI
   lifecycle {
     ignore_changes = [
