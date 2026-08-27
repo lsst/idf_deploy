@@ -86,21 +86,16 @@ variable "project_iam_permissions" {
   default = [
     "roles/artifactregistry.admin",
     "roles/bigquery.admin",
-    "roles/bigquery.dataViewer",
-    "roles/bigquery.user",
+    "roles/cloudfunctions.admin",
     "roles/cloudsql.admin",
-    "roles/cloudsql.viewer",
     "roles/compute.securityAdmin",
     "roles/dataflow.admin",
     "roles/iam.admin",
-    "roles/iam.serviceAccountKeyAdmin",
-    "roles/iam.serviceAccountUser",
     "roles/logging.admin",
     "roles/monitoring.admin",
     "roles/pubsub.admin",
     "roles/run.admin",
     "roles/storage.admin",
-    "roles/storage.objectViewer"
   ]
 }
 
