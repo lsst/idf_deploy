@@ -26,7 +26,7 @@ locals {
       gcp_square_administrators           = "gcp-square-administrators@lsst.cloud"
       gcp_epo_administrators              = "gcp-epo-administrators@lsst.cloud"
       gcp_ppdb_administrators             = "gcp-ppdb-administrators@lsst.cloud"
-      gcp_usdf_backup_administrators      = "gcp-usdf-backup-administrators@lsst.cloud"
+      gcp_usdf_backup_administrators      = "gcp-usdf-backups-administrators@lsst.cloud"
 
       gcp_science_platform_gke_cluster_admins = "gcp-science-platform-gke-cluster-admins@lsst.cloud"
       gcp_processing_gke_cluster_admins       = "gcp-processing-gke-cluster-admins@lsst.cloud"
