@@ -11,13 +11,6 @@ resource "google_project_iam_member" "cloudrun_load_sso_dataflow" {
   project = local.project_id
 }
 
-resource "google_pubsub_topic_iam_member" "cloudrun_load_sso_sa_load_sso_topic" {
-  topic   = google_pubsub_topic.load_sso_topic.id
-  role    = "roles/pubsub.subscriber"
-  member  = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
-  project = local.project_id
-}
-
 resource "google_storage_bucket_iam_member" "cloudrun_load_sso_dataflow_gcs_folder_viewer" {
   bucket = google_storage_bucket.dataflow.id
   role   = "roles/storage.objectViewer"
