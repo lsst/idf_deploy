@@ -5,6 +5,11 @@ resource "google_service_account" "cloudrun_promote_chunks" {
   project      = local.project_id
 }
 
+resource "google_storage_bucket_iam_member" "cloudrun_promote_chunks_storage_viewer_configs" {
+  bucket = google_storage_bucket.config.id
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
+}
 resource "google_storage_bucket_iam_member" "cloudrun_promote_chunks_ingest_object_viewer" {
   bucket = google_storage_bucket.ingest.name
   role   = "roles/storage.objectViewer"
@@ -54,7 +59,7 @@ resource "google_sql_user" "cloudrun_promote_chunks_iam_sql_user" {
 resource "google_service_account" "promote_chunks_workflow" {
   account_id   = "promote-chunks-workflow-runner"
   display_name = "Service Account for Promote Chunks Cloud Workflow"
-  project       = local.project_id
+  project      = local.project_id
 }
 
 resource "google_project_iam_member" "promote_chunks_workflow_cloudrun_developer" {
@@ -90,7 +95,7 @@ main:
         call: googleapis.run.v2.projects.locations.jobs.run
         args:
           name: $${"projects/" + project_id + "/locations/" + location + "/jobs/" + job_name}
-        result: job_execution    
+        result: job_execution
     - finish:
         return: $${job_execution}
 EOF
@@ -122,14 +127,14 @@ resource "google_cloud_scheduler_job" "promote_chunks_workflow_scheduler" {
   http_target {
     http_method = "POST"
     # End point to trigger a workflow execution
-    uri         = "https://workflowexecutions.googleapis.com/v1/${google_workflows_workflow.promote_chunks_run_job_workflow.id}/executions"
+    uri = "https://workflowexecutions.googleapis.com/v1/${google_workflows_workflow.promote_chunks_run_job_workflow.id}/executions"
 
     # Empty arguments body needed to for POST to run the workflow.
     body = base64encode(
-                        <<-EOF
-                            {"argument":"{}","callLogLevel":"LOG_ALL_CALLS"} 
-                        EOF
-                       )
+      <<-EOF
+          {"argument":"{}","callLogLevel":"LOG_ALL_CALLS"}
+      EOF
+    )
 
     headers = {
       "content-type" = "application/octet-stream"
@@ -144,9 +149,9 @@ resource "google_cloud_scheduler_job" "promote_chunks_workflow_scheduler" {
 
 # Cloud Run Job Definition
 resource "google_cloud_run_v2_job" "promote_chunks" {
-  name        = "promote-chunks"
-  location    = var.region
-  project     = local.project_id
+  name     = "promote-chunks"
+  location = var.region
+  project  = local.project_id
 
   depends_on = [
     google_project_iam_member.cloudrun_deploy_functions_developer,
@@ -159,8 +164,8 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
     google_project_iam_member.cloudrun_deploy_service_account_token_creator,
   ]
 
-  template{
-    template{
+  template {
+    template {
       service_account       = google_service_account.cloudrun_promote_chunks.email
       execution_environment = var.promote_chunks_cloud_run_execution_environment
       timeout               = var.promote_chunks_timeout
@@ -205,7 +210,7 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
       }
       vpc_access {
         egress = "PRIVATE_RANGES_ONLY"
-        
+
         network_interfaces {
           network    = local.network
           subnetwork = local.subnet
@@ -224,3 +229,4 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
     ]
   }
 }
+
