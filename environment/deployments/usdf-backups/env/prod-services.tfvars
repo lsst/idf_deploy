@@ -1,5 +1,5 @@
 # Cloud SQL
-environment      = "dev"
+environment      = "prod"
 application_name = "usdf-backups"
 state_bucket     = "lsst-terraform-state"
 
