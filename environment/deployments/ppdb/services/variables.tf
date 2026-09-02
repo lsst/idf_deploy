@@ -307,7 +307,7 @@ variable "load_sso_cloud_run_min_instance_count" {
 
 variable "load_sso_cloud_run_max_instance_count" {
   description = "Maximum number of cloud run instances"
-  default     = 100
+  default     = 1
   type        = number
 }
 
