@@ -96,6 +96,7 @@ variable "project_iam_permissions" {
     "roles/pubsub.admin",
     "roles/run.admin",
     "roles/storage.admin",
+    "roles/bigquery.studioAdmin",
   ]
 }
 
