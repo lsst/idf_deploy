@@ -4,18 +4,20 @@ locals {
   sql_instance_name = data.terraform_remote_state.ppdb_cloud_sql.outputs.ppdb_cloud_sql_instance_name
 
   network = replace(
-          data.terraform_remote_state.ppdb_project.outputs.network_self_link,
-          "https://www.googleapis.com/compute/v1/",
-          ""
-        )
+    data.terraform_remote_state.ppdb_project.outputs.network_self_link,
+    "https://www.googleapis.com/compute/v1/",
+    ""
+  )
   subnet = replace(
-      one([
-        for s in data.terraform_remote_state.ppdb_project.outputs.subnets_self_links : s
-        if can(regex("subnet-us-central1-01", s))
-      ]),
-      "https://www.googleapis.com/compute/v1/",
-      ""
-    )
+    one([
+      for s in data.terraform_remote_state.ppdb_project.outputs.subnets_self_links : s
+      if can(regex("subnet-us-central1-01", s))
+    ]),
+    "https://www.googleapis.com/compute/v1/",
+    ""
+  )
 
-    bigquery_tap_sa_entry = data.terraform_remote_state.science_platform_cloudsql.outputs.service_accounts_map["bigquery-kafka"]
+  bigquery_tap_sa_entry = data.terraform_remote_state.science_platform_cloudsql.outputs.service_accounts_map["bigquery-kafka"]
+
+  sentry_environment = "${var.application_name}-${var.environment}"
 }
