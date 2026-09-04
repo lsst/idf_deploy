@@ -15,6 +15,11 @@ trigger_stage_chunk_cloud_run_dataflow_template_path = "gs://ppdb-dev-dataflow/t
 trigger_stage_chunk_cloud_run_temp_location = "gs://ppdb-dev-dataflow/temp"
 trigger_stage_chunk_runtime = "python313"
 
+# Load SSO Cloud Run
+load_sso_cloud_run_dataflow_template_path = "gs://ppdb-dev-dataflow/templates/load_sso_flex_template.json"
+load_sso_cloud_run_temp_location = "gs://ppdb-dev-dataflow/temp"
+load_sso_runtime = "python313"
+
 # GitHub CI
 create_gh_ci_sa = true
 
