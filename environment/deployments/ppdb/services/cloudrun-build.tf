@@ -22,3 +22,4 @@ resource "google_project_iam_member" "cloudrun_build_logs_writer" {
   role    = "roles/logging.logWriter"
   member  = "serviceAccount:${google_service_account.cloudrun_build.email}"
 }
+

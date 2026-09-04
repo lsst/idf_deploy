@@ -36,6 +36,15 @@ resource "google_service_account_iam_member" "cloudrun_trigger_stage_chunks_data
   member             = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
 }
 
+resource "google_secret_manager_secret_iam_member" "cloudrun_trigger_stage_chunk_ppdb_shared_secret" {
+  secret_id = google_secret_manager_secret.ppdb_shared.id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+
+  # I'm not sure why we need this explicit depends, but its in the docs:
+  # https://docs.cloud.google.com/run/docs/configuring/services/secrets
+  depends_on = [google_secret_manager_secret.ppdb_shared]
+}
 
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_trigger_stage_chunk" {
@@ -101,6 +110,10 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
     google_project_iam_member.cloudrun_deploy_storage_admin,
     google_project_iam_member.cloudrun_deploy_storage_object_admin,
     google_project_iam_member.cloudrun_deploy_service_account_token_creator,
+
+    google_secret_manager_secret.ppdb_shared,
+    google_secret_manager_secret_version.ppdb_shared,
+    google_secret_manager_secret_iam_member.cloudrun_trigger_stage_chunk_ppdb_shared_secret
   ]
 
   build_config {
@@ -139,6 +152,14 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
       TEMP_LOCATION           = var.trigger_stage_chunk_cloud_run_temp_location
       TOPIC_NAME              = google_pubsub_topic.track_chunk_topic.name
       LOG_EXECUTION_ID        = var.trigger_stage_chunk_cloud_run_log_execution_id
+      SENTRY_ENVIRONMENT      = local.sentry_environment
+    }
+
+    secret_environment_variables {
+      key        = "SENTRY_DSN"
+      project_id = local.project_id
+      secret     = google_secret_manager_secret.ppdb_shared.secret_id
+      version    = "latest"
     }
   }
 

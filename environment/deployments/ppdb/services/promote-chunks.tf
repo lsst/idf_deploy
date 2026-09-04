@@ -55,6 +55,17 @@ resource "google_sql_user" "cloudrun_promote_chunks_iam_sql_user" {
   project  = local.project_id
 }
 
+resource "google_secret_manager_secret_iam_member" "cloudrun_promote_chunks_ppdb_shared_secret" {
+  secret_id = google_secret_manager_secret.ppdb_shared.id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
+
+  # I'm not sure why we need this explicit depends, but its in the docs:
+  # https://docs.cloud.google.com/run/docs/configuring/services/secrets
+  depends_on = [google_secret_manager_secret.ppdb_shared]
+}
+
+
 # Workflow Service Account
 resource "google_service_account" "promote_chunks_workflow" {
   account_id   = "promote-chunks-workflow-runner"
@@ -162,6 +173,10 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
     google_project_iam_member.cloudrun_deploy_storage_admin,
     google_project_iam_member.cloudrun_deploy_storage_object_admin,
     google_project_iam_member.cloudrun_deploy_service_account_token_creator,
+
+    google_secret_manager_secret.ppdb_shared,
+    google_secret_manager_secret_version.ppdb_shared,
+    google_secret_manager_secret_iam_member.cloudrun_promote_chunks_ppdb_shared_secret,
   ]
 
   template {
@@ -200,6 +215,20 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
           name  = "CLOUDSQL_DB_NAME"
           value = var.promote_chunks_db_name
         }
+        env {
+          name  = "SENTRY_ENVIRONMENT"
+          value = local.sentry_environment
+        }
+        env {
+          name = "SENTRY_DSN"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.ppdb_shared.secret_id
+              version = "latest"
+            }
+          }
+        }
+
         resources {
 
           limits = {
