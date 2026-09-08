@@ -26,6 +26,7 @@ variable "activate_apis" {
   description = "The api to activate for the GCP project"
   type        = list(string)
   default = [
+    "aiplatform.googleapis.com",
     "artifactregistry.googleapis.com",
     "bigquery.googleapis.com",
     "billingbudgets.googleapis.com",
