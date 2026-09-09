@@ -31,6 +31,12 @@ resource "google_service_account" "usdf_apdb_backup_storage" {
   project      = local.project_id
 }
 
+resource "google_project_iam_member" "usdf_apdb_backup_storage_transfer_agent" {
+  role    = "roles/storagetransfer.transferAgent"
+  member  = "serviceAccount:${google_service_account.usdf_apdb_backup_storage.email}"
+  project = local.project_id
+}
+
 resource "google_storage_bucket_iam_member" "usdf_apdb_backup_storage_object_user" {
   bucket = google_storage_bucket.apdb_backup.name
   role   = "roles/storage.objectUser"

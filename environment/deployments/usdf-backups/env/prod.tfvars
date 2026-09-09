@@ -6,7 +6,7 @@ budget_amount               = 1000
 budget_alert_spent_percents = [0.7, 0.8, 0.9, 1.0]
 
 # VPC
-network_name = "ppdb-dev-vpc"
+network_name = "usdf-backups-prod-vpc"
 subnets = [
   {
     "subnet_ip"             = "10.144.0.0/23",

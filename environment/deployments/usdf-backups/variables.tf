@@ -78,7 +78,8 @@ variable "project_iam_permissions" {
     "roles/logging.admin",
     "roles/monitoring.admin",
     "roles/storage.admin",
-    "roles/storage.objectViewer"
+    "roles/storage.objectViewer",
+    "roles/storagetransfer.admin"
   ]
 }
 
