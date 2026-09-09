@@ -351,6 +351,18 @@ variable "load_sso_cloud_run_temp_location" {
   type        = string
 }
 
+variable "load_sso_staging_dataset_id" {
+  description = "BigQuery dataset ID for staging tables written before the swap into the internal dataset"
+  default     = "ppdb_staging"
+  type        = string
+}
+
+variable "load_sso_internal_dataset_id" {
+  description = "BigQuery dataset ID for the internal tables that staging tables are swapped into"
+  default     = "ppdb_internal"
+  type        = string
+}
+
 variable "load_sso_runtime" {
   description = "Runtime for Cloud Run Functions"
   type        = string

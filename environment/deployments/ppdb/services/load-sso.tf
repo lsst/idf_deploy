@@ -124,6 +124,8 @@ resource "google_cloudfunctions2_function" "load_sso" {
       SERVICE_ACCOUNT_EMAIL   = google_service_account.dataflow_load_sso.email
       TEMP_LOCATION           = var.load_sso_cloud_run_temp_location
       LOG_EXECUTION_ID        = var.load_sso_cloud_run_log_execution_id
+      STAGING_DATASET_ID      = var.load_sso_staging_dataset_id
+      INTERNAL_DATASET_ID     = var.load_sso_internal_dataset_id
     }
   }
 
