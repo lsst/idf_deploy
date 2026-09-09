@@ -45,7 +45,7 @@ resource "google_storage_bucket_iam_member" "usdf_apdb_backup_storage_object_use
 
 resource "google_storage_transfer_job" "apdb_backup_copy" {
   project     = local.project_id
-  description = "ADBD Dev copy of backups"
+  description = "APDB copy of backups"
   status      = var.apdb_storage_transfer_enabled
 
   transfer_spec {
