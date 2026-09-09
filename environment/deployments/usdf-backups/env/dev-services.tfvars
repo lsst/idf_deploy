@@ -1,7 +1,11 @@
-# Cloud SQL
 environment      = "dev"
 application_name = "usdf-backups"
 state_bucket     = "lsst-terraform-state"
+
+# Transfer Job
+apdb_source_bucket          = "usdf-apdb-prod"
+apdb_backup_prefixes        = ["medusa_backup_apdb_dev"]
+apdb_backup_start_time_hour = "19"
 
 # If you didn't make any other changes to this file, increase this number to
 # force Terraform to update this environment. You may need to do this if you

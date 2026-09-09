@@ -33,7 +33,8 @@ variable "activate_apis" {
     "monitoring.googleapis.com",
     "servicenetworking.googleapis.com",
     "serviceusage.googleapis.com",
-    "storage.googleapis.com"
+    "storage.googleapis.com",
+    "storagetransfer.googleapis.com"
   ]
 }
 
