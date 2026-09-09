@@ -18,8 +18,8 @@ resource "google_project_iam_member" "dataflow_load_sso_logging_writer" {
   project = local.project_id
 }
 
-resource "google_storage_bucket_iam_member" "dataflow_load_sso_ingest_object_viewer" {
-  bucket = google_storage_bucket.ingest.name
+resource "google_storage_bucket_iam_member" "dataflow_load_sso_sso_ingest_object_viewer" {
+  bucket = google_storage_bucket.sso_ingest.name
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${google_service_account.dataflow_load_sso.email}"
 }

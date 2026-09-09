@@ -77,6 +77,18 @@ variable "ingest_gcs_versioning" {
   default     = false
 }
 
+variable "sso_ingest_gcs_storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "sso_ingest_gcs_versioning" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = bool
+  default     = false
+}
+
 # Artifact Registry
 
 variable "ppdb_repo_image_keep_count" {

@@ -14,8 +14,8 @@ resource "google_pubsub_topic_iam_member" "sso_uploader_load_sso_topic" {
   project = local.project_id
 }
 
-resource "google_storage_bucket_iam_member" "sso_uploader_ingest_gcs" {
-  bucket = google_storage_bucket.ingest.name
+resource "google_storage_bucket_iam_member" "sso_uploader_sso_ingest_gcs" {
+  bucket = google_storage_bucket.sso_ingest.name
   role   = "roles/storage.objectUser"
   member = "serviceAccount:${google_service_account.sso_uploader.email}"
 }

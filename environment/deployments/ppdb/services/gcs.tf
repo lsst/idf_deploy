@@ -41,3 +41,14 @@ resource "google_storage_bucket" "ingest" {
     enabled = var.ingest_gcs_versioning
   }
 }
+
+# SSO Ingest GCS Bucket
+resource "google_storage_bucket" "sso_ingest" {
+  name          = "ppdb-${var.environment}-sso-ingest"
+  project       = local.project_id
+  location      = "US-CENTRAL1"
+  storage_class = var.sso_ingest_gcs_storage_class
+  versioning {
+    enabled = var.sso_ingest_gcs_versioning
+  }
+}
