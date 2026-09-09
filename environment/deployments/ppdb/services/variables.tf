@@ -77,6 +77,18 @@ variable "ingest_gcs_versioning" {
   default     = false
 }
 
+variable "sso_ingest_gcs_storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "sso_ingest_gcs_versioning" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = bool
+  default     = false
+}
+
 # Artifact Registry
 
 variable "ppdb_repo_image_keep_count" {
@@ -293,6 +305,65 @@ variable "trigger_stage_chunk_cloud_run_temp_location" {
 }
 
 variable "trigger_stage_chunk_runtime" {
+  description = "Runtime for Cloud Run Functions"
+  type        = string
+}
+
+# Load SSO Cloud Run
+
+variable "load_sso_cloud_run_min_instance_count" {
+  description = "Minimum number of cloud run instances"
+  default     = 0
+  type        = number
+}
+
+variable "load_sso_cloud_run_max_instance_count" {
+  description = "Maximum number of cloud run instances"
+  default     = 1
+  type        = number
+}
+
+variable "load_sso_cloud_run_concurrency" {
+  description = "Max number of simultaneous requests for a single container instance"
+  default     = 1
+  type        = number
+}
+
+variable "load_sso_cloud_run_dataflow_template_path" {
+  description = "Dataflow Template Path"
+  type        = string
+}
+
+variable "load_sso_cloud_run_log_level" {
+  description = "Log Level"
+  default     = "INFO"
+  type        = string
+}
+
+variable "load_sso_cloud_run_log_execution_id" {
+  description = "Flag to log execution id"
+  default     = true
+  type        = bool
+}
+
+variable "load_sso_cloud_run_temp_location" {
+  description = "Temp location"
+  type        = string
+}
+
+variable "load_sso_staging_dataset_id" {
+  description = "BigQuery dataset ID for staging tables written before the swap into the internal dataset"
+  default     = "ppdb_staging"
+  type        = string
+}
+
+variable "load_sso_internal_dataset_id" {
+  description = "BigQuery dataset ID for the internal tables that staging tables are swapped into"
+  default     = "ppdb_internal"
+  type        = string
+}
+
+variable "load_sso_runtime" {
   description = "Runtime for Cloud Run Functions"
   type        = string
 }
