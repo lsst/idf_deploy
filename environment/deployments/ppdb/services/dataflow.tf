@@ -7,9 +7,9 @@ resource "google_service_account" "dataflow_stage_chunk" {
 }
 
 resource "google_pubsub_topic_iam_member" "dataflow_track_chunk_track_chunk_topic" {
-  topic  = google_pubsub_topic.track_chunk_topic.id
-  role   = "roles/pubsub.publisher"
-  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  topic   = google_pubsub_topic.track_chunk_topic.id
+  role    = "roles/pubsub.publisher"
+  member  = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
   project = local.project_id
 }
 
@@ -33,24 +33,35 @@ resource "google_storage_bucket_iam_member" "dataflow_stage_chunks_ingest_object
 
 resource "google_project_iam_member" "dataflow_stage_chunks_storage_object_admin" {
   role    = "roles/storage.objectAdmin"
-  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
   project = local.project_id
 }
 
 resource "google_project_iam_member" "dataflow_stage_chunks_artifact_registry_reader" {
   role    = "roles/artifactregistry.reader"
-  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
   project = local.project_id
 }
 
 resource "google_project_iam_member" "dataflow_stage_chunks_bigquery_job_user" {
   role    = "roles/bigquery.jobUser"
-  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
   project = local.project_id
 }
 
 resource "google_project_iam_member" "dataflow_stage_chunks_bigquery_data_editor" {
   role    = "roles/bigquery.dataEditor"
-  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
   project = local.project_id
 }
+
+resource "google_secret_manager_secret_iam_member" "dataflow_stage_chunk_ppdb_shared_secret" {
+  secret_id = google_secret_manager_secret.ppdb_shared.id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
+
+  # I'm not sure why we need this explicit depends, but its in the docs:
+  # https://docs.cloud.google.com/run/docs/configuring/services/secrets
+  depends_on = [google_secret_manager_secret.ppdb_shared]
+}
+

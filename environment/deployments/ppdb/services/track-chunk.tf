@@ -23,6 +23,16 @@ resource "google_storage_bucket_iam_member" "cloudrun_track_chunks_storage_viewe
   member = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
 }
 
+resource "google_secret_manager_secret_iam_member" "cloudrun_track_chunks_ppdb_shared_secret" {
+  secret_id = google_secret_manager_secret.ppdb_shared.id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
+
+  # I'm not sure why we need this explicit depends, but its in the docs:
+  # https://docs.cloud.google.com/run/docs/configuring/services/secrets
+  depends_on = [google_secret_manager_secret.ppdb_shared]
+}
+
 # IAM database user for CloudSQL
 resource "google_sql_user" "cloudrun_track_chunks_iam_sql_user" {
   name     = split(".gserviceaccount.com", google_service_account.cloudrun_track_chunks.email)[0]
@@ -95,6 +105,10 @@ resource "google_cloudfunctions2_function" "track_chunk" {
     google_project_iam_member.cloudrun_deploy_storage_admin,
     google_project_iam_member.cloudrun_deploy_storage_object_admin,
     google_project_iam_member.cloudrun_deploy_service_account_token_creator,
+
+    google_secret_manager_secret.ppdb_shared,
+    google_secret_manager_secret_version.ppdb_shared,
+    google_secret_manager_secret_iam_member.cloudrun_track_chunks_ppdb_shared_secret,
   ]
 
   build_config {
@@ -131,6 +145,14 @@ resource "google_cloudfunctions2_function" "track_chunk" {
       CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:ppdb-${var.environment}"
       CLOUDSQL_USER                     = "${google_service_account.cloudrun_track_chunks.account_id}@${local.project_id}.iam"
       CLOUDSQL_DB_NAME                  = var.track_chunk_db_name
+      SENTRY_ENVIRONMENT                = local.sentry_environment
+    }
+
+    secret_environment_variables {
+      key        = "SENTRY_DSN"
+      project_id = local.project_id
+      secret     = google_secret_manager_secret.ppdb_shared.secret_id
+      version    = "latest"
     }
   }
 

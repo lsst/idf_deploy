@@ -1,3 +1,16 @@
+# PPDB
+
+## Bootstrap
+
+You have to do these things manually to make a PPDB environment operational.
+This list is not currently complete, and will be updated as we find things.
+
+* Make a new version of the `ppdb-shared` [Google Secrets
+  Manager](https://cloud.google.com/security/products/secret-manager?hl=en)
+  secret with the `SENTRY_DSN` value from the Sentry [ppdb-google-cloud
+  project](https://rubin-observatory.sentry.io/settings/projects/ppdb-google-cloud/keys/)
+  configuration.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
