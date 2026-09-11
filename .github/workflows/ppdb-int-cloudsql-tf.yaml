@@ -22,8 +22,4 @@ jobs:
       working_directory: ./environment/deployments/ppdb/cloudsql
       state_prefix: ppdb/int/cloudsql
       tfvars_file: ../env/int-cloudsql.tfvars
-    secrets:
-      gcp_credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
-      gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
-      terraform_state_bucket: ${{ secrets.TERRAFORM_STATE_BUCKET }}
-      slack_webhook: ${{ secrets.SLACK_ALERT_WEBHOOK }}
+    secrets: inherit

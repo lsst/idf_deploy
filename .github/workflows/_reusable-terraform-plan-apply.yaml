@@ -17,19 +17,14 @@ on:
         description: tfvars path relative to the working directory
         required: true
         type: string
+      gcp_credentials_secret:
+        description: Name of the inherited secret containing GCP credentials
+        default: GOOGLE_CREDENTIALS
+        type: string
       apply_on_workflow_dispatch:
         description: Allow a manual invocation on main to apply
         default: false
         type: boolean
-    secrets:
-      gcp_credentials:
-        required: true
-      gcp_project_id:
-        required: true
-      terraform_state_bucket:
-        required: true
-      slack_webhook:
-        required: true
 
 jobs:
   terraform:
@@ -49,12 +44,12 @@ jobs:
       - name: GCP login
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.gcp_credentials }}
+          credentials_json: ${{ secrets[inputs.gcp_credentials_secret] }}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
         with:
-          project_id: ${{ secrets.gcp_project_id }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           skip_install: true
 
       - name: Setup Terraform
@@ -101,4 +96,4 @@ jobs:
           notify_when: failure
           notification_title: 'idf_deploy: Periodic plan for {workflow} failed'
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.slack_webhook }}
+          SLACK_WEBHOOK_URL: ${{ secrets.slack_alert_webhook }}
