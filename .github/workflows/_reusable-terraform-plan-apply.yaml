@@ -33,18 +33,6 @@ on:
         description: Report failures on main to Slack
         default: true
         type: boolean
-      checkout_version:
-        description: actions/checkout major version retained during migration
-        default: v3
-        type: string
-      google_actions_version:
-        description: Google authentication and Cloud SDK action major version
-        default: v2
-        type: string
-      setup_terraform_version:
-        description: hashicorp/setup-terraform major version retained during migration
-        default: v1
-        type: string
     secrets:
       gcp_credentials:
         required: true
@@ -65,53 +53,20 @@ jobs:
         working-directory: ${{ inputs.working_directory }}
     steps:
       - name: Checkout
-        if: inputs.checkout_version == 'v3'
-        uses: actions/checkout@v3
-      - name: Checkout
-        if: inputs.checkout_version == 'v4'
-        uses: actions/checkout@v4
-      - name: Checkout
-        if: inputs.checkout_version == 'v7'
         uses: actions/checkout@v7
 
       - name: GCP login
-        if: inputs.google_actions_version == 'v2'
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.gcp_credentials }}
-      - name: GCP login
-        if: inputs.google_actions_version == 'v3'
         uses: google-github-actions/auth@v3
         with:
           credentials_json: ${{ secrets.gcp_credentials }}
 
       - name: Set up Cloud SDK
-        if: inputs.google_actions_version == 'v2'
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: ${{ secrets.gcp_project_id }}
-          skip_install: true
-      - name: Set up Cloud SDK
-        if: inputs.google_actions_version == 'v3'
         uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.gcp_project_id }}
           skip_install: true
 
       - name: Setup Terraform
-        if: inputs.setup_terraform_version == 'v1'
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.9.5
-          terraform_wrapper: true
-      - name: Setup Terraform
-        if: inputs.setup_terraform_version == 'v3'
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.9.5
-          terraform_wrapper: true
-      - name: Setup Terraform
-        if: inputs.setup_terraform_version == 'v4'
         uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: 1.9.5

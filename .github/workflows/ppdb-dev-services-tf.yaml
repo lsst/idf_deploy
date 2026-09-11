@@ -23,9 +23,6 @@ jobs:
       state_prefix: ppdb/dev/services
       tfvars_file: ../env/dev-services.tfvars
       export_state_bucket: true
-      checkout_version: v4
-      google_actions_version: v3
-      setup_terraform_version: v3
     secrets:
       gcp_credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
       gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
