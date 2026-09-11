@@ -25,10 +25,6 @@ on:
         description: Allow a manual invocation on main to apply
         default: false
         type: boolean
-      notify_slack:
-        description: Report failures on main to Slack
-        default: true
-        type: boolean
     secrets:
       gcp_credentials:
         required: true
@@ -37,7 +33,7 @@ on:
       terraform_state_bucket:
         required: true
       slack_webhook:
-        required: false
+        required: true
 
 jobs:
   terraform:
@@ -103,7 +99,7 @@ jobs:
           -auto-approve
 
       - name: Report status
-        if: inputs.notify_slack && failure() && github.ref == 'refs/heads/main'
+        if: failure() && github.ref == 'refs/heads/main'
         uses: ravsamhq/notify-slack-action@v2
         with:
           status: ${{ job.status }}
