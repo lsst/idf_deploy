@@ -25,10 +25,6 @@ on:
         description: Allow a manual invocation on main to apply
         default: false
         type: boolean
-      export_state_bucket:
-        description: Export the state bucket as TF_VAR_state_bucket
-        default: false
-        type: boolean
       notify_slack:
         description: Report failures on main to Slack
         default: true
@@ -47,6 +43,9 @@ jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
+    env:
+      # Some config contains remote state data sources that need the state bucket as a variable
+      TF_VAR_state_bucket: ${{ secrets.terraform_state_bucket }}
     defaults:
       run:
         shell: bash
@@ -71,10 +70,6 @@ jobs:
         with:
           terraform_version: 1.9.5
           terraform_wrapper: true
-
-      - name: Export Terraform state bucket variable
-        if: inputs.export_state_bucket
-        run: echo "TF_VAR_state_bucket=${{ secrets.terraform_state_bucket }}" >> "$GITHUB_ENV"
 
       - name: Terraform Fmt
         run: terraform fmt

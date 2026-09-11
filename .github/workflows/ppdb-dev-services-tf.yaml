@@ -22,7 +22,6 @@ jobs:
       working_directory: ./environment/deployments/ppdb/services
       state_prefix: ppdb/dev/services
       tfvars_file: ../env/dev-services.tfvars
-      export_state_bucket: true
     secrets:
       gcp_credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
       gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}

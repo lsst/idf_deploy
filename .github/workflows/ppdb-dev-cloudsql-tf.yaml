@@ -22,7 +22,6 @@ jobs:
       working_directory: ./environment/deployments/ppdb/cloudsql
       state_prefix: ppdb/dev/cloudsql
       tfvars_file: ../env/dev-cloudsql.tfvars
-      export_state_bucket: true
     secrets:
       gcp_credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
       gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
