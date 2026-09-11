@@ -17,10 +17,6 @@ on:
         description: tfvars path relative to the working directory
         required: true
         type: string
-      disable_refresh:
-        description: Pass -refresh=false when applying
-        default: false
-        type: boolean
       apply_on_workflow_dispatch:
         description: Allow a manual invocation on main to apply
         default: false
@@ -95,7 +91,6 @@ jobs:
         run: >-
           terraform apply
           -var-file=${{ inputs.tfvars_file }}
-          ${{ inputs.disable_refresh && '-refresh=false' || '' }}
           -auto-approve
 
       - name: Report status
