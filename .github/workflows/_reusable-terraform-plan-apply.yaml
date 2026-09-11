@@ -1,0 +1,99 @@
+# Shared implementation for Terraform plan/apply workflows. Event triggers remain
+# in the caller so each deployment can retain its own path filters and schedule.
+name: Terraform Plan and Apply
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        description: Directory containing the Terraform configuration
+        required: true
+        type: string
+      state_prefix:
+        description: Prefix for this configuration in the Terraform state bucket
+        required: true
+        type: string
+      tfvars_file:
+        description: tfvars path relative to the working directory
+        required: true
+        type: string
+      gcp_credentials_secret:
+        description: Name of the inherited secret containing GCP credentials
+        default: GOOGLE_CREDENTIALS
+        type: string
+      apply_on_workflow_dispatch:
+        description: Allow a manual invocation on main to apply
+        default: false
+        type: boolean
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    env:
+      # Some config contains remote state data sources that need the state bucket as a variable
+      TF_VAR_state_bucket: ${{ secrets.terraform_state_bucket }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: GCP login
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets[inputs.gcp_credentials_secret] }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          skip_install: true
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.9.5
+          terraform_wrapper: true
+
+      - name: Terraform Fmt
+        run: terraform fmt
+
+      - name: Terraform Init
+        run: >-
+          terraform init
+          -backend-config=bucket=${{ secrets.terraform_state_bucket }}
+          -backend-config=prefix=${{ inputs.state_prefix }}
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: >-
+          terraform plan -input=false
+          -var-file=${{ inputs.tfvars_file }}
+          -no-color
+          ${{ github.event_name == 'schedule' && '-detailed-exitcode' || '' }}
+
+      - name: Terraform Apply
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' ||
+          (github.event_name == 'workflow_dispatch' && inputs.apply_on_workflow_dispatch))
+        run: >-
+          terraform apply
+          -var-file=${{ inputs.tfvars_file }}
+          -auto-approve
+
+      - name: Report status
+        if: failure() && github.ref == 'refs/heads/main'
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          status: ${{ job.status }}
+          notify_when: failure
+          notification_title: 'idf_deploy: Periodic plan for {workflow} failed'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.slack_alert_webhook }}

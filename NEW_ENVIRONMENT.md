@@ -28,11 +28,12 @@ creating new folders and not modifying anything new, merge it.
 ## Set up new Github Actions
 
 Next you will create a PR to add new actions for each of the items
-you will want to create in your new project.  Go to the [Github Actions
-Directory](./.github/workflows), pick the thing that is most like the
+you will want to create in your new project. Go to the [GitHub Actions
+Directory](./.github/workflows), pick a caller whose triggers are most like the
 environment you wish to create (in my case, the Dev RSP was the most
-like the Demo RSP I was building), and copy and edit all the files to
-reflect the new name you want.  In the case of the RSP, you will create
+like the Demo RSP I was building), and copy and edit its triggers and reusable
+workflow inputs to reflect the new name you want. Do not copy the shared
+Terraform steps. In the case of the RSP, you will create
 YAML files for each of:
 * alertdb
 * cloudsql
