@@ -27,28 +27,21 @@ When creating a new Google GCP project, two pipelines are normally needed. These
 1. A pipeline to create and maintain the Kubernetes cluster.
 
 ### Usage
-Below is a simple example of re-using an existing workflow and modifying to be used for a new application:
 
-* We'll use the `qserv-int-proj-tf.yaml` as an example to be used to create a new pipeline to create and manage a new application in the [environment/deployments](../../environment/deployments) directory. Copy and rename it to something like {app}-{env}-proj.tf.yaml.
-```diff
-- qserv-int-proj-tf.yaml
-+ panda-dev-proj-tf.yaml
-```
+Terraform workflows call `_reusable-terraform-plan-apply.yaml`, which contains the shared
+checkout, authentication, Terraform plan, apply, and failure-reporting steps.
+To add a deployment, copy a caller with similar triggers and update:
 
-* We need to make our new workflow unique and change the paths of the working directories for [Terraform to initialize](https://www.terraform.io/docs/commands/init.html). Open the newly created file `panda-dev-project-tf.yaml` and search and replace the following lines:
+* The workflow name and the `pull_request`, `push`, `schedule`, or
+  `workflow_dispatch` triggers.
+* `working_directory`, the directory containing the Terraform configuration.
+* `state_prefix`, the unique prefix used for its remote state.
+* `tfvars_file`, relative to `working_directory`.
+* Any exceptional flags, such as `disable_refresh` or
+  `apply_on_workflow_dispatch`.
 
-```diff
-- name: 'QServ INT GCP Project'
-+ name: 'PanDa DEV GCP Project`
-
-- 'environment/deployments/qserv/env/integration.tfvars'
-+ 'environment/deployments/panda/env/dev.tfvars'
-
-- working-directory: ./environment/deployments/qserv
-+ working-directory: ./environment/deployments/panda
-```
-
-* (Optional) Update any of the Terrform specifics like `terraform_version`, or the path to the `tfvars` file.
+Keep deployment-specific triggers in the caller; do not copy the shared steps
+into it.
 
 
 ## Deploying GCP Projects

@@ -1,0 +1,163 @@
+# Shared implementation for Terraform plan/apply workflows. Event triggers remain
+# in the caller so each deployment can retain its own path filters and schedule.
+name: Terraform Plan and Apply
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        description: Directory containing the Terraform configuration
+        required: true
+        type: string
+      state_prefix:
+        description: Prefix for this configuration in the Terraform state bucket
+        required: true
+        type: string
+      tfvars_file:
+        description: tfvars path relative to the working directory
+        required: true
+        type: string
+      disable_refresh:
+        description: Pass -refresh=false when applying
+        default: false
+        type: boolean
+      apply_on_workflow_dispatch:
+        description: Allow a manual invocation on main to apply
+        default: false
+        type: boolean
+      export_state_bucket:
+        description: Export the state bucket as TF_VAR_state_bucket
+        default: false
+        type: boolean
+      notify_slack:
+        description: Report failures on main to Slack
+        default: true
+        type: boolean
+      checkout_version:
+        description: actions/checkout major version retained during migration
+        default: v3
+        type: string
+      google_actions_version:
+        description: Google authentication and Cloud SDK action major version
+        default: v2
+        type: string
+      setup_terraform_version:
+        description: hashicorp/setup-terraform major version retained during migration
+        default: v1
+        type: string
+    secrets:
+      gcp_credentials:
+        required: true
+      gcp_project_id:
+        required: true
+      terraform_state_bucket:
+        required: true
+      slack_webhook:
+        required: false
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout
+        if: inputs.checkout_version == 'v3'
+        uses: actions/checkout@v3
+      - name: Checkout
+        if: inputs.checkout_version == 'v4'
+        uses: actions/checkout@v4
+      - name: Checkout
+        if: inputs.checkout_version == 'v7'
+        uses: actions/checkout@v7
+
+      - name: GCP login
+        if: inputs.google_actions_version == 'v2'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.gcp_credentials }}
+      - name: GCP login
+        if: inputs.google_actions_version == 'v3'
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.gcp_credentials }}
+
+      - name: Set up Cloud SDK
+        if: inputs.google_actions_version == 'v2'
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.gcp_project_id }}
+          skip_install: true
+      - name: Set up Cloud SDK
+        if: inputs.google_actions_version == 'v3'
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ secrets.gcp_project_id }}
+          skip_install: true
+
+      - name: Setup Terraform
+        if: inputs.setup_terraform_version == 'v1'
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.9.5
+          terraform_wrapper: true
+      - name: Setup Terraform
+        if: inputs.setup_terraform_version == 'v3'
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5
+          terraform_wrapper: true
+      - name: Setup Terraform
+        if: inputs.setup_terraform_version == 'v4'
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.9.5
+          terraform_wrapper: true
+
+      - name: Export Terraform state bucket variable
+        if: inputs.export_state_bucket
+        run: echo "TF_VAR_state_bucket=${{ secrets.terraform_state_bucket }}" >> "$GITHUB_ENV"
+
+      - name: Terraform Fmt
+        run: terraform fmt
+
+      - name: Terraform Init
+        run: >-
+          terraform init
+          -backend-config=bucket=${{ secrets.terraform_state_bucket }}
+          -backend-config=prefix=${{ inputs.state_prefix }}
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: >-
+          terraform plan -input=false
+          -var-file=${{ inputs.tfvars_file }}
+          -no-color
+          ${{ github.event_name == 'schedule' && '-detailed-exitcode' || '' }}
+
+      - name: Terraform Apply
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' ||
+          (github.event_name == 'workflow_dispatch' && inputs.apply_on_workflow_dispatch))
+        run: >-
+          terraform apply
+          -var-file=${{ inputs.tfvars_file }}
+          ${{ inputs.disable_refresh && '-refresh=false' || '' }}
+          -auto-approve
+
+      - name: Report status
+        if: inputs.notify_slack && failure() && github.ref == 'refs/heads/main'
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          status: ${{ job.status }}
+          notify_when: failure
+          notification_title: 'idf_deploy: Periodic plan for {workflow} failed'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.slack_webhook }}
