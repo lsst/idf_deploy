@@ -1,0 +1,25 @@
+# Deploys SND Prod GCP Prod Project with Terraform
+name: 'SND Prod GCP Project'
+
+on:
+  pull_request:
+    paths:
+      - 'environment/deployments/snd/env/prod.tfvars'
+  push:
+    paths:
+      - 'environment/deployments/snd/env/prod.tfvars'
+    branches:
+      - main
+  # Re-enable this when/if we want to deal with drift
+  # schedule:
+  # - cron: 25 2 * * *
+
+jobs:
+  terraform:
+    name: Terraform
+    uses: ./.github/workflows/_reusable-terraform-plan-apply.yaml
+    with:
+      working_directory: ./environment/deployments/snd
+      state_prefix: snd/prod
+      tfvars_file: env/prod.tfvars
+    secrets: inherit

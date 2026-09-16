@@ -1,0 +1,25 @@
+# Deploys SND Dev GCP Dev Project with Terraform
+name: 'SND Dev GCP Project'
+
+on:
+  pull_request:
+    paths:
+      - 'environment/deployments/snd/env/dev.tfvars'
+  push:
+    paths:
+      - 'environment/deployments/snd/env/dev.tfvars'
+    branches:
+      - main
+  # Re-enable this when/if we want to deal with drift
+  # schedule:
+  # - cron: 25 2 * * *
+
+jobs:
+  terraform:
+    name: Terraform
+    uses: ./.github/workflows/_reusable-terraform-plan-apply.yaml
+    with:
+      working_directory: ./environment/deployments/snd
+      state_prefix: snd/dev
+      tfvars_file: env/dev.tfvars
+    secrets: inherit
