@@ -94,3 +94,11 @@ resource "google_folder_iam_member" "gcp_usdf_backup_administrators_iam_permissi
   role     = each.value
   member   = "group:${module.constants.values.groups.gcp_usdf_backup_administrators}"
 }
+
+// Scientific Nightly Digest Folder
+resource "google_folder_iam_member" "gcp_snd_administrators_iam_permissions" {
+  for_each = toset(var.gcp_snd_administrators_iam_permissions)
+  folder   = data.google_active_folder.snd_sub_folder.name
+  role     = each.value
+  member   = "group:${module.constants.values.groups.gcp_snd_administrators}"
+}
