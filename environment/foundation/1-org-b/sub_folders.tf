@@ -52,11 +52,20 @@ module "sub_folders_ppdb" {
   names  = var.sub_folder_names
 }
 
-// Build Sub Folders for PPDB
+// Build Sub Folders for USDF Backups
 module "sub_folders_usdf_backups" {
   source  = "terraform-google-modules/folders/google"
   version = "~> 5.1"
 
   parent = data.google_active_folder.usdf_backups_sub_folder.name
+  names  = var.sub_folder_names
+}
+
+// Build Sub Folders for Scientific Nightly Digest
+module "sub_folders_snd" {
+  source  = "terraform-google-modules/folders/google"
+  version = "~> 5.1"
+
+  parent = data.google_active_folder.snd_sub_folder.name
   names  = var.sub_folder_names
 }

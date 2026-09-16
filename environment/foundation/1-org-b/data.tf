@@ -45,3 +45,8 @@ data "google_active_folder" "usdf_backups_sub_folder" {
   parent       = local.parent
   display_name = var.usdf_backups_display_name
 }
+
+data "google_active_folder" "snd_sub_folder" {
+  parent       = local.parent
+  display_name = var.snd_display_name
+}

@@ -153,3 +153,12 @@ gcp_usdf_backup_administrators_iam_permissions = [
   "roles/monitoring.editor",
   "roles/storage.objectViewer",
 ]
+
+# Scientific Nightly Digest
+snd_display_name = "Scientific Nightly Digest"
+
+gcp_snd_administrators_iam_permissions = [
+  "roles/logging.viewer",
+  "roles/monitoring.editor",
+  "roles/storage.objectViewer",
+]

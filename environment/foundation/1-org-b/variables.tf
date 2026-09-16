@@ -163,6 +163,11 @@ variable "gcp_usdf_backup_administrators_iam_permissions" {
   type        = list(string)
 }
 
+variable "gcp_snd_administrators_iam_permissions" {
+  description = "List of permissions granted to the group."
+  type        = list(string)
+}
+
 # ----------------------------------------
 #   SUB FOLDER VARIABLES
 # ----------------------------------------
@@ -219,6 +224,12 @@ variable "usdf_backups_display_name" {
   description = "The display name of the parent folder."
   type        = string
   default     = "USDF Backups"
+}
+
+variable "snd_display_name" {
+  description = "The display name of the parent folder."
+  type        = string
+  default     = "Scientific Nightly Digest"
 }
 
 variable "sub_folder_names" {
