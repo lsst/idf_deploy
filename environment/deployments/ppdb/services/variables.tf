@@ -334,6 +334,12 @@ variable "load_sso_cloud_run_dataflow_template_path" {
   type        = string
 }
 
+variable "load_sso_cloud_run_dataflow_machine_type" {
+  description = "Dataflow worker machine type"
+  default     = "n1-highmem-2"
+  type        = string
+}
+
 variable "load_sso_cloud_run_log_level" {
   description = "Log Level"
   default     = "INFO"
