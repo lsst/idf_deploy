@@ -132,6 +132,7 @@ resource "google_cloudfunctions2_function" "load_sso" {
       LOG_EXECUTION_ID        = var.load_sso_cloud_run_log_execution_id
       STAGING_DATASET_ID      = var.load_sso_staging_dataset_id
       INTERNAL_DATASET_ID     = var.load_sso_internal_dataset_id
+      DATAFLOW_MACHINE_TYPE   = var.load_sso_cloud_run_dataflow_machine_type
     }
   }
 
