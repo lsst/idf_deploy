@@ -17,6 +17,9 @@ butler_registry_dp1_enabled         = true
 butler_registry_dp1_tier            = "db-custom-2-7680"
 butler_registry_dp1_backups_enabled = false
 
+# Prompt data products AlloyDB
+butler_prompt_data_products_enabled = true
+
 # Science Platform Database
 science_platform_database_tier                      = "db-custom-4-16384"
 science_platform_database_version                   = "POSTGRES_17"
@@ -26,4 +29,4 @@ science_platform_db_maintenance_window_update_track = "canary"
 science_platform_backups_enabled                    = true
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 45
+# Serial: 46
