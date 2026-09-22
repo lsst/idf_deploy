@@ -89,4 +89,15 @@ resource "google_storage_transfer_job" "apdb_backup_copy" {
 
     repeat_interval = var.apdb_transfer_job_repeat_interval
   }
+
+  logging_config {
+    log_actions       = [
+      "COPY",
+      "DELETE"
+    ]
+    log_action_states = [
+      "SUCCEEDED",
+      "FAILED"
+    ]
+  }
 }
