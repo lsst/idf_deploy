@@ -188,7 +188,7 @@ variable "butler_prompt_data_products_enabled" {
 variable "science_platform_database_version" {
   description = "The database version to use for the Science Platform"
   type        = string
-  default     = "POSTGRES_16"
+  default     = "POSTGRES_17"
 }
 
 variable "science_platform_database_tier" {
