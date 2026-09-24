@@ -58,6 +58,12 @@ custom_rules = {
 # NAT
 nats = [{ name = "cloud-nat" }]
 
+# Static port allocation reserves min_ports_per_vm (4096, see main.tf) on every
+# node, and Autopilot compute classes run many small nodes here, so one NAT IP
+# only covers ~12 nodes. Two IPs roughly double that until we move to dynamic
+# port allocation.
+num_static_ips = 2
+
 # Google Cloud APIs to activate in addition to our standard set.
 activate_apis = [
   "compute.googleapis.com",
