@@ -531,6 +531,13 @@ module "nat" {
   nats = [{
     name    = "cloud-nat",
     nat_ips = google_compute_address.static.*.name
+    # Static port allocation: 4096 ports per VM (the Cloud NAT default of 64
+    # is exhausted by a single burst of outbound connections from one GKE
+    # node, e.g. the docverse sync-worker's presigned uploads to Cloudflare
+    # R2, and the NAT then drops SYNs). One NAT IP has 64,512 usable ports,
+    # so this covers ~15 nodes. Raising this value does not disrupt existing
+    # connections; lowering it does.
+    min_ports_per_vm = 4096
   }]
 }
 
