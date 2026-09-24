@@ -56,7 +56,10 @@ custom_rules = {
 }
 
 # NAT
-nats = [{ name = "cloud-nat" }]
+nats = [{
+  name                           = "cloud-nat",
+  enable_dynamic_port_allocation = true,
+}]
 
 # Static port allocation reserves min_ports_per_vm (4096, see main.tf) on every
 # node, and Autopilot compute classes run many small nodes here, so one NAT IP
@@ -97,4 +100,4 @@ turborepo_cache_bucket_suffix = "turborepo-cache-dev"
 # force Terraform to update this environment. You may need to do this if you
 # changed .tf files in this environment, or if you changed any modules that
 # this environment uses, but you didn't change any variables in this file.
-# Serial: 27
+# Serial: 28
