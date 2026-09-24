@@ -59,6 +59,7 @@ custom_rules = {
 nats = [{
   name                           = "cloud-nat",
   enable_dynamic_port_allocation = true,
+  enable_endpoint_independent_mapping = false,
 }]
 
 # Static port allocation reserves min_ports_per_vm (4096, see main.tf) on every
