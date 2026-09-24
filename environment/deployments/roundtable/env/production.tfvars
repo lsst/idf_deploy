@@ -54,6 +54,7 @@ custom_rules = {
 nats = [{
   name                           = "cloud-nat",
   enable_dynamic_port_allocation = true,
+  enable_endpoint_independent_mapping = false,
 }]
 
 # Google Cloud APIs to activate in addition to our standard set.
