@@ -135,12 +135,6 @@ variable "promote_chunks_cloud_run_log_execution_id" {
 
 }
 
-variable "promote_chunks_cloud_run_retry_policy" {
-  description = "Cloud Run retry policy"
-  default     = "RETRY_POLICY_DO_NOT_RETRY"
-  type        = string
-}
-
 variable "promote_chunks_schedule" {
   description = "Cron time for Cloud Scheduler to schedule Promote Chunks to run"
   type        = string
@@ -247,12 +241,6 @@ variable "track_chunk_cloud_run_ppdb_use_secret_manager" {
 
 variable "track_chunk_runtime" {
   description = "Runtime for Cloud Run Functions"
-  type        = string
-}
-
-variable "track_chunk_cloud_run_retry_policy" {
-  description = "Cloud Run retry policy"
-  default     = "RETRY_POLICY_DO_NOT_RETRY"
   type        = string
 }
 
