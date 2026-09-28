@@ -73,8 +73,9 @@ variable "project_iam_permissions" {
   default = [
     "roles/logging.admin",
     "roles/monitoring.admin",
-    "roles/storage.admin",
+    "roles/compute.loadBalancerAdmin",
     "roles/storage.objectViewer",
+    "roles/storage.objectUser",
   ]
 }
 
