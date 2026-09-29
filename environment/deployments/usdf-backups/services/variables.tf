@@ -133,3 +133,16 @@ variable "apdb_transfer_job_repeat_interval" {
   type        = string
   default     = "86400s"
 }
+
+# Alert
+variable "auto_close_interval" {
+  description = "Auto close interval"
+  type        = string
+  default     = "604800s"
+}
+
+variable "notification_rate_limit" {
+  description = "Start time hour in UTC"
+  type        = string
+  default     = "300s"
+}
