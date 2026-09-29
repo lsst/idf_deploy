@@ -139,6 +139,7 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
       TEMP_LOCATION           = var.trigger_stage_chunk_cloud_run_temp_location
       TOPIC_NAME              = google_pubsub_topic.track_chunk_topic.name
       LOG_EXECUTION_ID        = var.trigger_stage_chunk_cloud_run_log_execution_id
+      NUM_RETRIES             = var.trigger_stage_chunk_num_retries
     }
   }
 
