@@ -71,9 +71,10 @@ variable "project_iam_permissions" {
   description = "List of permissions granted to the group"
   type        = list(string)
   default = [
+    "roles/compute.loadBalancerAdmin",
     "roles/logging.admin",
     "roles/monitoring.admin",
-    "roles/compute.loadBalancerAdmin",
+    "roles/iam.serviceAccountKeyAdmin",
     "roles/storage.objectViewer",
     "roles/storage.objectUser",
   ]
