@@ -28,6 +28,10 @@ secondary_ranges = {
   ]
 }
 
+# This is the service account for the Atlantis instance that runs in roundtable
+# and provisions some alerting
+atlantis_monitoring_admin_service_account_member = "serviceAccount:atlantis@roundtable-prod-f6fd.iam.gserviceaccount.com"
+
 # If you didn't make any other changes to this file, increase this number to
 # force Terraform to update this environment. You may need to do this if you
 # changed .tf files in this environment, or if you changed any modules that
