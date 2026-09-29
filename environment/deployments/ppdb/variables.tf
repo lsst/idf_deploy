@@ -143,3 +143,8 @@ variable "secondary_ranges" {
     ]
   }
 }
+
+variable "atlantis_monitoring_admin_service_account_member" {
+  type        = string
+  description = "The service account that should have Google Cloud monitoring admin permissions in THIS project. This service account is probably provisioned in a different project."
+}
