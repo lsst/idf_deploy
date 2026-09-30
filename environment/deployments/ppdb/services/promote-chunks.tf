@@ -47,6 +47,12 @@ resource "google_project_iam_member" "cloudrun_promote_chunks_sql_instance_user"
   project = local.project_id
 }
 
+resource "google_project_iam_member" "cloudrun_promote_chunks_logging_writer" {
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
+  project = local.project_id
+}
+
 # IAM database user for CloudSQL
 resource "google_sql_user" "cloudrun_promote_chunks_iam_sql_user" {
   name     = split(".gserviceaccount.com", google_service_account.cloudrun_promote_chunks.email)[0]
