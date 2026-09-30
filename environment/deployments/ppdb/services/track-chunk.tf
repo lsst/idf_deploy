@@ -23,6 +23,12 @@ resource "google_storage_bucket_iam_member" "cloudrun_track_chunks_storage_viewe
   member = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
 }
 
+resource "google_project_iam_member" "cloudrun_track_chunks_logging_writer" {
+  project = local.project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.cloudrun_track_chunks.email}"
+}
+
 # IAM database user for CloudSQL
 resource "google_sql_user" "cloudrun_track_chunks_iam_sql_user" {
   name     = split(".gserviceaccount.com", google_service_account.cloudrun_track_chunks.email)[0]

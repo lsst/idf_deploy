@@ -29,6 +29,12 @@ resource "google_service_account_iam_member" "cloudrun_load_sso_dataflow_sa_impe
   member             = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
 }
 
+resource "google_project_iam_member" "cloudrun_load_sso_logging_writer" {
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+  project = local.project_id
+}
+
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_load_sso" {
   account_id   = "eventarc-load-sso-sa"

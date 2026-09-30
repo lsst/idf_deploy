@@ -36,6 +36,12 @@ resource "google_service_account_iam_member" "cloudrun_trigger_stage_chunks_data
   member             = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
 }
 
+resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_logging_writer" {
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  project = local.project_id
+}
+
 
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_trigger_stage_chunk" {
