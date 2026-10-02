@@ -27,6 +27,12 @@ variable "bigquery_max_time_travel_hours" {
   default     = "168"
 }
 
+variable "bigquery_tap_extra_datasets" {
+  description = "Additional BigQuery datasets, not managed by this configuration, that the TAP service account can read"
+  type        = list(string)
+  default     = []
+}
+
 # Cloud Storage
 
 variable "config_gcs_storage_class" {

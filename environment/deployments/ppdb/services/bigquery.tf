@@ -46,6 +46,15 @@ resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_internal" {
   role          = "roles/bigquery.dataViewer"
 }
 
+# Datasets created outside of this configuration that TAP needs to query
+resource "google_bigquery_dataset_iam_member" "tap_sa_access_extra" {
+  for_each      = toset(var.bigquery_tap_extra_datasets)
+  dataset_id    = each.value
+  member        = local.bigquery_tap_sa_entry.member
+  project       = local.project_id
+  role          = "roles/bigquery.dataViewer"
+}
+
 # PPDB Staging
 resource "google_bigquery_dataset" "ppdb_staging" {
   dataset_id                 = "ppdb_staging"
