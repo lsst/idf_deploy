@@ -20,6 +20,9 @@ load_sso_cloud_run_dataflow_template_path = "gs://ppdb-dev-dataflow/templates/lo
 load_sso_cloud_run_temp_location = "gs://ppdb-dev-dataflow/temp"
 load_sso_runtime = "python313"
 
+# BigQuery
+bigquery_tap_extra_datasets = ["dp2"]
+
 # GitHub CI
 create_gh_ci_sa = true
 

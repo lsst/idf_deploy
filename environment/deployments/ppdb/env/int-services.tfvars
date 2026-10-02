@@ -20,6 +20,9 @@ load_sso_cloud_run_dataflow_template_path = "gs://ppdb-int-dataflow/templates/lo
 load_sso_cloud_run_temp_location = "gs://ppdb-int-dataflow/temp"
 load_sso_runtime = "python313"
 
+# BigQuery
+bigquery_tap_extra_datasets = ["dp2"]
+
 # If you didn't make any other changes to this file, increase this number to
 # force Terraform to update this environment. You may need to do this if you
 # changed .tf files in this environment, or if you changed any modules that
