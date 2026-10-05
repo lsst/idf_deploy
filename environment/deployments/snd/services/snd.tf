@@ -88,6 +88,20 @@ resource "google_compute_url_map" "snd" {
       paths   = ["/api", "/api/*"]
       service = google_compute_backend_bucket.snd_api.id
     }
+
+    path_rule {
+      paths   = ["/*"]
+      service = google_compute_backend_bucket.snd_web.id
+
+      custom_error_response_policy {
+        error_response_rule {
+          match_response_codes   = ["404"]
+          override_response_code = 200
+          path                   = "/index.html"
+        }
+        error_service = google_compute_backend_bucket.snd_web.id
+      }
+    }
   }
 }
 
