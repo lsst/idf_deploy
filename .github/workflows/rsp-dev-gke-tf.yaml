@@ -1,0 +1,25 @@
+# Deploys Science Platform Dev GCP Project with Terraform
+name: 'RSP DEV NEW GKE'
+
+on:
+  pull_request:
+    paths:
+      - 'environment/deployments/science-platform/env/dev-gke.tfvars'
+  push:
+    branches:
+      - main
+    paths:
+      - 'environment/deployments/science-platform/env/dev-gke.tfvars'
+  schedule:
+    - cron: 25 2 * * *
+
+jobs:
+  terraform:
+    name: Terraform
+    uses: ./.github/workflows/_reusable-terraform-plan-apply.yaml
+    with:
+      working_directory: ./environment/deployments/science-platform/gke
+      state_prefix: science-platform/dev-new/gke
+      tfvars_file: ../env/dev-gke.tfvars
+      apply_on_workflow_dispatch: true
+    secrets: inherit

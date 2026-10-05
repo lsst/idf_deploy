@@ -4,12 +4,12 @@ name: 'Roundtable Dev New GKE'
 on:
   pull_request:
     paths:
-      - 'environment/deployments/roundtable/env/dev-new-gke.tfvars'
+      - 'environment/deployments/roundtable/env/dev-gke.tfvars'
   push:
     branches:
       - main
     paths:
-      - 'environment/deployments/roundtable/env/dev-new-gke.tfvars'
+      - 'environment/deployments/roundtable/env/dev-gke.tfvars'
   # Re-enable this when/if we want to deal with drift
   schedule:
     - cron: 25 2 * * *
@@ -22,6 +22,6 @@ jobs:
     with:
       working_directory: ./environment/deployments/roundtable/gke
       state_prefix: roundtable/dev-new/gke
-      tfvars_file: ../env/dev-new-gke.tfvars
+      tfvars_file: ../env/dev-gke.tfvars
       apply_on_workflow_dispatch: true
     secrets: inherit
