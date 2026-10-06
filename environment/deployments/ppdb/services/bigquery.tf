@@ -33,14 +33,14 @@ resource "google_project_iam_member" "tap_sa_read_session" {
 }
 
 resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_public" {
-  dataset_id    = google_bigquery_dataset.ppdb_public.dataset_id 
+  dataset_id    = google_bigquery_dataset.ppdb_public.dataset_id
   member        = local.bigquery_tap_sa_entry.member
   project       = local.project_id
   role          = "roles/bigquery.dataViewer"
 }
 
 resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_internal" {
-  dataset_id    = google_bigquery_dataset.ppdb_internal.dataset_id 
+  dataset_id    = google_bigquery_dataset.ppdb_internal.dataset_id
   member        = local.bigquery_tap_sa_entry.member
   project       = local.project_id
   role          = "roles/bigquery.dataViewer"
