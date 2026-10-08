@@ -25,6 +25,7 @@ science_platform_database_tier              = "db-custom-4-16384"
 science_platform_db_maintenance_window_day  = 4
 science_platform_db_maintenance_window_hour = 22
 science_platform_backups_enabled            = true
+science_platform_insights_config            = {}
 
 # Increase this number to force Terraform to update the prod environment.
 # Serial: 15

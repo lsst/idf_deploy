@@ -7,6 +7,7 @@ project_id       = "roundtable-prod-f6fd"
 db_maintenance_window_day  = 4
 db_maintenance_window_hour = 22
 backups_enabled            = true
+insights_config            = {}
 
 # Increase this number to force Terraform to update the prod environment.
 # Serial: 10
