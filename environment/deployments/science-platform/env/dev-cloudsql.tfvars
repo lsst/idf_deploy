@@ -27,6 +27,7 @@ science_platform_db_maintenance_window_day          = 1
 science_platform_db_maintenance_window_hour         = 22
 science_platform_db_maintenance_window_update_track = "canary"
 science_platform_backups_enabled                    = true
+science_platform_insights_config                    = {}
 
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 46
