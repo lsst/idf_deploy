@@ -91,6 +91,7 @@ resource "google_cloudfunctions2_function" "load_sso" {
   description = "Loads SSO data via Dataflow"
 
   depends_on = [
+    google_secret_manager_secret_iam_member.sentry_dsn_accessor,
     google_project_iam_member.cloudrun_deploy_functions_developer,
     google_project_iam_member.cloudrun_deploy_run_developer,
     google_project_iam_member.cloudrun_deploy_service_account_user,
@@ -126,6 +127,13 @@ resource "google_cloudfunctions2_function" "load_sso" {
       subnetwork = local.subnet
     }
     direct_vpc_egress = "VPC_EGRESS_PRIVATE_RANGES_ONLY"
+
+    secret_environment_variables {
+      key        = "SENTRY_DSN"
+      project_id = local.project_id
+      secret     = google_secret_manager_secret.sentry_dsn.secret_id
+      version    = "latest"
+    }
 
     environment_variables = {
       DATAFLOW_TEMPLATE_PATH  = var.load_sso_cloud_run_dataflow_template_path
