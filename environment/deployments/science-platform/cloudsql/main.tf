@@ -464,7 +464,8 @@ module "cutouts_bucket" {
 }
 
 locals {
-  cutout_service_account = module.service_accounts.service_accounts_map["vo-cutouts"].email
+  cutout_service_account     = module.service_accounts.service_accounts_map["vo-cutouts"].email
+  gafaelfawr_service_account = module.service_accounts.service_accounts_map["gafaelfawr"].email
 }
 
 module "service_accounts" {
@@ -625,4 +626,18 @@ resource "google_service_account_iam_member" "vo_cutouts_sa_token" {
   service_account_id = module.service_accounts.service_accounts_map["vo-cutouts"].name
   role               = "roles/iam.serviceAccountTokenCreator"
   member             = "serviceAccount:${local.cutout_service_account}"
+}
+
+# Create the IAM database user for Gafaelfawr, which is switching over to IAM
+# authentication rather than password authentication.
+resource "google_sql_user" "gafaelfawr_iam_sql_user" {
+  name     = split(".gserviceaccount.com", module.service_accounts.service_accounts_map["gafaelfawr"].email)[0]
+  instance = module.db_science_platform.name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+}
+
+resource "google_project_iam_member" "gafaelfawr_cloudsql_instance_user" {
+  project = var.project_id
+  role    = "roles/cloudsql.instanceUser"
+  member  = "serviceAccount:${local.gafaelfawr_service_account}"
 }

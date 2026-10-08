@@ -234,6 +234,7 @@ variable "science_platform_database_flags" {
     value = string
   }))
   default = [
+    { name = "cloudsql.iam_authentication", value = "on" },
     { name = "max_connections", value = "500" },
     { name = "password_encryption", value = "scram-sha-256" }
   ]
