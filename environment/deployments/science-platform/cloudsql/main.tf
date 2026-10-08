@@ -618,6 +618,28 @@ resource "google_project_iam_member" "bigquery_kafka_bigquery_read_session_user_
   member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
 }
 
+# Scratch dataset for user tables uploaded to BigQuery-backed TAP services.
+resource "google_bigquery_dataset" "tap_uploads" {
+  count = var.tap_uploads_enabled ? 1 : 0
+
+  dataset_id                  = "tap_uploads"
+  friendly_name               = "TAP Uploads"
+  description                 = "Temporary user-uploaded tables for BigQuery-backed TAP services"
+  project                     = var.project_id
+  location                    = "US"
+  default_table_expiration_ms = var.tap_uploads_table_expiration_ms
+  delete_contents_on_destroy  = true
+}
+
+resource "google_bigquery_dataset_iam_member" "bigquery_kafka_tap_uploads_editor" {
+  count = var.tap_uploads_enabled ? 1 : 0
+
+  project    = var.project_id
+  dataset_id = google_bigquery_dataset.tap_uploads[0].dataset_id
+  role       = "roles/bigquery.dataEditor"
+  member     = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
 # The vo-cutouts service account must be granted the ability to generate
 # tokens for itself so that it can generate signed GCS URLs starting from
 # the GKE service account token without requiring an exported secret key

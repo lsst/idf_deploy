@@ -251,3 +251,14 @@ variable "science_platform_insights_config" {
   default = null
 }
 
+variable "tap_uploads_enabled" {
+  type        = bool
+  description = "Create the tap_uploads BigQuery dataset for TAP table uploads"
+  default     = false
+}
+
+variable "tap_uploads_table_expiration_ms" {
+  type        = number
+  description = "Default expiration for tables in the tap_uploads dataset, in milliseconds"
+  default     = 86400000
+}
