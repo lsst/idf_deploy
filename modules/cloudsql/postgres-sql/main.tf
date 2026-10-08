@@ -22,6 +22,7 @@ module "cloudsql-db" {
   pricing_plan                    = var.pricing_plan
   create_timeout                  = var.create_timeout
   update_timeout                  = var.update_timeout
+  insights_config                 = var.insights_config
 
   additional_databases = var.additional_databases
   additional_users     = var.additional_users

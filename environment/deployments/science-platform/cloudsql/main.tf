@@ -306,6 +306,7 @@ module "db_science_platform" {
   ipv4_enabled                    = false
   private_network                 = data.google_compute_network.network.self_link
   tier                            = var.science_platform_database_tier
+  insights_config                 = var.science_platform_insights_config
 
   backup_configuration = {
     enabled                        = var.science_platform_backups_enabled

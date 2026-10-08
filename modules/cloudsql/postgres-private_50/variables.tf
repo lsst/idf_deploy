@@ -181,8 +181,8 @@ variable "additional_databases" {
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
-    password = string
+    name            = string
+    password        = string
     random_password = bool
   }))
   default = []
@@ -191,9 +191,11 @@ variable "additional_users" {
 variable "insights_config" {
   description = "The insights_config settings for the database."
   type = object({
-    query_string_length     = number
-    record_application_tags = bool
-    record_client_address   = bool
+    enhanced_query_insights_enabled = optional(bool, false)
+    query_plans_per_minute          = optional(number, 5)
+    query_string_length             = optional(number, 1024)
+    record_application_tags         = optional(bool, false)
+    record_client_address           = optional(bool, false)
   })
   default = null
 }

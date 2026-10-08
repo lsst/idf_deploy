@@ -172,15 +172,15 @@ variable "butler_registry_dp1_backups_enabled" {
 }
 
 variable "butler_registry_alloydb_enabled" {
-  type = bool
+  type        = bool
   description = "True if an AlloyDB cluster will be created to use as the Butler Registry for data previews"
-  default = false
+  default     = false
 }
 
 variable "butler_prompt_data_products_enabled" {
-  type = bool
+  type        = bool
   description = "True if an AlloyDB cluster will be created to use as the Butler Registry for prompt data products."
-  default = false
+  default     = false
 }
 
 // Science Platform Database variables
@@ -238,3 +238,16 @@ variable "science_platform_database_flags" {
     { name = "password_encryption", value = "scram-sha-256" }
   ]
 }
+
+variable "science_platform_insights_config" {
+  description = "Query Insights configuration. Set this to null to disable Query Insights. Valid values are described in the `insights_config` value here: https://registry.terraform.io/modules/GoogleCloudPlatform/sql-db/google/latest/submodules/postgresql"
+  type = object({
+    enhanced_query_insights_enabled = optional(bool, false)
+    query_plans_per_minute          = optional(number, 5)
+    query_string_length             = optional(number, 1024)
+    record_application_tags         = optional(bool, false)
+    record_client_address           = optional(bool, false)
+  })
+  default = null
+}
+
