@@ -253,8 +253,14 @@ variable "science_platform_insights_config" {
 
 variable "tap_uploads_enabled" {
   type        = bool
-  description = "Create the tap_uploads BigQuery dataset for TAP table uploads"
+  description = "Create the tap_uploads BigQuery dataset and GCS bucket for TAP table uploads"
   default     = false
+}
+
+variable "tap_uploads_max_age" {
+  type        = number
+  description = "Age of objects in days before deletion from the TAP uploads bucket"
+  default     = 2
 }
 
 variable "tap_uploads_table_expiration_ms" {
