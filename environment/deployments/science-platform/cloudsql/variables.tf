@@ -251,3 +251,20 @@ variable "science_platform_insights_config" {
   default = null
 }
 
+variable "tap_uploads_enabled" {
+  type        = bool
+  description = "Create the tap_uploads BigQuery dataset and GCS bucket for TAP table uploads"
+  default     = false
+}
+
+variable "tap_uploads_max_age" {
+  type        = number
+  description = "Age of objects in days before deletion from the TAP uploads bucket"
+  default     = 2
+}
+
+variable "tap_uploads_table_expiration_ms" {
+  type        = number
+  description = "Default expiration for tables in the tap_uploads dataset, in milliseconds"
+  default     = 86400000
+}

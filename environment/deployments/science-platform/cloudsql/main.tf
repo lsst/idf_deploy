@@ -618,6 +618,74 @@ resource "google_project_iam_member" "bigquery_kafka_bigquery_read_session_user_
   member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
 }
 
+# Scratch dataset for user tables uploaded to BigQuery-backed TAP services.
+resource "google_bigquery_dataset" "tap_uploads" {
+  count = var.tap_uploads_enabled ? 1 : 0
+
+  dataset_id                  = "tap_uploads"
+  friendly_name               = "TAP Uploads"
+  description                 = "Temporary user-uploaded tables for BigQuery-backed TAP services"
+  project                     = var.project_id
+  location                    = "US"
+  default_table_expiration_ms = var.tap_uploads_table_expiration_ms
+  delete_contents_on_destroy  = true
+}
+
+resource "google_bigquery_dataset_iam_member" "bigquery_kafka_tap_uploads_editor" {
+  count = var.tap_uploads_enabled ? 1 : 0
+
+  project    = var.project_id
+  dataset_id = google_bigquery_dataset.tap_uploads[0].dataset_id
+  role       = "roles/bigquery.dataEditor"
+  member     = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
+# Temporary storage for user tables uploaded to TAP services.
+module "tap_uploads_bucket" {
+  source = "../../../../modules/bucket"
+  count  = var.tap_uploads_enabled ? 1 : 0
+
+  project_id    = var.project_id
+  storage_class = "STANDARD"
+  location      = "US"
+  prefix_name   = "rubin-tap-uploads-${var.environment}"
+  suffix_name   = ["us"]
+
+  lifecycle_rules = [
+    {
+      action = {
+        type = "Delete"
+      },
+      condition = {
+        age = var.tap_uploads_max_age
+      }
+    }
+  ]
+}
+
+# The TAP services need create, get and delete on uploaded objects.
+resource "google_storage_bucket_iam_binding" "tap_uploads_bucket_rw" {
+  count = var.tap_uploads_enabled ? 1 : 0
+
+  bucket = module.tap_uploads_bucket[0].name
+  role   = "roles/storage.objectUser"
+  members = [
+    module.service_accounts.service_accounts_map["ppdbtap"].member,
+    module.service_accounts.service_accounts_map["tap-service"].member,
+  ]
+}
+
+# BigQuery load jobs read uploaded tables with the credentials of bigquery-kafka.
+resource "google_storage_bucket_iam_binding" "tap_uploads_bucket_ro" {
+  count = var.tap_uploads_enabled ? 1 : 0
+
+  bucket = module.tap_uploads_bucket[0].name
+  role   = "roles/storage.objectViewer"
+  members = [
+    module.service_accounts.service_accounts_map["bigquery-kafka"].member,
+  ]
+}
+
 # The vo-cutouts service account must be granted the ability to generate
 # tokens for itself so that it can generate signed GCS URLs starting from
 # the GKE service account token without requiring an exported secret key
