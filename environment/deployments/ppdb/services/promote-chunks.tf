@@ -217,6 +217,10 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
           name  = "CLOUDSQL_DB_NAME"
           value = var.promote_chunks_db_name
         }
+        env {
+          name  = "SENTRY_ENVIRONMENT"
+          value = local.sentry_environment
+        }
         resources {
 
           limits = {
