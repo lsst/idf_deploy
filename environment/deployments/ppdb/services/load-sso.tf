@@ -148,6 +148,7 @@ resource "google_cloudfunctions2_function" "load_sso" {
       INTERNAL_DATASET_ID     = var.load_sso_internal_dataset_id
       DATAFLOW_MACHINE_TYPE   = var.load_sso_cloud_run_dataflow_machine_type
       NUM_RETRIES             = var.load_sso_num_retries
+      SENTRY_ENVIRONMENT      = local.sentry_environment
     }
   }
 
