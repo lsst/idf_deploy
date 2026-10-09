@@ -93,6 +93,7 @@ resource "google_cloudfunctions2_function" "track_chunk" {
   description = "Tracks processing chunks"
 
   depends_on = [
+    google_secret_manager_secret_iam_member.sentry_dsn_accessor,
     google_project_iam_member.cloudrun_deploy_functions_developer,
     google_project_iam_member.cloudrun_deploy_run_developer,
     google_project_iam_member.cloudrun_deploy_service_account_user,
@@ -129,6 +130,13 @@ resource "google_cloudfunctions2_function" "track_chunk" {
     }
     direct_vpc_egress = "VPC_EGRESS_PRIVATE_RANGES_ONLY"
 
+    secret_environment_variables {
+      key        = "SENTRY_DSN"
+      project_id = local.project_id
+      secret     = google_secret_manager_secret.sentry_dsn.secret_id
+      version    = "latest"
+    }
+
     environment_variables = {
       PPDB_CONFIG_URI                   = var.track_chunk_cloud_run_ppdb_config_uri
       PPDB_USE_SECRET_MANAGER           = var.track_chunk_cloud_run_ppdb_use_secret_manager
@@ -137,6 +145,7 @@ resource "google_cloudfunctions2_function" "track_chunk" {
       CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:ppdb-${var.environment}"
       CLOUDSQL_USER                     = "${google_service_account.cloudrun_track_chunks.account_id}@${local.project_id}.iam"
       CLOUDSQL_DB_NAME                  = var.track_chunk_db_name
+      SENTRY_ENVIRONMENT                = local.sentry_environment
     }
   }
 

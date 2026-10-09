@@ -160,6 +160,7 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
   project  = local.project_id
 
   depends_on = [
+    google_secret_manager_secret_iam_member.sentry_dsn_accessor,
     google_project_iam_member.cloudrun_deploy_functions_developer,
     google_project_iam_member.cloudrun_deploy_run_developer,
     google_project_iam_member.cloudrun_deploy_service_account_user,
@@ -177,6 +178,16 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
       timeout               = var.promote_chunks_timeout
       containers {
         image = "us-docker.pkg.dev/cloudrun/container/hello-job:latest"
+
+        env {
+          name = "SENTRY_DSN"
+          value_source {
+            secret_key_ref {
+              secret  = google_secret_manager_secret.sentry_dsn.secret_id
+              version = "latest"
+            }
+          }
+        }
 
         env {
           name  = "PPDB_CONFIG_URI"
@@ -205,6 +216,10 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
         env {
           name  = "CLOUDSQL_DB_NAME"
           value = var.promote_chunks_db_name
+        }
+        env {
+          name  = "SENTRY_ENVIRONMENT"
+          value = local.sentry_environment
         }
         resources {
 
