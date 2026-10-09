@@ -31,8 +31,8 @@ node_pools = [
     disk_type          = "pd-ssd"
     autoscaling        = true
     initial_node_count = 1
-    min_count          = 1
-    max_count          = 100
+    total_min_count    = 1
+    total_max_count    = 100
   },
 ]
 
