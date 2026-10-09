@@ -22,7 +22,7 @@ node_pools = [
   {
     name               = "core-pool"
     machine_type       = "n2-standard-32" # 32 core, 128GB
-    node_locations     = "us-central1-b"
+    node_locations     = "us-central1-b,us-central1-c,us-central1-f"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
@@ -39,7 +39,7 @@ node_pools = [
   {
     name               = "user-lab-pool"
     machine_type       = "n2-highmem-16"
-    node_locations     = "us-central1-b"
+    node_locations     = "us-central1-b,us-central1-c,us-central1-f"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
@@ -60,7 +60,7 @@ node_pools = [
   {
     name               = "user-lab-pool-amd"
     machine_type       = "n2d-highmem-16"
-    node_locations     = "us-central1-b"
+    node_locations     = "us-central1-b,us-central1-c,us-central1-f"
     local_ssd_count    = 0
     auto_repair        = true
     auto_upgrade       = true
