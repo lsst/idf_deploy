@@ -218,6 +218,10 @@ resource "google_cloud_run_v2_job" "promote_chunks" {
           value = var.promote_chunks_db_name
         }
         env {
+          name  = "PROJECT_ID"
+          value = local.project_id
+        }
+        env {
           name  = "SENTRY_ENVIRONMENT"
           value = local.sentry_environment
         }
