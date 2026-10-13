@@ -33,4 +33,4 @@ science_platform_insights_config                    = {}
 tap_uploads_enabled = true
 
 # Increase this number to force Terraform to update the dev environment.
-# Serial: 47
+# Serial: 48
