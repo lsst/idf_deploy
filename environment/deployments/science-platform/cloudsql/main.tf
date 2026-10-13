@@ -700,9 +700,11 @@ resource "google_service_account_iam_member" "vo_cutouts_sa_token" {
 # Create the IAM database user for Gafaelfawr, which is switching over to IAM
 # authentication rather than password authentication.
 resource "google_sql_user" "gafaelfawr_iam_sql_user" {
-  name     = split(".gserviceaccount.com", module.service_accounts.service_accounts_map["gafaelfawr"].email)[0]
-  instance = module.db_science_platform.name
-  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+  project        = var.project_id
+  name           = trimsuffix(module.service_accounts.service_accounts_map["gafaelfawr"].email, ".gserviceaccount.com")
+  instance       = module.db_science_platform.name
+  type           = "CLOUD_IAM_SERVICE_ACCOUNT"
+  database_roles = ["cloudsqlsuperuser"]
 }
 
 resource "google_project_iam_member" "gafaelfawr_cloudsql_instance_user" {
