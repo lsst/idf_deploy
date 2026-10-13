@@ -5,8 +5,15 @@
 *.tfstate
 *.tfstate.*
 
+# Terraform lock files. We really shouldn't be ignoring these, but let's do
+# until we make an effort to actually pin all versions and check them in.
+.terraform.lock.hcl
+
 # .json files
 *.json
 
 # Mac desktop info
 .DS_Store
+
+# PPDB stub function code
+environment/deployments/ppdb/services/*.zip
