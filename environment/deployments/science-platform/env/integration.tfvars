@@ -93,7 +93,7 @@ netapp_definitions = [
     override_user_quotas   = [
       { username           = "firefly"
         uid                = 91
-        disk_limit_mib     = 250000
+        disk_limit_mib     = 500000
       }
     ]
       
