@@ -62,6 +62,10 @@ nats = [{
   min_ports_per_vm                    = 4096,
 }]
 
+# The NAT uses automatic IP allocation, so reserved addresses would sit idle
+# and be billed at the unattached rate. Reserve none.
+num_static_ips = 0
+
 # Google Cloud APIs to activate in addition to our standard set.
 activate_apis = [
   "compute.googleapis.com",
