@@ -62,11 +62,9 @@ nats = [{
   enable_endpoint_independent_mapping = false,
 }]
 
-# Static port allocation reserves min_ports_per_vm (4096, see main.tf) on every
-# node, and Autopilot compute classes run many small nodes here, so one NAT IP
-# only covers ~12 nodes. Two IPs roughly double that until we move to dynamic
-# port allocation.
-num_static_ips = 2
+# The NAT uses automatic IP allocation, so reserved addresses would sit idle
+# and be billed at the unattached rate. Reserve none.
+num_static_ips = 0
 
 # Google Cloud APIs to activate in addition to our standard set.
 activate_apis = [

@@ -51,11 +51,20 @@ custom_rules = {
 }
 
 # NAT
+# Docverse on roundtable-prod bursts outbound connections to LTD Keeper and
+# Cloudflare from a few nodes, so raise the dynamic-allocation port floor per
+# node above the 32-port default. Dynamic allocation alone is too laggy to
+# provision ports in time.
 nats = [{
-  name                           = "cloud-nat",
-  enable_dynamic_port_allocation = true,
+  name                                = "cloud-nat",
+  enable_dynamic_port_allocation      = true,
   enable_endpoint_independent_mapping = false,
+  min_ports_per_vm                    = 4096,
 }]
+
+# The NAT uses automatic IP allocation, so reserved addresses would sit idle
+# and be billed at the unattached rate. Reserve none.
+num_static_ips = 0
 
 # Google Cloud APIs to activate in addition to our standard set.
 activate_apis = [
