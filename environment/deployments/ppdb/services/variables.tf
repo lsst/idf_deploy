@@ -380,6 +380,14 @@ variable "load_sso_runtime" {
   type        = string
 }
 
+# Remote state
+
+variable "rsp_remote_state_env" {
+  description = "The name of the environment in the RSP remote state key, if it is different than the name of the environment in this ppdb services state key."
+  type        = string
+  default     = null
+}
+
 # GitHub CI
 
 variable "create_gh_ci_sa" {
