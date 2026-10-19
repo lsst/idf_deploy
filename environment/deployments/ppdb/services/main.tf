@@ -20,7 +20,7 @@ data "terraform_remote_state" "science_platform_cloudsql" {
   backend = "gcs"
 
   config = {
-    prefix = "science-platform/${var.environment}/cloudsql"
+    prefix = "science-platform/${var.rsp_remote_state_env != null ? var.rsp_remote_state_env : var.environment}/cloudsql"
     bucket = var.state_bucket
   }
 }
