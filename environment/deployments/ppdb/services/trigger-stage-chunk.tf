@@ -70,6 +70,20 @@ resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunk_storag
   member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
 }
 
+# BigQuery access, to check the staging tables for a chunk's rows
+resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_bq_job_user" {
+  role    = "roles/bigquery.jobUser"
+  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  project = local.project_id
+}
+
+resource "google_bigquery_dataset_access" "cloudrun_trigger_stage_chunk_staging_dataset_viewer" {
+  dataset_id = google_bigquery_dataset.ppdb_staging.dataset_id
+  role       = "roles/bigquery.dataViewer"
+  iam_member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  project    = local.project_id
+}
+
 
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_trigger_stage_chunk" {
