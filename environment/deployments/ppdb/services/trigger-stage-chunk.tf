@@ -42,7 +42,7 @@ resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_logging_write
   project = local.project_id
 }
 
-# Cloud SQL access, to check the replica chunk status
+# Cloud SQL access, to check and update the replica chunk status
 resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_sql_client" {
   project = local.project_id
   role    = "roles/cloudsql.client"
