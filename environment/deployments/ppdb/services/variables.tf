@@ -304,6 +304,17 @@ variable "trigger_stage_chunk_cloud_run_temp_location" {
   type        = string
 }
 
+variable "trigger_stage_chunk_cloud_run_ppdb_config_uri" {
+  description = "PPDB Config URI"
+  type        = string
+}
+
+variable "trigger_stage_chunk_db_name" {
+  description = "CloudSQL Database name"
+  default     = "ppdb"
+  type        = string
+}
+
 variable "trigger_stage_chunk_runtime" {
   description = "Runtime for Cloud Run Functions"
   type        = string
