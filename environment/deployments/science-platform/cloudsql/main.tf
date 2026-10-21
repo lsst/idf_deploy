@@ -619,6 +619,22 @@ resource "google_project_iam_member" "bigquery_kafka_bigquery_read_session_user_
   member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
 }
 
+resource "google_project_iam_member" "bigquery_kafka_job_user" {
+  count = var.bigquery_kafka_jobs_enabled ? 1 : 0
+
+  project = var.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
+resource "google_project_iam_member" "bigquery_kafka_read_session_user" {
+  count = var.bigquery_kafka_jobs_enabled ? 1 : 0
+
+  project = var.project_id
+  role    = "roles/bigquery.readSessionUser"
+  member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
+}
+
 # Scratch dataset for user tables uploaded to BigQuery-backed TAP services.
 resource "google_bigquery_dataset" "tap_uploads" {
   count = var.tap_uploads_enabled ? 1 : 0

@@ -34,5 +34,8 @@ science_platform_insights_config            = {}
 # BigQuery dataset for TAP table uploads
 tap_uploads_enabled = true
 
+# Run bigquery-kafka TAP queries in this project
+bigquery_kafka_jobs_enabled = true
+
 # Increase this number to force Terraform to update the int environment.
 # Serial: 29
