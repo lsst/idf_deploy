@@ -14,6 +14,7 @@ track_chunk_runtime = "python313"
 trigger_stage_chunk_cloud_run_dataflow_template_path = "gs://ppdb-prod-dataflow/templates/stage_chunk_flex_template.json"
 trigger_stage_chunk_cloud_run_temp_location = "gs://ppdb-prod-dataflow/temp"
 trigger_stage_chunk_runtime = "python313"
+trigger_stage_chunk_cloud_run_ppdb_config_uri = "gs://ppdb-prod-config/ppdb-prod_config.yaml"
 
 # Load SSO Cloud Run
 load_sso_cloud_run_dataflow_template_path = "gs://ppdb-prod-dataflow/templates/load_sso_flex_template.json"
