@@ -620,16 +620,12 @@ resource "google_project_iam_member" "bigquery_kafka_bigquery_read_session_user_
 }
 
 resource "google_project_iam_member" "bigquery_kafka_job_user" {
-  count = var.bigquery_kafka_jobs_enabled ? 1 : 0
-
   project = var.project_id
   role    = "roles/bigquery.jobUser"
   member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member
 }
 
 resource "google_project_iam_member" "bigquery_kafka_read_session_user" {
-  count = var.bigquery_kafka_jobs_enabled ? 1 : 0
-
   project = var.project_id
   role    = "roles/bigquery.readSessionUser"
   member  = module.service_accounts.service_accounts_map["bigquery-kafka"].member

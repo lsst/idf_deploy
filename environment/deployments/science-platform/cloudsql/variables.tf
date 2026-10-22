@@ -252,12 +252,6 @@ variable "science_platform_insights_config" {
   default = null
 }
 
-variable "bigquery_kafka_jobs_enabled" {
-  type        = bool
-  description = "Allow the bigquery-kafka service account to run BigQuery jobs in this project"
-  default     = false
-}
-
 variable "tap_uploads_enabled" {
   type        = bool
   description = "Create the tap_uploads BigQuery dataset and GCS bucket for TAP table uploads"
