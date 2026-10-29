@@ -42,6 +42,48 @@ resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_logging_write
   project = local.project_id
 }
 
+# Cloud SQL access, to check and update the replica chunk status
+resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_sql_client" {
+  project = local.project_id
+  role    = "roles/cloudsql.client"
+  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+}
+
+resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_sql_instance_user" {
+  project = local.project_id
+  role    = "roles/cloudsql.instanceUser"
+  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+}
+
+# IAM database user for CloudSQL
+resource "google_sql_user" "cloudrun_trigger_stage_chunk_iam_sql_user" {
+  name     = split(".gserviceaccount.com", google_service_account.cloudrun_trigger_stage_chunk.email)[0]
+  instance = local.sql_instance_name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+  project  = local.project_id
+}
+
+# Read access to the PPDB config
+resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunk_storage_viewer_configs" {
+  bucket = google_storage_bucket.config.id
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+}
+
+# BigQuery access, to check the staging tables for a chunk's rows
+resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_bq_job_user" {
+  role    = "roles/bigquery.jobUser"
+  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  project = local.project_id
+}
+
+resource "google_bigquery_dataset_access" "cloudrun_trigger_stage_chunk_staging_dataset_viewer" {
+  dataset_id = google_bigquery_dataset.ppdb_staging.dataset_id
+  role       = "roles/bigquery.dataViewer"
+  iam_member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  project    = local.project_id
+}
+
 
 # Dedicated Service Account for Eventarc
 resource "google_service_account" "eventarc_sa_trigger_stage_chunk" {
@@ -144,17 +186,23 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
     }
 
     environment_variables = {
-      DATAFLOW_TEMPLATE_PATH  = var.trigger_stage_chunk_cloud_run_dataflow_template_path
-      LOG_LEVEL               = var.trigger_stage_chunk_cloud_run_log_level
-      PROJECT_ID              = local.project_id
-      REGION                  = var.region
-      GOOGLE_CLOUD_SUBNETWORK = "https://www.googleapis.com/compute/v1/${local.subnet}"
-      SERVICE_ACCOUNT_EMAIL   = google_service_account.dataflow_stage_chunk.email
-      TEMP_LOCATION           = var.trigger_stage_chunk_cloud_run_temp_location
-      TOPIC_NAME              = google_pubsub_topic.track_chunk_topic.name
-      LOG_EXECUTION_ID        = var.trigger_stage_chunk_cloud_run_log_execution_id
-      NUM_RETRIES             = var.trigger_stage_chunk_num_retries
-      SENTRY_ENVIRONMENT      = local.sentry_environment
+      DATAFLOW_TEMPLATE_PATH            = var.trigger_stage_chunk_cloud_run_dataflow_template_path
+      LOG_LEVEL                         = var.trigger_stage_chunk_cloud_run_log_level
+      PROJECT_ID                        = local.project_id
+      REGION                            = var.region
+      GOOGLE_CLOUD_SUBNETWORK           = "https://www.googleapis.com/compute/v1/${local.subnet}"
+      SERVICE_ACCOUNT_EMAIL             = google_service_account.dataflow_stage_chunk.email
+      TEMP_LOCATION                     = var.trigger_stage_chunk_cloud_run_temp_location
+      TOPIC_NAME                        = google_pubsub_topic.track_chunk_topic.name
+      LOG_EXECUTION_ID                  = var.trigger_stage_chunk_cloud_run_log_execution_id
+      NUM_RETRIES                       = var.trigger_stage_chunk_num_retries
+      SENTRY_ENVIRONMENT                = local.sentry_environment
+      PPDB_CONFIG_URI                   = var.trigger_stage_chunk_cloud_run_ppdb_config_uri
+      CLOUDSQL_ENABLED                  = "true"
+      CLOUDSQL_IP_TYPE                  = "private"
+      CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:ppdb-${var.environment}"
+      CLOUDSQL_USER                     = "${google_service_account.cloudrun_trigger_stage_chunk.account_id}@${local.project_id}.iam"
+      CLOUDSQL_DB_NAME                  = var.trigger_stage_chunk_db_name
     }
   }
 
