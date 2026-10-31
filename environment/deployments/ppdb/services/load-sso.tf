@@ -35,52 +35,74 @@ resource "google_project_iam_member" "cloudrun_load_sso_logging_writer" {
   project = local.project_id
 }
 
-# Dedicated Service Account for Eventarc
-resource "google_service_account" "eventarc_sa_load_sso" {
-  account_id   = "eventarc-load-sso-sa"
-  display_name = "Eventarc Trigger Service Account for Load SSO"
-  project      = local.project_id
-}
-
-# Grant the Event Arc Service Account permission to receive and route events
-resource "google_project_iam_member" "event_receiver_load_sso" {
-  role    = "roles/eventarc.eventReceiver"
-  member  = "serviceAccount:${google_service_account.eventarc_sa_load_sso.email}"
-  project = local.project_id
-}
-
 # Grant the Service Account permission to invoke the Load SSO Cloud Run service
-resource "google_project_iam_member" "run_invoker_load_sso" {
-  role    = "roles/run.invoker"
-  member  = "serviceAccount:${google_service_account.eventarc_sa_load_sso.email}"
-  project = local.project_id
-}
-
-# Event Arc Definition
-resource "google_eventarc_trigger" "pubsub_trigger_load_sso" {
-  name     = "load-sso"
+resource "google_cloud_run_v2_service_iam_member" "run_invoker_load_sso" {
   project  = local.project_id
   location = var.region
+  name     = google_cloudfunctions2_function.load_sso.name
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+}
 
-  service_account = google_service_account.eventarc_sa_load_sso.email
+# Push Subscription Definition
+resource "google_pubsub_subscription" "load_sso" {
+  name    = "load-sso"
+  project = local.project_id
+  topic   = google_pubsub_topic.load_sso_topic.id
 
-  matching_criteria {
-    attribute = "type"
-    value     = "google.cloud.pubsub.topic.v1.messagePublished"
-  }
+  ack_deadline_seconds = 600
 
-  transport {
-    pubsub {
-      topic = google_pubsub_topic.load_sso_topic.id
+  push_config {
+    push_endpoint = google_cloudfunctions2_function.load_sso.service_config[0].uri
+
+    oidc_token {
+      service_account_email = google_service_account.cloudrun_load_sso.email
     }
   }
 
-  destination {
-    cloud_run_service {
-      service = google_cloudfunctions2_function.load_sso.name
-      region  = var.region
-    }
+  retry_policy {
+    minimum_backoff = "10s"
+    maximum_backoff = "600s"
   }
+
+  dead_letter_policy {
+    dead_letter_topic     = google_pubsub_topic.load_sso_dlt.id
+    max_delivery_attempts = var.pubsub_max_delivery_attempts
+  }
+
+  expiration_policy {
+    ttl = ""
+  }
+}
+
+# Dead-letter subscription, which keeps undeliverable messages for inspection
+# and replay. A topic without a subscription discards its messages.
+resource "google_pubsub_subscription" "load_sso_dlt" {
+  name    = "load-sso-dlt-sub"
+  project = local.project_id
+  topic   = google_pubsub_topic.load_sso_dlt.id
+
+  # 31 days, the maximum
+  message_retention_duration = "2678400s"
+
+  expiration_policy {
+    ttl = ""
+  }
+}
+
+# Grant the Pub/Sub service agent permission to forward undeliverable messages
+resource "google_pubsub_topic_iam_member" "pubsub_agent_load_sso_dlt_publisher" {
+  project = local.project_id
+  topic   = google_pubsub_topic.load_sso_dlt.id
+  role    = "roles/pubsub.publisher"
+  member  = "serviceAccount:${local.pubsub_service_agent}"
+}
+
+resource "google_pubsub_subscription_iam_member" "pubsub_agent_load_sso_subscriber" {
+  project      = local.project_id
+  subscription = google_pubsub_subscription.load_sso.id
+  role         = "roles/pubsub.subscriber"
+  member       = "serviceAccount:${local.pubsub_service_agent}"
 }
 
 # Cloud Run Functions Gen2 Definition

@@ -391,6 +391,14 @@ variable "load_sso_runtime" {
   type        = string
 }
 
+# Pub/Sub
+
+variable "pubsub_max_delivery_attempts" {
+  description = "Failed push deliveries before a message is sent to its dead-letter topic (5 to 100)"
+  type        = number
+  default     = 15
+}
+
 # Remote state
 
 variable "rsp_remote_state_env" {
