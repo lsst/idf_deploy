@@ -70,16 +70,24 @@ resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunk_storag
   member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
 }
 
-# BigQuery access, to check the staging tables for a chunk's rows
+# BigQuery access, to load a chunk into its landing tables and copy them
+# into the staging tables
 resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_bq_job_user" {
   role    = "roles/bigquery.jobUser"
   member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
   project = local.project_id
 }
 
-resource "google_bigquery_dataset_access" "cloudrun_trigger_stage_chunk_staging_dataset_viewer" {
+resource "google_bigquery_dataset_access" "cloudrun_trigger_stage_chunk_staging_dataset_editor" {
   dataset_id = google_bigquery_dataset.ppdb_staging.dataset_id
-  role       = "roles/bigquery.dataViewer"
+  role       = "roles/bigquery.dataEditor"
+  iam_member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  project    = local.project_id
+}
+
+resource "google_bigquery_dataset_access" "cloudrun_trigger_stage_chunk_landing_dataset_editor" {
+  dataset_id = google_bigquery_dataset.ppdb_landing.dataset_id
+  role       = "roles/bigquery.dataEditor"
   iam_member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
   project    = local.project_id
 }

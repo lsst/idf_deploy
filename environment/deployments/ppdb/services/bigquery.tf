@@ -66,6 +66,20 @@ resource "google_bigquery_dataset" "ppdb_staging" {
   delete_contents_on_destroy = false
 }
 
+# PPDB Landing
+resource "google_bigquery_dataset" "ppdb_landing" {
+  dataset_id                 = "ppdb_landing"
+  friendly_name              = "PPDB Landing"
+  description                = "Per-chunk tables loaded from a chunk's Parquet files before they are copied into staging"
+  project                    = local.project_id
+  location                   = "US"
+  max_time_travel_hours      = var.bigquery_max_time_travel_hours
+  delete_contents_on_destroy = false
+
+  # TTL of landing tables is 1 day by default.
+  default_table_expiration_ms = var.bigquery_landing_table_expiration_days * 24 * 60 * 60 * 1000
+}
+
 # PPDB Backup
 resource "google_bigquery_dataset" "ppdb_backup" {
   dataset_id                 = "ppdb_backup"
