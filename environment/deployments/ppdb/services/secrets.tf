@@ -10,7 +10,6 @@ resource "google_secret_manager_secret" "sentry_dsn" {
 
 resource "google_secret_manager_secret_iam_member" "sentry_dsn_accessor" {
   for_each = {
-    cloudrun_track_chunks        = google_service_account.cloudrun_track_chunks.email
     cloudrun_trigger_stage_chunk = google_service_account.cloudrun_trigger_stage_chunk.email
     cloudrun_load_sso            = google_service_account.cloudrun_load_sso.email
     cloudrun_promote_chunks      = google_service_account.cloudrun_promote_chunks.email

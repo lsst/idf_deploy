@@ -6,10 +6,6 @@ state_bucket     = "lsst-terraform-state"
 # Promote Chunks Cloud Run
 promote_chunks_cloud_run_ppdb_config_uri = "gs://ppdb-int-config/ppdb-int_config.yaml"
 
-# Track Chunk Cloud Run
-track_chunk_cloud_run_ppdb_config_uri = "gs://ppdb-int-config/ppdb-int_config.yaml"
-track_chunk_runtime = "python313"
-
 # Trigger Stage Chunks Cloud Run
 trigger_stage_chunk_cloud_run_dataflow_template_path = "gs://ppdb-int-dataflow/templates/stage_chunk_flex_template.json"
 trigger_stage_chunk_cloud_run_temp_location = "gs://ppdb-int-dataflow/temp"

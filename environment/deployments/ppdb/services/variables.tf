@@ -220,48 +220,6 @@ variable "promote_chunks_timeout" {
 }
 
 
-# Track Chunk Cloud Run
-
-variable "track_chunk_cloud_run_min_instance_count" {
-  description = "Minimium number of cloud run instances"
-  default     = 0
-  type        = number
-}
-
-variable "track_chunk_cloud_run_max_instance_count" {
-  description = "Minimium number of cloud run instances"
-  default     = 100
-  type        = number
-}
-
-variable "track_chunk_cloud_run_concurrency" {
-  description = "Max number of simultaneous requests for a single container instance"
-  default     = 1
-  type        = number
-}
-
-variable "track_chunk_cloud_run_ppdb_config_uri" {
-  description = "PPDB Config URI"
-  type        = string
-}
-
-variable "track_chunk_cloud_run_ppdb_use_secret_manager" {
-  description = "Flag to use GCP Secret Manager"
-  default     = false
-  type        = bool
-}
-
-variable "track_chunk_runtime" {
-  description = "Runtime for Cloud Run Functions"
-  type        = string
-}
-
-variable "track_chunk_db_name" {
-  description = "CloudSQL Database name"
-  default     = "ppdb"
-  type        = string
-}
-
 # Trigger Stage Chunk Cloud Run
 
 variable "trigger_stage_chunk_cloud_run_min_instance_count" {

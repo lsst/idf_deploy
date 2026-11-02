@@ -6,13 +6,6 @@ resource "google_service_account" "dataflow_stage_chunk" {
   project      = local.project_id
 }
 
-resource "google_pubsub_topic_iam_member" "dataflow_track_chunk_track_chunk_topic" {
-  topic  = google_pubsub_topic.track_chunk_topic.id
-  role   = "roles/pubsub.publisher"
-  member = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"
-  project = local.project_id
-}
-
 resource "google_project_iam_member" "dataflow_stage_chunks_dataflow_worker" {
   role    = "roles/dataflow.worker"
   member  = "serviceAccount:${google_service_account.dataflow_stage_chunk.email}"

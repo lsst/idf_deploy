@@ -223,7 +223,6 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
       GOOGLE_CLOUD_SUBNETWORK           = "https://www.googleapis.com/compute/v1/${local.subnet}"
       SERVICE_ACCOUNT_EMAIL             = google_service_account.dataflow_stage_chunk.email
       TEMP_LOCATION                     = var.trigger_stage_chunk_cloud_run_temp_location
-      TOPIC_NAME                        = google_pubsub_topic.track_chunk_topic.name
       LOG_EXECUTION_ID                  = var.trigger_stage_chunk_cloud_run_log_execution_id
       NUM_RETRIES                       = var.trigger_stage_chunk_num_retries
       SENTRY_ENVIRONMENT                = local.sentry_environment
