@@ -31,14 +31,14 @@ resource "google_storage_bucket" "export" {
   }
 }
 
-# Ingest GCS Bucket
-resource "google_storage_bucket" "ingest" {
-  name          = "ppdb-${var.environment}-ingest"
+# Chunk Ingest GCS Bucket, where replica chunks are uploaded for staging
+resource "google_storage_bucket" "chunk_ingest" {
+  name          = "ppdb-${var.environment}-chunk-ingest"
   project       = local.project_id
   location      = "US-CENTRAL1"
-  storage_class = var.ingest_gcs_storage_class
+  storage_class = var.chunk_ingest_gcs_storage_class
   versioning {
-    enabled = var.ingest_gcs_versioning
+    enabled = var.chunk_ingest_gcs_versioning
   }
 }
 

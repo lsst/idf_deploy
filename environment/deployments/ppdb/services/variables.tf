@@ -77,14 +77,14 @@ variable "export_gcs_versioning" {
   default     = false
 }
 
-variable "ingest_gcs_storage_class" {
+variable "chunk_ingest_gcs_storage_class" {
   description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
   type        = string
   default     = "STANDARD"
 }
 
-variable "ingest_gcs_versioning" {
-  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+variable "chunk_ingest_gcs_versioning" {
+  description = "Whether object versioning is enabled on the chunk ingest bucket"
   type        = bool
   default     = false
 }
