@@ -79,7 +79,8 @@ variable "project_iam_permissions" {
     "roles/file.editor",
     "roles/compute.networkAdmin",
     "roles/compute.securityAdmin",
-    "roles/netapp.admin"
+    "roles/netapp.admin",
+    "roles/bigquery.admin",
   ]
 }
 
