@@ -259,8 +259,8 @@ variable "track_chunk_db_name" {
 # Trigger Stage Chunk Cloud Run
 
 variable "trigger_stage_chunk_cloud_run_min_instance_count" {
-  description = "Minimum number of cloud run instances"
-  default     = 0
+  description = "Minimum number of cloud run instances, kept running to avoid cold starts"
+  default     = 1
   type        = number
 }
 
