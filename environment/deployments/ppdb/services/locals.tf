@@ -19,4 +19,10 @@ locals {
 
   bigquery_tap_sa_entry = data.terraform_remote_state.science_platform_cloudsql.outputs.service_accounts_map["bigquery-kafka"]
   sentry_environment    = "ppdb-${var.environment}"
+
+  pubsub_service_agent = "service-${data.google_project.ppdb.number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+}
+
+data "google_project" "ppdb" {
+  project_id = local.project_id
 }
