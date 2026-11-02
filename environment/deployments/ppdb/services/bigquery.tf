@@ -59,7 +59,7 @@ resource "google_bigquery_dataset_iam_member" "tap_sa_access_extra" {
 resource "google_bigquery_dataset" "ppdb_staging" {
   dataset_id                 = "ppdb_staging"
   friendly_name              = "PPDB Staging"
-  description                = "Staging tables and temp processing tables for data processing; target for Dataflow output"
+  description                = "Staging tables that chunks are copied into before they are promoted"
   project                    = local.project_id
   location                   = "US"
   max_time_travel_hours      = var.bigquery_max_time_travel_hours

@@ -5,12 +5,6 @@ resource "google_service_account" "cloudrun_trigger_stage_chunk" {
   project      = local.project_id
 }
 
-resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_dataflow" {
-  role    = "roles/dataflow.developer"
-  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
-  project = local.project_id
-}
-
 resource "google_pubsub_topic_iam_member" "cloudrun_trigger_stage_chunk_sa_stage_chunk_topic" {
   topic   = google_pubsub_topic.stage_chunk_topic.id
   role    = "roles/pubsub.subscriber"
@@ -18,22 +12,10 @@ resource "google_pubsub_topic_iam_member" "cloudrun_trigger_stage_chunk_sa_stage
   project = local.project_id
 }
 
-resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunks_dataflow_gcs_folder_viewer" {
-  bucket = google_storage_bucket.dataflow.id
-  role   = "roles/storage.objectViewer"
-  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
-}
-
 resource "google_project_iam_member" "cloudrun_trigger_stage_chunks_storage_admin" {
   role    = "roles/storage.admin"
   member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
   project = local.project_id
-}
-
-resource "google_service_account_iam_member" "cloudrun_trigger_stage_chunks_dataflow_sa_impersonation" {
-  service_account_id = google_service_account.dataflow_stage_chunk.name
-  role               = "roles/iam.serviceAccountUser"
-  member             = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
 }
 
 resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_logging_writer" {
@@ -216,15 +198,9 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
     }
 
     environment_variables = {
-      DATAFLOW_TEMPLATE_PATH            = var.trigger_stage_chunk_cloud_run_dataflow_template_path
       LOG_LEVEL                         = var.trigger_stage_chunk_cloud_run_log_level
       PROJECT_ID                        = local.project_id
-      REGION                            = var.region
-      GOOGLE_CLOUD_SUBNETWORK           = "https://www.googleapis.com/compute/v1/${local.subnet}"
-      SERVICE_ACCOUNT_EMAIL             = google_service_account.dataflow_stage_chunk.email
-      TEMP_LOCATION                     = var.trigger_stage_chunk_cloud_run_temp_location
       LOG_EXECUTION_ID                  = var.trigger_stage_chunk_cloud_run_log_execution_id
-      NUM_RETRIES                       = var.trigger_stage_chunk_num_retries
       SENTRY_ENVIRONMENT                = local.sentry_environment
       PPDB_CONFIG_URI                   = var.trigger_stage_chunk_cloud_run_ppdb_config_uri
       CLOUDSQL_ENABLED                  = "true"

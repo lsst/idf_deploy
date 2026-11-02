@@ -240,11 +240,6 @@ variable "trigger_stage_chunk_cloud_run_concurrency" {
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_dataflow_template_path" {
-  description = "Dataflow Template Path"
-  type        = string
-}
-
 variable "trigger_stage_chunk_cloud_run_log_level" {
   description = "Log Level"
   default     = "INFO"
@@ -255,17 +250,6 @@ variable "trigger_stage_chunk_cloud_run_log_execution_id" {
   description = "Flag to log execution id"
   default     = true
   type        = bool
-}
-
-variable "trigger_stage_chunk_num_retries" {
-  description = "Number of retries for Dataflow flex template launch requests"
-  default     = 5
-  type        = number
-}
-
-variable "trigger_stage_chunk_cloud_run_temp_location" {
-  description = "Temp location"
-  type        = string
 }
 
 variable "trigger_stage_chunk_cloud_run_ppdb_config_uri" {
