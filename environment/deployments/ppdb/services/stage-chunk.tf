@@ -1,102 +1,102 @@
-# Cloud Run Trigger Stage Chunk Service Account
-resource "google_service_account" "cloudrun_trigger_stage_chunk" {
-  account_id   = "cloudrun-trigger-stage-chunk"
-  display_name = "Terraform-managed service account for cloud run trigger stage chunk"
+# Cloud Run Stage Chunk Service Account
+resource "google_service_account" "cloudrun_stage_chunk" {
+  account_id   = "cloudrun-stage-chunk"
+  display_name = "Terraform-managed service account for cloud run stage chunk"
   project      = local.project_id
 }
 
-resource "google_pubsub_topic_iam_member" "cloudrun_trigger_stage_chunk_sa_stage_chunk_topic" {
+resource "google_pubsub_topic_iam_member" "cloudrun_stage_chunk_sa_stage_chunk_topic" {
   topic   = google_pubsub_topic.stage_chunk_topic.id
   role    = "roles/pubsub.subscriber"
-  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
   project = local.project_id
 }
 
-resource "google_project_iam_member" "cloudrun_trigger_stage_chunks_storage_admin" {
+resource "google_project_iam_member" "cloudrun_stage_chunks_storage_admin" {
   role    = "roles/storage.admin"
-  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
   project = local.project_id
 }
 
-resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_logging_writer" {
+resource "google_project_iam_member" "cloudrun_stage_chunk_logging_writer" {
   role    = "roles/logging.logWriter"
-  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
   project = local.project_id
 }
 
 # Cloud SQL access, to check and update the replica chunk status
-resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_sql_client" {
+resource "google_project_iam_member" "cloudrun_stage_chunk_sql_client" {
   project = local.project_id
   role    = "roles/cloudsql.client"
-  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
 }
 
-resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_sql_instance_user" {
+resource "google_project_iam_member" "cloudrun_stage_chunk_sql_instance_user" {
   project = local.project_id
   role    = "roles/cloudsql.instanceUser"
-  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
 }
 
 # IAM database user for CloudSQL
-resource "google_sql_user" "cloudrun_trigger_stage_chunk_iam_sql_user" {
-  name     = split(".gserviceaccount.com", google_service_account.cloudrun_trigger_stage_chunk.email)[0]
+resource "google_sql_user" "cloudrun_stage_chunk_iam_sql_user" {
+  name     = split(".gserviceaccount.com", google_service_account.cloudrun_stage_chunk.email)[0]
   instance = local.sql_instance_name
   type     = "CLOUD_IAM_SERVICE_ACCOUNT"
   project  = local.project_id
 }
 
 # Read access to the PPDB config
-resource "google_storage_bucket_iam_member" "cloudrun_trigger_stage_chunk_storage_viewer_configs" {
+resource "google_storage_bucket_iam_member" "cloudrun_stage_chunk_storage_viewer_configs" {
   bucket = google_storage_bucket.config.id
   role   = "roles/storage.objectViewer"
-  member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
 }
 
 # BigQuery access, to load a chunk into its landing tables and copy them
 # into the staging tables
-resource "google_project_iam_member" "cloudrun_trigger_stage_chunk_bq_job_user" {
+resource "google_project_iam_member" "cloudrun_stage_chunk_bq_job_user" {
   role    = "roles/bigquery.jobUser"
-  member  = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
   project = local.project_id
 }
 
-resource "google_bigquery_dataset_access" "cloudrun_trigger_stage_chunk_staging_dataset_editor" {
+resource "google_bigquery_dataset_access" "cloudrun_stage_chunk_staging_dataset_editor" {
   dataset_id = google_bigquery_dataset.ppdb_staging.dataset_id
   role       = "roles/bigquery.dataEditor"
-  iam_member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  iam_member = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
   project    = local.project_id
 }
 
-resource "google_bigquery_dataset_access" "cloudrun_trigger_stage_chunk_landing_dataset_editor" {
+resource "google_bigquery_dataset_access" "cloudrun_stage_chunk_landing_dataset_editor" {
   dataset_id = google_bigquery_dataset.ppdb_landing.dataset_id
   role       = "roles/bigquery.dataEditor"
-  iam_member = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  iam_member = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
   project    = local.project_id
 }
 
 
-# Grant the Service Account permission to invoke the Trigger Stage Chunk Cloud Run service
-resource "google_cloud_run_v2_service_iam_member" "run_invoker_trigger_stage_chunk" {
+# Grant the Service Account permission to invoke the Stage Chunk Cloud Run service
+resource "google_cloud_run_v2_service_iam_member" "run_invoker_stage_chunk" {
   project  = local.project_id
   location = var.region
-  name     = google_cloudfunctions2_function.trigger_stage_chunk.name
+  name     = google_cloudfunctions2_function.stage_chunk.name
   role     = "roles/run.invoker"
-  member   = "serviceAccount:${google_service_account.cloudrun_trigger_stage_chunk.email}"
+  member   = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
 }
 
 # Push Subscription Definition
-resource "google_pubsub_subscription" "trigger_stage_chunk" {
-  name    = "trigger-stage-chunk"
+resource "google_pubsub_subscription" "stage_chunk" {
+  name    = "stage-chunk"
   project = local.project_id
   topic   = google_pubsub_topic.stage_chunk_topic.id
 
   ack_deadline_seconds = 600
 
   push_config {
-    push_endpoint = google_cloudfunctions2_function.trigger_stage_chunk.service_config[0].uri
+    push_endpoint = google_cloudfunctions2_function.stage_chunk.service_config[0].uri
 
     oidc_token {
-      service_account_email = google_service_account.cloudrun_trigger_stage_chunk.email
+      service_account_email = google_service_account.cloudrun_stage_chunk.email
     }
   }
 
@@ -138,19 +138,19 @@ resource "google_pubsub_topic_iam_member" "pubsub_agent_stage_chunk_dlt_publishe
   member  = "serviceAccount:${local.pubsub_service_agent}"
 }
 
-resource "google_pubsub_subscription_iam_member" "pubsub_agent_trigger_stage_chunk_subscriber" {
+resource "google_pubsub_subscription_iam_member" "pubsub_agent_stage_chunk_subscriber" {
   project      = local.project_id
-  subscription = google_pubsub_subscription.trigger_stage_chunk.id
+  subscription = google_pubsub_subscription.stage_chunk.id
   role         = "roles/pubsub.subscriber"
   member       = "serviceAccount:${local.pubsub_service_agent}"
 }
 
 # Cloud Run Functions Gen2 Definition
-resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
-  name        = "trigger-stage-chunk"
+resource "google_cloudfunctions2_function" "stage_chunk" {
+  name        = "stage-chunk"
   project     = local.project_id
   location    = var.region
-  description = "Triggers Stage Chunks"
+  description = "Stages replica chunks into the BigQuery staging tables"
 
   depends_on = [
     google_secret_manager_secret_iam_member.sentry_dsn_accessor,
@@ -165,24 +165,24 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
   ]
 
   build_config {
-    runtime         = var.trigger_stage_chunk_runtime
-    entry_point     = "trigger_stage_chunk"
+    runtime         = var.stage_chunk_runtime
+    entry_point     = "stage_chunk"
     service_account = google_service_account.cloudrun_build.id
 
     # Placeholder source code bucket/object for initial creation
     source {
       storage_source {
-        bucket = google_storage_bucket_object.placeholder_zip_trigger_stage_chunk.bucket
-        object = google_storage_bucket_object.placeholder_zip_trigger_stage_chunk.name
+        bucket = google_storage_bucket_object.placeholder_zip_stage_chunk.bucket
+        object = google_storage_bucket_object.placeholder_zip_stage_chunk.name
       }
     }
   }
 
   service_config {
-    service_account_email            = google_service_account.cloudrun_trigger_stage_chunk.email
-    min_instance_count               = var.trigger_stage_chunk_cloud_run_min_instance_count
-    max_instance_count               = var.trigger_stage_chunk_cloud_run_max_instance_count
-    max_instance_request_concurrency = var.trigger_stage_chunk_cloud_run_concurrency
+    service_account_email            = google_service_account.cloudrun_stage_chunk.email
+    min_instance_count               = var.stage_chunk_cloud_run_min_instance_count
+    max_instance_count               = var.stage_chunk_cloud_run_max_instance_count
+    max_instance_request_concurrency = var.stage_chunk_cloud_run_concurrency
 
     direct_vpc_network_interface {
       network    = local.network
@@ -198,18 +198,18 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
     }
 
     environment_variables = {
-      LOG_LEVEL                         = var.trigger_stage_chunk_cloud_run_log_level
-      BIGQUERY_CHECK_TIMEOUT_SECONDS    = var.trigger_stage_chunk_bigquery_check_timeout_seconds
-      BIGQUERY_JOB_TIMEOUT_SECONDS      = var.trigger_stage_chunk_bigquery_job_timeout_seconds
+      LOG_LEVEL                         = var.stage_chunk_cloud_run_log_level
+      BIGQUERY_CHECK_TIMEOUT_SECONDS    = var.stage_chunk_bigquery_check_timeout_seconds
+      BIGQUERY_JOB_TIMEOUT_SECONDS      = var.stage_chunk_bigquery_job_timeout_seconds
       PROJECT_ID                        = local.project_id
-      LOG_EXECUTION_ID                  = var.trigger_stage_chunk_cloud_run_log_execution_id
+      LOG_EXECUTION_ID                  = var.stage_chunk_cloud_run_log_execution_id
       SENTRY_ENVIRONMENT                = local.sentry_environment
-      PPDB_CONFIG_URI                   = var.trigger_stage_chunk_cloud_run_ppdb_config_uri
+      PPDB_CONFIG_URI                   = var.stage_chunk_cloud_run_ppdb_config_uri
       CLOUDSQL_ENABLED                  = "true"
       CLOUDSQL_IP_TYPE                  = "private"
       CLOUDSQL_INSTANCE_CONNECTION_NAME = "${local.project_id}:${var.region}:ppdb-${var.environment}"
-      CLOUDSQL_USER                     = "${google_service_account.cloudrun_trigger_stage_chunk.account_id}@${local.project_id}.iam"
-      CLOUDSQL_DB_NAME                  = var.trigger_stage_chunk_db_name
+      CLOUDSQL_USER                     = "${google_service_account.cloudrun_stage_chunk.account_id}@${local.project_id}.iam"
+      CLOUDSQL_DB_NAME                  = var.stage_chunk_db_name
     }
   }
 
@@ -222,19 +222,19 @@ resource "google_cloudfunctions2_function" "trigger_stage_chunk" {
 }
 
 # Dummy zip file to build function
-data "archive_file" "dummy_source_trigger_stage_chunk" {
+data "archive_file" "dummy_source_stage_chunk" {
   type        = "zip"
-  output_path = "${path.module}/dummy_source_trigger_stage_chunk.zip"
+  output_path = "${path.module}/dummy_source_stage_chunk.zip"
 
   source {
-    content  = "def trigger_stage_chunk(event, context=None):\n    return 'OK'"
+    content  = "def stage_chunk(event, context=None):\n    return 'OK'"
     filename = "main.py"
   }
 }
 
 # Upload the dummy zip to Cloud Storage
-resource "google_storage_bucket_object" "placeholder_zip_trigger_stage_chunk" {
-  name   = "source/placeholder-trigger-stage-chunk.zip"
+resource "google_storage_bucket_object" "placeholder_zip_stage_chunk" {
+  name   = "source/placeholder-stage-chunk.zip"
   bucket = google_storage_bucket.config.id
-  source = data.archive_file.dummy_source_trigger_stage_chunk.output_path
+  source = data.archive_file.dummy_source_stage_chunk.output_path
 }

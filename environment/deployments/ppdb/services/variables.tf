@@ -220,62 +220,62 @@ variable "promote_chunks_timeout" {
 }
 
 
-# Trigger Stage Chunk Cloud Run
+# Stage Chunk Cloud Run
 
-variable "trigger_stage_chunk_cloud_run_min_instance_count" {
+variable "stage_chunk_cloud_run_min_instance_count" {
   description = "Minimum number of cloud run instances, kept running to avoid cold starts"
   default     = 1
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_max_instance_count" {
+variable "stage_chunk_cloud_run_max_instance_count" {
   description = "Maximum number of cloud run instances"
   default     = 100
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_concurrency" {
+variable "stage_chunk_cloud_run_concurrency" {
   description = "Max number of simultaneous requests for a single container instance"
   default     = 1
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_log_level" {
+variable "stage_chunk_cloud_run_log_level" {
   description = "Log Level"
   default     = "INFO"
   type        = string
 }
 
-variable "trigger_stage_chunk_cloud_run_log_execution_id" {
+variable "stage_chunk_cloud_run_log_execution_id" {
   description = "Flag to log execution id"
   default     = true
   type        = bool
 }
 
-variable "trigger_stage_chunk_bigquery_check_timeout_seconds" {
+variable "stage_chunk_bigquery_check_timeout_seconds" {
   description = "Limit in seconds on the stage chunk function's query that checks the staging tables for a chunk's rows"
   default     = 60
   type        = number
 }
 
-variable "trigger_stage_chunk_bigquery_job_timeout_seconds" {
+variable "stage_chunk_bigquery_job_timeout_seconds" {
   description = "Limit in seconds on each load job and on the transaction run by the stage chunk function. The check limit plus twice this must be under the 600 second Pub/Sub acknowledgement deadline."
   default     = 240
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_ppdb_config_uri" {
+variable "stage_chunk_cloud_run_ppdb_config_uri" {
   description = "PPDB Config URI"
   type        = string
 }
 
-variable "trigger_stage_chunk_db_name" {
+variable "stage_chunk_db_name" {
   description = "CloudSQL Database name"
   default     = "ppdb"
   type        = string
 }
 
-variable "trigger_stage_chunk_runtime" {
+variable "stage_chunk_runtime" {
   description = "Runtime for Cloud Run Functions"
   type        = string
 }
