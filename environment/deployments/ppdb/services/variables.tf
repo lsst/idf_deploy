@@ -252,6 +252,18 @@ variable "trigger_stage_chunk_cloud_run_log_execution_id" {
   type        = bool
 }
 
+variable "trigger_stage_chunk_bigquery_check_timeout_seconds" {
+  description = "Limit in seconds on the stage chunk function's query that checks the staging tables for a chunk's rows"
+  default     = 60
+  type        = number
+}
+
+variable "trigger_stage_chunk_bigquery_job_timeout_seconds" {
+  description = "Limit in seconds on each load job and on the transaction run by the stage chunk function. The check limit plus twice this must be under the 600 second Pub/Sub acknowledgement deadline."
+  default     = 240
+  type        = number
+}
+
 variable "trigger_stage_chunk_cloud_run_ppdb_config_uri" {
   description = "PPDB Config URI"
   type        = string
