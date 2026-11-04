@@ -195,6 +195,7 @@ resource "google_cloudfunctions2_function" "stage_chunk" {
       LOG_LEVEL                         = var.stage_chunk_cloud_run_log_level
       BIGQUERY_CHECK_TIMEOUT_SECONDS    = var.stage_chunk_bigquery_check_timeout_seconds
       BIGQUERY_JOB_TIMEOUT_SECONDS      = var.stage_chunk_bigquery_job_timeout_seconds
+      BIGQUERY_RETRY_TIMEOUT_SECONDS    = var.stage_chunk_bigquery_retry_timeout_seconds
       PROJECT_ID                        = local.project_id
       LOG_EXECUTION_ID                  = var.stage_chunk_cloud_run_log_execution_id
       SENTRY_ENVIRONMENT                = local.sentry_environment

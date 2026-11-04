@@ -259,8 +259,14 @@ variable "stage_chunk_bigquery_check_timeout_seconds" {
 }
 
 variable "stage_chunk_bigquery_job_timeout_seconds" {
-  description = "Limit in seconds on each load job and on the transaction run by the stage chunk function. The check limit plus twice this must be under the 600 second Pub/Sub acknowledgement deadline."
+  description = "Limit in seconds on each load job and on the transaction run by the stage chunk function"
   default     = 240
+  type        = number
+}
+
+variable "stage_chunk_bigquery_retry_timeout_seconds" {
+  description = "Limit in seconds on how long the stage chunk function retries each BigQuery API request after a temporary error"
+  default     = 300
   type        = number
 }
 
