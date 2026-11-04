@@ -111,23 +111,6 @@ variable "ppdb_repo_image_keep_count" {
 
 # Promote Chunks Cloud Run
 
-variable "promote_chunks_cloud_run_min_instance_count" {
-  description = "Minimum number of cloud run instances"
-  default     = 0
-  type        = number
-}
-variable "promote_chunks_cloud_run_max_instance_count" {
-  description = "Maximum number of cloud run instances"
-  default     = 1
-  type        = number
-}
-
-variable "promote_chunks_cloud_run_concurrency" {
-  description = "Max number of simultaneous requests for a single container instance"
-  default     = 1
-  type        = number
-}
-
 variable "promote_chunks_cloud_run_ppdb_config_uri" {
   description = "PPDB Config URI"
   type        = string
@@ -136,13 +119,6 @@ variable "promote_chunks_cloud_run_ppdb_config_uri" {
 variable "promote_chunks_cloud_run_ppdb_use_secret_manager" {
   description = "Flag to use GCP Secret Manager"
   default     = false
-  type        = bool
-
-}
-
-variable "promote_chunks_cloud_run_log_execution_id" {
-  description = "Flag to log execution id"
-  default     = true
   type        = bool
 
 }
@@ -163,30 +139,6 @@ variable "promote_chunks_scheduler_attempt_deadline" {
   description = "The deadline for job attempts"
   type        = string
   default     = "180s"
-}
-
-variable "promote_chunks_scheduler_min_backoff_duration" {
-  description = "The maximum amount of time to wait before retrying a job after it fails."
-  type        = string
-  default     = "1s"
-}
-
-variable "promote_chunks_scheduler_max_retry_duration" {
-  description = "The time limit for retrying a failed job, measured from time when an execution was first attempted. If specified with retryCount, the job will be retried until both limits are reached."
-  type        = string
-  default     = "10s"
-}
-
-variable "promote_chunks_scheduler_max_doublings" {
-  description = "The time between retries will double maxDoublings times."
-  type        = number
-  default     = 2
-}
-
-variable "promote_chunks_scheduler_retry_count" {
-  description = "The number of attempts that the system will make to run a job using the exponential backoff procedure described by maxDoublings"
-  type        = number
-  default     = 3
 }
 
 variable "promote_chunks_cloud_run_cpu_limit" {
@@ -218,7 +170,6 @@ variable "promote_chunks_timeout" {
   default     = "7200s"
   type        = string
 }
-
 
 # Stage Chunk Cloud Run
 
