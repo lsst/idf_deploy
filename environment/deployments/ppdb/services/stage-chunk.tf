@@ -101,7 +101,7 @@ resource "google_pubsub_subscription" "stage_chunk" {
 
   dead_letter_policy {
     dead_letter_topic     = google_pubsub_topic.stage_chunk_dlt.id
-    max_delivery_attempts = var.pubsub_max_delivery_attempts
+    max_delivery_attempts = var.stage_chunk_pubsub_max_delivery_attempts
   }
 
   expiration_policy {

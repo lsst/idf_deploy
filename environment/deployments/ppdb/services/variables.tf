@@ -359,8 +359,14 @@ variable "load_sso_runtime" {
 
 # Pub/Sub
 
-variable "pubsub_max_delivery_attempts" {
-  description = "Failed push deliveries before a message is sent to its dead-letter topic (5 to 100)"
+variable "stage_chunk_pubsub_max_delivery_attempts" {
+  description = "Failed push deliveries to the stage chunk function before a message is sent to its dead-letter topic (5 to 100)"
+  type        = number
+  default     = 100
+}
+
+variable "load_sso_pubsub_max_delivery_attempts" {
+  description = "Failed push deliveries to the load SSO function before a message is sent to its dead-letter topic (5 to 100)"
   type        = number
   default     = 15
 }
