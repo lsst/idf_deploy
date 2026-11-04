@@ -5,17 +5,11 @@ resource "google_service_account" "cloudrun_stage_chunk" {
   project      = local.project_id
 }
 
-resource "google_pubsub_topic_iam_member" "cloudrun_stage_chunk_sa_stage_chunk_topic" {
-  topic   = google_pubsub_topic.stage_chunk_topic.id
-  role    = "roles/pubsub.subscriber"
-  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
-  project = local.project_id
-}
-
-resource "google_project_iam_member" "cloudrun_stage_chunks_storage_admin" {
-  role    = "roles/storage.admin"
-  member  = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
-  project = local.project_id
+# Read access to the chunk files, for the manifest and the load jobs
+resource "google_storage_bucket_iam_member" "cloudrun_stage_chunk_chunk_ingest_object_viewer" {
+  bucket = google_storage_bucket.chunk_ingest.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.cloudrun_stage_chunk.email}"
 }
 
 resource "google_project_iam_member" "cloudrun_stage_chunk_logging_writer" {
