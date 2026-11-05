@@ -26,7 +26,7 @@ resource "google_project_iam_member" "usdf_replication_cloudsql_instance_user" {
 }
 
 resource "google_storage_bucket_iam_member" "usdf_replication_gcs" {
-  bucket = google_storage_bucket.ingest.name
+  bucket = google_storage_bucket.chunk_ingest.name
   role   = "roles/storage.objectUser"
   member = "serviceAccount:${google_service_account.usdf_replication.email}"
 }
