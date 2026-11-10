@@ -67,7 +67,7 @@ resource "google_pubsub_subscription" "load_sso" {
 
   dead_letter_policy {
     dead_letter_topic     = google_pubsub_topic.load_sso_dlt.id
-    max_delivery_attempts = var.pubsub_max_delivery_attempts
+    max_delivery_attempts = var.load_sso_pubsub_max_delivery_attempts
   }
 
   expiration_policy {

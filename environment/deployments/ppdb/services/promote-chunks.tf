@@ -10,8 +10,8 @@ resource "google_storage_bucket_iam_member" "cloudrun_promote_chunks_storage_vie
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
 }
-resource "google_storage_bucket_iam_member" "cloudrun_promote_chunks_ingest_object_viewer" {
-  bucket = google_storage_bucket.ingest.name
+resource "google_storage_bucket_iam_member" "cloudrun_promote_chunks_chunk_ingest_object_viewer" {
+  bucket = google_storage_bucket.chunk_ingest.name
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
 }

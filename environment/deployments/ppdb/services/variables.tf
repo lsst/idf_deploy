@@ -27,6 +27,12 @@ variable "bigquery_max_time_travel_hours" {
   default     = "168"
 }
 
+variable "bigquery_landing_table_expiration_days" {
+  description = "Number of days before a table in the landing dataset is deleted"
+  type        = number
+  default     = 1
+}
+
 variable "bigquery_tap_extra_datasets" {
   description = "Additional BigQuery datasets, not managed by this configuration, that the TAP service account can read"
   type        = list(string)
@@ -71,14 +77,14 @@ variable "export_gcs_versioning" {
   default     = false
 }
 
-variable "ingest_gcs_storage_class" {
+variable "chunk_ingest_gcs_storage_class" {
   description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
   type        = string
   default     = "STANDARD"
 }
 
-variable "ingest_gcs_versioning" {
-  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+variable "chunk_ingest_gcs_versioning" {
+  description = "Whether object versioning is enabled on the chunk ingest bucket"
   type        = bool
   default     = false
 }
@@ -105,23 +111,6 @@ variable "ppdb_repo_image_keep_count" {
 
 # Promote Chunks Cloud Run
 
-variable "promote_chunks_cloud_run_min_instance_count" {
-  description = "Minimum number of cloud run instances"
-  default     = 0
-  type        = number
-}
-variable "promote_chunks_cloud_run_max_instance_count" {
-  description = "Maximum number of cloud run instances"
-  default     = 1
-  type        = number
-}
-
-variable "promote_chunks_cloud_run_concurrency" {
-  description = "Max number of simultaneous requests for a single container instance"
-  default     = 1
-  type        = number
-}
-
 variable "promote_chunks_cloud_run_ppdb_config_uri" {
   description = "PPDB Config URI"
   type        = string
@@ -130,13 +119,6 @@ variable "promote_chunks_cloud_run_ppdb_config_uri" {
 variable "promote_chunks_cloud_run_ppdb_use_secret_manager" {
   description = "Flag to use GCP Secret Manager"
   default     = false
-  type        = bool
-
-}
-
-variable "promote_chunks_cloud_run_log_execution_id" {
-  description = "Flag to log execution id"
-  default     = true
   type        = bool
 
 }
@@ -157,30 +139,6 @@ variable "promote_chunks_scheduler_attempt_deadline" {
   description = "The deadline for job attempts"
   type        = string
   default     = "180s"
-}
-
-variable "promote_chunks_scheduler_min_backoff_duration" {
-  description = "The maximum amount of time to wait before retrying a job after it fails."
-  type        = string
-  default     = "1s"
-}
-
-variable "promote_chunks_scheduler_max_retry_duration" {
-  description = "The time limit for retrying a failed job, measured from time when an execution was first attempted. If specified with retryCount, the job will be retried until both limits are reached."
-  type        = string
-  default     = "10s"
-}
-
-variable "promote_chunks_scheduler_max_doublings" {
-  description = "The time between retries will double maxDoublings times."
-  type        = number
-  default     = 2
-}
-
-variable "promote_chunks_scheduler_retry_count" {
-  description = "The number of attempts that the system will make to run a job using the exponential backoff procedure described by maxDoublings"
-  type        = number
-  default     = 3
 }
 
 variable "promote_chunks_cloud_run_cpu_limit" {
@@ -213,109 +171,68 @@ variable "promote_chunks_timeout" {
   type        = string
 }
 
+# Stage Chunk Cloud Run
 
-# Track Chunk Cloud Run
-
-variable "track_chunk_cloud_run_min_instance_count" {
-  description = "Minimium number of cloud run instances"
-  default     = 0
-  type        = number
-}
-
-variable "track_chunk_cloud_run_max_instance_count" {
-  description = "Minimium number of cloud run instances"
-  default     = 100
-  type        = number
-}
-
-variable "track_chunk_cloud_run_concurrency" {
-  description = "Max number of simultaneous requests for a single container instance"
+variable "stage_chunk_cloud_run_min_instance_count" {
+  description = "Minimum number of cloud run instances, kept running to avoid cold starts"
   default     = 1
   type        = number
 }
 
-variable "track_chunk_cloud_run_ppdb_config_uri" {
-  description = "PPDB Config URI"
-  type        = string
-}
-
-variable "track_chunk_cloud_run_ppdb_use_secret_manager" {
-  description = "Flag to use GCP Secret Manager"
-  default     = false
-  type        = bool
-}
-
-variable "track_chunk_runtime" {
-  description = "Runtime for Cloud Run Functions"
-  type        = string
-}
-
-variable "track_chunk_db_name" {
-  description = "CloudSQL Database name"
-  default     = "ppdb"
-  type        = string
-}
-
-# Trigger Stage Chunk Cloud Run
-
-variable "trigger_stage_chunk_cloud_run_min_instance_count" {
-  description = "Minimum number of cloud run instances"
-  default     = 0
-  type        = number
-}
-
-variable "trigger_stage_chunk_cloud_run_max_instance_count" {
+variable "stage_chunk_cloud_run_max_instance_count" {
   description = "Maximum number of cloud run instances"
   default     = 100
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_concurrency" {
+variable "stage_chunk_cloud_run_concurrency" {
   description = "Max number of simultaneous requests for a single container instance"
   default     = 1
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_dataflow_template_path" {
-  description = "Dataflow Template Path"
-  type        = string
-}
-
-variable "trigger_stage_chunk_cloud_run_log_level" {
+variable "stage_chunk_cloud_run_log_level" {
   description = "Log Level"
   default     = "INFO"
   type        = string
 }
 
-variable "trigger_stage_chunk_cloud_run_log_execution_id" {
+variable "stage_chunk_cloud_run_log_execution_id" {
   description = "Flag to log execution id"
   default     = true
   type        = bool
 }
 
-variable "trigger_stage_chunk_num_retries" {
-  description = "Number of retries for Dataflow flex template launch requests"
-  default     = 5
+variable "stage_chunk_bigquery_check_timeout_seconds" {
+  description = "Limit in seconds on the stage chunk function's query that checks the staging tables for a chunk's rows"
+  default     = 60
   type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_temp_location" {
-  description = "Temp location"
-  type        = string
+variable "stage_chunk_bigquery_job_timeout_seconds" {
+  description = "Limit in seconds on each load job and on the transaction run by the stage chunk function"
+  default     = 240
+  type        = number
 }
 
-variable "trigger_stage_chunk_cloud_run_ppdb_config_uri" {
+variable "stage_chunk_bigquery_retry_timeout_seconds" {
+  description = "Limit in seconds on how long the stage chunk function retries each BigQuery API request after a temporary error"
+  default     = 300
+  type        = number
+}
+
+variable "stage_chunk_cloud_run_ppdb_config_uri" {
   description = "PPDB Config URI"
   type        = string
 }
 
-variable "trigger_stage_chunk_db_name" {
+variable "stage_chunk_db_name" {
   description = "CloudSQL Database name"
   default     = "ppdb"
   type        = string
 }
 
-variable "trigger_stage_chunk_runtime" {
+variable "stage_chunk_runtime" {
   description = "Runtime for Cloud Run Functions"
   type        = string
 }
@@ -393,8 +310,14 @@ variable "load_sso_runtime" {
 
 # Pub/Sub
 
-variable "pubsub_max_delivery_attempts" {
-  description = "Failed push deliveries before a message is sent to its dead-letter topic (5 to 100)"
+variable "stage_chunk_pubsub_max_delivery_attempts" {
+  description = "Failed push deliveries to the stage chunk function before a message is sent to its dead-letter topic (5 to 100)"
+  type        = number
+  default     = 100
+}
+
+variable "load_sso_pubsub_max_delivery_attempts" {
+  description = "Failed push deliveries to the load SSO function before a message is sent to its dead-letter topic (5 to 100)"
   type        = number
   default     = 15
 }
