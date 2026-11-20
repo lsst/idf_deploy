@@ -120,13 +120,13 @@ variable "promote_chunks_cloud_run_ppdb_use_secret_manager" {
 variable "promote_chunks_schedule" {
   description = "Cron time for Cloud Scheduler to schedule Promote Chunks to run"
   type        = string
-  default     = "0 12 * * *"
+  default     = "30 22 * * *"
 }
 
 variable "promote_chunks_scheduler_timezone" {
   description = "Timezone for Promote Chunks scheduler"
   type        = string
-  default     = "America/Santiago"
+  default     = "Etc/UTC"
 }
 
 variable "promote_chunks_scheduler_attempt_deadline" {
