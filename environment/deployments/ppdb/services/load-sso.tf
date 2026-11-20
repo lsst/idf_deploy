@@ -35,6 +35,50 @@ resource "google_project_iam_member" "cloudrun_load_sso_logging_writer" {
   project = local.project_id
 }
 
+# Read access to the SSO uploads, for the manifest and the load jobs
+resource "google_storage_bucket_iam_member" "cloudrun_load_sso_sso_ingest_object_viewer" {
+  bucket = google_storage_bucket.sso_ingest.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+}
+
+# Publish the result of each load
+resource "google_pubsub_topic_iam_member" "cloudrun_load_sso_load_sso_result" {
+  topic   = google_pubsub_topic.load_sso_result.id
+  role    = "roles/pubsub.publisher"
+  member  = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+  project = local.project_id
+}
+
+# Read access to the PPDB config
+resource "google_storage_bucket_iam_member" "cloudrun_load_sso_storage_viewer_configs" {
+  bucket = google_storage_bucket.config.id
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+}
+
+# BigQuery access, to load an upload into its landing tables and copy them
+# into the internal tables
+resource "google_project_iam_member" "cloudrun_load_sso_bq_job_user" {
+  role    = "roles/bigquery.jobUser"
+  member  = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+  project = local.project_id
+}
+
+resource "google_bigquery_dataset_access" "cloudrun_load_sso_landing_dataset_editor" {
+  dataset_id = google_bigquery_dataset.ppdb_landing.dataset_id
+  role       = "roles/bigquery.dataEditor"
+  iam_member = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+  project    = local.project_id
+}
+
+resource "google_bigquery_dataset_access" "cloudrun_load_sso_internal_dataset_editor" {
+  dataset_id = google_bigquery_dataset.ppdb_internal.dataset_id
+  role       = "roles/bigquery.dataEditor"
+  iam_member = "serviceAccount:${google_service_account.cloudrun_load_sso.email}"
+  project    = local.project_id
+}
+
 # Grant the Service Account permission to invoke the Load SSO Cloud Run service
 resource "google_cloud_run_v2_service_iam_member" "run_invoker_load_sso" {
   project  = local.project_id
@@ -50,7 +94,9 @@ resource "google_pubsub_subscription" "load_sso" {
   project = local.project_id
   topic   = google_pubsub_topic.load_sso_topic.id
 
-  ack_deadline_seconds = 600
+  # A load takes well under a minute. This covers two rounds of BigQuery
+  # jobs at load_sso_bigquery_job_timeout_seconds each, plus startup.
+  ack_deadline_seconds = 300
 
   push_config {
     push_endpoint = google_cloudfunctions2_function.load_sso.service_config[0].uri
@@ -110,7 +156,7 @@ resource "google_cloudfunctions2_function" "load_sso" {
   name        = "load-sso"
   project     = local.project_id
   location    = var.region
-  description = "Loads SSO data via Dataflow"
+  description = "Loads uploaded SSO data with BigQuery load jobs"
 
   depends_on = [
     google_secret_manager_secret_iam_member.sentry_dsn_accessor,
@@ -171,6 +217,10 @@ resource "google_cloudfunctions2_function" "load_sso" {
       DATAFLOW_MACHINE_TYPE   = var.load_sso_cloud_run_dataflow_machine_type
       NUM_RETRIES             = var.load_sso_num_retries
       SENTRY_ENVIRONMENT      = local.sentry_environment
+      PPDB_CONFIG_URI         = var.load_sso_cloud_run_ppdb_config_uri
+
+      BIGQUERY_JOB_TIMEOUT_SECONDS   = var.load_sso_bigquery_job_timeout_seconds
+      BIGQUERY_RETRY_TIMEOUT_SECONDS = var.load_sso_bigquery_retry_timeout_seconds
     }
   }
 

@@ -70,7 +70,7 @@ resource "google_bigquery_dataset" "ppdb_staging" {
 resource "google_bigquery_dataset" "ppdb_landing" {
   dataset_id                 = "ppdb_landing"
   friendly_name              = "PPDB Landing"
-  description                = "Per-chunk tables loaded from a chunk's Parquet files before they are copied into staging"
+  description                = "Temporary tables loaded from Parquet files in Cloud Storage"
   project                    = local.project_id
   location                   = "US"
   max_time_travel_hours      = var.bigquery_max_time_travel_hours

@@ -3,8 +3,8 @@
 ## Sentry DSN
 
 Terraform creates a `sentry-dsn` secret in each environment's project and grants
-read access to the Cloud Run runtime service accounts and the Dataflow worker
-service accounts. The Cloud Run functions and services receive `SENTRY_DSN`
+read access to the Cloud Run runtime service accounts. The Cloud Run
+functions and services receive `SENTRY_DSN`
 from the secret's `latest` version.
 
 Secret values and versions are managed directly in Secret Manager. Do not put

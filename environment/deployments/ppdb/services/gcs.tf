@@ -51,4 +51,14 @@ resource "google_storage_bucket" "sso_ingest" {
   versioning {
     enabled = var.sso_ingest_gcs_versioning
   }
+
+  # Set the retention on uploaded SSO files to 30 days.
+  lifecycle_rule {
+    condition {
+      age = var.sso_ingest_gcs_retention_days
+    }
+    action {
+      type = "Delete"
+    }
+  }
 }

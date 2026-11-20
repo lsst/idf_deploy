@@ -101,6 +101,12 @@ variable "sso_ingest_gcs_versioning" {
   default     = false
 }
 
+variable "sso_ingest_gcs_retention_days" {
+  description = "Days an SSO upload is kept in the SSO ingest bucket before it's deleted"
+  type        = number
+  default     = 30
+}
+
 # Artifact Registry
 
 variable "ppdb_repo_image_keep_count" {
@@ -280,6 +286,23 @@ variable "load_sso_cloud_run_log_execution_id" {
   type        = bool
 }
 
+variable "load_sso_cloud_run_ppdb_config_uri" {
+  description = "PPDB Config URI for the load SSO function"
+  type        = string
+}
+
+variable "load_sso_bigquery_job_timeout_seconds" {
+  description = "Limit in seconds on each load job and on the transaction run by the load SSO function"
+  default     = 120
+  type        = number
+}
+
+variable "load_sso_bigquery_retry_timeout_seconds" {
+  description = "Limit in seconds on retrying each BigQuery API request made by the load SSO function"
+  default     = 300
+  type        = number
+}
+
 variable "load_sso_num_retries" {
   description = "Number of retries for Dataflow flex template launch requests"
   default     = 5
@@ -319,7 +342,7 @@ variable "stage_chunk_pubsub_max_delivery_attempts" {
 variable "load_sso_pubsub_max_delivery_attempts" {
   description = "Failed push deliveries to the load SSO function before a message is sent to its dead-letter topic (5 to 100)"
   type        = number
-  default     = 15
+  default     = 5
 }
 
 # Remote state
