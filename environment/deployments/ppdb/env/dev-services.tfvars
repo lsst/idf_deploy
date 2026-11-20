@@ -11,9 +11,8 @@ stage_chunk_runtime = "python313"
 stage_chunk_cloud_run_ppdb_config_uri = "gs://ppdb-dev-config/ppdb-dev_config.yaml"
 
 # Load SSO Cloud Run
-load_sso_cloud_run_dataflow_template_path = "gs://ppdb-dev-dataflow/templates/load_sso_flex_template.json"
-load_sso_cloud_run_temp_location = "gs://ppdb-dev-dataflow/temp"
 load_sso_runtime = "python313"
+load_sso_cloud_run_ppdb_config_uri = "gs://ppdb-dev-config/ppdb-dev_config.yaml"
 
 # GitHub CI
 create_gh_ci_sa = true

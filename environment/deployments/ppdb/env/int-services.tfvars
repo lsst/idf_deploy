@@ -11,9 +11,8 @@ stage_chunk_runtime = "python313"
 stage_chunk_cloud_run_ppdb_config_uri = "gs://ppdb-int-config/ppdb-int_config.yaml"
 
 # Load SSO Cloud Run
-load_sso_cloud_run_dataflow_template_path = "gs://ppdb-int-dataflow/templates/load_sso_flex_template.json"
-load_sso_cloud_run_temp_location = "gs://ppdb-int-dataflow/temp"
 load_sso_runtime = "python313"
+load_sso_cloud_run_ppdb_config_uri = "gs://ppdb-int-config/ppdb-int_config.yaml"
 
 # BigQuery
 bigquery_tap_extra_datasets = ["dp2_prompt"]

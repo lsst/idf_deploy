@@ -39,11 +39,12 @@ resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_public" {
   role          = "roles/bigquery.dataViewer"
 }
 
-resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_internal" {
-  dataset_id    = google_bigquery_dataset.ppdb_internal.dataset_id
-  member        = local.bigquery_tap_sa_entry.member
-  project       = local.project_id
-  role          = "roles/bigquery.dataViewer"
+# Read access to ppdb_internal for the TAP service account
+resource "google_bigquery_dataset_access" "tap_sa_access_ppdb_internal" {
+  dataset_id = google_bigquery_dataset.ppdb_internal.dataset_id
+  iam_member = local.bigquery_tap_sa_entry.member
+  project    = local.project_id
+  role       = "roles/bigquery.dataViewer"
 }
 
 # Datasets created outside of this configuration that TAP needs to query
@@ -70,7 +71,7 @@ resource "google_bigquery_dataset" "ppdb_staging" {
 resource "google_bigquery_dataset" "ppdb_landing" {
   dataset_id                 = "ppdb_landing"
   friendly_name              = "PPDB Landing"
-  description                = "Per-chunk tables loaded from a chunk's Parquet files before they are copied into staging"
+  description                = "Temporary tables loaded from Parquet files in Cloud Storage"
   project                    = local.project_id
   location                   = "US"
   max_time_travel_hours      = var.bigquery_max_time_travel_hours

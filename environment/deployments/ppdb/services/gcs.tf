@@ -9,17 +9,6 @@ resource "google_storage_bucket" "config" {
   }
 }
 
-# Dataflow GCS Bucket
-resource "google_storage_bucket" "dataflow" {
-  name          = "ppdb-${var.environment}-dataflow"
-  project       = local.project_id
-  location      = "US-CENTRAL1"
-  storage_class = var.dataflow_gcs_storage_class
-  versioning {
-    enabled = var.dataflow_gcs_versioning
-  }
-}
-
 # Export GCS Bucket
 resource "google_storage_bucket" "export" {
   name          = "ppdb-${var.environment}-export"
@@ -50,5 +39,15 @@ resource "google_storage_bucket" "sso_ingest" {
   storage_class = var.sso_ingest_gcs_storage_class
   versioning {
     enabled = var.sso_ingest_gcs_versioning
+  }
+
+  # Set the retention on uploaded SSO files to 30 days.
+  lifecycle_rule {
+    condition {
+      age = var.sso_ingest_gcs_retention_days
+    }
+    action {
+      type = "Delete"
+    }
   }
 }

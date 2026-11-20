@@ -1,5 +1,5 @@
 # SSO Uploader Service Account
-# Publisher identity for whatever pipeline runs SSOUploader (analogous to usdf-replication)
+# Identity for ppdb-cli upload-sso-data, the dax_ppdb sso.Uploader (analogous to usdf-replication)
 
 resource "google_service_account" "sso_uploader" {
   account_id   = "sso-uploader"
@@ -12,6 +12,14 @@ resource "google_pubsub_topic_iam_member" "sso_uploader_load_sso_topic" {
   role    = "roles/pubsub.publisher"
   member  = "serviceAccount:${google_service_account.sso_uploader.email}"
   project = local.project_id
+}
+
+# Read the load results, to wait for the load of an upload
+resource "google_pubsub_subscription_iam_member" "sso_uploader_load_sso_result" {
+  subscription = google_pubsub_subscription.load_sso_result.id
+  role         = "roles/pubsub.subscriber"
+  member       = "serviceAccount:${google_service_account.sso_uploader.email}"
+  project      = local.project_id
 }
 
 resource "google_storage_bucket_iam_member" "sso_uploader_sso_ingest_gcs" {
