@@ -39,11 +39,12 @@ resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_public" {
   role          = "roles/bigquery.dataViewer"
 }
 
-resource "google_bigquery_dataset_iam_member" "tap_sa_access_ppdb_internal" {
-  dataset_id    = google_bigquery_dataset.ppdb_internal.dataset_id
-  member        = local.bigquery_tap_sa_entry.member
-  project       = local.project_id
-  role          = "roles/bigquery.dataViewer"
+# Read access to ppdb_internal for the TAP service account
+resource "google_bigquery_dataset_access" "tap_sa_access_ppdb_internal" {
+  dataset_id = google_bigquery_dataset.ppdb_internal.dataset_id
+  iam_member = local.bigquery_tap_sa_entry.member
+  project    = local.project_id
+  role       = "roles/bigquery.dataViewer"
 }
 
 # Datasets created outside of this configuration that TAP needs to query
