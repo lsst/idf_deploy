@@ -12,7 +12,6 @@ on:
       - 'environment/deployments/roundtable/env/production-gke.tfvars'
   schedule:
     - cron: 25 2 * * *
-  workflow_dispatch:
 
 jobs:
   terraform:
@@ -22,5 +21,4 @@ jobs:
       working_directory: ./environment/deployments/roundtable/gke
       state_prefix: roundtable/prod/new-gke
       tfvars_file: ../env/production-gke.tfvars
-      apply_on_workflow_dispatch: true
     secrets: inherit
