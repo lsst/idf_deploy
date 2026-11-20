@@ -53,18 +53,6 @@ variable "config_gcs_versioning" {
   default     = false
 }
 
-variable "dataflow_gcs_storage_class" {
-  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
-  type        = string
-  default     = "STANDARD"
-}
-
-variable "dataflow_gcs_versioning" {
-  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
-  type        = bool
-  default     = false
-}
-
 variable "export_gcs_storage_class" {
   description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
   type        = string
@@ -263,17 +251,6 @@ variable "load_sso_cloud_run_concurrency" {
   type        = number
 }
 
-variable "load_sso_cloud_run_dataflow_template_path" {
-  description = "Dataflow Template Path"
-  type        = string
-}
-
-variable "load_sso_cloud_run_dataflow_machine_type" {
-  description = "Dataflow worker machine type"
-  default     = "n1-highmem-2"
-  type        = string
-}
-
 variable "load_sso_cloud_run_log_level" {
   description = "Log Level"
   default     = "INFO"
@@ -301,29 +278,6 @@ variable "load_sso_bigquery_retry_timeout_seconds" {
   description = "Limit in seconds on retrying each BigQuery API request made by the load SSO function"
   default     = 300
   type        = number
-}
-
-variable "load_sso_num_retries" {
-  description = "Number of retries for Dataflow flex template launch requests"
-  default     = 5
-  type        = number
-}
-
-variable "load_sso_cloud_run_temp_location" {
-  description = "Temp location"
-  type        = string
-}
-
-variable "load_sso_staging_dataset_id" {
-  description = "BigQuery dataset ID for staging tables written before the swap into the internal dataset"
-  default     = "ppdb_staging"
-  type        = string
-}
-
-variable "load_sso_internal_dataset_id" {
-  description = "BigQuery dataset ID for the internal tables that staging tables are swapped into"
-  default     = "ppdb_internal"
-  type        = string
 }
 
 variable "load_sso_runtime" {
