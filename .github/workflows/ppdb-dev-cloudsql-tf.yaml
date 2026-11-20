@@ -2,6 +2,7 @@
 name: 'PPDB Dev Cloud SQL'
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - 'environment/deployments/ppdb/env/dev-cloudsql.tfvars'
@@ -22,4 +23,6 @@ jobs:
       working_directory: ./environment/deployments/ppdb/cloudsql
       state_prefix: ppdb/dev/cloudsql
       tfvars_file: ../env/dev-cloudsql.tfvars
+      apply_on_workflow_dispatch: true
+      allow_non_main_dispatch_apply: true
     secrets: inherit

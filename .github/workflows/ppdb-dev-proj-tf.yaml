@@ -2,6 +2,7 @@
 name: 'PPDB Dev GCP Project'
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - 'environment/deployments/ppdb/env/dev.tfvars'
@@ -22,4 +23,6 @@ jobs:
       working_directory: ./environment/deployments/ppdb
       state_prefix: ppdb/dev
       tfvars_file: env/dev.tfvars
+      apply_on_workflow_dispatch: true
+      allow_non_main_dispatch_apply: true
     secrets: inherit
