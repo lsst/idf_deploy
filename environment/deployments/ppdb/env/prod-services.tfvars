@@ -5,6 +5,8 @@ state_bucket     = "lsst-terraform-state"
 
 # Promote Chunks Cloud Run
 promote_chunks_cloud_run_ppdb_config_uri = "gs://ppdb-prod-config/ppdb-prod_config.yaml"
+promote_chunks_schedule                  = "30 22 * * *"
+promote_chunks_scheduler_timezone        = "Etc/UTC"
 
 # Stage Chunk Cloud Run
 stage_chunk_runtime = "python313"
