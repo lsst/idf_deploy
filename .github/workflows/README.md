@@ -1,14 +1,14 @@
 # Terraform GitHub Actions
-Workflows GitHub Actions are configured to deploy organization level settings, folders, projects, Google Kubernetes Engine, and Filestore.  Terraform state is stored in the lsst-terraform-state Google Cloud Storage Bucket.  Each Workflow below has its own prefix to seperate state files. All terraform init, plan, and apply is performed using GitHub Actions so there is no need to run Terraform outside of GitHub Actions to make changes.  
+Workflows GitHub Actions are configured to deploy organization level settings, folders, projects, Google Kubernetes Engine, and Filestore.  Terraform state is stored in the lsst-terraform-state Google Cloud Storage Bucket.  Each Workflow below has its own prefix to seperate state files. All terraform init, plan, and apply is performed using GitHub Actions so there is no need to run Terraform outside of GitHub Actions to make changes.
 
 | Workflow                        | File                                | Trigger Type     | Description                                                 |
 |---------------------------------|-------------------------------------|------------------|-------------------------------------------------------------|
 | GCP Organization Level Settings | terraform-foundation-1-org.yaml     | tfvars Pull/Push | Applies org level settings like log sink and org policies   |
 | GCP Folders                     | terraform-foundation-1-org-b.yaml   | tvvars Pull/Push | Builds Folder Structure                                     |
-| GCP Network Foundation          | terraform-foundation-2-network.yaml | tfvars Pull/Push | Builds custom VPC and and Shared VPC                        | 
+| GCP Network Foundation          | terraform-foundation-2-network.yaml | tfvars Pull/Push | Builds custom VPC and and Shared VPC                        |
 | RSP DEV GCP Project             | rsp-dev-proj-tf.yaml                | tfvars Pull/Push | Creates dev rsp GCP Project, setups billing, NFS            |
 | RSP DEV GKE                     | rsp-dev-gke-tf.yaml                 | tfvars Pull/Push | Creates and manages settings on rsp prod GKE Cluster        |
-| RSP INT GCP Project             | rsp-int-proj-tf.yaml                | tfvasr Pull/Push | Creates int rsp GCP Project, setups billing, NFS            | 
+| RSP INT GCP Project             | rsp-int-proj-tf.yaml                | tfvasr Pull/Push | Creates int rsp GCP Project, setups billing, NFS            |
 | RSP INT GKE                     | rsp-int-gke-tf.yaml                 | tfvars Pull/Push | Creates and manages settings on rsp int GKE Cluster         |
 | RSP STABLE GCP PROJECT          | rsp-stable-proj-tf.yaml             | tfvars Pull/Push | Creates prod rsp GCP Project, setups billing, NFS           |
 | RSP STABLE GKE                  | rsp-stable-gke-tf-yaml              | tfvars Pull/Push | Creates and manages settings on prod GKE Cluster            |
@@ -40,16 +40,33 @@ To add a deployment, copy a caller with similar triggers and update:
 * Any exceptional flags, such as `disable_refresh` or
   `apply_on_workflow_dispatch`.
 
+Sometimes, especially for new non-production deployments, we want to be able to apply the terraform for that deployment without merging to main. This lets us catch apply-only errors without having to split a change up into multiple PRs that should really be just one.
+
+Only use this option if you're sure you are the only one working on a particular deployment, because it greatly increases the risk of one person accidentally destroying infrastructure that another person is working on.
+
+Don't use this for production workflows because we would like the commits on main to represent the actual points at which production infrastructure was modified.
+
+To allow manual Terraform applies from branches other than `main`, enable
+`workflow_dispatch` in the caller and set both inputs under the reusable job's
+`with`:
+
+```yaml
+with:
+  apply_on_workflow_dispatch: true
+  allow_non_main_dispatch_apply: true
+```
+
+`allow_non_main_dispatch_apply` defaults to `false`. Automatic applies still
+require a push to `main`.
+
 Keep deployment-specific triggers in the caller; do not copy the shared steps
 into it.
 
-
 ## Deploying GCP Projects
 
-GCP Projects are deployed via Terraform.  
+GCP Projects are deployed via Terraform.
 
 There is one GCP billing account for Rubin Observatory.  That billing account is statically linked in Terraform since it does not change.
-
 
 ## Deploying GKE with Kubernetes
 
@@ -69,9 +86,9 @@ VPC Peering is setup between the Science Platform and QServ projects. (update)
 
 ## Filestore Directory Creation
 
-Run the [RSP FILESTORE DIR](rsp-filestore-dir.yaml) workflow once a GKE cluster is built to create the GCP persistent volume, storage class, persistent volume claim, and a job that mounts the volume to create the NFS directories.  The code is [here](/kubernetes-manifests)  Kustomize is used to build the kubernetes yaml for deployment. The structure is setup so that in the future if there are other components that need setup they can use the kustomize directory structure. 
+Run the [RSP FILESTORE DIR](rsp-filestore-dir.yaml) workflow once a GKE cluster is built to create the GCP persistent volume, storage class, persistent volume claim, and a job that mounts the volume to create the NFS directories.  The code is [here](/kubernetes-manifests)  Kustomize is used to build the kubernetes yaml for deployment. The structure is setup so that in the future if there are other components that need setup they can use the kustomize directory structure.
 
-The worklow is setup for manual invocation.  A fully automated workflow was considered for the filestore dirs setup to run after the terraform GKE pipeline.  This approach was not used because the Filestore Directory Creation is a one time setup item and the terraform GKE pipelines will be run ongoing to modify things like node pool configuration.  
+The worklow is setup for manual invocation.  A fully automated workflow was considered for the filestore dirs setup to run after the terraform GKE pipeline.  This approach was not used because the Filestore Directory Creation is a one time setup item and the terraform GKE pipelines will be run ongoing to modify things like node pool configuration.
 
 To manually invoke in GitHub Actions select workflow > Run Workflow.  Enter in the project ID, GKE Cluster, and Filestore instance which you wish to configure.  To obtain the filestore name run `gcloud filestore instances list` in the selected project.  Selecting the filestore instance is here in case multiple filestore instances are created in the future and wrong one is not inadvertenly configured.
 
@@ -79,4 +96,4 @@ To manually invoke in GitHub Actions select workflow > Run Workflow.  Enter in t
 
 Kustomize is used to deploy the kubernetes manifests for persistent volume, volume claim, storage class, and job.  The [kubernetes manifests](/kubernetes-manifests) directory in this repository contains a [base directory](/kubernetes-manifests/base/filestore) and an [overlay](/kubernetes-manifests/overlays/) directory to patches.  At this time the only patch is setting the filestore IP.  The Filestore IP is queried using gcloud and the instance name provided during manual invocation.  KQ is then used to update the nfs.ip.patch.yaml IP address to the Filestore IP.
 
-Kustomize is preinstalled on GitHub Actions.  The Kustomize version is 3.8.7 during the GitHub Actions setup. 
+Kustomize is preinstalled on GitHub Actions.  The Kustomize version is 3.8.7 during the GitHub Actions setup.

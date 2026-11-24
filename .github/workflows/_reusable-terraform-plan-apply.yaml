@@ -22,7 +22,11 @@ on:
         default: GOOGLE_CREDENTIALS
         type: string
       apply_on_workflow_dispatch:
-        description: Allow a manual invocation on main to apply
+        description: Allow a manual invocation to apply on eligible branches
+        default: false
+        type: boolean
+      allow_non_main_dispatch_apply:
+        description: Allow manual applies from other branches when apply_on_workflow_dispatch is enabled
         default: false
         type: boolean
 
@@ -80,9 +84,10 @@ jobs:
 
       - name: Terraform Apply
         if: >-
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' ||
-          (github.event_name == 'workflow_dispatch' && inputs.apply_on_workflow_dispatch))
+          (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+          (github.event_name == 'workflow_dispatch' && inputs.apply_on_workflow_dispatch &&
+          (github.ref == 'refs/heads/main' ||
+          (inputs.allow_non_main_dispatch_apply && startsWith(github.ref, 'refs/heads/'))))
         run: >-
           terraform apply
           -var-file=${{ inputs.tfvars_file }}
