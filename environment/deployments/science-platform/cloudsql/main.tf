@@ -699,6 +699,50 @@ resource "google_storage_bucket_iam_binding" "tap_uploads_bucket_ro" {
   ]
 }
 
+# Results of async TAP queries.
+module "tap_results_bucket" {
+  source = "../../../../modules/bucket"
+  count  = var.tap_results_enabled ? 1 : 0
+
+  project_id    = var.project_id
+  storage_class = "STANDARD"
+  location      = "US"
+  prefix_name   = "rubin-tap-results-${var.environment}"
+  suffix_name   = ["us"]
+
+  lifecycle_rules = [
+    {
+      action = {
+        type = "Delete"
+      },
+      condition = {
+        age = var.tap_results_max_age
+      }
+    }
+  ]
+}
+
+resource "google_storage_bucket_iam_binding" "tap_results_bucket_rw" {
+  count = var.tap_results_enabled ? 1 : 0
+
+  bucket = module.tap_results_bucket[0].name
+  role   = "roles/storage.objectUser"
+  members = [
+    module.service_accounts.service_accounts_map["ssotap"].member,
+    module.service_accounts.service_accounts_map["tap-service"].member,
+  ]
+}
+
+# The TAP service account must be granted the ability to generate
+# tokens for itself so that it can generate signed GCS URLs.
+resource "google_service_account_iam_member" "tap_sa_token" {
+  for_each = toset(["ppdbtap", "ssotap", "tap-service"])
+
+  service_account_id = module.service_accounts.service_accounts_map[each.key].name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = module.service_accounts.service_accounts_map[each.key].member
+}
+
 # The vo-cutouts service account must be granted the ability to generate
 # tokens for itself so that it can generate signed GCS URLs starting from
 # the GKE service account token without requiring an exported secret key

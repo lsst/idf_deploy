@@ -19,6 +19,9 @@ butler_registry_dp02_backups_point_in_time_recovery_enabled = false
 # science_platform_db_maintenance_window_day          = 1
 # science_platform_db_maintenance_window_hour         = 22
 
+# GCS bucket for async TAP query results
+tap_results_enabled = true
+
 # Increase this number to force Terraform to update the demo environment.
 # Serial: 6
 

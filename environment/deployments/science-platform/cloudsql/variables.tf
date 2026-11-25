@@ -269,3 +269,15 @@ variable "tap_uploads_table_expiration_ms" {
   description = "Default expiration for tables in the tap_uploads dataset, in milliseconds"
   default     = 86400000
 }
+
+variable "tap_results_enabled" {
+  type        = bool
+  description = "Create the GCS bucket for async TAP query results"
+  default     = false
+}
+
+variable "tap_results_max_age" {
+  type        = number
+  description = "Age of objects in days before deletion from the TAP results bucket. (7 days by default)."
+  default     = 7
+}

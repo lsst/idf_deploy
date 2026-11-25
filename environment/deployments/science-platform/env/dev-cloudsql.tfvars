@@ -31,5 +31,8 @@ science_platform_insights_config                    = {}
 # BigQuery dataset for TAP table uploads
 tap_uploads_enabled = true
 
+# GCS bucket for async TAP query results
+tap_results_enabled = true
+
 # Increase this number to force Terraform to update the dev environment.
 # Serial: 49

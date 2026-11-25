@@ -27,5 +27,8 @@ science_platform_db_maintenance_window_hour = 22
 science_platform_backups_enabled            = true
 science_platform_insights_config            = {}
 
+# GCS bucket for async TAP query results
+tap_results_enabled = true
+
 # Increase this number to force Terraform to update the prod environment.
 # Serial: 17
