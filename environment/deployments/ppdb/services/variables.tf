@@ -33,6 +33,12 @@ variable "bigquery_landing_table_expiration_days" {
   default     = 1
 }
 
+variable "bigquery_bi_engine_reservation_gb" {
+  description = "Size in GiB of the BI Engine reservation in the US location, or 0 for no reservation"
+  type        = number
+  default     = 0
+}
+
 variable "bigquery_tap_extra_datasets" {
   description = "Additional BigQuery datasets, not managed by this configuration, that the TAP service account can read"
   type        = list(string)

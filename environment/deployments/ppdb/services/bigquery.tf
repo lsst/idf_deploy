@@ -92,3 +92,11 @@ resource "google_bigquery_dataset" "ppdb_backup" {
   delete_contents_on_destroy = false
 }
 
+# BI Engine reservation
+resource "google_bigquery_bi_reservation" "ppdb" {
+  count    = var.bigquery_bi_engine_reservation_gb > 0 ? 1 : 0
+  project  = local.project_id
+  location = "US"
+  size     = var.bigquery_bi_engine_reservation_gb * 1024 * 1024 * 1024
+}
+

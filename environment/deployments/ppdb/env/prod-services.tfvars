@@ -16,6 +16,9 @@ stage_chunk_cloud_run_ppdb_config_uri = "gs://ppdb-prod-config/ppdb-prod_config.
 load_sso_runtime = "python313"
 load_sso_cloud_run_ppdb_config_uri = "gs://ppdb-prod-config/ppdb-prod_config.yaml"
 
+# BigQuery
+bigquery_bi_engine_reservation_gb = 4
+
 # GitHub CI
 create_gh_ci_sa = true
 
