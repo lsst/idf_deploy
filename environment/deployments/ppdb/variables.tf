@@ -29,6 +29,7 @@ variable "activate_apis" {
     "aiplatform.googleapis.com",
     "artifactregistry.googleapis.com",
     "bigquery.googleapis.com",
+    "bigqueryreservation.googleapis.com",
     "billingbudgets.googleapis.com",
     "cloudbuild.googleapis.com",
     "cloudfunctions.googleapis.com",
