@@ -241,3 +241,15 @@ variable "sub_folder_names" {
     "Production"
   ]
 }
+
+variable "ppdb_dev_terraform_apply_members" {
+  description = "IAM members allowed to read/write PPDB dev Terraform state and locks."
+  type        = set(string)
+  default     = []
+}
+
+variable "ppdb_dev_terraform_state_bucket" {
+  description = "State bucket used by PPDB dev and Science Platform dev Cloud SQL."
+  type        = string
+  default     = "lsst-terraform-state"
+}

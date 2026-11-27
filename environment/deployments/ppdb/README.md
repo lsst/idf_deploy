@@ -1,3 +1,5 @@
+See [Terraform plan and apply access](TERRAFORM-PLANNING.md) for PPDB dev permissions and commands.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

@@ -81,6 +81,21 @@ variable "budget_alert_spent_percents" {
 
 # IAM
 
+variable "dev_project_iam_permissions" {
+  description = "Additional infrastructure administrator roles required for PPDB dev deployments."
+  type        = list(string)
+  default = [
+    "roles/cloudbuild.builds.editor",
+    "roles/cloudscheduler.admin",
+    "roles/compute.networkAdmin",
+    "roles/eventarc.admin",
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/servicenetworking.networksAdmin",
+    "roles/serviceusage.serviceUsageAdmin",
+    "roles/workflows.admin",
+  ]
+}
+
 variable "project_iam_permissions" {
   description = "List of permissions granted to the group"
   type        = list(string)

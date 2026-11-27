@@ -162,3 +162,6 @@ gcp_snd_administrators_iam_permissions = [
   "roles/monitoring.editor",
   "roles/storage.objectViewer",
 ]
+
+// PPDB dev Terraform backend access; infrastructure permissions come from administrators.
+ppdb_dev_terraform_apply_members = ["group:gcp-ppdb-dev-deployers@lsst.cloud"]

@@ -17,8 +17,31 @@ module "project_factory" {
 module "iam_admin" {
   source                  = "../../../modules/iam"
   project                 = module.project_factory.project_id
-  project_iam_permissions = var.project_iam_permissions
+  project_iam_permissions = concat(var.project_iam_permissions, var.environment == "dev" ? var.dev_project_iam_permissions : [])
   member                  = "gcp-${var.application_name}-administrators@lsst.cloud"
+}
+
+# Project metadata and single-project budget management belong to the existing
+# infrastructure administrator group, alongside its service administration roles.
+resource "google_project_iam_custom_role" "dev_project_configuration_admin" {
+  count       = var.environment == "dev" ? 1 : 0
+  project     = module.project_factory.project_id
+  role_id     = "projectConfigurationAdmin"
+  title       = "Project Configuration Admin"
+  description = "Manage project metadata and the single-project billing budget"
+  permissions = [
+    "resourcemanager.projects.get",
+    "resourcemanager.projects.update",
+    "billing.resourcebudgets.read",
+    "billing.resourcebudgets.write",
+  ]
+}
+
+resource "google_project_iam_member" "dev_project_configuration_admin" {
+  count   = var.environment == "dev" ? 1 : 0
+  project = module.project_factory.project_id
+  role    = google_project_iam_custom_role.dev_project_configuration_admin[0].id
+  member  = "group:gcp-${var.application_name}-administrators@lsst.cloud"
 }
 
 // Role with read/write permissions to log-based alerts and metrics
