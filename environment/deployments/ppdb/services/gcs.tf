@@ -51,3 +51,25 @@ resource "google_storage_bucket" "sso_ingest" {
     }
   }
 }
+
+# DiaSource Min SSP Export GCS Bucket, where the export-diasource-min-ssp
+# function writes the DiaSource columns that SSP needs after each promotion
+resource "google_storage_bucket" "diasource_min_ssp_export" {
+  name          = "ppdb-${var.environment}-diasource-min-ssp-export"
+  project       = local.project_id
+  location      = "US-CENTRAL1"
+  storage_class = var.diasource_min_ssp_export_gcs_storage_class
+  versioning {
+    enabled = var.diasource_min_ssp_export_gcs_versioning
+  }
+
+  # Each export is the whole table, so old exports aren't kept.
+  lifecycle_rule {
+    condition {
+      age = var.diasource_min_ssp_export_gcs_retention_days
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}

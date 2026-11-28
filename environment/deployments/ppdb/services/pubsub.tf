@@ -41,3 +41,19 @@ resource "google_pubsub_subscription" "load_sso_result" {
     ttl = ""
   }
 }
+
+# Promotion PubSub
+
+# Published by the promote-chunks job after each successful promotion. Each
+# export has its own subscription.
+resource "google_pubsub_topic" "promotion_succeeded" {
+  name    = "promotion-succeeded"
+  project = local.project_id
+}
+
+# Export DiaSource Min SSP PubSub
+
+resource "google_pubsub_topic" "export_diasource_min_ssp_dlt" {
+  name    = "export-diasource-min-ssp-dlt"
+  project = local.project_id
+}
