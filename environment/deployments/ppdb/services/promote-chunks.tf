@@ -47,6 +47,14 @@ resource "google_project_iam_member" "cloudrun_promote_chunks_sql_instance_user"
   project = local.project_id
 }
 
+# Publish a message after each successful promotion
+resource "google_pubsub_topic_iam_member" "cloudrun_promote_chunks_promotion_succeeded" {
+  topic   = google_pubsub_topic.promotion_succeeded.id
+  role    = "roles/pubsub.publisher"
+  member  = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"
+  project = local.project_id
+}
+
 resource "google_project_iam_member" "cloudrun_promote_chunks_logging_writer" {
   role    = "roles/logging.logWriter"
   member  = "serviceAccount:${google_service_account.cloudrun_promote_chunks.email}"

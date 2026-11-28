@@ -16,6 +16,10 @@ stage_chunk_cloud_run_ppdb_config_uri = "gs://ppdb-int-config/ppdb-int_config.ya
 load_sso_runtime = "python313"
 load_sso_cloud_run_ppdb_config_uri = "gs://ppdb-int-config/ppdb-int_config.yaml"
 
+# Export DiaSource Min SSP Cloud Run
+export_diasource_min_ssp_runtime = "python313"
+export_diasource_min_ssp_cloud_run_ppdb_config_uri = "gs://ppdb-int-config/ppdb-int_config.yaml"
+
 # BigQuery
 bigquery_tap_extra_datasets = ["dp2_prompt"]
 

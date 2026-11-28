@@ -95,6 +95,24 @@ variable "sso_ingest_gcs_retention_days" {
   default     = 30
 }
 
+variable "diasource_min_ssp_export_gcs_storage_class" {
+  description = "The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "diasource_min_ssp_export_gcs_versioning" {
+  description = "Enable object versioning on the DiaSource Min SSP export bucket"
+  type        = bool
+  default     = false
+}
+
+variable "diasource_min_ssp_export_gcs_retention_days" {
+  description = "Days a DiaSource Min SSP export is kept before it's deleted"
+  type        = number
+  default     = 30
+}
+
 # Artifact Registry
 
 variable "ppdb_repo_image_keep_count" {
@@ -285,6 +303,66 @@ variable "load_sso_runtime" {
   type        = string
 }
 
+# Export DiaSource Min SSP Cloud Run
+
+variable "export_diasource_min_ssp_cloud_run_min_instance_count" {
+  description = "Minimum number of cloud run instances"
+  default     = 0
+  type        = number
+}
+
+variable "export_diasource_min_ssp_cloud_run_max_instance_count" {
+  description = "Maximum number of cloud run instances"
+  default     = 1
+  type        = number
+}
+
+variable "export_diasource_min_ssp_cloud_run_concurrency" {
+  description = "Max number of simultaneous requests for a single container instance"
+  default     = 1
+  type        = number
+}
+
+variable "export_diasource_min_ssp_cloud_run_log_level" {
+  description = "Log Level"
+  default     = "INFO"
+  type        = string
+}
+
+variable "export_diasource_min_ssp_cloud_run_log_execution_id" {
+  description = "Flag to log execution id"
+  default     = true
+  type        = bool
+}
+
+variable "export_diasource_min_ssp_cloud_run_ppdb_config_uri" {
+  description = "PPDB Config URI for the export DiaSource Min SSP function"
+  type        = string
+}
+
+variable "export_diasource_min_ssp_bigquery_job_timeout_seconds" {
+  description = "Limit in seconds on each BigQuery job run by the export DiaSource Min SSP function"
+  default     = 240
+  type        = number
+}
+
+variable "export_diasource_min_ssp_bigquery_retry_timeout_seconds" {
+  description = "Limit in seconds on retrying each BigQuery API request made by the export DiaSource Min SSP function"
+  default     = 300
+  type        = number
+}
+
+variable "export_diasource_min_ssp_compression" {
+  description = "Compression type of the exported Parquet files, as named by the BigQuery client (google.cloud.bigquery.Compression)"
+  default     = "SNAPPY"
+  type        = string
+}
+
+variable "export_diasource_min_ssp_runtime" {
+  description = "Runtime for Cloud Run Functions"
+  type        = string
+}
+
 # Pub/Sub
 
 variable "stage_chunk_pubsub_max_delivery_attempts" {
@@ -295,6 +373,12 @@ variable "stage_chunk_pubsub_max_delivery_attempts" {
 
 variable "load_sso_pubsub_max_delivery_attempts" {
   description = "Failed push deliveries to the load SSO function before a message is sent to its dead-letter topic (5 to 100)"
+  type        = number
+  default     = 5
+}
+
+variable "export_diasource_min_ssp_pubsub_max_delivery_attempts" {
+  description = "Failed push deliveries to the export DiaSource Min SSP function before a message is sent to its dead-letter topic (5 to 100)"
   type        = number
   default     = 5
 }
